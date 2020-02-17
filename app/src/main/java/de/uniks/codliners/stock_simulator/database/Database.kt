@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import androidx.room.Database
+import androidx.room.OnConflictStrategy.REPLACE
 import de.uniks.codliners.stock_simulator.domain.Quote
 
 @Dao
@@ -56,7 +57,7 @@ interface DepotDao {
 @Dao
 interface QuoteDao {
 
-    @Insert
+    @Insert(onConflict = REPLACE)
     fun insert(quote: Quote)
 
     @Query("SELECT * FROM quote")
@@ -72,7 +73,7 @@ interface QuoteDao {
 
 @Database(
     entities = [ShareDatabase::class, DepotShare::class, Quote::class],
-    version = 2,
+    version = 7,
     exportSchema = false
 )
 abstract class StockAppDatabase : RoomDatabase() {
@@ -92,7 +93,7 @@ fun getDatabase(context: Context): StockAppDatabase {
                     StockAppDatabase::class.java,
                     "stock"
                 )
-                .fallbackToDestructiveMigrationFrom()
+                .fallbackToDestructiveMigration()
                 .build()
         }
     }

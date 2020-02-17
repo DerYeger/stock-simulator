@@ -25,7 +25,7 @@ interface IexApi {
     suspend fun search(@Path("fragment") fragment: String, @Query("token") token: String = IEX_API_TOKEN): List<SearchResult>
 
     @GET("stock/{symbol}/quote")
-    suspend fun symbol(@Path("symbol") symbol: String, @Query("token") token: String = IEX_API_TOKEN): Quote
+    suspend fun quote(@Path("symbol") symbol: String, @Query("token") token: String = IEX_API_TOKEN): Quote
 
     @GET("ref-data/symbols")
     suspend fun symbols(@Query("token") token: String = IEX_API_TOKEN): List<Symbol>

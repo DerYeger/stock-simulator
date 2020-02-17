@@ -6,5 +6,6 @@
     <string name="title_history">History</string>
     <string name="title_stockbrot">Stockbrot</string>
     <string name="title_settings">Settings</string>
+    <string name="title_quote">Quote</string>
     <string name="no_results">No results</string>
 </resources>
