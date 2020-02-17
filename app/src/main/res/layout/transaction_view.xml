@@ -40,22 +40,19 @@
             android:id="@+id/type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:text="@{String.valueOf(transaction.transactionType)}"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/shareName"
             app:layout_constraintTop_toBottomOf="@+id/shareName" />
 
         <TextView
             android:id="@+id/date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
             android:text="@{transaction.date}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/type"
+            app:layout_constraintStart_toStartOf="@+id/number"
             app:layout_constraintTop_toTopOf="@+id/type" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
