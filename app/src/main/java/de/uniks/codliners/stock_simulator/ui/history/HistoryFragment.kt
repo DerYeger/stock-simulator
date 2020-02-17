@@ -21,6 +21,7 @@ class HistoryFragment : Fragment() {
     ): View {
         binding = FragmentHistoryBinding.inflate(inflater)
         binding.viewModel = viewModel
+        binding.historyRecyclerView.adapter = HistoryRecyclerViewAdapter()
         binding.lifecycleOwner = this
         return binding.root
     }
