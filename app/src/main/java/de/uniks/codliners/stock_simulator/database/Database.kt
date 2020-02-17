@@ -12,7 +12,7 @@ interface ShareDao {
     fun getShareByName(shareName: String): LiveData<ShareDatabase>
 
     @Query("select * from sharedatabase where id = :shareId")
-    fun getShareById(shareId: Int): LiveData<ShareDatabase>
+    fun getShareById(shareId: String): LiveData<ShareDatabase>
 
     @Query("select * from sharedatabase")
     fun getShares(): LiveData<List<ShareDatabase>>
