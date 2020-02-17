@@ -8,7 +8,7 @@ import de.uniks.codliners.stock_simulator.domain.Share
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class SearchRepository(private val stockAppDatabase: StockAppDatabase) {
+class ShareRepository(private val stockAppDatabase: StockAppDatabase) {
 
     val shares: LiveData<List<Share>> = Transformations.map(stockAppDatabase.shareDao.getShares()) {
         it.sharesAsDomainModel()
