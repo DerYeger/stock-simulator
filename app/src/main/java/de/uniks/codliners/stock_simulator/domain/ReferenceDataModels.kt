@@ -23,6 +23,54 @@ data class Symbol(
     val iexId: String
 )
 
-enum class IssueType{
+enum class IssueType {
     ad, re, ce, si, lp, cs, et, wt, rt, oef, cef, ps, ut, struct, temp
 }
+
+@JsonClass(generateAdapter = true)
+data class Quote(
+    val symbol: String,
+    val companyName: String,
+    val calculationPrice: String,
+    val open: Double,
+    val openTime: Long,
+    val close: Double,
+    val closeTime: Long,
+    val high: Double,
+    val low: Double,
+    val latestPrice: Double,
+    val latestSource: String,
+    val latestTime: String,
+    val latestUpdate: Long,
+    val latestVolume: Long,
+    val volume: Long,
+    val iexRealtimePrice: Double,
+    val iexRealtimeSize: Long,
+    val iexLastUpdated: Long,
+    val delayedPrice: Double,
+    val delayedPriceTime: Long,
+    val oddLotDelayedPrice: Double,
+    val oddLotDelayedPriceTime: Long,
+    val extendedPrice: Double,
+    val extendedChange: Double,
+    val extendedChangePercent: Double,
+    val extendedPriceTime: Long,
+    val previousClose: Double,
+    val previousVolume: Long,
+    val change: Double,
+    val changePercent: Double,
+    val iexMarketPercent: Double,
+    val iexVolume: Long,
+    val avgTotalVolume: Long,
+    val iexBidPrice: Double,
+    val iexBidSize: Long,
+    val iexAskPrice: Double,
+    val iexAskSize: Double,
+    val marketCap: Long,
+    val week52High: Double,
+    val week52Low: Double,
+    val ytdChange: Double,
+    val peRatio: Double,
+    val lastTradeTime: Long,
+    val isUSMarketOpen: Boolean
+)

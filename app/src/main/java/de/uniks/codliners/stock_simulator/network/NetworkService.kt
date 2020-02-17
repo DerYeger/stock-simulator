@@ -3,6 +3,7 @@ package de.uniks.codliners.stock_simulator.network
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import de.uniks.codliners.stock_simulator.BuildConfig
+import de.uniks.codliners.stock_simulator.domain.Quote
 import de.uniks.codliners.stock_simulator.domain.SearchResult
 import de.uniks.codliners.stock_simulator.domain.Symbol
 import retrofit2.Retrofit
@@ -23,8 +24,11 @@ interface IexApi {
     @GET("search/{fragment}")
     suspend fun search(@Path("fragment") fragment: String, @Query("token") token: String = IEX_API_TOKEN): List<SearchResult>
 
+    @GET("stock/{symbol}/quote")
+    suspend fun symbol(@Path("symbol") symbol: String, @Query("token") token: String = IEX_API_TOKEN): Quote
+
     @GET("ref-data/symbols")
-    suspend fun symbols(@Query("token") token: String): List<Symbol>
+    suspend fun symbols(@Query("token") token: String = IEX_API_TOKEN): List<Symbol>
 }
 
 object NetworkService {
