@@ -2,16 +2,16 @@ package de.uniks.codliners.stock_simulator.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
-import de.uniks.codliners.stock_simulator.database.StockDatabase
-import de.uniks.codliners.stock_simulator.database.asDomainModel
+import de.uniks.codliners.stock_simulator.database.StockAppDatabase
+import de.uniks.codliners.stock_simulator.database.sharesAsDomainModel
 import de.uniks.codliners.stock_simulator.domain.Share
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class SearchRepository(private val stockDatabase: StockDatabase) {
+class SearchRepository(private val stockAppDatabase: StockAppDatabase) {
 
-    val shares: LiveData<List<Share>> = Transformations.map(stockDatabase.shareDao.getShares()) {
-        it.asDomainModel()
+    val shares: LiveData<List<Share>> = Transformations.map(stockAppDatabase.shareDao.getShares()) {
+        it.sharesAsDomainModel()
     }
 
     suspend fun refreshShares() {

@@ -30,21 +30,38 @@ interface ShareDao {
     fun insertAll(vararg shares: ShareDatabase)
 }
 
-@Database(entities = [ShareDatabase::class], version = 1)
-abstract class StockDatabase: RoomDatabase() {
+@Dao
+interface DepotDao {
+
+    @Insert
+    fun insert(shareId: String)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAll(vararg depotShareIds: String)
+
+    
+}
+
+
+
+@Database(entities = [ShareDatabase::class, DepotShare::class], version = 1)
+abstract class StockAppDatabase: RoomDatabase() {
     abstract val shareDao: ShareDao
 }
 
-private lateinit var INSTANCE: StockDatabase
+private lateinit var INSTANCE: StockAppDatabase
 
-fun getDatabase(context: Context): StockDatabase {
-    synchronized(StockDatabase::class.java) {
+fun getDatabase(context: Context): StockAppDatabase {
+    synchronized(StockAppDatabase::class.java) {
         if (!::INSTANCE.isInitialized) {
             INSTANCE = Room.databaseBuilder(context.applicationContext,
-                StockDatabase::class.java,
+                StockAppDatabase::class.java,
                 "stock").build()
         }
     }
     return INSTANCE
 }
+
+
+
 

@@ -13,7 +13,13 @@ data class ShareDatabase constructor(
     val runningCost: Double
 )
 
-fun List<ShareDatabase>.asDomainModel(): List<Share> {
+@Entity
+data class DepotShare constructor(
+    @PrimaryKey
+    val id: String
+)
+
+fun List<ShareDatabase>.sharesAsDomainModel(): List<Share> {
     return map {
         Share(
             id = it.id,
@@ -22,3 +28,9 @@ fun List<ShareDatabase>.asDomainModel(): List<Share> {
             runningCost = it.runningCost)
     }
 }
+
+// fun List<DepotShare>.depotSharesAsDomainModel(): List<Share> {
+//    return map {
+//        DepotShare(id = it.id)
+//    }
+// }
