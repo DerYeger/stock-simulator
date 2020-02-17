@@ -15,6 +15,7 @@ android {
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField "String", "IEX_API_BASE_URL", '"https://cloud.iexapis.com/"'
+        buildConfigField "String", "IEX_API_TOKEN", '"pk_db34bb4eff904de58dd82611668e075b"'
     }
     buildTypes {
         release {
@@ -23,6 +24,7 @@ android {
         }
         debug {
             buildConfigField "String", "IEX_API_BASE_URL", '"https://sandbox.iexapis.com/v1/"'
+            buildConfigField "String", "IEX_API_TOKEN", '"Tpk_51694cd0108b48e5be74cdc9e7682358"'
         }
     }
     compileOptions {

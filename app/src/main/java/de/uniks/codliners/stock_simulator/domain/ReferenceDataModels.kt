@@ -1,5 +1,8 @@
 package de.uniks.codliners.stock_simulator.domain
 
+import com.squareup.moshi.JsonClass
+
+@JsonClass(generateAdapter = true)
 data class Symbol(
     val symbol: String,
     val exchange: String,
@@ -13,5 +16,5 @@ data class Symbol(
 )
 
 enum class IssueType{
-    AD, RE, CE, SI, LP, CS, ET, WT, OEF, CEF, PS, UT, STRUCT
+    ad, re, ce, si, lp, cs, et, wt, rt, oef, cef, ps, ut, struct, temp
 }
