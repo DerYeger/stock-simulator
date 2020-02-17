@@ -9,7 +9,7 @@ data class ShareDatabase constructor(
     @PrimaryKey
     val id: String,
     val name: String,
-    val value: Int,
+    val value: Double,
     val runningCost: Double
 )
 
