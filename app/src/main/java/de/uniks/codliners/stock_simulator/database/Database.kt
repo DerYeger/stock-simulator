@@ -12,7 +12,7 @@ interface ShareDao {
     fun getShareByName(shareName: String): LiveData<ShareDatabase>
 
     @Query("select * from sharedatabase where id = :shareId")
-    fun getShareById(shareId: Int): LiveData<ShareDatabase>
+    fun getShareById(shareId: String): LiveData<ShareDatabase>
 
     @Query("select * from sharedatabase")
     fun getShares(): LiveData<List<ShareDatabase>>
@@ -33,13 +33,23 @@ interface ShareDao {
 @Dao
 interface DepotDao {
 
+    @Query("select * from depotshare inner join sharedatabase where depotshare.id = sharedatabase.id = :shareId")
+    fun getShareById(shareId: String): LiveData<DepotShare>
+
+    @Query("select * from depotshare inner join sharedatabase where depotshare.id = sharedatabase.id")
+    fun getShares(): LiveData<List<ShareDatabase>>
+
+    @Delete
+    fun deleteAll(vararg shares: DepotShare)
+
+    @Delete
+    fun delete(share: DepotShare)
+
     @Insert
-    fun insert(shareId: String)
+    fun insert(share: DepotShare)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(vararg depotShareIds: String)
-
-    
+    fun insertAll(vararg depotShares: DepotShare)
 }
 
 
@@ -47,6 +57,7 @@ interface DepotDao {
 @Database(entities = [ShareDatabase::class, DepotShare::class], version = 1)
 abstract class StockAppDatabase: RoomDatabase() {
     abstract val shareDao: ShareDao
+    abstract val depotDao: DepotDao
 }
 
 private lateinit var INSTANCE: StockAppDatabase

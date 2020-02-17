@@ -19,18 +19,15 @@ data class DepotShare constructor(
     val id: String
 )
 
+fun ShareDatabase.asDomainModel() = Share(
+    id = this.id,
+    name = this.name,
+    value = this.value,
+    runningCost = this.runningCost
+)
+
 fun List<ShareDatabase>.sharesAsDomainModel(): List<Share> {
     return map {
-        Share(
-            id = it.id,
-            name = it.name,
-            value = it.value,
-            runningCost = it.runningCost)
+        it.asDomainModel()
     }
 }
-
-// fun List<DepotShare>.depotSharesAsDomainModel(): List<Share> {
-//    return map {
-//        DepotShare(id = it.id)
-//    }
-// }

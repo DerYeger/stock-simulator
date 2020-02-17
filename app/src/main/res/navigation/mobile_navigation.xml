@@ -7,15 +7,27 @@
     <fragment
         android:id="@+id/navigation_account"
         android:name="de.uniks.codliners.stock_simulator.ui.account.AccountFragment"
-        android:label="@string/title_account" />
+        android:label="@string/title_account" >
+        <action
+            android:id="@+id/action_navigation_account_to_shareFragment"
+            app:destination="@id/shareFragment" />
+    </fragment>
     <fragment
         android:id="@+id/navigation_history"
         android:name="de.uniks.codliners.stock_simulator.ui.history.HistoryFragment"
-        android:label="@string/title_history" />
+        android:label="@string/title_history" >
+        <action
+            android:id="@+id/action_navigation_history_to_shareFragment"
+            app:destination="@id/shareFragment" />
+    </fragment>
     <fragment
         android:id="@+id/navigation_search"
         android:name="de.uniks.codliners.stock_simulator.ui.search.SearchFragment"
-        android:label="@string/title_search" />
+        android:label="@string/title_search" >
+        <action
+            android:id="@+id/action_navigation_search_to_shareFragment"
+            app:destination="@id/shareFragment" />
+    </fragment>
     <fragment
         android:id="@+id/navigation_stockbrot"
         android:name="de.uniks.codliners.stock_simulator.ui.stockbrot.StockbrotFragment"
@@ -24,4 +36,12 @@
         android:id="@+id/navigation_settings"
         android:name="de.uniks.codliners.stock_simulator.ui.settings.SettingsFragment"
         android:label="@string/title_settings" />
+    <fragment
+        android:id="@+id/shareFragment"
+        android:name="de.uniks.codliners.stock_simulator.ui.share.ShareFragment"
+        android:label="ShareFragment" >
+        <argument
+            android:name="shareId"
+            app:argType="string" />
+    </fragment>
 </navigation>
