@@ -52,12 +52,35 @@ interface DepotDao {
     fun insertAll(vararg depotShares: DepotShare)
 }
 
+@Dao
+interface TransactionDao {
+
+    @Query("select * from transactiondatabase where shareName = :shareName")
+    fun getTransactionsByShareName(shareName: String): LiveData<List<TransactionDatabase>>
+
+    @Query("select * from transactiondatabase")
+    fun getTransactions(): LiveData<List<TransactionDatabase>>
+
+    @Delete
+    fun deletaAll(vararg transactions: TransactionDatabase)
+
+    @Delete
+    fun delete(transaction: TransactionDatabase)
+
+    @Insert
+    fun insert(transaction: TransactionDatabase)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAll(vararg transactions: TransactionDatabase)
+}
 
 
-@Database(entities = [ShareDatabase::class, DepotShare::class], version = 1, exportSchema = false)
+
+@Database(entities = [ShareDatabase::class, DepotShare::class, TransactionDatabase::class], version = 1, exportSchema = false)
 abstract class StockAppDatabase: RoomDatabase() {
     abstract val shareDao: ShareDao
     abstract val depotDao: DepotDao
+    abstract val transactionDao: TransactionDao
 }
 
 private lateinit var INSTANCE: StockAppDatabase

@@ -12,7 +12,7 @@ data class Share(
 enum class TransactionType{BUY, SELL}
 
 data class Transaction(
-    val share: Share,
+    val shareName: String,
     val number: Int,
     val transactionType: TransactionType,
     val date: String

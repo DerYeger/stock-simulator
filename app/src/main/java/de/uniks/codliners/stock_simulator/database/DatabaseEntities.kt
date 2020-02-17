@@ -3,6 +3,8 @@ package de.uniks.codliners.stock_simulator.database
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import de.uniks.codliners.stock_simulator.domain.Share
+import de.uniks.codliners.stock_simulator.domain.Transaction
+import de.uniks.codliners.stock_simulator.domain.TransactionType
 
 @Entity
 data class ShareDatabase constructor(
@@ -21,6 +23,16 @@ data class DepotShare constructor(
     val id: String
 )
 
+@Entity
+data class TransactionDatabase constructor(
+    @PrimaryKey(autoGenerate = true)
+    val primaryKey: PrimaryKey,
+    val shareName: String,
+    val number: Int,
+    val transactionType: TransactionType,
+    val date: String
+)
+
 fun ShareDatabase.asDomainModel() = Share(
     id = this.id,
     name = this.name,
@@ -32,13 +44,19 @@ fun ShareDatabase.asDomainModel() = Share(
 
 fun List<ShareDatabase>.sharesAsDomainModel(): List<Share> {
     return map {
-        Share(
-            id = it.id,
-            name = it.name,
-            price = it.price,
-            runningCost = it.runningCost,
-            gap = it.gap,
-            gapPercent = it.gap)
         it.asDomainModel()
+    }
+}
+
+fun TransactionDatabase.transactionAsDomainModel() = Transaction(
+    shareName = this.shareName,
+    number = this.number,
+    transactionType = this.transactionType,
+    date = this.date
+)
+
+fun List<TransactionDatabase>.transactionsAsDomainModel(): List<Transaction> {
+    return map {
+        it.transactionAsDomainModel()
     }
 }
