@@ -28,9 +28,3 @@ fun List<ShareDatabase>.sharesAsDomainModel(): List<Share> {
             runningCost = it.runningCost)
     }
 }
-
-// fun List<DepotShare>.depotSharesAsDomainModel(): List<Share> {
-//    return map {
-//        DepotShare(id = it.id)
-//    }
-// }
