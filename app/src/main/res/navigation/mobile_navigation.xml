@@ -22,4 +22,8 @@
         android:name="de.uniks.codliners.stock_simulator.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
+    <fragment
+        android:id="@+id/navigation_account"
+        android:name="de.uniks.codliners.stock_simulator.ui.account.AccountFragment"
+        android:label="@string/title_account" />
 </navigation>
