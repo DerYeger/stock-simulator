@@ -8,7 +8,6 @@ import de.uniks.codliners.stock_simulator.domain.Share
 
 class AccountRepository(private val stockAppDatabase: StockAppDatabase) {
 
-
     val depotShares: LiveData<List<Share>> = Transformations.map(stockAppDatabase.depotDao.getShares()) {
         it.sharesAsDomainModel()
     }
