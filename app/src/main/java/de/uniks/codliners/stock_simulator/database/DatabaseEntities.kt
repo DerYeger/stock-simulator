@@ -10,7 +10,9 @@ data class ShareDatabase constructor(
     val id: String,
     val name: String,
     val value: Double,
-    val runningCost: Double
+    val runningCost: Double,
+    val gap: Double,
+    val gapPercent: Double
 )
 
 @Entity
@@ -25,7 +27,9 @@ fun List<ShareDatabase>.sharesAsDomainModel(): List<Share> {
             id = it.id,
             name = it.name,
             value = it.value,
-            runningCost = it.runningCost)
+            runningCost = it.runningCost,
+            gap = it.gap,
+            gapPercent = it.gap)
     }
 }
 
