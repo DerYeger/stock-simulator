@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">stock-simulator</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
     <string name="title_depot">Depot</string>
     <string name="title_account">Account</string>
+    <string name="title_search">Search</string>
+    <string name="title_history">History</string>
+    <string name="title_stockbrot">Stockbrot</string>
 </resources>
