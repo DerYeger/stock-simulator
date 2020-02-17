@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import androidx.room.Database
+import de.uniks.codliners.stock_simulator.domain.Quote
 
 @Dao
 interface ShareDao {
@@ -52,12 +53,32 @@ interface DepotDao {
     fun insertAll(vararg depotShares: DepotShare)
 }
 
+@Dao
+interface QuoteDao {
+
+    @Insert
+    fun insert(quote: Quote)
+
+    @Query("SELECT * FROM quote")
+    fun getAll(): LiveData<List<Quote>>
+
+    @Query("SELECT * FROM quote WHERE quote.symbol == :symbol")
+    fun getQuoteWithSymbol(symbol: String): LiveData<Quote>
+
+    @Delete
+    fun delete(quote: Quote)
+}
 
 
-@Database(entities = [ShareDatabase::class, DepotShare::class], version = 1, exportSchema = false)
-abstract class StockAppDatabase: RoomDatabase() {
+@Database(
+    entities = [ShareDatabase::class, DepotShare::class, Quote::class],
+    version = 2,
+    exportSchema = false
+)
+abstract class StockAppDatabase : RoomDatabase() {
     abstract val shareDao: ShareDao
     abstract val depotDao: DepotDao
+    abstract val quoteDao: QuoteDao
 }
 
 private lateinit var INSTANCE: StockAppDatabase
@@ -65,9 +86,14 @@ private lateinit var INSTANCE: StockAppDatabase
 fun getDatabase(context: Context): StockAppDatabase {
     synchronized(StockAppDatabase::class.java) {
         if (!::INSTANCE.isInitialized) {
-            INSTANCE = Room.databaseBuilder(context.applicationContext,
-                StockAppDatabase::class.java,
-                "stock").build()
+            INSTANCE = Room
+                .databaseBuilder(
+                    context.applicationContext,
+                    StockAppDatabase::class.java,
+                    "stock"
+                )
+                .fallbackToDestructiveMigrationFrom()
+                .build()
         }
     }
     return INSTANCE

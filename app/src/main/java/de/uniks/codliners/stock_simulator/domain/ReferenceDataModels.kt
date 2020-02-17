@@ -1,5 +1,7 @@
 package de.uniks.codliners.stock_simulator.domain
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
@@ -27,8 +29,10 @@ enum class IssueType {
     ad, re, ce, si, lp, cs, et, wt, rt, oef, cef, ps, ut, struct, temp
 }
 
+@Entity
 @JsonClass(generateAdapter = true)
 data class Quote(
+    @PrimaryKey
     val symbol: String,
     val companyName: String,
     val calculationPrice: String,
