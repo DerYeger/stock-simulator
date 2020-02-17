@@ -21,6 +21,7 @@ class AccountFragment : Fragment() {
     ): View {
         binding =  FragmentAccountBinding.inflate(inflater)
         binding.viewModel = viewModel
+        binding.depotRecyclerView.adapter = DepotShareRecyclerViewAdapter()
         binding.lifecycleOwner = this
         return binding.root
     }
