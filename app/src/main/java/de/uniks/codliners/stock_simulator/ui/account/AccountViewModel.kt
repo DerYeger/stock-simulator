@@ -5,5 +5,5 @@ import de.uniks.codliners.stock_simulator.domain.Share
 
 class AccountViewModel : ViewModel() {
 
-    val depotShares = listOf(Share(1), Share(42))
+    val depotShares = listOf<Share>()
 }
