@@ -1,9 +1,7 @@
 package de.uniks.codliners.stock_simulator.ui.account
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import de.uniks.codliners.stock_simulator.databinding.FragmentAccountBinding
@@ -19,7 +17,7 @@ class AccountFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding =  FragmentAccountBinding.inflate(inflater)
+        binding = FragmentAccountBinding.inflate(inflater)
         binding.viewModel = viewModel
         binding.depotRecyclerView.adapter = DepotShareRecyclerViewAdapter()
         binding.lifecycleOwner = this

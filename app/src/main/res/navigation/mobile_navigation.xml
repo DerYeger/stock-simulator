@@ -20,4 +20,8 @@
         android:id="@+id/navigation_stockbrot"
         android:name="de.uniks.codliners.stock_simulator.ui.stockbrot.StockbrotFragment"
         android:label="@string/title_stockbrot" />
+    <fragment
+        android:id="@+id/navigation_settings"
+        android:name="de.uniks.codliners.stock_simulator.ui.settings.SettingsFragment"
+        android:label="@string/title_settings" />
 </navigation>
