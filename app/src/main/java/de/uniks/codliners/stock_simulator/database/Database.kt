@@ -44,7 +44,7 @@ interface DepotDao {
 
 
 
-@Database(entities = [ShareDatabase::class, DepotShare::class], version = 1)
+@Database(entities = [ShareDatabase::class, DepotShare::class], version = 1, exportSchema = false)
 abstract class StockAppDatabase: RoomDatabase() {
     abstract val shareDao: ShareDao
 }
