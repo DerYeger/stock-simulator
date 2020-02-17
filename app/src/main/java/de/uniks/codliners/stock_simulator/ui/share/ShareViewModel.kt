@@ -3,11 +3,11 @@ package de.uniks.codliners.stock_simulator.ui.share
 import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import de.uniks.codliners.stock_simulator.repository.SearchRepository
+import de.uniks.codliners.stock_simulator.repository.ShareRepository
 
 class ShareViewModel(application: Application, val shareId: String) : ViewModel() {
 
-    private val shareRepository = SearchRepository(application)
+    private val shareRepository = ShareRepository(application)
 
     val share = shareRepository.shareWithId(shareId)
 

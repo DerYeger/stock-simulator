@@ -33,10 +33,10 @@ interface ShareDao {
 @Dao
 interface DepotDao {
 
-    @Query("select * from depotshare inner join sharedatabase where depotshare.id = sharedatabase.id = :shareId")
-    fun getShareById(shareId: String): LiveData<DepotShare>
+    @Query("select sharedatabase.* from depotshare inner join sharedatabase where depotshare.id = sharedatabase.id = :shareId")
+    fun getShareById(shareId: String): LiveData<ShareDatabase>
 
-    @Query("select * from depotshare inner join sharedatabase where depotshare.id = sharedatabase.id")
+    @Query("select sharedatabase.* from depotshare inner join sharedatabase where depotshare.id = sharedatabase.id")
     fun getShares(): LiveData<List<ShareDatabase>>
 
     @Delete
