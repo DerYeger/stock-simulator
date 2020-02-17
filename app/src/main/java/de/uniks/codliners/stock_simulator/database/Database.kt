@@ -8,29 +8,29 @@ import androidx.room.Database
 @Dao
 interface ShareDao {
 
-    @Query("select * from databaseshare where name = :shareName")
-    fun getShareByName(shareName: String): LiveData<DatabaseShare>
+    @Query("select * from sharedatabase where name = :shareName")
+    fun getShareByName(shareName: String): LiveData<ShareDatabase>
 
-    @Query("select * from databaseshare where id = :shareId")
-    fun getShareById(shareId: Int): LiveData<DatabaseShare>
+    @Query("select * from sharedatabase where id = :shareId")
+    fun getShareById(shareId: Int): LiveData<ShareDatabase>
 
-    @Query("select * from databaseshare")
-    fun getShares(): LiveData<List<DatabaseShare>>
-
-    @Delete
-    fun delete(share: DatabaseShare)
+    @Query("select * from sharedatabase")
+    fun getShares(): LiveData<List<ShareDatabase>>
 
     @Delete
-    fun deleteAll(vararg shares: DatabaseShare)
+    fun delete(share: ShareDatabase)
+
+    @Delete
+    fun deleteAll(vararg shares: ShareDatabase)
 
     @Insert
-    fun insert(share: DatabaseShare)
+    fun insert(share: ShareDatabase)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(vararg shares: DatabaseShare)
+    fun insertAll(vararg shares: ShareDatabase)
 }
 
-@Database(entities = [DatabaseShare::class], version = 1)
+@Database(entities = [ShareDatabase::class], version = 1)
 abstract class StockDatabase: RoomDatabase() {
     abstract val shareDao: ShareDao
 }
