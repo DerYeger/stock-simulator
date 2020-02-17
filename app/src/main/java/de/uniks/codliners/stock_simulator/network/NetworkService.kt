@@ -7,6 +7,7 @@ import de.uniks.codliners.stock_simulator.domain.Symbol
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 const val IEX_API_BASE_URL = BuildConfig.IEX_API_BASE_URL
@@ -17,6 +18,9 @@ val moshi: Moshi = Moshi.Builder()
     .build()
 
 interface IexApi {
+
+    @GET("search/{fragment}")
+    suspend fun search(@Path("fragment") fragment: String): List<Symbol>
 
     @GET("ref-data/symbols")
     suspend fun symbols(@Query("token") token: String): List<Symbol>
