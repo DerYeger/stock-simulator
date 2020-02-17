@@ -7,14 +7,16 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import de.uniks.codliners.stock_simulator.databinding.SearchResultCardBinding
 import de.uniks.codliners.stock_simulator.domain.SearchResult
+import de.uniks.codliners.stock_simulator.ui.OnClickListener
 
-class SearchResultAdapter : ListAdapter<SearchResult, SearchResultAdapter.ViewHolder>(DiffCallback) {
+class SearchResultAdapter(private val onClickListener: OnClickListener<SearchResult>) : ListAdapter<SearchResult, SearchResultAdapter.ViewHolder>(DiffCallback) {
 
     inner class ViewHolder(private val binding: SearchResultCardBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(searchResult: SearchResult) {
             binding.searchResult = searchResult
+            binding.onClickListener = onClickListener
             binding.executePendingBindings()
         }
     }

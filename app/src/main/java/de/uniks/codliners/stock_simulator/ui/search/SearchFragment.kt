@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import de.uniks.codliners.stock_simulator.databinding.FragmentSearchBinding
+import de.uniks.codliners.stock_simulator.ui.OnClickListener
 
 class SearchFragment : Fragment() {
 
@@ -21,7 +23,10 @@ class SearchFragment : Fragment() {
     ): View {
         binding = FragmentSearchBinding.inflate(inflater)
         binding.viewModel = viewModel
-        binding.searchResultRecyclerView.adapter = SearchResultAdapter()
+        binding.searchResultRecyclerView.adapter = SearchResultAdapter(OnClickListener { searchResult ->
+            val action = SearchFragmentDirections.actionNavigationSearchToShareFragment(searchResult.symbol)
+            findNavController().navigate(action)
+        })
         binding.lifecycleOwner = this
         return binding.root
     }
