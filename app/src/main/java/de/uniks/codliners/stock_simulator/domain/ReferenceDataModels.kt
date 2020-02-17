@@ -3,6 +3,14 @@ package de.uniks.codliners.stock_simulator.domain
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
+data class SearchResult(
+    val symbol: String,
+    val securityName: String,
+    val securityType: String,
+    val exchange: String
+)
+
+@JsonClass(generateAdapter = true)
 data class Symbol(
     val symbol: String,
     val exchange: String,

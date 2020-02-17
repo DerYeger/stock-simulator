@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="onClickListener"
+            type="de.uniks.codliners.stock_simulator.ui.OnClickListener" />
+
+        <variable
+            name="searchResult"
+            type="de.uniks.codliners.stock_simulator.domain.SearchResult" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/default_spacing"
+        app:cardCornerRadius="@dimen/default_corner_radius"
+        app:cardElevation="@dimen/default_elevation"
+        app:contentPadding="@dimen/half_spacing"
+        android:onClick="@{() -> onClickListener.onClick(searchResult)}">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{searchResult.symbol}"
+            android:textAlignment="center"
+            tools:text="NVDA" />
+    </androidx.cardview.widget.CardView>
+</layout>
