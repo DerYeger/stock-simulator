@@ -7,9 +7,12 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import de.uniks.codliners.stock_simulator.R
+import de.uniks.codliners.stock_simulator.domain.SearchResult
 import de.uniks.codliners.stock_simulator.domain.Share
+import de.uniks.codliners.stock_simulator.domain.Symbol
 import de.uniks.codliners.stock_simulator.repository.SearchRepository
 import de.uniks.codliners.stock_simulator.ui.account.DepotShareRecyclerViewAdapter
+import de.uniks.codliners.stock_simulator.ui.search.SearchResultAdapter
 
 @BindingAdapter("visible")
 fun View.bindVisibility(visible: Boolean) {
@@ -21,6 +24,12 @@ fun SwipeRefreshLayout.bindRefreshListener(listener: Runnable) {
     setOnRefreshListener {
         listener.run()
     }
+}
+
+@BindingAdapter("searchResults")
+fun RecyclerView.bindSearchResults(symbols: List<SearchResult>?) {
+    val adapter = adapter as SearchResultAdapter
+    adapter.submitList(symbols)
 }
 
 @BindingAdapter("depotShares")

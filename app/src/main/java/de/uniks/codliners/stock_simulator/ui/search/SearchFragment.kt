@@ -21,6 +21,7 @@ class SearchFragment : Fragment() {
     ): View {
         binding = FragmentSearchBinding.inflate(inflater)
         binding.viewModel = viewModel
+        binding.searchResultRecyclerView.adapter = SearchResultAdapter()
         binding.lifecycleOwner = this
         return binding.root
     }

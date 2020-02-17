@@ -2,6 +2,7 @@ package de.uniks.codliners.stock_simulator.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import de.uniks.codliners.stock_simulator.domain.SearchResult
 import de.uniks.codliners.stock_simulator.domain.Symbol
 import de.uniks.codliners.stock_simulator.network.NetworkService
 import kotlinx.coroutines.Dispatchers
@@ -22,8 +23,8 @@ class SearchRepository {
     }
     val state: LiveData<State> = _state
 
-    private val _searchResults = MutableLiveData<List<Symbol>>()
-    val searchResults: LiveData<List<Symbol>> = _searchResults
+    private val _searchResults = MutableLiveData<List<SearchResult>>()
+    val searchResults: LiveData<List<SearchResult>> = _searchResults
 
     suspend fun search(fragment: String) {
         withContext(Dispatchers.IO) {
