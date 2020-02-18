@@ -19,7 +19,7 @@
             android:layout_marginStart="50dp"
             android:layout_marginTop="30dp"
             android:layout_marginEnd="50dp"
-            android:text="@string/reset_game"
+            android:text="@string/reset_data"
             android:onClick="@{() -> viewModel.resetGame()}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

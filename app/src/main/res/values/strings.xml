@@ -11,7 +11,7 @@
     <string name="cancel">Cancel</string>
     <string name="prefs_fingerprint_added">prefs_fingerprint_added</string>
     <string name="remove_fingerprint">Remove fingerprint authentication</string>
-    <string name="reset_game">Reset game</string>
+    <string name="reset_data">Reset data</string>
     <string name="title_account">Account</string>
     <string name="title_depot">Depot</string>
     <string name="title_history">History</string>
