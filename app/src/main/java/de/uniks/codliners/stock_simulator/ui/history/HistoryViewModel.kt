@@ -11,12 +11,12 @@ import java.lang.Exception
 
 class HistoryViewModel : ViewModel() {
 
-    private val historyRepository = HistoryRepository()
+//    private val historyRepository = HistoryRepository()
 
     val shareOne = Share("AA", "american airline", 20.0, 0.2, 0.2, 0.1)
     val shareTwo = Share("SMA", "sma ", 19.0, 0.2, 0.2, 0.1)
 
-    val transaction = Transaction(shareOne.name, 2,  TransactionType.BUY, "20-11-2020")
+    val transaction = Transaction(shareOne.name, 2, TransactionType.BUY, "20-11-2020")
 
     val transactions = listOf(transaction)
 
@@ -26,11 +26,12 @@ class HistoryViewModel : ViewModel() {
 
     private fun getHistory() {
         viewModelScope.launch {
-        try {
+            try {
 
-        } catch (exception: Exception) {
+            } catch (exception: Exception) {
 
 
+            }
         }
     }
 }

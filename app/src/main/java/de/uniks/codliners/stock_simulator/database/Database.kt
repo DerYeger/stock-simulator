@@ -56,13 +56,9 @@ interface DepotDao {
 
 @Dao
 interface QuoteDao {
-@Dao
-interface TransactionDao {
 
     @Insert(onConflict = REPLACE)
     fun insert(quote: Quote)
-    @Query("select * from transactiondatabase where shareName = :shareName")
-    fun getTransactionsByShareName(shareName: String): LiveData<List<TransactionDatabase>>
 
     @Query("SELECT * FROM quote")
     fun getAll(): LiveData<List<Quote>>
@@ -74,18 +70,17 @@ interface TransactionDao {
     fun delete(quote: Quote)
 }
 
+@Dao
+interface TransactionDao {
 
-@Database(
-    entities = [ShareDatabase::class, DepotShare::class, Quote::class],
-    version = 1,
-    exportSchema = false
-)
-abstract class StockAppDatabase : RoomDatabase() {
+    @Query("select * from transactiondatabase where shareName = :shareName")
+    fun getTransactionsByShareName(shareName: String): LiveData<List<TransactionDatabase>>
+
     @Query("select * from transactiondatabase")
     fun getTransactions(): LiveData<List<TransactionDatabase>>
 
     @Delete
-    fun deletaAll(vararg transactions: TransactionDatabase)
+    fun deleteAll(vararg transactions: TransactionDatabase)
 
     @Delete
     fun delete(transaction: TransactionDatabase)
@@ -97,9 +92,7 @@ abstract class StockAppDatabase : RoomDatabase() {
     fun insertAll(vararg transactions: TransactionDatabase)
 }
 
-
-
-@Database(entities = [ShareDatabase::class, DepotShare::class, TransactionDatabase::class], version = 1, exportSchema = false)
+@Database(entities = [ShareDatabase::class, DepotShare::class, TransactionDatabase::class, Quote::class], version = 1, exportSchema = false)
 abstract class StockAppDatabase: RoomDatabase() {
     abstract val shareDao: ShareDao
     abstract val depotDao: DepotDao
@@ -124,7 +117,3 @@ fun getDatabase(context: Context): StockAppDatabase {
     }
     return INSTANCE
 }
-
-
-
-
