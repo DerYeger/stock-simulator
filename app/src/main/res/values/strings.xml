@@ -10,4 +10,8 @@
     <string name="title_quote">Quote</string>
     <string name="no_results">No results</string>
     <string name="buy">Buy</string>
+    <string name="sell">Sell</string>
+    <string name="buy_hint">Buy amount</string>
+    <string name="sell_hint">Sell amount</string>
+    <string name="depot_quote_amount_format">You own %d shares</string>
 </resources>

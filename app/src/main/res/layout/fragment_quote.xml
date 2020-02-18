@@ -67,13 +67,65 @@
                 android:id="@+id/buy_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/default_spacing"
                 android:layout_marginEnd="@dimen/default_spacing"
                 android:enabled="@{viewModel.ready}"
                 android:onClick="@{() -> viewModel.buy()}"
                 android:text="@string/buy"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/share_running_cost_text" />
+                app:layout_constraintBaseline_toBaselineOf="@+id/buy_number"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <Button
+                android:id="@+id/sell_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/default_spacing"
+                android:enabled="@{viewModel.ready}"
+                android:onClick="@{() -> viewModel.sell()}"
+                android:text="@string/sell"
+                app:layout_constraintBaseline_toBaselineOf="@+id/sell_number"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <EditText
+                android:id="@+id/buy_number"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/default_spacing"
+                android:layout_marginTop="@dimen/default_spacing"
+                android:layout_marginEnd="@dimen/default_spacing"
+                android:ems="10"
+                android:hint="@string/buy_hint"
+                android:importantForAutofill="no"
+                android:inputType="number"
+                android:text="@={viewModel.buyAmount}"
+                app:layout_constraintEnd_toStartOf="@+id/buy_button"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/share_name_text" />
+
+            <EditText
+                android:id="@+id/sell_number"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/default_spacing"
+                android:layout_marginTop="@dimen/default_spacing"
+                android:layout_marginEnd="@dimen/default_spacing"
+                android:hint="@string/sell_hint"
+                android:importantForAutofill="no"
+                android:inputType="number"
+                android:text="@={viewModel.sellAmount}"
+                app:layout_constraintEnd_toStartOf="@+id/sell_button"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/buy_number" />
+
+            <TextView
+                android:id="@+id/depot_text"
+                visible="@{viewModel.depotQuote != null}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/default_spacing"
+                android:layout_marginTop="@dimen/default_spacing"
+                android:text="@{@string/depot_quote_amount_format(viewModel.depotQuote.amount)}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/sell_number" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </layout>

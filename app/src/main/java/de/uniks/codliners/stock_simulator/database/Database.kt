@@ -89,6 +89,9 @@ interface AccountDao {
     fun getDepot(): LiveData<List<DepotQuote>>
 
     @Query("SELECT * FROM depotquote WHERE symbol == :symbol LIMIT 1")
+    fun getDepotQuoteWithSymbol(symbol: String): LiveData<DepotQuote>
+
+    @Query("SELECT * FROM depotquote WHERE symbol == :symbol LIMIT 1")
     fun getDepotQuoteBySymbol(symbol: String): DepotQuote
 
     @Insert(onConflict = REPLACE)
