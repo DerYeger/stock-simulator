@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
@@ -15,6 +16,8 @@ import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import com.github.mikephil.charting.utils.ColorTemplate
 import de.uniks.codliners.stock_simulator.databinding.FragmentAccountBinding
+import de.uniks.codliners.stock_simulator.ui.OnClickListener
+import de.uniks.codliners.stock_simulator.ui.search.SearchFragmentDirections
 
 
 class AccountFragment : Fragment() {
@@ -38,7 +41,10 @@ class AccountFragment : Fragment() {
 
         binding = FragmentAccountBinding.inflate(inflater)
         binding.viewModel = viewModel
-        binding.depotRecyclerView.adapter = DepotQuoteRecyclerViewAdapter()
+        binding.depotRecyclerView.adapter = DepotQuoteRecyclerViewAdapter(OnClickListener { symbol ->
+            val action = SearchFragmentDirections.actionNavigationSearchToShareFragment(symbol.symbol)
+            findNavController().navigate(action)
+        })
         binding.lifecycleOwner = this
 
         initBalanceChart()
