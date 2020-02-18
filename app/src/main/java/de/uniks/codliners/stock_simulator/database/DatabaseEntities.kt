@@ -26,7 +26,7 @@ data class DepotShare constructor(
 @Entity
 data class TransactionDatabase constructor(
     @PrimaryKey(autoGenerate = true)
-    val primaryKey: PrimaryKey,
+    val primaryKey: Long,
     val shareName: String,
     val number: Int,
     val transactionType: TransactionType,

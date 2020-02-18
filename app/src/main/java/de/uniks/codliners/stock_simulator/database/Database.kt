@@ -7,6 +7,7 @@ import androidx.room.Database
 import androidx.room.OnConflictStrategy.REPLACE
 import de.uniks.codliners.stock_simulator.domain.Account
 import de.uniks.codliners.stock_simulator.domain.Quote
+import de.uniks.codliners.stock_simulator.domain.TransactionType
 
 @Dao
 interface ShareDao {
@@ -111,6 +112,7 @@ interface AccountDao {
     version = 1,
     exportSchema = false
 )
+@TypeConverters(Converters::class)
 abstract class StockAppDatabase: RoomDatabase() {
     abstract val shareDao: ShareDao
     abstract val depotDao: DepotDao
@@ -136,3 +138,4 @@ fun getDatabase(context: Context): StockAppDatabase {
     }
     return INSTANCE
 }
+
