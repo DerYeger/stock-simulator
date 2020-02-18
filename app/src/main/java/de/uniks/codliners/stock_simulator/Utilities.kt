@@ -36,3 +36,15 @@ fun Context.ensureAccountPresence() {
         Timber.i("Created new account with balances: ${balances.value}")
     }
 }
+
+fun noNulls(vararg args: Any?): Boolean {
+    return listOfNotNull(*args).size == args.size
+}
+
+fun String?.toSafeLong(): Long? {
+    return try {
+        this?.toLong()
+    } catch (_: Throwable) {
+        null
+    }
+}
