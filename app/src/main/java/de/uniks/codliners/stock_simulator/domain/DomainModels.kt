@@ -1,5 +1,15 @@
 package de.uniks.codliners.stock_simulator.domain
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity
+data class Account(
+    val balance: Double,
+    @PrimaryKey
+    val id: Long = 0L
+)
+
 data class Share(
     val id: String,
     val name: String,
@@ -9,7 +19,7 @@ data class Share(
     val gapPercent: Double
 )
 
-enum class TransactionType{BUY, SELL}
+enum class TransactionType { BUY, SELL }
 
 data class Transaction(
     val shareName: String,
