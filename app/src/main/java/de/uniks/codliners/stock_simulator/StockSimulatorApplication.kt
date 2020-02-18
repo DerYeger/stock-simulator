@@ -20,8 +20,6 @@ class StockSimulatorApplication : Application() {
 
         onFirstRun {
         }
-
-        ensureAccountPresence()
     }
 
     private inline fun onFirstRun(block: () -> Unit) {
