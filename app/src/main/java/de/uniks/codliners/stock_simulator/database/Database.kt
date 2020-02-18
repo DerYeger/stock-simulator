@@ -4,6 +4,9 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import androidx.room.Database
+import androidx.room.OnConflictStrategy.REPLACE
+import de.uniks.codliners.stock_simulator.domain.Quote
+import de.uniks.codliners.stock_simulator.domain.TransactionType
 
 @Dao
 interface ShareDao {
@@ -53,6 +56,22 @@ interface DepotDao {
 }
 
 @Dao
+interface QuoteDao {
+
+    @Insert(onConflict = REPLACE)
+    fun insert(quote: Quote)
+
+    @Query("SELECT * FROM quote")
+    fun getAll(): LiveData<List<Quote>>
+
+    @Query("SELECT * FROM quote WHERE quote.symbol == :symbol")
+    fun getQuoteWithSymbol(symbol: String): LiveData<Quote>
+
+    @Delete
+    fun delete(quote: Quote)
+}
+
+@Dao
 interface TransactionDao {
 
     @Query("select * from transactiondatabase where shareName = :shareName")
@@ -62,7 +81,7 @@ interface TransactionDao {
     fun getTransactions(): LiveData<List<TransactionDatabase>>
 
     @Delete
-    fun deletaAll(vararg transactions: TransactionDatabase)
+    fun deleteAll(vararg transactions: TransactionDatabase)
 
     @Delete
     fun delete(transaction: TransactionDatabase)
@@ -74,12 +93,12 @@ interface TransactionDao {
     fun insertAll(vararg transactions: TransactionDatabase)
 }
 
-
-
-@Database(entities = [ShareDatabase::class, DepotShare::class, TransactionDatabase::class], version = 1, exportSchema = false)
+@Database(entities = [ShareDatabase::class, DepotShare::class, TransactionDatabase::class, Quote::class], version = 1, exportSchema = false)
+@TypeConverters(Converters::class)
 abstract class StockAppDatabase: RoomDatabase() {
     abstract val shareDao: ShareDao
     abstract val depotDao: DepotDao
+    abstract val quoteDao: QuoteDao
     abstract val transactionDao: TransactionDao
 }
 
@@ -88,14 +107,16 @@ private lateinit var INSTANCE: StockAppDatabase
 fun getDatabase(context: Context): StockAppDatabase {
     synchronized(StockAppDatabase::class.java) {
         if (!::INSTANCE.isInitialized) {
-            INSTANCE = Room.databaseBuilder(context.applicationContext,
-                StockAppDatabase::class.java,
-                "stock").build()
+            INSTANCE = Room
+                .databaseBuilder(
+                    context.applicationContext,
+                    StockAppDatabase::class.java,
+                    "StockAppDatabase"
+                )
+                .fallbackToDestructiveMigration()
+                .build()
         }
     }
     return INSTANCE
 }
-
-
-
 
