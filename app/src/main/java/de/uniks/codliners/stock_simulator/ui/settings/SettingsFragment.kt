@@ -6,11 +6,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import de.uniks.codliners.stock_simulator.MainActivity
-import de.uniks.codliners.stock_simulator.R
+import de.uniks.codliners.stock_simulator.*
 import de.uniks.codliners.stock_simulator.databinding.FragmentSettingsBinding
 
 
@@ -53,6 +53,22 @@ class SettingsFragment : Fragment() {
 
         // Fire preference changed event to update the (initial) fingerprint button value
         listener.onSharedPreferenceChanged(preferences, "prefs_fingerprint_added")
+
+        // React to reset button clicks.
+        viewModel.clickResetStatus.observe(viewLifecycleOwner, Observer { status ->
+            status?.let {
+
+                // Reset click indicator.
+                viewModel.clickResetStatus.value = null
+
+                this.context!!.resetAccount()
+                this.context!!.resetHistory()
+                this.context!!.resetQuotes()
+                this.context!!.resetShares()
+
+                Toast.makeText(this.context, "Data reset successfully.", Toast.LENGTH_SHORT).show()
+            }
+        })
 
         // React to fingerprint button clicks.
         viewModel.toggleFingerprintStatus.observe(viewLifecycleOwner, Observer { status ->

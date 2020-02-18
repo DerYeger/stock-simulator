@@ -11,15 +11,15 @@ import de.uniks.codliners.stock_simulator.domain.Share
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class ShareRepository(private val stockAppDatabase: StockAppDatabase) {
+class ShareRepository(private val database: StockAppDatabase) {
 
     constructor(context: Context) : this(getDatabase(context))
 
-    val shares: LiveData<List<Share>> = Transformations.map(stockAppDatabase.shareDao.getShares()) {
+    val shares: LiveData<List<Share>> = Transformations.map(database.shareDao.getShares()) {
         it.sharesAsDomainModel()
     }
 
-    fun shareWithId(shareId: String): LiveData<Share> = Transformations.map(stockAppDatabase.shareDao.getShareById(shareId)) {
+    fun shareWithId(shareId: String): LiveData<Share> = Transformations.map(database.shareDao.getShareById(shareId)) {
         it?.asDomainModel()
     }
 
@@ -27,6 +27,14 @@ class ShareRepository(private val stockAppDatabase: StockAppDatabase) {
         withContext(Dispatchers.IO) {
             // val shareList = Network.shareService.getShares().await()
             // stockDatabase.shareDao.insertAll(*shareList.asDatabaseModel())
+        }
+    }
+
+    suspend fun resetShares() {
+        withContext(Dispatchers.IO) {
+            database.shareDao.apply {
+                deleteShares()
+            }
         }
     }
 }

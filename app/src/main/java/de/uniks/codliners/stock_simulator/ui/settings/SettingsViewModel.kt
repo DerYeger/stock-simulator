@@ -6,11 +6,14 @@ import androidx.lifecycle.ViewModel
 
 class SettingsViewModel : ViewModel() {
 
+    // Button click indicator for reset button.
+    var clickResetStatus = MutableLiveData<Boolean?>()
+
     // Button click indicator for fingerprint button.
     var toggleFingerprintStatus = MutableLiveData<Boolean?>()
 
     fun resetGame() {
-        // TODO
+        clickResetStatus.value = true
     }
 
     fun toggleFingerprint() {

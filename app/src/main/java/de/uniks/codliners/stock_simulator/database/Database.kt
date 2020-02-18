@@ -30,6 +30,9 @@ interface ShareDao {
 
     @Insert(onConflict = REPLACE)
     fun insertAll(vararg shares: ShareDatabase)
+
+    @Query("DELETE FROM sharedatabase")
+    fun deleteShares()
 }
 
 @Dao
@@ -46,6 +49,9 @@ interface QuoteDao {
 
     @Delete
     fun delete(quote: Quote)
+
+    @Query("DELETE FROM quote")
+    fun deleteQuotes()
 }
 
 @Dao
@@ -68,6 +74,9 @@ interface TransactionDao {
 
     @Insert(onConflict = REPLACE)
     fun insertAll(vararg transactions: TransactionDatabase)
+
+    @Query("DELETE FROM transactiondatabase")
+    fun deleteTransactions()
 }
 
 @Dao

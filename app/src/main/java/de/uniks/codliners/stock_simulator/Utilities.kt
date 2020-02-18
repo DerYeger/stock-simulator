@@ -6,6 +6,9 @@ import android.content.ContextWrapper
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import de.uniks.codliners.stock_simulator.repository.AccountRepository
+import de.uniks.codliners.stock_simulator.repository.HistoryRepository
+import de.uniks.codliners.stock_simulator.repository.QuoteRepository
+import de.uniks.codliners.stock_simulator.repository.ShareRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -22,6 +25,27 @@ fun Context.resetAccount() {
     val self = this
     CoroutineScope(Dispatchers.Main).launch {
         AccountRepository(self).resetAccount()
+    }
+}
+
+fun Context.resetHistory() {
+    val self = this
+    CoroutineScope(Dispatchers.Main).launch {
+        HistoryRepository(self).resetHistory()
+    }
+}
+
+fun Context.resetQuotes() {
+    val self = this
+    CoroutineScope(Dispatchers.Main).launch {
+        QuoteRepository(self).resetQuotes()
+    }
+}
+
+fun Context.resetShares() {
+    val self = this
+    CoroutineScope(Dispatchers.Main).launch {
+        ShareRepository(self).refreshShares()
     }
 }
 
