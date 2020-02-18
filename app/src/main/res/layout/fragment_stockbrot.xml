@@ -17,6 +17,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:hint="@string/stockbrot_threshold_buy"
+            android:text="@={viewModel.thresholdBuy}"
+            android:inputType="numberDecimal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -27,6 +29,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:hint="@string/stockbrot_threshold_sell"
+            android:text="@={viewModel.thresholdSell}"
+            android:inputType="numberDecimal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/stockbrot_threshold_buy" />

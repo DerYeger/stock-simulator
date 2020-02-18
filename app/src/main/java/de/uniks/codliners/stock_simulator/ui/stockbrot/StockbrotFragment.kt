@@ -16,6 +16,8 @@ class StockbrotFragment : Fragment() {
 
     private lateinit var binding: FragmentStockbrotBinding
 
+    private lateinit var stockbrotWorkRequest: StockbrotWorkRequest
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -25,14 +27,33 @@ class StockbrotFragment : Fragment() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
+        stockbrotWorkRequest = StockbrotWorkRequest(context!!)  // TODO: check for null?
+
         viewModel.enabledAction.observe(this, Observer { enabled: Boolean? ->
-            val stockbrotWorkRequest = StockbrotWorkRequest(context!!)  // TODO: check for null?
             enabled?.let {
                 when(enabled) {
                     true -> stockbrotWorkRequest.start()
                     false -> stockbrotWorkRequest.stop()
                 }
                 viewModel.onEnabledActionCompleted()
+            }
+        })
+
+        viewModel.thresholdBuy.observe(this, Observer {
+            println("changed threshold buy")
+            stockbrotWorkRequest.thresholdBuy = try {
+                it.toDouble()
+            } catch (e: NumberFormatException) {
+                0.0
+            }
+        })
+
+        viewModel.thresholdSell.observe(this, Observer {
+            println("changed threshold sell")
+            stockbrotWorkRequest.thresholdSell = try {
+                it.toDouble()
+            } catch (e: NumberFormatException) {
+                0.0
             }
         })
 

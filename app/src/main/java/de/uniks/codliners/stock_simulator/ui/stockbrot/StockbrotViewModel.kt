@@ -1,6 +1,8 @@
 package de.uniks.codliners.stock_simulator.ui.stockbrot
 
 import androidx.lifecycle.*
+import de.uniks.codliners.stock_simulator.background.Constants.Companion.THRESHOLD_BUY_DEFAULT_VALUE
+import de.uniks.codliners.stock_simulator.background.Constants.Companion.THRESHOLD_SELL_DEFAULT_VALUE
 import kotlinx.coroutines.launch
 
 class StockbrotViewModel : ViewModel() {
@@ -8,8 +10,8 @@ class StockbrotViewModel : ViewModel() {
     val enabled: LiveData<Boolean> = _enabled
 
     // TODO: add values to database
-    val thresholdBuy = MutableLiveData<String>("")
-    val thresholdSell = MutableLiveData<String>("")
+    val thresholdBuy = MutableLiveData<String>(THRESHOLD_BUY_DEFAULT_VALUE.toString())
+    val thresholdSell = MutableLiveData<String>(THRESHOLD_SELL_DEFAULT_VALUE.toString())
 
     private val _enabledAction = MediatorLiveData<Boolean>()
     val enabledAction: LiveData<Boolean> = _enabledAction

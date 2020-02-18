@@ -1,16 +1,20 @@
 package de.uniks.codliners.stock_simulator.background
 
 import android.content.Context
-import androidx.work.Constraints
-import androidx.work.NetworkType
-import androidx.work.PeriodicWorkRequest
-import androidx.work.WorkManager
+import androidx.work.*
+import de.uniks.codliners.stock_simulator.background.Constants.Companion.THRESHOLD_BUY_DEFAULT_VALUE
+import de.uniks.codliners.stock_simulator.background.Constants.Companion.THRESHOLD_BUY_KEY
+import de.uniks.codliners.stock_simulator.background.Constants.Companion.THRESHOLD_SELL_DEFAULT_VALUE
+import de.uniks.codliners.stock_simulator.background.Constants.Companion.THRESHOLD_SELL_KEY
+import de.uniks.codliners.stock_simulator.background.Constants.Companion.WORKER_TAG
 import de.uniks.codliners.stock_simulator.background.workers.StockbrotWorker
 import java.util.concurrent.TimeUnit
 
 class StockbrotWorkRequest(context: Context) {
 
     private val workManager: WorkManager = WorkManager.getInstance(context)
+    var thresholdBuy: Double = THRESHOLD_BUY_DEFAULT_VALUE
+    var thresholdSell: Double = THRESHOLD_SELL_DEFAULT_VALUE
 
     fun start() {
         println("start StockbrotWorkRequest")
@@ -38,7 +42,4 @@ class StockbrotWorkRequest(context: Context) {
         workManager.cancelAllWorkByTag(WORKER_TAG)
     }
 
-    companion object {
-        private const val WORKER_TAG = "STOCKBROT_WORKER"
-    }
 }
