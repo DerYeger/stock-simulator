@@ -11,7 +11,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.XAxis
+import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
@@ -36,6 +38,9 @@ class QuoteFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        tfLight = Typeface.createFromAsset(context!!.assets, "OpenSans-Light.ttf")
+        tfRegular = Typeface.createFromAsset(context!!.assets, "OpenSans-Regular.ttf")
+
         binding = FragmentQuoteBinding.inflate(inflater)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
@@ -55,11 +60,19 @@ class QuoteFragment : Fragment() {
 
     private fun initQuoteChart() {
         val chart = binding.quoteChart
+
+        chart.data = generateLineData(10, 5f)
+        styleGraph(chart)
+//        yAxis.setDrawGridLines(false)
+
+        chart.invalidate()
+    }
+
+    private fun styleGraph(chart: LineChart) {
         val xAxis = chart.xAxis
         val yAxis = chart.axisLeft
 
         chart.axisRight.isEnabled = false
-        chart.data = generateLineData(10, 5f)
         chart.description.isEnabled = false
         chart.legend.isEnabled = false
         chart.setBackgroundColor(Color.TRANSPARENT)
@@ -71,16 +84,13 @@ class QuoteFragment : Fragment() {
         xAxis.position = XAxis.XAxisPosition.BOTTOM
         xAxis.textColor = Color.WHITE
         xAxis.typeface = tfLight
-//        xAxis.setDrawGridLines(false)
+        //        xAxis.setDrawGridLines(false)
 
         yAxis.axisLineColor = Color.TRANSPARENT
         yAxis.gridColor = Color.DKGRAY
         yAxis.setLabelCount(2, false)
         yAxis.textColor = Color.WHITE
         yAxis.typeface = tfLight
-//        yAxis.setDrawGridLines(false)
-
-        chart.invalidate()
     }
 
     private fun generateLineData(count: Int, range: Float): LineData {

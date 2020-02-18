@@ -41,7 +41,7 @@
                 android:layout_marginTop="16dp"
                 android:text="@{viewModel.quote.symbol}"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/account_chart" />
+                app:layout_constraintTop_toBottomOf="@+id/quote_chart" />
 
             <TextView
                 android:id="@+id/share_name_text"
@@ -62,7 +62,7 @@
                 android:text="@{String.valueOf(viewModel.quote.latestPrice)}"
                 android:textAlignment="viewEnd"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/account_chart" />
+                app:layout_constraintTop_toBottomOf="@+id/quote_chart" />
 
             <TextView
                 android:id="@+id/share_running_cost_text"
