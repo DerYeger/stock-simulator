@@ -62,12 +62,3 @@ fun ProgressBar.bindSearchRepositoryState(state: SearchRepository.State) {
         else -> View.GONE
     }
 }
-
-@BindingAdapter("quoteState")
-fun View.bindQuoteRepositoryState(state: QuoteRepository.State) {
-    visibility = when (state) {
-        is QuoteRepository.State.Done -> View.VISIBLE
-        else -> View.GONE
-    }
-}
-

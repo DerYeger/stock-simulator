@@ -73,7 +73,7 @@ interface QuoteDao {
 
 @Database(
     entities = [ShareDatabase::class, DepotShare::class, Quote::class],
-    version = 7,
+    version = 1,
     exportSchema = false
 )
 abstract class StockAppDatabase : RoomDatabase() {
@@ -91,7 +91,7 @@ fun getDatabase(context: Context): StockAppDatabase {
                 .databaseBuilder(
                     context.applicationContext,
                     StockAppDatabase::class.java,
-                    "stock"
+                    "StockAppDatabase"
                 )
                 .fallbackToDestructiveMigration()
                 .build()

@@ -48,16 +48,12 @@ data class Quote(
     val latestUpdate: Long,
     val latestVolume: Long?,
     val volume: Long?,
-    val previousClose: Double,
-    val previousVolume: Long,
+    val previousClose: Double?,
+    val previousVolume: Long?,
     val change: Double,
     val changePercent: Double,
     val avgTotalVolume: Long,
     val marketCap: Long,
     val week52High: Double,
-    val week52Low: Double,
-    val ytdChange: Double,
-    val peRatio: Double,
-    val lastTradeTime: Long,
-    val isUSMarketOpen: Boolean
+    val week52Low: Double
 )
