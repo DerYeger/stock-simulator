@@ -12,7 +12,9 @@ import de.uniks.codliners.stock_simulator.databinding.FragmentStockbrotBinding
 
 class StockbrotFragment : Fragment() {
 
-    private val viewModel: StockbrotViewModel by viewModels()
+    private val viewModel: StockbrotViewModel by viewModels{
+        StockbrotViewModel.Factory(activity!!.application)
+    }
 
     private lateinit var binding: FragmentStockbrotBinding
 

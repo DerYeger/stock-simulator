@@ -1,11 +1,18 @@
 package de.uniks.codliners.stock_simulator.ui.stockbrot
 
+import android.app.Application
 import androidx.lifecycle.*
 import de.uniks.codliners.stock_simulator.background.Constants.Companion.THRESHOLD_BUY_DEFAULT_VALUE
 import de.uniks.codliners.stock_simulator.background.Constants.Companion.THRESHOLD_SELL_DEFAULT_VALUE
+import de.uniks.codliners.stock_simulator.repository.StockbrotRepository
 import kotlinx.coroutines.launch
 
-class StockbrotViewModel : ViewModel() {
+class StockbrotViewModel(application: Application) : ViewModel() {
+
+    private val stockbrotRepository = StockbrotRepository(application)
+
+    val stockbrotQuotes = stockbrotRepository.quotes
+
     private val _enabled = MutableLiveData(false)
     val enabled: LiveData<Boolean> = _enabled
 
@@ -15,6 +22,19 @@ class StockbrotViewModel : ViewModel() {
 
     private val _enabledAction = MediatorLiveData<Boolean>()
     val enabledAction: LiveData<Boolean> = _enabledAction
+
+    class Factory(
+        private val application: Application
+    ) : ViewModelProvider.Factory {
+
+        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+            if (modelClass.isAssignableFrom(StockbrotViewModel::class.java)) {
+                @Suppress("UNCHECKED_CAST")
+                return StockbrotViewModel(application) as T
+            }
+            throw IllegalArgumentException("Unable to construct viewmodel")
+        }
+    }
 
     init {
         _enabledAction.addSource(enabled) { enabled ->
