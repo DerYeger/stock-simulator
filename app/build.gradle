@@ -14,7 +14,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        buildConfigField "Double", "NEW_ACCOUNT_BALANCE", '10000'
+        buildConfigField "Double", "NEW_ACCOUNT_BALANCE", '10000.0'
         buildConfigField "String", "IEX_API_BASE_URL", '"https://cloud.iexapis.com/"'
         buildConfigField "String", "IEX_API_TOKEN", '"pk_db34bb4eff904de58dd82611668e075b"'
     }
