@@ -14,6 +14,7 @@ class QuoteViewModel(application: Application, private val symbol: String) : Vie
     val quote = quoteRepository.quoteWithSymbol(symbol)
     private val state = quoteRepository.state
     val refreshing = state.map { it === QuoteRepository.State.Refreshing }
+    val ready = state.map { it === QuoteRepository.State.Done }
 
     private val _errorAction = MediatorLiveData<String>()
     val errorAction: LiveData<String> = _errorAction
@@ -27,6 +28,12 @@ class QuoteViewModel(application: Application, private val symbol: String) : Vie
         }
 
         refresh()
+    }
+
+    fun buy() {
+        viewModelScope.launch {
+            accountRepository.buy(quote.value!!, 1)
+        }
     }
 
     fun refresh() {

@@ -101,7 +101,7 @@ interface AccountDao {
 
 @Database(
     entities = [ShareDatabase::class, DepotQuote::class, TransactionDatabase::class, Quote::class, Account::class],
-    version = 1,
+    version = 2,
     exportSchema = false
 )
 @TypeConverters(Converters::class)
