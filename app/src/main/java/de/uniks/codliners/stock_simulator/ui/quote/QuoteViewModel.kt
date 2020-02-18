@@ -1,9 +1,7 @@
 package de.uniks.codliners.stock_simulator.ui.quote
 
 import android.app.Application
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import de.uniks.codliners.stock_simulator.repository.QuoteRepository
 import kotlinx.coroutines.launch
 
@@ -12,15 +10,32 @@ class QuoteViewModel(application: Application, private val symbol: String) : Vie
     private val quoteRepository = QuoteRepository(application)
 
     val quote = quoteRepository.quoteWithSymbol(symbol)
-    val refreshing = quoteRepository.refreshing
+    private val state = quoteRepository.state
+    val refreshing = state.map { it === QuoteRepository.State.Refreshing }
+
+    private val _errorAction = MediatorLiveData<String>()
+    val errorAction: LiveData<String> = _errorAction
 
     init {
+        _errorAction.addSource(state) { state ->
+            _errorAction.value = when (state) {
+                is QuoteRepository.State.Error -> state.message
+                else -> null
+            }
+        }
+
         refresh()
     }
 
     fun refresh() {
         viewModelScope.launch {
             quoteRepository.fetchQuoteWithSymbol(symbol)
+        }
+    }
+
+    fun onErrorActionCompleted() {
+        viewModelScope.launch {
+            _errorAction.value = null
         }
     }
 

@@ -14,18 +14,31 @@ class QuoteRepository(private val database: StockAppDatabase) {
 
     constructor(application: Application) : this(getDatabase(application))
 
+    sealed class State {
+        object Empty: State()
+        object Refreshing: State()
+        object Done: State()
+        class Error(val message: String): State()
+    }
 
-    private val _refreshing = MutableLiveData<Boolean>()
-    val refreshing: LiveData<Boolean> = _refreshing
+    private val _state = MutableLiveData<State>().apply {
+        value = State.Empty
+    }
+    val state: LiveData<State> = _state
+
 
     fun quoteWithSymbol(symbol: String): LiveData<Quote> = database.quoteDao.getQuoteWithSymbol(symbol)
 
     suspend fun fetchQuoteWithSymbol(symbol: String) {
         withContext(Dispatchers.IO) {
-            _refreshing.postValue(true)
-            val response = NetworkService.IEX_API.quote(symbol)
-            database.quoteDao.insert(response)
-            _refreshing.postValue(false)
+            try {
+                _state.postValue(State.Refreshing)
+                val response = NetworkService.IEX_API.quote(symbol)
+                database.quoteDao.insert(response)
+                _state.postValue(State.Done)
+            } catch (exception: Exception) {
+                _state.postValue(State.Error(exception.message ?: "Oops!"))
+            }
         }
     }
 }
