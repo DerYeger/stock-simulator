@@ -2,12 +2,14 @@ package de.uniks.codliners.stock_simulator.ui.quote
 
 import android.app.Application
 import androidx.lifecycle.*
+import de.uniks.codliners.stock_simulator.repository.AccountRepository
 import de.uniks.codliners.stock_simulator.repository.QuoteRepository
 import kotlinx.coroutines.launch
 
 class QuoteViewModel(application: Application, private val symbol: String) : ViewModel() {
 
     private val quoteRepository = QuoteRepository(application)
+    private val accountRepository = AccountRepository(application)
 
     val quote = quoteRepository.quoteWithSymbol(symbol)
     private val state = quoteRepository.state

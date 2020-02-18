@@ -18,19 +18,20 @@ data class ShareDatabase constructor(
 )
 
 @Entity
-data class DepotShare constructor(
+data class DepotQuote(
     @PrimaryKey
-    val id: String
+    val symbol: String,
+    val amount: Long
 )
 
 @Entity
 data class TransactionDatabase constructor(
     @PrimaryKey(autoGenerate = true)
-    val primaryKey: Long,
+    val primaryKey: Long = 0,
     val shareName: String,
     val number: Int,
     val transactionType: TransactionType,
-    val date: String
+    val date: Long
 )
 
 fun ShareDatabase.asDomainModel() = Share(

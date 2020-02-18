@@ -25,5 +25,5 @@ data class Transaction(
     val shareName: String,
     val number: Int,
     val transactionType: TransactionType,
-    val date: String
+    val date: Long
 )
