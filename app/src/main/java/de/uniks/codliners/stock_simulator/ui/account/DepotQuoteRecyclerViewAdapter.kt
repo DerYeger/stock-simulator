@@ -7,15 +7,19 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import de.uniks.codliners.stock_simulator.database.DepotQuote
 import de.uniks.codliners.stock_simulator.databinding.DepotShareViewBinding
+import de.uniks.codliners.stock_simulator.domain.SearchResult
 import de.uniks.codliners.stock_simulator.domain.Share
+import de.uniks.codliners.stock_simulator.domain.Symbol
+import de.uniks.codliners.stock_simulator.ui.OnClickListener
 
-class DepotQuoteRecyclerViewAdapter :
+class DepotQuoteRecyclerViewAdapter(private val onClickListener: OnClickListener<SearchResult>):
     ListAdapter<DepotQuote, DepotQuoteRecyclerViewAdapter.ViewHolder>(DiffCallback) {
 
     inner class ViewHolder(private val binding: DepotShareViewBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(quote: DepotQuote) {
+            binding.onClickListener = onClickListener
             binding.quote = quote
             binding.executePendingBindings()
         }

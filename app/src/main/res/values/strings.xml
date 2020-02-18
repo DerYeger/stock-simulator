@@ -1,12 +1,22 @@
 <resources>
+    <string name="add_fingerprint">Add fingerprint authentication</string>
     <string name="app_name">stock-simulator</string>
-    <string name="title_depot">Depot</string>
-    <string name="title_account">Account</string>
-    <string name="title_search">Search</string>
-    <string name="title_history">History</string>
-    <string name="title_stockbrot">Stockbrot</string>
-    <string name="title_settings">Settings</string>
+    <string name="biometric_cancelled">Fingerprint authentication has been canceled!</string>
+    <string name="biometric_error_fingerprint_not_available">Device has no fingerprints registered!</string>
+    <string name="biometric_error_hardware_not_supported">Device does not contain any fingerprint sensors!</string>
+    <string name="biometric_error_permission_not_granted">USE_BIOMETRIC permission are not granted!</string>
+    <string name="biometric_error_sdk_not_supported">SDK does not support biometric authentication!</string>
+    <string name="biometric_failure">Biometric authentication failed!</string>
+    <string name="biometric_success">Fingerprint authenticated successfully!</string>
+    <string name="buy">Buy</string>
+    <string name="cancel">Cancel</string>
+    <string name="no_results">No results</string>
+    <string name="prefs_fingerprint_added">prefs_fingerprint_added</string>
+    <string name="remove_fingerprint">Remove fingerprint authentication</string>
     <string name="reset_game">Reset game</string>
+    <string name="title_account">Account</string>
+    <string name="title_depot">Depot</string>
+    <string name="title_history">History</string>
     <string name="title_quote">Quote</string>
     <string name="no_results">No results</string>
     <string name="buy">Buy</string>
@@ -14,4 +24,7 @@
     <string name="buy_hint">Buy amount</string>
     <string name="sell_hint">Sell amount</string>
     <string name="depot_quote_amount_format">You own %d shares</string>
+    <string name="title_search">Search</string>
+    <string name="title_settings">Settings</string>
+    <string name="title_stockbrot">Stockbrot</string>
 </resources>
