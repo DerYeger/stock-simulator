@@ -90,7 +90,6 @@ class QuoteViewModel(application: Application, private val symbol: String) : Vie
                     depotQuote = depotQuote.value,
                     state = state.value
                 )
-                Timber.i("Sell amount changed and new canSell is $value")
             }
 
             addSource(depotQuote) {

@@ -33,7 +33,6 @@ class AccountRepository(private val database: StockAppDatabase) {
 
     suspend fun buy(quote: Quote, amount: Int) {
         val lastBalance = latestBalance.value
-        Timber.i(balances.value.toString())
         lastBalance?.let {
             withContext(Dispatchers.IO) {
                 val newBalance = Balance(lastBalance.value - quote.latestPrice * amount)
@@ -60,7 +59,6 @@ class AccountRepository(private val database: StockAppDatabase) {
 
     suspend fun sell(quote: Quote, amount: Int) {
         val lastBalance = latestBalance.value
-        Timber.i(balances.value.toString())
         lastBalance?.let {
             withContext(Dispatchers.IO) {
                 val newBalance = Balance(lastBalance.value + quote.latestPrice * amount)
