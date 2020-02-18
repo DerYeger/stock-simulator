@@ -39,12 +39,10 @@ class StockbrotViewModel : ViewModel() {
     private fun enableBot() {
         println("enable bot")
         _enabled.value = true
-        _enabledAction.value = true
     }
 
     private fun disableBot() {
         println("disable bot")
         _enabled.value = false
-        _enabledAction.value = false
     }
 }
