@@ -17,7 +17,6 @@ import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import com.github.mikephil.charting.utils.ColorTemplate
 import de.uniks.codliners.stock_simulator.databinding.FragmentAccountBinding
 import de.uniks.codliners.stock_simulator.ui.OnClickListener
-import de.uniks.codliners.stock_simulator.ui.search.SearchFragmentDirections
 
 
 class AccountFragment : Fragment() {
