@@ -19,7 +19,9 @@ import de.uniks.codliners.stock_simulator.databinding.FragmentAccountBinding
 
 class AccountFragment : Fragment() {
 
-    private val viewModel: AccountViewModel by viewModels()
+    private val viewModel: AccountViewModel by viewModels{
+        AccountViewModel.Factory(activity!!.application)
+    }
 
     private lateinit var binding: FragmentAccountBinding
 
