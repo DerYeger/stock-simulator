@@ -7,13 +7,11 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import de.uniks.codliners.stock_simulator.R
+import de.uniks.codliners.stock_simulator.database.DepotQuote
 import de.uniks.codliners.stock_simulator.domain.SearchResult
-import de.uniks.codliners.stock_simulator.domain.Share
-import de.uniks.codliners.stock_simulator.domain.Symbol
-import de.uniks.codliners.stock_simulator.repository.QuoteRepository
 import de.uniks.codliners.stock_simulator.repository.SearchRepository
 import de.uniks.codliners.stock_simulator.domain.Transaction
-import de.uniks.codliners.stock_simulator.ui.account.DepotShareRecyclerViewAdapter
+import de.uniks.codliners.stock_simulator.ui.account.DepotQuoteRecyclerViewAdapter
 import de.uniks.codliners.stock_simulator.ui.search.SearchResultAdapter
 import de.uniks.codliners.stock_simulator.ui.history.HistoryRecyclerViewAdapter
 
@@ -35,10 +33,10 @@ fun RecyclerView.bindSearchResults(symbols: List<SearchResult>?) {
     adapter.submitList(symbols)
 }
 
-@BindingAdapter("depotShares")
-fun RecyclerView.bindDepotShares(shares: List<Share>?) {
-    val adapter = adapter as DepotShareRecyclerViewAdapter
-    adapter.submitList(shares)
+@BindingAdapter("depotQuotes")
+fun RecyclerView.bindDepotQuotes(quotes: List<DepotQuote>?) {
+    val adapter = adapter as DepotQuoteRecyclerViewAdapter
+    adapter.submitList(quotes)
 }
 
 @BindingAdapter("searchState")
