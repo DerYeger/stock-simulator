@@ -14,16 +14,20 @@ class StockbrotWorkRequest(context: Context) {
 
     fun start() {
         println("start StockbrotWorkRequest")
+
         val constraints = Constraints.Builder()
             .setRequiredNetworkType(NetworkType.CONNECTED)
             .build()
 
-        // TODO: use thresholds as inputdata ?
-        // https://youtu.be/pe_yqM16hPQ?t=182
+        val data = Data.Builder()
+            .putDouble(THRESHOLD_BUY_KEY, thresholdBuy)
+            .putDouble(THRESHOLD_SELL_KEY, thresholdSell)
+            .build()
 
         val workRequest = PeriodicWorkRequest.Builder(StockbrotWorker::class.java, 30, TimeUnit.MINUTES)
             .addTag(WORKER_TAG)
             .setConstraints(constraints)
+            .setInputData(data)
             .build()
 
         workManager.enqueue(workRequest)
