@@ -21,15 +21,27 @@
             android:layout_height="match_parent"
             app:visible="@{viewModel.quote != null}">
 
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/quote_chart"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <TextView
                 android:id="@+id/share_id_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/default_spacing"
-                android:layout_marginTop="@dimen/default_spacing"
+                android:layout_marginTop="16dp"
                 android:text="@{viewModel.quote.symbol}"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/account_chart" />
 
             <TextView
                 android:id="@+id/share_name_text"
@@ -45,12 +57,12 @@
                 android:id="@+id/share_value_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/default_spacing"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="@dimen/default_spacing"
                 android:text="@{String.valueOf(viewModel.quote.latestPrice)}"
                 android:textAlignment="viewEnd"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/account_chart" />
 
             <TextView
                 android:id="@+id/share_running_cost_text"
