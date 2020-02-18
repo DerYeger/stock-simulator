@@ -6,6 +6,9 @@ apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 29
+
+    // disabled due to https://github.com/actions/starter-workflows/issues/58#issuecomment-582836601
+    //noinspection GradleDependency
     buildToolsVersion "29.0.2"
     defaultConfig {
         applicationId "de.uniks.codliners.stock_simulator"
