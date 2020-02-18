@@ -19,10 +19,9 @@ class StockSimulatorApplication : Application() {
         Timber.plant(Timber.DebugTree())
 
         onFirstRun {
-            CoroutineScope(Dispatchers.Main).launch {
-                AccountRepository(this@StockSimulatorApplication).resetAccount()
-            }
         }
+
+        ensureAccountPresence()
     }
 
     private inline fun onFirstRun(block: () -> Unit) {

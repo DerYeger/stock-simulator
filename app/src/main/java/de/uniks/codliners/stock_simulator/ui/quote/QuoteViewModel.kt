@@ -21,8 +21,8 @@ class QuoteViewModel(application: Application, private val symbol: String) : Vie
     private val _errorAction = MediatorLiveData<String>()
     val errorAction: LiveData<String> = _errorAction
 
-    val buyAmount = MutableLiveData(0)
-    val sellAmount = MutableLiveData(0)
+    val buyAmount = MutableLiveData("0")
+    val sellAmount = MutableLiveData("0")
 
     init {
         _errorAction.addSource(state) { state ->
@@ -37,13 +37,13 @@ class QuoteViewModel(application: Application, private val symbol: String) : Vie
 
     fun buy() {
         viewModelScope.launch {
-            accountRepository.buy(quote.value!!, buyAmount.value!!)
+            accountRepository.buy(quote.value!!, buyAmount.value!!.toInt())
         }
     }
 
     fun sell() {
         viewModelScope.launch {
-            accountRepository.sell(quote.value!!, sellAmount.value!!)
+            accountRepository.sell(quote.value!!, sellAmount.value!!.toInt())
         }
     }
 
