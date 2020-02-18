@@ -9,6 +9,8 @@ class AccountViewModel(application: Application) : ViewModel() {
 
     private val accountRepository = AccountRepository(application)
 
+    val balance = accountRepository.latestBalance
+
     val depotQuotes = accountRepository.depot
 
 //    val depotShares = listOf(
