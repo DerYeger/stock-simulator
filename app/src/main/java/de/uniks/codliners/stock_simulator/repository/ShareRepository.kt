@@ -23,12 +23,6 @@ class ShareRepository(private val stockAppDatabase: StockAppDatabase) {
         it?.asDomainModel()
     }
 
-    suspend fun fetchShareWithId(shareId: String) {
-        withContext(Dispatchers.IO) {
-
-        }
-    }
-
     suspend fun refreshShares() {
         withContext(Dispatchers.IO) {
             // val shareList = Network.shareService.getShares().await()

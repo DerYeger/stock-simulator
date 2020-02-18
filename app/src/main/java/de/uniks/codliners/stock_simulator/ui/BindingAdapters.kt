@@ -10,6 +10,7 @@ import de.uniks.codliners.stock_simulator.R
 import de.uniks.codliners.stock_simulator.domain.SearchResult
 import de.uniks.codliners.stock_simulator.domain.Share
 import de.uniks.codliners.stock_simulator.domain.Symbol
+import de.uniks.codliners.stock_simulator.repository.QuoteRepository
 import de.uniks.codliners.stock_simulator.repository.SearchRepository
 import de.uniks.codliners.stock_simulator.domain.Transaction
 import de.uniks.codliners.stock_simulator.ui.account.DepotShareRecyclerViewAdapter
@@ -57,7 +58,7 @@ fun TextView.bindSearchState(state: SearchRepository.State) {
 }
 
 @BindingAdapter("searchState")
-fun ProgressBar.bindSearchState(state: SearchRepository.State) {
+fun ProgressBar.bindSearchRepositoryState(state: SearchRepository.State) {
     visibility = when (state) {
         is SearchRepository.State.Searching -> View.VISIBLE
         else -> View.GONE
