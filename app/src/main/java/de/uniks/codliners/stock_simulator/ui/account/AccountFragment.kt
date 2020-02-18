@@ -38,7 +38,7 @@ class AccountFragment : Fragment() {
 
         binding = FragmentAccountBinding.inflate(inflater)
         binding.viewModel = viewModel
-        binding.depotRecyclerView.adapter = DepotShareRecyclerViewAdapter()
+        binding.depotRecyclerView.adapter = DepotQuoteRecyclerViewAdapter()
         binding.lifecycleOwner = this
 
         initBalanceChart()
