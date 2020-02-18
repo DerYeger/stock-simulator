@@ -72,7 +72,6 @@ class AccountRepository(private val database: StockAppDatabase) {
         }
     }
 
-
     suspend fun resetAccount() {
         withContext(Dispatchers.IO) {
             database.accountDao.deleteDepot()

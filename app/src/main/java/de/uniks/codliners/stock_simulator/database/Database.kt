@@ -3,7 +3,6 @@ package de.uniks.codliners.stock_simulator.database
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import androidx.room.Database
 import androidx.room.OnConflictStrategy.REPLACE
 import de.uniks.codliners.stock_simulator.domain.Account
 import de.uniks.codliners.stock_simulator.domain.Quote
