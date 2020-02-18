@@ -6,6 +6,9 @@ apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 29
+
+    // disabled due to https://github.com/actions/starter-workflows/issues/58#issuecomment-582836601
+    //noinspection GradleDependency
     buildToolsVersion "29.0.2"
     defaultConfig {
         applicationId "de.uniks.codliners.stock_simulator"
@@ -14,6 +17,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField "Double", "NEW_ACCOUNT_BALANCE", '10000.0'
         buildConfigField "String", "IEX_API_BASE_URL", '"https://cloud.iexapis.com/"'
         buildConfigField "String", "IEX_API_TOKEN", '"pk_db34bb4eff904de58dd82611668e075b"'
     }
@@ -80,5 +84,13 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    // MPAndroidChart
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+
+    // Biometric Auth
+    implementation(group: 'com.an.biometric', name: 'biometric-auth', version: '0.1.0', ext: 'aar', classifier: '')
+
+    // Background Worker
     implementation 'androidx.work:work-runtime:2.3.1'
 }

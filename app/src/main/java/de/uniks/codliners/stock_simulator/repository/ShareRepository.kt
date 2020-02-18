@@ -20,7 +20,7 @@ class ShareRepository(private val stockAppDatabase: StockAppDatabase) {
     }
 
     fun shareWithId(shareId: String): LiveData<Share> = Transformations.map(stockAppDatabase.shareDao.getShareById(shareId)) {
-        it.asDomainModel()
+        it?.asDomainModel()
     }
 
     suspend fun refreshShares() {
@@ -29,6 +29,5 @@ class ShareRepository(private val stockAppDatabase: StockAppDatabase) {
             // stockDatabase.shareDao.insertAll(*shareList.asDatabaseModel())
         }
     }
-
 }
 

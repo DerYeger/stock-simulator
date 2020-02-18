@@ -10,7 +10,9 @@ import de.uniks.codliners.stock_simulator.databinding.FragmentHistoryBinding
 
 class HistoryFragment : Fragment() {
 
-    private val viewModel: HistoryViewModel by viewModels()
+    private val viewModel: HistoryViewModel by viewModels {
+        HistoryViewModel.Factory(activity!!.application)
+    }
 
     private lateinit var binding: FragmentHistoryBinding
 
@@ -21,6 +23,7 @@ class HistoryFragment : Fragment() {
     ): View {
         binding = FragmentHistoryBinding.inflate(inflater)
         binding.viewModel = viewModel
+        binding.historyRecyclerView.adapter = HistoryRecyclerViewAdapter()
         binding.lifecycleOwner = this
         return binding.root
     }
