@@ -48,7 +48,7 @@ class QuoteViewModel(application: Application, private val symbol: String) : Vie
         _canBuy.apply {
             addSource(buyAmount) {
                 value = canBuy(
-                    amount = it.toSafeLong(),
+                    amount = it?.toSafeLong(),
                     price = quote.value?.latestPrice,
                     balance = latestBalance.value,
                     state = state.value
@@ -58,7 +58,7 @@ class QuoteViewModel(application: Application, private val symbol: String) : Vie
             addSource(quote) {
                 value = canBuy(
                     amount = buyAmount.value?.toSafeLong(),
-                    price = it.latestPrice,
+                    price = it?.latestPrice,
                     balance = latestBalance.value,
                     state = state.value
                 )

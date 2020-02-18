@@ -10,7 +10,6 @@ import de.uniks.codliners.stock_simulator.database.getDatabase
 import de.uniks.codliners.stock_simulator.domain.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import timber.log.Timber
 
 class AccountRepository(private val database: StockAppDatabase) {
 
