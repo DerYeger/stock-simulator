@@ -104,6 +104,28 @@ interface AccountDao {
     fun deleteDepot()
 }
 
+@Dao
+interface StockbrotDao {
+
+    @Insert(onConflict = REPLACE)
+    fun insertQuote(quote: Quote)
+
+    @Query("SELECT * FROM quote")
+    fun getQuotes(): LiveData<List<Quote>>
+
+    @Query("SELECT * FROM quote WHERE symbol == :symbol LIMIT 1")
+    fun getQuoteWithSymbol(symbol: String): LiveData<Quote>
+
+    @Query("SELECT * FROM quote WHERE symbol == :symbol LIMIT 1")
+    fun getQuoteBySymbol(symbol: String): Quote?
+
+    @Query("DELETE FROM quote WHERE symbol == :symbol")
+    fun deleteQuoteBySymbol(symbol: String)
+
+    @Query("DELETE FROM quote")
+    fun deleteDepot()
+}
+
 @Database(
     entities = [ShareDatabase::class, DepotQuote::class, TransactionDatabase::class, Quote::class, Balance::class],
     version = 4,
@@ -115,6 +137,7 @@ abstract class StockAppDatabase: RoomDatabase() {
     abstract val quoteDao: QuoteDao
     abstract val transactionDao: TransactionDao
     abstract val accountDao: AccountDao
+    abstract val stockbrotDao: StockbrotDao
 }
 
 private lateinit var INSTANCE: StockAppDatabase
