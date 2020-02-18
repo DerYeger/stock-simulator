@@ -42,7 +42,7 @@ class AccountFragment : Fragment() {
         binding = FragmentAccountBinding.inflate(inflater)
         binding.viewModel = viewModel
         binding.depotRecyclerView.adapter = DepotQuoteRecyclerViewAdapter(OnClickListener { symbol ->
-            val action = SearchFragmentDirections.actionNavigationSearchToShareFragment(symbol.symbol)
+            val action = AccountFragmentDirections.actionNavigationAccountToShareFragment(symbol.symbol)
             findNavController().navigate(action)
         })
         binding.lifecycleOwner = this

@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import androidx.room.OnConflictStrategy.REPLACE
-import de.uniks.codliners.stock_simulator.domain.Account
+import de.uniks.codliners.stock_simulator.domain.Balance
 import de.uniks.codliners.stock_simulator.domain.Quote
 
 @Dao
@@ -28,7 +28,7 @@ interface ShareDao {
     @Insert
     fun insert(share: ShareDatabase)
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = REPLACE)
     fun insertAll(vararg shares: ShareDatabase)
 }
 
@@ -66,7 +66,7 @@ interface TransactionDao {
     @Insert
     fun insert(transaction: TransactionDatabase)
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = REPLACE)
     fun insertAll(vararg transactions: TransactionDatabase)
 }
 
@@ -74,33 +74,39 @@ interface TransactionDao {
 interface AccountDao {
 
     @Insert(onConflict = REPLACE)
-    fun insert(account: Account)
+    fun insertBalance(balance: Balance)
 
-    @Update
-    fun update(account: Account)
+    @Query("SELECT * FROM balance ORDER BY balance.timestamp ASC")
+    fun getBalances(): LiveData<List<Balance>>
 
-    @Query("SELECT * FROM account ORDER BY account.id ASC LIMIT 1")
-    fun getAccount(): LiveData<Account>
+    @Query("SELECT * FROM balance ORDER BY balance.timestamp DESC LIMIT 1")
+    fun getLatestBalance(): LiveData<Balance>
 
-    @Query("DELETE FROM depotquote")
-    fun deleteDepot()
-
-    @Query("SELECT depotquote.* FROM depotquote")
-    fun getDepot(): LiveData<List<DepotQuote>>
-
-    @Query("SELECT * FROM depotquote WHERE symbol == :symbol LIMIT 1")
-    fun getDepotQuoteBySymbol(symbol: String): DepotQuote
+    @Query("DELETE FROM balance")
+    fun deleteBalances()
 
     @Insert(onConflict = REPLACE)
     fun insertDepotQuote(depot: DepotQuote)
 
+    @Query("SELECT * FROM depotquote")
+    fun getDepotQuotes(): LiveData<List<DepotQuote>>
+
+    @Query("SELECT * FROM depotquote WHERE symbol == :symbol LIMIT 1")
+    fun getDepotQuoteWithSymbol(symbol: String): LiveData<DepotQuote>
+
+    @Query("SELECT * FROM depotquote WHERE symbol == :symbol LIMIT 1")
+    fun getDepotQuoteBySymbol(symbol: String): DepotQuote?
+
     @Query("DELETE FROM depotquote WHERE symbol == :symbol")
     fun deleteDepotQuoteBySymbol(symbol: String)
+
+    @Query("DELETE FROM depotquote")
+    fun deleteDepot()
 }
 
 @Database(
-    entities = [ShareDatabase::class, DepotQuote::class, TransactionDatabase::class, Quote::class, Account::class],
-    version = 2,
+    entities = [ShareDatabase::class, DepotQuote::class, TransactionDatabase::class, Quote::class, Balance::class],
+    version = 4,
     exportSchema = false
 )
 @TypeConverters(Converters::class)
