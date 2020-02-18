@@ -12,7 +12,7 @@ import de.uniks.codliners.stock_simulator.domain.Share
 import de.uniks.codliners.stock_simulator.domain.Symbol
 import de.uniks.codliners.stock_simulator.ui.OnClickListener
 
-class DepotQuoteRecyclerViewAdapter(private val onClickListener: OnClickListener<Symbol>):
+class DepotQuoteRecyclerViewAdapter():
     ListAdapter<DepotQuote, DepotQuoteRecyclerViewAdapter.ViewHolder>(DiffCallback) {
 
     inner class ViewHolder(private val binding: DepotShareViewBinding) :
