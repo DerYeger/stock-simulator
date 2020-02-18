@@ -29,7 +29,7 @@ class QuoteFragment : Fragment() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
-        viewModel.errorAction.observe(this, Observer { errorMessage: String? ->
+        viewModel.errorAction.observe(viewLifecycleOwner, Observer { errorMessage: String? ->
             errorMessage?.let {
                 Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
                 findNavController().navigateUp()

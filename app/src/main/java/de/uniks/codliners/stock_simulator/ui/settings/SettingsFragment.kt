@@ -55,7 +55,7 @@ class SettingsFragment : Fragment() {
         listener.onSharedPreferenceChanged(preferences, "prefs_fingerprint_added")
 
         // React to fingerprint button clicks.
-        viewModel.toggleFingerprintStatus.observe(this, Observer { status ->
+        viewModel.toggleFingerprintStatus.observe(viewLifecycleOwner, Observer { status ->
             status?.let {
 
                 // Reset click indicator.
