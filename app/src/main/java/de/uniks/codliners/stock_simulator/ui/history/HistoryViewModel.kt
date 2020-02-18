@@ -21,7 +21,7 @@ class HistoryViewModel(application: Application) : ViewModel() {
     val shareOne = Share("AA", "american airline", 20.0, 0.2, 0.2, 0.1)
     val shareTwo = Share("SMA", "sma ", 19.0, 0.2, 0.2, 0.1)
 
-    val transaction = Transaction(shareOne.name, 2, TransactionType.BUY, "20-11-2020")
+    val transaction = Transaction(shareOne.name, 2, TransactionType.BUY, 0L)
 
     // val transactions = listOf(transaction)
 

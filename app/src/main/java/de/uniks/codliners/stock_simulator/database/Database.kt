@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import androidx.room.OnConflictStrategy.REPLACE
+import de.uniks.codliners.stock_simulator.domain.Account
 import de.uniks.codliners.stock_simulator.domain.Quote
 
 @Dao
@@ -29,28 +30,6 @@ interface ShareDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(vararg shares: ShareDatabase)
-}
-
-@Dao
-interface DepotDao {
-
-    @Query("select sharedatabase.* from depotshare inner join sharedatabase where depotshare.id = sharedatabase.id = :shareId")
-    fun getShareById(shareId: String): LiveData<ShareDatabase>
-
-    @Query("select sharedatabase.* from depotshare inner join sharedatabase where depotshare.id = sharedatabase.id")
-    fun getShares(): LiveData<List<ShareDatabase>>
-
-    @Delete
-    fun deleteAll(vararg shares: DepotShare)
-
-    @Delete
-    fun delete(share: DepotShare)
-
-    @Insert
-    fun insert(share: DepotShare)
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(vararg depotShares: DepotShare)
 }
 
 @Dao
@@ -91,13 +70,45 @@ interface TransactionDao {
     fun insertAll(vararg transactions: TransactionDatabase)
 }
 
-@Database(entities = [ShareDatabase::class, DepotShare::class, TransactionDatabase::class, Quote::class], version = 1, exportSchema = false)
+@Dao
+interface AccountDao {
+
+    @Insert(onConflict = REPLACE)
+    fun insert(account: Account)
+
+    @Update
+    fun update(account: Account)
+
+    @Query("SELECT * FROM account ORDER BY account.id ASC LIMIT 1")
+    fun getAccount(): LiveData<Account>
+
+    @Query("DELETE FROM depotquote")
+    fun deleteDepot()
+
+    @Query("SELECT depotquote.* FROM depotquote")
+    fun getDepot(): LiveData<List<DepotQuote>>
+
+    @Query("SELECT * FROM depotquote WHERE symbol == :symbol LIMIT 1")
+    fun getDepotQuoteBySymbol(symbol: String): DepotQuote
+
+    @Insert(onConflict = REPLACE)
+    fun insertDepotQuote(depot: DepotQuote)
+
+    @Query("DELETE FROM depotquote WHERE symbol == :symbol")
+    fun deleteDepotQuoteBySymbol(symbol: String)
+}
+
+@Database(
+    entities = [ShareDatabase::class, DepotQuote::class, TransactionDatabase::class, Quote::class, Account::class],
+    version = 2,
+    exportSchema = false
+)
 @TypeConverters(Converters::class)
 abstract class StockAppDatabase: RoomDatabase() {
     abstract val shareDao: ShareDao
-    abstract val depotDao: DepotDao
     abstract val quoteDao: QuoteDao
     abstract val transactionDao: TransactionDao
+    abstract val accountDao: AccountDao
 }
 
 private lateinit var INSTANCE: StockAppDatabase
@@ -117,4 +128,3 @@ fun getDatabase(context: Context): StockAppDatabase {
     }
     return INSTANCE
 }
-
