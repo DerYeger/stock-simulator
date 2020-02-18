@@ -5,26 +5,27 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import de.uniks.codliners.stock_simulator.database.DepotQuote
 import de.uniks.codliners.stock_simulator.databinding.DepotShareViewBinding
 import de.uniks.codliners.stock_simulator.domain.Share
 
-class DepotShareRecyclerViewAdapter :
-    ListAdapter<Share, DepotShareRecyclerViewAdapter.ViewHolder>(DiffCallback) {
+class DepotQuoteRecyclerViewAdapter :
+    ListAdapter<DepotQuote, DepotQuoteRecyclerViewAdapter.ViewHolder>(DiffCallback) {
 
     inner class ViewHolder(private val binding: DepotShareViewBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(share: Share) {
-            binding.share = share
+        fun bind(quote: DepotQuote) {
+            binding.quote = quote
             binding.executePendingBindings()
         }
     }
 
-    companion object DiffCallback : DiffUtil.ItemCallback<Share>() {
-        override fun areItemsTheSame(oldItem: Share, newItem: Share) =
-            oldItem.id == newItem.id
+    companion object DiffCallback : DiffUtil.ItemCallback<DepotQuote>() {
+        override fun areItemsTheSame(oldItem: DepotQuote, newItem: DepotQuote) =
+            oldItem.symbol == newItem.symbol
 
-        override fun areContentsTheSame(oldItem: Share, newItem: Share) =
+        override fun areContentsTheSame(oldItem: DepotQuote, newItem: DepotQuote) =
             oldItem == newItem
     }
 
@@ -39,7 +40,7 @@ class DepotShareRecyclerViewAdapter :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val share: Share = getItem(position)
-        holder.bind(share)
+        val quote: DepotQuote = getItem(position)
+        holder.bind(quote)
     }
 }
