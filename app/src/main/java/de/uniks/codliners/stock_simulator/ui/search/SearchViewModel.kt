@@ -12,7 +12,8 @@ class SearchViewModel(application: Application) : ViewModel() {
 
     private val symbolRepository = SymbolRepository(application)
     private val symbols = symbolRepository.symbols
-    val symbolState = symbolRepository.state
+    private val state = symbolRepository.state
+    val refreshing = state.map { it === SymbolRepository.State.Refreshing }
 
     private val _searchResults = MediatorLiveData<List<Symbol>>()
     val searchResults: LiveData<List<Symbol>> = _searchResults
@@ -33,9 +34,13 @@ class SearchViewModel(application: Application) : ViewModel() {
             }
         }
 
-       viewModelScope.launch {
-           symbolRepository.refreshSymbols()
-       }
+        refreshSymbols()
+    }
+
+    fun refreshSymbols() {
+        viewModelScope.launch {
+            symbolRepository.refreshSymbols()
+        }
     }
 
     class Factory(
