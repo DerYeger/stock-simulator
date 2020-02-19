@@ -7,8 +7,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import de.uniks.codliners.stock_simulator.background.StockbrotWorkRequest
 import de.uniks.codliners.stock_simulator.databinding.FragmentStockbrotBinding
+import de.uniks.codliners.stock_simulator.ui.OnClickListener
 
 class StockbrotFragment : Fragment() {
 
@@ -27,6 +29,10 @@ class StockbrotFragment : Fragment() {
     ): View {
         binding = FragmentStockbrotBinding.inflate(inflater)
         binding.viewModel = viewModel
+        binding.stockbrotRecyclerView.adapter = StockbrotQuoteRecyclerViewAdapter(OnClickListener { symbol ->
+            val action = StockbrotFragmentDirections.actionNavigationStockbrotToNavigationQuote(symbol.symbol)
+            findNavController().navigate(action)
+        })
         binding.lifecycleOwner = this
 
         stockbrotWorkRequest = StockbrotWorkRequest(context!!)  // TODO: check for null?
