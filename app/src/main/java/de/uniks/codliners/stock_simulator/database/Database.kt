@@ -32,6 +32,9 @@ interface TransactionDao {
     @Query("select * from transactiondatabase where symbol = :shareName")
     fun getTransactionsByShareName(shareName: String): LiveData<List<TransactionDatabase>>
 
+    @Query("select * from transactiondatabase limit :limit")
+    fun getTransactionsLimited(limit: Int): LiveData<List<TransactionDatabase>>
+
     @Query("SELECT * FROM transactiondatabase ORDER BY transactiondatabase.date DESC")
     fun getTransactions(): LiveData<List<TransactionDatabase>>
 
