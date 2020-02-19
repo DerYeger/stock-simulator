@@ -65,7 +65,6 @@ class SettingsFragment : Fragment() {
                 this.context!!.resetAccount()
                 this.context!!.resetHistory()
                 this.context!!.resetQuotes()
-                this.context!!.resetShares()
 
                 Toast.makeText(this.context, "Data reset successfully.", Toast.LENGTH_SHORT).show()
             }

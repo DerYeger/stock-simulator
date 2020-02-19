@@ -1,3 +1,5 @@
+@file:Suppress("SpellCheckingInspection")
+
 package de.uniks.codliners.stock_simulator.network
 
 import com.squareup.moshi.JsonAdapter

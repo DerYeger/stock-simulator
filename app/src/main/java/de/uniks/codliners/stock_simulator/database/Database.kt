@@ -8,34 +8,6 @@ import de.uniks.codliners.stock_simulator.domain.Balance
 import de.uniks.codliners.stock_simulator.domain.Quote
 
 @Dao
-interface ShareDao {
-
-    @Query("select * from sharedatabase where name = :shareName")
-    fun getShareByName(shareName: String): LiveData<ShareDatabase>
-
-    @Query("select * from sharedatabase where id = :shareId")
-    fun getShareById(shareId: String): LiveData<ShareDatabase>
-
-    @Query("select * from sharedatabase")
-    fun getShares(): LiveData<List<ShareDatabase>>
-
-    @Delete
-    fun delete(share: ShareDatabase)
-
-    @Delete
-    fun deleteAll(vararg shares: ShareDatabase)
-
-    @Insert
-    fun insert(share: ShareDatabase)
-
-    @Insert(onConflict = REPLACE)
-    fun insertAll(vararg shares: ShareDatabase)
-
-    @Query("DELETE FROM sharedatabase")
-    fun deleteShares()
-}
-
-@Dao
 interface QuoteDao {
 
     @Insert(onConflict = REPLACE)
@@ -57,10 +29,10 @@ interface QuoteDao {
 @Dao
 interface TransactionDao {
 
-    @Query("select * from transactiondatabase where shareName = :shareName")
+    @Query("select * from transactiondatabase where symbol = :shareName")
     fun getTransactionsByShareName(shareName: String): LiveData<List<TransactionDatabase>>
 
-    @Query("select * from transactiondatabase")
+    @Query("SELECT * FROM transactiondatabase ORDER BY transactiondatabase.date DESC")
     fun getTransactions(): LiveData<List<TransactionDatabase>>
 
     @Delete
@@ -136,13 +108,12 @@ interface StockbrotDao {
 }
 
 @Database(
-    entities = [ShareDatabase::class, DepotQuote::class, TransactionDatabase::class, Quote::class, Balance::class],
-    version = 4,
+    entities = [DepotQuote::class, TransactionDatabase::class, Quote::class, Balance::class],
+    version = 7,
     exportSchema = false
 )
 @TypeConverters(Converters::class)
 abstract class StockAppDatabase: RoomDatabase() {
-    abstract val shareDao: ShareDao
     abstract val quoteDao: QuoteDao
     abstract val transactionDao: TransactionDao
     abstract val accountDao: AccountDao

@@ -37,4 +37,8 @@
     <string name="title_search">Search</string>
     <string name="title_settings">Settings</string>
     <string name="title_stockbrot">Stockbrot</string>
+    <string name="query">Symbol</string>
+    <string name="currency_format">%.2f€</string>
+    <string name="percent_format">%.2f%%</string>
+    <string name="depot_quote_format">%s - %d</string>
 </resources>

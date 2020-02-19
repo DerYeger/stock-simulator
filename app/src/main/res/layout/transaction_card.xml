@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="transaction"
+            type="de.uniks.codliners.stock_simulator.domain.Transaction" />
+
+        <variable
+            name="dateString"
+            type="String" />
+
+        <variable
+            name="onClickListener"
+            type="de.uniks.codliners.stock_simulator.ui.OnClickListener" />
+
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/default_spacing"
+        app:cardCornerRadius="@dimen/default_corner_radius"
+        app:cardElevation="@dimen/default_elevation"
+        android:onClick="@{() -> onClickListener.onClick(transaction)}"
+        app:contentPadding="@dimen/default_spacing">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/transaction_symbol_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/half_spacing"
+                android:text="@{transaction.symbol}"
+                app:layout_constraintEnd_toStartOf="@+id/transaction_amount_text"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="SYMBOL" />
+
+            <TextView
+                android:id="@+id/transaction_amount_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{String.valueOf(transaction.amount)}"
+                app:layout_constraintBaseline_toBaselineOf="@+id/transaction_symbol_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:text="42" />
+
+            <TextView
+                android:id="@+id/transaction_type_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/half_spacing"
+                android:layout_marginEnd="@dimen/half_spacing"
+                android:text="@{String.valueOf(transaction.transactionType)}"
+                app:layout_constraintEnd_toStartOf="@+id/transaction_date_text"
+                app:layout_constraintStart_toStartOf="@+id/transaction_symbol_text"
+                app:layout_constraintTop_toBottomOf="@+id/transaction_symbol_text"
+                tools:text="@string/sell" />
+
+            <TextView
+                android:id="@+id/transaction_date_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{dateString}"
+                app:layout_constraintBaseline_toBaselineOf="@+id/transaction_type_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:text="31.12.2019" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</layout>
