@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer
 import de.uniks.codliners.stock_simulator.repository.AccountRepository
 import de.uniks.codliners.stock_simulator.repository.HistoryRepository
 import de.uniks.codliners.stock_simulator.repository.QuoteRepository
+import de.uniks.codliners.stock_simulator.repository.StockbrotRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -37,6 +38,13 @@ fun Context.resetQuotes() {
     val self = this
     CoroutineScope(Dispatchers.Main).launch {
         QuoteRepository(self).resetQuotes()
+    }
+}
+
+fun Context.resetStockbrot() {
+    val self = this
+    CoroutineScope(Dispatchers.Main).launch {
+        StockbrotRepository(self).resetStockbrot()
     }
 }
 

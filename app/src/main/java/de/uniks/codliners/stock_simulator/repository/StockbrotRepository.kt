@@ -31,4 +31,12 @@ class StockbrotRepository(private val database: StockAppDatabase) {
         }
     }
 
+    suspend fun resetStockbrot() {
+        withContext(Dispatchers.IO) {
+            database.stockbrotDao.apply {
+                deleteStockbrote()
+            }
+        }
+    }
+
 }
