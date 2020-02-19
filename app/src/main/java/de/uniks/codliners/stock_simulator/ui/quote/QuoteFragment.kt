@@ -14,6 +14,8 @@ import de.uniks.codliners.stock_simulator.databinding.FragmentQuoteBinding
 import de.uniks.codliners.stock_simulator.initLineChart
 import de.uniks.codliners.stock_simulator.updateLineChart
 import java.text.SimpleDateFormat
+import java.util.*
+
 
 class QuoteFragment : Fragment() {
 
