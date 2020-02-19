@@ -155,12 +155,34 @@
                     app:layout_constraintTop_toBottomOf="@+id/sell_number"
                     tools:text="You own 1 share." />
 
+
+                <TextView
+                    android:id="@+id/title_auto_buy_sell"
+                    style="@style/TextAppearance.MaterialComponents.Headline6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="48dp"
+                    android:text="@string/title_auto_buy_sell"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/depot_text" />
+
+                <TextView
+                    android:id="@+id/title_threshold_buy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/stockbrot_threshold_buy"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/title_auto_buy_sell" />
+
                 <EditText
                     android:id="@+id/stockbrot_threshold_buy"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/default_spacing"
-                    android:layout_marginTop="64dp"
+                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
                     android:ems="10"
                     android:hint="@string/stockbrot_threshold_buy"
@@ -169,14 +191,24 @@
                     android:text="@={viewModel.thresholdBuy}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/depot_text" />
+                    app:layout_constraintTop_toBottomOf="@+id/title_threshold_buy" />
+
+                <TextView
+                    android:id="@+id/title_threshold_sell"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/stockbrot_threshold_sell"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/stockbrot_threshold_buy" />
 
                 <EditText
                     android:id="@+id/stockbrot_threshold_sell"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/default_spacing"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
                     android:ems="10"
                     android:hint="@string/stockbrot_threshold_sell"
@@ -186,7 +218,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/stockbrot_threshold_buy" />
+                    app:layout_constraintTop_toBottomOf="@+id/title_threshold_sell" />
 
                 <Button
                     android:id="@+id/button_add_quote_to_bot"
