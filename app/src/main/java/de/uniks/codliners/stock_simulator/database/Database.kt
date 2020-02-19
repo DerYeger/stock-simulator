@@ -129,6 +129,9 @@ interface HistoricalPriceDao {
 
     @Query("delete from historicalprice")
     fun deleteHistoricalPrices()
+
+    @Query("delete from historicalprice where symbol = :symbol")
+    fun deleteHistoricalPricesBySymbol(symbol: String)
 }
 
 @Database(

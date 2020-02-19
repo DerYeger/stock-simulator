@@ -14,8 +14,13 @@ import de.uniks.codliners.stock_simulator.repository.StockbrotRepository
 import de.uniks.codliners.stock_simulator.toSafeDouble
 import de.uniks.codliners.stock_simulator.toSafeLong
 import kotlinx.coroutines.launch
+import java.util.*
+
 
 class QuoteViewModel(application: Application, private val symbol: String) : AndroidViewModel(application) {
+
+
+    private lateinit var timer: Timer
 
     private val quoteRepository = QuoteRepository(application)
     private val accountRepository = AccountRepository(application)
@@ -156,6 +161,21 @@ class QuoteViewModel(application: Application, private val symbol: String) : And
         }
 
         refresh()
+        initTimer()
+    }
+
+    private fun initTimer() {
+        timer = Timer()
+        timer.schedule(object : TimerTask() {
+            override fun run() {
+                refresh()
+            }
+        }, 10000, 10000)
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        timer.cancel()
     }
 
     fun buy() {
@@ -240,4 +260,5 @@ class QuoteViewModel(application: Application, private val symbol: String) : And
             throw IllegalArgumentException("Unable to construct viewmodel")
         }
     }
+
 }
