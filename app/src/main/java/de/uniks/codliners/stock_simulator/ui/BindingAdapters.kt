@@ -10,15 +10,15 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import de.uniks.codliners.stock_simulator.R
 import de.uniks.codliners.stock_simulator.database.DepotQuote
-import de.uniks.codliners.stock_simulator.domain.Quote
 import de.uniks.codliners.stock_simulator.domain.SearchResult
-import de.uniks.codliners.stock_simulator.repository.SearchRepository
+import de.uniks.codliners.stock_simulator.domain.StockbrotQuote
 import de.uniks.codliners.stock_simulator.domain.Transaction
 import de.uniks.codliners.stock_simulator.domain.TransactionType
 import de.uniks.codliners.stock_simulator.domain.TransactionType.*
+import de.uniks.codliners.stock_simulator.repository.SearchRepository
 import de.uniks.codliners.stock_simulator.ui.account.DepotQuoteRecyclerViewAdapter
-import de.uniks.codliners.stock_simulator.ui.search.SearchResultAdapter
 import de.uniks.codliners.stock_simulator.ui.history.HistoryRecyclerViewAdapter
+import de.uniks.codliners.stock_simulator.ui.search.SearchResultAdapter
 import de.uniks.codliners.stock_simulator.ui.stockbrot.StockbrotQuoteRecyclerViewAdapter
 
 @BindingAdapter("visible")
@@ -85,7 +85,7 @@ fun Button.bindBotEnabled(enabled: Boolean) {
 }
 
 @BindingAdapter("stockbrotQuotes")
-fun RecyclerView.bindStockbrotQuotes(quotes: List<Quote>?) {
+fun RecyclerView.bindStockbrotQuotes(quotes: List<StockbrotQuote>?) {
     val adapter = adapter as StockbrotQuoteRecyclerViewAdapter
     adapter.submitList(quotes)
 }

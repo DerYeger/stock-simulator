@@ -150,6 +150,54 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/sell_number"
                 tools:text="You own 1 share." />
+
+            <EditText
+                android:id="@+id/stockbrot_threshold_buy"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/default_spacing"
+                android:layout_marginTop="64dp"
+                android:layout_marginEnd="16dp"
+                android:ems="10"
+                android:hint="@string/stockbrot_threshold_buy"
+                android:importantForAutofill="no"
+                android:inputType="numberDecimal"
+                android:text="@={viewModel.thresholdBuy}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/depot_text" />
+
+            <EditText
+                android:id="@+id/stockbrot_threshold_sell"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/default_spacing"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:ems="10"
+                android:hint="@string/stockbrot_threshold_sell"
+                android:importantForAutofill="no"
+                android:inputType="numberDecimal"
+                android:text="@={viewModel.thresholdSell}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/stockbrot_threshold_buy" />
+
+            <Button
+                android:id="@+id/button_add_quote_to_bot"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:enabled="@{viewModel.canAddQuoteToStockbrot}"
+                android:onClick="@{() -> viewModel.addQuoteToStockbrot()}"
+                android:text="@string/stockbrot_control_quote"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/stockbrot_threshold_sell" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </layout>
