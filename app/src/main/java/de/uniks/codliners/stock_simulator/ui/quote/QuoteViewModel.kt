@@ -2,23 +2,31 @@ package de.uniks.codliners.stock_simulator.ui.quote
 
 import android.app.Application
 import androidx.lifecycle.*
+import de.uniks.codliners.stock_simulator.background.StockbrotWorkRequest
 import de.uniks.codliners.stock_simulator.database.DepotQuote
 import de.uniks.codliners.stock_simulator.domain.Balance
+import de.uniks.codliners.stock_simulator.domain.StockbrotQuote
 import de.uniks.codliners.stock_simulator.noNulls
 import de.uniks.codliners.stock_simulator.repository.AccountRepository
 import de.uniks.codliners.stock_simulator.repository.QuoteRepository
+import de.uniks.codliners.stock_simulator.repository.StockbrotRepository
+import de.uniks.codliners.stock_simulator.toSafeDouble
 import de.uniks.codliners.stock_simulator.toSafeLong
 import kotlinx.coroutines.launch
 
-class QuoteViewModel(application: Application, private val symbol: String) : ViewModel() {
+class QuoteViewModel(application: Application, private val symbol: String) : AndroidViewModel(application) {
 
     private val quoteRepository = QuoteRepository(application)
     private val accountRepository = AccountRepository(application)
+    private val stockbrotRepository = StockbrotRepository(application)
+
+    private val stockbrotWorkRequest = StockbrotWorkRequest(application)
 
     private val latestBalance = accountRepository.latestBalance
 
     val quote = quoteRepository.quoteWithSymbol(symbol)
     val depotQuote = accountRepository.depotQuoteWithSymbol(symbol)
+    lateinit var stockbrotQuote: MutableLiveData<StockbrotQuote>
 
     private val state = quoteRepository.state
     val refreshing = state.map { it === QuoteRepository.State.Refreshing }
@@ -33,6 +41,11 @@ class QuoteViewModel(application: Application, private val symbol: String) : Vie
     val sellAmount = MutableLiveData("0")
     private val _canSell = MediatorLiveData<Boolean>()
     val canSell: LiveData<Boolean> = _canSell
+
+    val thresholdBuy = MutableLiveData("0.0")
+    val thresholdSell = MutableLiveData("0.0")
+    private val _canAddQuoteToStockbrot = MediatorLiveData<Boolean>()
+    val canAddQuoteToStockbrot: LiveData<Boolean> = _canAddQuoteToStockbrot
 
     init {
         _errorAction.apply {
@@ -108,6 +121,26 @@ class QuoteViewModel(application: Application, private val symbol: String) : Vie
             }
         }
 
+        _canAddQuoteToStockbrot.apply {
+            addSource(thresholdBuy) {
+                value = canAddQuoteToStockbrot(
+                    thresholdBuy.value?.toSafeDouble(),
+                    thresholdSell.value?.toSafeDouble()
+                )
+            }
+
+            addSource(thresholdSell) {
+                value = canAddQuoteToStockbrot(
+                    thresholdBuy.value?.toSafeDouble(),
+                    thresholdSell.value?.toSafeDouble()
+                )
+            }
+        }
+
+        viewModelScope.launch {
+            stockbrotQuote = stockbrotRepository.stockbrotQuoteWithSymbol(symbol)
+        }
+
         refresh()
     }
 
@@ -120,6 +153,23 @@ class QuoteViewModel(application: Application, private val symbol: String) : Vie
     fun sell() {
         viewModelScope.launch {
             accountRepository.sell(quote.value!!, sellAmount.value!!.toInt())
+        }
+    }
+
+    fun addQuoteToStockbrot() {
+        viewModelScope.launch {
+            val thresholdBuyDouble = thresholdBuy.value?.toDouble()!!
+            val thresholdSellDouble = thresholdSell.value?.toDouble()!!
+            val newStockbrotQuote = StockbrotQuote(symbol, thresholdBuyDouble, thresholdSellDouble)
+            stockbrotWorkRequest.addQuote(newStockbrotQuote)
+            stockbrotRepository.saveAddStockbrotControl(newStockbrotQuote)
+        }
+    }
+
+    fun removeQuoteFromStockbrot() {
+        viewModelScope.launch {
+            stockbrotWorkRequest.removeQuote(stockbrotQuote.value!!)
+            stockbrotRepository.saveRemoveStockbrotControl(stockbrotQuote.value!!)
         }
     }
 
@@ -153,6 +203,13 @@ class QuoteViewModel(application: Application, private val symbol: String) : Vie
             && state === QuoteRepository.State.Done
             && 0 < amount!!
             && amount <= depotQuote!!.amount
+
+    private fun canAddQuoteToStockbrot(
+        thresholdBuy: Double?,
+        thresholdSell: Double?
+    ) = thresholdValid(thresholdBuy) && thresholdValid(thresholdSell)
+
+    private fun thresholdValid(threshold: Double?) = noNulls(threshold) && 0 < threshold!!
 
     class Factory(
         private val application: Application,

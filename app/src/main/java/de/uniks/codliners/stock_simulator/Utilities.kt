@@ -78,3 +78,11 @@ fun String?.toSafeLong(): Long? {
         null
     }
 }
+
+fun String?.toSafeDouble(): Double? {
+    return try {
+        this?.toDouble()
+    } catch (_: Throwable) {
+        null
+    }
+}
