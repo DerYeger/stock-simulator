@@ -57,3 +57,12 @@ data class Quote(
     val week52High: Double,
     val week52Low: Double
 )
+
+@Entity
+@JsonClass(generateAdapter = true)
+data class StockbrotQuote(
+    @PrimaryKey
+    val symbol: String,
+    val thresholdBuy: Double,
+    val thresholdSell: Double
+)
