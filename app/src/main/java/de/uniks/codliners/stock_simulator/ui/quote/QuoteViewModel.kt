@@ -20,6 +20,7 @@ class QuoteViewModel(application: Application, private val symbol: String) : Vie
 
     val quote = quoteRepository.quoteWithSymbol(symbol)
     val depotQuote = accountRepository.depotQuoteWithSymbol(symbol)
+    val historicalPrices = quoteRepository.historicalPrices(symbol)
 
     private val state = quoteRepository.state
     val refreshing = state.map { it === QuoteRepository.State.Refreshing }

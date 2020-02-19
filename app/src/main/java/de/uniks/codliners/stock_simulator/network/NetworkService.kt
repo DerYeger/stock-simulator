@@ -3,6 +3,7 @@ package de.uniks.codliners.stock_simulator.network
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import de.uniks.codliners.stock_simulator.BuildConfig
+import de.uniks.codliners.stock_simulator.domain.HistoricalPriceFromApi
 import de.uniks.codliners.stock_simulator.domain.Quote
 import de.uniks.codliners.stock_simulator.domain.SearchResult
 import de.uniks.codliners.stock_simulator.domain.Symbol
@@ -21,14 +22,17 @@ val moshi: Moshi = Moshi.Builder()
 
 interface IexApi {
 
+    @GET("ref-data/symbols")
+    suspend fun symbols(@Query("token") token: String = IEX_API_TOKEN): List<Symbol>
+
     @GET("search/{fragment}")
     suspend fun search(@Path("fragment") fragment: String, @Query("token") token: String = IEX_API_TOKEN): List<SearchResult>
 
+    @GET("stock/{symbol}/chart/{range}")
+    suspend fun historical(@Path("symbol") symbol: String, @Path("range") range: String = "1m", @Query("token") token: String = IEX_API_TOKEN, @Query("chartCloseOnly") chartCloseOnly: Boolean): List<HistoricalPriceFromApi>
+
     @GET("stock/{symbol}/quote")
     suspend fun quote(@Path("symbol") symbol: String, @Query("token") token: String = IEX_API_TOKEN): Quote
-
-    @GET("ref-data/symbols")
-    suspend fun symbols(@Query("token") token: String = IEX_API_TOKEN): List<Symbol>
 }
 
 object NetworkService {
