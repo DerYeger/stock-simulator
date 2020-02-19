@@ -10,15 +10,6 @@ data class Balance(
     val timestamp: Long = System.currentTimeMillis()
 )
 
-data class Share(
-    val id: String,
-    val name: String,
-    val price: Double,
-    val runningCost: Double,
-    val gap: Double,
-    val gapPercent: Double
-)
-
 enum class TransactionType { BUY, SELL }
 
 data class Transaction(

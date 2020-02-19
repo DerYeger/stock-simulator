@@ -18,10 +18,9 @@ import com.github.mikephil.charting.utils.ColorTemplate
 import de.uniks.codliners.stock_simulator.databinding.FragmentAccountBinding
 import de.uniks.codliners.stock_simulator.ui.OnClickListener
 
-
 class AccountFragment : Fragment() {
 
-    private val viewModel: AccountViewModel by viewModels{
+    private val viewModel: AccountViewModel by viewModels {
         AccountViewModel.Factory(activity!!.application)
     }
 
@@ -40,10 +39,12 @@ class AccountFragment : Fragment() {
 
         binding = FragmentAccountBinding.inflate(inflater)
         binding.viewModel = viewModel
-        binding.depotRecyclerView.adapter = DepotQuoteRecyclerViewAdapter(OnClickListener { symbol ->
-            val action = AccountFragmentDirections.actionNavigationAccountToShareFragment(symbol.symbol)
-            findNavController().navigate(action)
-        })
+        binding.depotRecyclerView.adapter =
+            DepotQuoteRecyclerViewAdapter(OnClickListener { symbol ->
+                val action =
+                    AccountFragmentDirections.actionNavigationAccountToShareFragment(symbol.symbol)
+                findNavController().navigate(action)
+            })
         binding.lifecycleOwner = this
 
         initBalanceChart()
