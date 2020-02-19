@@ -68,7 +68,7 @@ fun Context.ensureAccountPresence(lifecycleOwner: LifecycleOwner) {
     })
     accountRepository.balances.observe(lifecycleOwner, Observer { t ->
         run {
-            Timber.i("Created new account with balances: $t")
+            Timber.d("Created new account with balances: $t")
         }
     })
 }
