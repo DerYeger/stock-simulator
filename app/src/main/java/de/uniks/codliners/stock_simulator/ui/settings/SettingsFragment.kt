@@ -104,11 +104,6 @@ class SettingsFragment : Fragment() {
     private fun fingerprintButtonInit() {
         binding.settingsFingerprintStatus.text = ""
 
-        if (!BiometricUtils.isBiometricPromptEnabled()) {
-            binding.settingsFingerprintStatus.text =
-                getString(R.string.prefs_fingerprint_status_prompt)
-        }
-
         if (!BiometricUtils.isSdkVersionSupported()) {
             binding.settingsFingerprintStatus.text =
                 getString(R.string.prefs_fingerprint_status_sdk)
@@ -130,8 +125,7 @@ class SettingsFragment : Fragment() {
         }
 
         binding.settingsFingerprint.isEnabled =
-            BiometricUtils.isBiometricPromptEnabled()
-                    && BiometricUtils.isSdkVersionSupported()
+            BiometricUtils.isSdkVersionSupported()
                     && BiometricUtils.isHardwareSupported(this.context)
                     && BiometricUtils.isFingerprintAvailable(this.context)
                     && BiometricUtils.isPermissionGranted(this.context)
