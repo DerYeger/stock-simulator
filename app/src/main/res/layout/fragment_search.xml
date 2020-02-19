@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
@@ -14,8 +15,8 @@
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:refreshing="@{viewModel.refreshing}"
-        app:onRefresh="@{() -> viewModel.refreshSymbols()}">
+        app:onRefresh="@{() -> viewModel.refreshSymbols()}"
+        app:refreshing="@{viewModel.refreshing}">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -33,9 +34,19 @@
                 android:importantForAutofill="no"
                 android:inputType="textPersonName"
                 android:text="@={viewModel.searchQuery}"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/type_filter_spinner"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <Spinner
+                android:id="@+id/type_filter_spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                observeSelection="@{viewModel.typeFilter}"
+                android:layout_marginEnd="@dimen/default_spacing"
+                android:entries="@array/type_filter_array"
+                app:layout_constraintBaseline_toBaselineOf="@+id/search_query_edit_text"
+                app:layout_constraintEnd_toEndOf="parent" />
 
             <TextView
                 android:id="@+id/state_text"

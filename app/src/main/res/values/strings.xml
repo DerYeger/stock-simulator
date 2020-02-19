@@ -44,4 +44,9 @@
     <string name="date_format">Date: %s</string>
     <string name="cashflow_format">Cashflow: %.2f€</string>
     <string name="price_format">Price: %.2f€</string>
+    <string-array name="type_filter_array">
+        <item>Any</item>
+        <item>Shares</item>
+        <item>Crypto</item>
+    </string-array>
 </resources>

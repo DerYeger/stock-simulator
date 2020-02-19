@@ -5,7 +5,6 @@ import androidx.lifecycle.*
 import de.uniks.codliners.stock_simulator.domain.Symbol
 import de.uniks.codliners.stock_simulator.repository.SymbolRepository
 import kotlinx.coroutines.launch
-import timber.log.Timber
 import java.util.*
 
 class SearchViewModel(application: Application) : ViewModel() {
@@ -19,18 +18,29 @@ class SearchViewModel(application: Application) : ViewModel() {
     val searchResults: LiveData<List<Symbol>> = _searchResults
 
     val searchQuery = MutableLiveData<String>()
+    val typeFilter = MutableLiveData<String>()
 
     init {
         _searchResults.apply {
             addSource(symbols) { symbols: List<Symbol>? ->
-                val formattedQuery = searchQuery.value?.toUpperCase(Locale.getDefault())
-                value = symbols?.filter { formattedQuery.isNullOrBlank() || it.symbol.startsWith(formattedQuery) }
+                value = symbols?.filtered(
+                    query = searchQuery.value,
+                    typeFilter = typeFilter.value
+                )
             }
 
             addSource(searchQuery) { query ->
-                val symbols = symbols.value
-                val formattedQuery = query.toUpperCase(Locale.getDefault())
-                value = symbols?.filter { formattedQuery.isNullOrBlank() || it.symbol.startsWith(formattedQuery) }
+                value = symbols.value?.filtered(
+                    query = query,
+                    typeFilter = typeFilter.value
+                )
+            }
+
+            addSource(typeFilter) { typeFilter ->
+                value = symbols.value?.filtered(
+                    query = searchQuery.value,
+                    typeFilter = typeFilter
+                )
             }
         }
 
@@ -40,6 +50,24 @@ class SearchViewModel(application: Application) : ViewModel() {
     fun refreshSymbols() {
         viewModelScope.launch {
             symbolRepository.refreshSymbols()
+        }
+    }
+
+    private fun List<Symbol>.filtered(query: String?, typeFilter: String?) = filter { symbol ->
+        symbol.matchesQuery(query) && symbol.matchesTypeFilter(typeFilter)
+    }
+
+    private fun Symbol.matchesQuery(query: String?): Boolean {
+        val formattedQuery = query?.toUpperCase(Locale.getDefault())
+        return formattedQuery.isNullOrBlank() || symbol.toUpperCase(Locale.getDefault()).startsWith(formattedQuery)
+    }
+
+    private fun Symbol.matchesTypeFilter(typeFilter: String?): Boolean {
+        // TODO unhack this
+        return when (typeFilter) {
+            "Shares" -> type !== "Crypto"
+            "Crypto" -> type === "crypto"
+            else -> true
         }
     }
 

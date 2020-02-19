@@ -1,11 +1,10 @@
 package de.uniks.codliners.stock_simulator.ui
 
 import android.view.View
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.ProgressBar
-import android.widget.TextView
+import android.widget.*
 import androidx.databinding.BindingAdapter
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import de.uniks.codliners.stock_simulator.R
@@ -92,3 +91,20 @@ fun TextView.bindTransaction(transaction: Transaction?) {
         text = String.format(resources.getText(stringId).toString(), transaction.amount)
     }
 }
+
+@BindingAdapter("observeSelection")
+fun Spinner.bindSelection(selection: MutableLiveData<String>) {
+    val self = this
+
+    this.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+        override fun onNothingSelected(parent: AdapterView<*>?) {
+            // ignore, as it's impossible
+        }
+
+        override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+            val selectedItem = self.getItemAtPosition(position).toString()
+            selection.postValue(selectedItem)
+        }
+    }
+}
+
