@@ -108,6 +108,6 @@ fun TextView.bindTransaction(transaction: Transaction?) {
             BUY -> R.string.buy_amount_format
             SELL -> R.string.sell_amount_format
         }
-        text = resources.getText(stringId)
+        text = String.format(resources.getText(stringId).toString(), transaction.amount)
     }
 }

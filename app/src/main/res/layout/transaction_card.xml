@@ -27,7 +27,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/default_spacing"
-        android:onClick="@{() -> onClickListener.onClick(transaction)}"
         app:cardCornerRadius="@dimen/default_corner_radius"
         app:cardElevation="@dimen/default_elevation"
         app:contentPadding="@dimen/default_spacing">
@@ -42,11 +41,11 @@
                 style="@style/TextAppearance.MaterialComponents.Headline5"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/half_spacing"
-                android:layout_marginEnd="@dimen/half_spacing"
+                android:layout_marginStart="@dimen/default_spacing"
+                android:layout_marginEnd="@dimen/default_spacing"
                 android:text="@{transaction.symbol}"
                 app:layout_constraintBaseline_toBaselineOf="@+id/transaction_type_image"
-                app:layout_constraintEnd_toStartOf="@+id/toggleButton"
+                app:layout_constraintEnd_toStartOf="@+id/expand_toggle_button"
                 app:layout_constraintStart_toEndOf="@+id/transaction_type_image"
                 tools:text="SYMBOL" />
 
@@ -63,7 +62,7 @@
                 app:transactionType="@{transaction.transactionType}" />
 
             <ToggleButton
-                android:id="@+id/toggleButton"
+                android:id="@+id/expand_toggle_button"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:background="@drawable/ic_expand_toggle_24dp"
@@ -76,10 +75,10 @@
                 app:layout_constraintTop_toTopOf="@+id/transaction_symbol_text" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraintLayout"
+                android:id="@+id/card_body_layout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/half_spacing"
+                android:layout_marginTop="@dimen/default_spacing"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -88,24 +87,69 @@
 
                 <TextView
                     android:id="@+id/transaction_date_text"
-                    style="@style/TextAppearance.MaterialComponents.Headline6"
+                    style="@style/TextAppearance.MaterialComponents.Body1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{dateString}"
+                    android:layout_marginTop="@dimen/half_spacing"
+                    android:text="@{@string/date_format(dateString)}"
                     android:textAlignment="textEnd"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/transaction_cashflow_text"
                     tools:text="31.12.2019" />
 
                 <TextView
                     android:id="@+id/transaction_amount_text"
-                    style="@style/TextAppearance.MaterialComponents.Headline5"
+                    style="@style/TextAppearance.MaterialComponents.Body1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{String.valueOf(transaction.amount)}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:text="42" />
+                    app:transaction="@{transaction}"
+                    tools:text="42 bought" />
+
+                <Button
+                    android:id="@+id/details_button"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{() -> onClickListener.onClick(transaction)}"
+                    android:text="@string/details"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+                <TextView
+                    android:id="@+id/transaction_price_text"
+                    style="@style/TextAppearance.MaterialComponents.Body1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/half_spacing"
+                    android:text="@{@string/price_format(transaction.price)}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/transaction_amount_text"
+                    tools:text="Price: 100" />
+
+                <TextView
+                    android:id="@+id/transaction_costs_text"
+                    style="@style/TextAppearance.MaterialComponents.Body1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/half_spacing"
+                    android:text="@{@string/transaction_costs_format(transaction.transactionCosts)}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/transaction_price_text"
+                    tools:text="Cost: 5" />
+
+                <TextView
+                    android:id="@+id/transaction_cashflow_text"
+                    style="@style/TextAppearance.MaterialComponents.Body1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/half_spacing"
+                    android:text="@{@string/cashflow_format(transaction.cashflow)}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/transaction_costs_text"
+                    tools:text="Cashflow: -4205" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
