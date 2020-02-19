@@ -136,7 +136,7 @@ interface HistoricalPriceDao {
 
 @Database(
     entities = [DepotQuote::class, TransactionDatabase::class, Quote::class, Balance::class, HistoricalPrice::class, StockbrotQuote::class],
-    version = 11,
+    version = 12,
     exportSchema = false
 )
 @TypeConverters(Converters::class)
