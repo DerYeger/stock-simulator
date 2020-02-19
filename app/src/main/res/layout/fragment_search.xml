@@ -77,9 +77,7 @@
             android:id="@+id/search_result_recycler_view"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/default_spacing"
             android:layout_marginTop="@dimen/default_spacing"
-            android:layout_marginEnd="@dimen/default_spacing"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
 
