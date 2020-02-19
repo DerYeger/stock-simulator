@@ -19,6 +19,7 @@ import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import com.github.mikephil.charting.utils.ColorTemplate
+import de.uniks.codliners.stock_simulator.database.HistoricalPrice
 import de.uniks.codliners.stock_simulator.databinding.FragmentQuoteBinding
 
 class QuoteFragment : Fragment() {
@@ -52,6 +53,8 @@ class QuoteFragment : Fragment() {
                 viewModel.onErrorActionCompleted()
             }
         })
+
+        viewModel.historicalPrices.observe(viewLifecycleOwner, Observer { priceList -> })
 
         initQuoteChart()
 
@@ -99,6 +102,12 @@ class QuoteFragment : Fragment() {
         for (i in 0 until count) {
             val value = (Math.random() * (range + 1)).toFloat() + 20
             values.add(Entry(i.toFloat(), value))
+        }
+
+        val dummy = listOf<HistoricalPrice>()
+
+        val entries = dummy.map { price ->
+            Entry(price.date.toFloat(), price.close.toFloat())
         }
 
         val lds = LineDataSet(values, "Account Balance")

@@ -60,7 +60,7 @@ data class Quote(
 
 @Entity
 @JsonClass(generateAdapter = true)
-data class HistoricalPrice(
+data class HistoricalPriceFromApi(
     @PrimaryKey
     val date: String,
     val high: Double,

@@ -4,7 +4,9 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import de.uniks.codliners.stock_simulator.database.StockAppDatabase
+import de.uniks.codliners.stock_simulator.database.apiPricesAsPricesWithSymbol
 import de.uniks.codliners.stock_simulator.database.getDatabase
+import de.uniks.codliners.stock_simulator.domain.HistoricalPriceFromApi
 import de.uniks.codliners.stock_simulator.domain.Quote
 import de.uniks.codliners.stock_simulator.network.NetworkService
 import kotlinx.coroutines.Dispatchers
@@ -30,18 +32,25 @@ class QuoteRepository(private val database: StockAppDatabase) {
     fun quoteWithSymbol(symbol: String): LiveData<Quote> =
         database.quoteDao.getQuoteWithSymbol(symbol)
 
+    fun historicalPrices(symbol: String): LiveData<List<HistoricalPriceFromApi>> =
+        database.historicalDao.getHistoricalPricesBySymbol(symbol)
+
     suspend fun fetchQuoteWithSymbol(symbol: String) {
         withContext(Dispatchers.IO) {
             try {
                 _state.postValue(State.Refreshing)
-                val response = NetworkService.IEX_API.quote(symbol)
-                database.quoteDao.insert(response)
+                val quote = NetworkService.IEX_API.quote(symbol)
+                database.quoteDao.insert(quote)
+                val historicalPricesFromApi = NetworkService.IEX_API.historical(symbol = symbol, chartCloseOnly = true)
+                val historicalPricesWithSymbol = historicalPricesFromApi.apiPricesAsPricesWithSymbol(symbol)
+                database.historicalDao.insertAll(*historicalPricesWithSymbol.toTypedArray())
                 _state.postValue(State.Done)
             } catch (exception: Exception) {
                 _state.postValue(State.Error(exception.message ?: "Oops!"))
             }
         }
     }
+
 
     suspend fun resetQuotes() {
         withContext(Dispatchers.IO) {
