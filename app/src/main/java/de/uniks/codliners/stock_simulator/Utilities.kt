@@ -107,7 +107,7 @@ fun initLineChart(chart: LineChart, context: Context, locale: Locale) {
     xAxis.typeface = tfLight
     xAxis.valueFormatter = object : ValueFormatter() {
         private val dateFormatter =
-            SimpleDateFormat("dd.MM.YYYY hh:mm:ss", locale)
+            SimpleDateFormat("dd.MM.yyyy hh:mm:ss", locale)
 
         override fun getFormattedValue(value: Float): String {
             return dateFormatter.format(value)
