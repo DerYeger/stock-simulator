@@ -87,7 +87,7 @@ class AccountFragment : Fragment() {
         xAxis.typeface = tfLight
         xAxis.valueFormatter = object : ValueFormatter() {
             private val dateFormatter =
-                SimpleDateFormat("dd.MM.YYYY hh:mm:ss", resources.configuration.locale)
+                SimpleDateFormat("dd.MM.yyyy hh:mm:ss", resources.configuration.locale)
 
             override fun getFormattedValue(value: Float): String {
                 return dateFormatter.format(value)
