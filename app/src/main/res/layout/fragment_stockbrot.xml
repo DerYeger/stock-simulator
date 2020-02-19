@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="viewModel"
             type="de.uniks.codliners.stock_simulator.ui.stockbrot.StockbrotViewModel" />
@@ -18,8 +18,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:hint="@string/stockbrot_threshold_buy"
-            android:text="@={viewModel.thresholdBuy}"
+            android:importantForAutofill="no"
             android:inputType="numberDecimal"
+            android:text="@={viewModel.thresholdBuy}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -30,8 +31,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:hint="@string/stockbrot_threshold_sell"
-            android:text="@={viewModel.thresholdSell}"
+            android:importantForAutofill="no"
             android:inputType="numberDecimal"
+            android:text="@={viewModel.thresholdSell}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/stockbrot_threshold_buy" />
@@ -41,9 +43,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:onClick="@{() -> viewModel.toggleBot()}"
+            app:botEnabled="@{viewModel.enabled}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
-            app:botEnabled="@{viewModel.enabled}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/stockbrot_threshold_sell" />
 
@@ -55,13 +57,12 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
-            app:stockbrotQuotes="@{viewModel.stockbrotQuotes}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/transaction_price_text" />
+            app:stockbrotQuotes="@{viewModel.stockbrotQuotes}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

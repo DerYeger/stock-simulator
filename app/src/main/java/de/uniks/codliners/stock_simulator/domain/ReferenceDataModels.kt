@@ -50,3 +50,14 @@ data class Quote(
     val week52High: Double,
     val week52Low: Double
 )
+
+@Entity
+@JsonClass(generateAdapter = true)
+data class HistoricalPriceFromApi(
+    @PrimaryKey
+    val date: String,
+    val close: Double,
+    val changeOverTime: Double,
+    val change: Double,
+    val changePercent: Double
+)

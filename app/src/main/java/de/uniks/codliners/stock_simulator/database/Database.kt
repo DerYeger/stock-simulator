@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.room.*
 import androidx.room.OnConflictStrategy.REPLACE
 import de.uniks.codliners.stock_simulator.domain.Balance
+import de.uniks.codliners.stock_simulator.domain.HistoricalPriceFromApi
 import de.uniks.codliners.stock_simulator.domain.Quote
 import de.uniks.codliners.stock_simulator.domain.Symbol
 
@@ -124,9 +125,25 @@ interface StockbrotDao {
     fun deleteDepot()
 }
 
+@Dao
+interface HistoricalPriceDao {
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insert(priceFromApi: HistoricalPrice)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAll(vararg prices: HistoricalPrice)
+
+    @Query("select * from historicalprice where symbol = :symbol")
+    fun getHistoricalPricesBySymbol(symbol: String): LiveData<List<HistoricalPrice>>
+
+    @Query("delete from historicalprice")
+    fun deleteHistoricalPrices()
+}
+
 @Database(
-    entities = [Symbol::class, DepotQuote::class, TransactionDatabase::class, Quote::class, Balance::class],
-    version = 9,
+    entities = [Symbol::class, DepotQuote::class, TransactionDatabase::class, Quote::class, Balance::class, HistoricalPrice::class],
+    version = 11,
     exportSchema = false
 )
 @TypeConverters(Converters::class)
@@ -136,6 +153,7 @@ abstract class StockAppDatabase: RoomDatabase() {
     abstract val transactionDao: TransactionDao
     abstract val accountDao: AccountDao
     abstract val stockbrotDao: StockbrotDao
+    abstract val historicalDao: HistoricalPriceDao
 }
 
 private lateinit var INSTANCE: StockAppDatabase
