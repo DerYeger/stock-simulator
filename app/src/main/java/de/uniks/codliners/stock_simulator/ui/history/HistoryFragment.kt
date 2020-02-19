@@ -23,7 +23,7 @@ class HistoryFragment : Fragment() {
     ): View {
         binding = FragmentHistoryBinding.inflate(inflater)
         binding.viewModel = viewModel
-        binding.historyRecyclerView.adapter = HistoryRecyclerViewAdapter()
+        binding.historyRecyclerView.adapter = HistoryRecyclerViewAdapter(resources.configuration.locale)
         binding.lifecycleOwner = this
         return binding.root
     }

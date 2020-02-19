@@ -2,20 +2,27 @@ package de.uniks.codliners.stock_simulator.ui.history
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import de.uniks.codliners.stock_simulator.databinding.TransactionCardBinding
 import de.uniks.codliners.stock_simulator.domain.Transaction
+import java.text.SimpleDateFormat
+import java.util.*
 
-class HistoryRecyclerViewAdapter: ListAdapter<Transaction,
+class HistoryRecyclerViewAdapter(locale: Locale): ListAdapter<Transaction,
         HistoryRecyclerViewAdapter.ViewHolder>(DiffCallback) {
+
+    private val dateFormatter = SimpleDateFormat("dd.MM.YYYY hh:mm", locale)
 
     inner class ViewHolder(private val binding: TransactionCardBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(transaction: Transaction) {
+            val calendar = Calendar.getInstance()
+            calendar.timeInMillis = transaction.date
             binding.transaction = transaction
+            binding.dateString = dateFormatter.format(calendar.time)
             binding.executePendingBindings()
         }
     }

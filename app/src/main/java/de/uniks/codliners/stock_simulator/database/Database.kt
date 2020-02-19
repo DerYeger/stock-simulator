@@ -32,7 +32,7 @@ interface TransactionDao {
     @Query("select * from transactiondatabase where shareName = :shareName")
     fun getTransactionsByShareName(shareName: String): LiveData<List<TransactionDatabase>>
 
-    @Query("select * from transactiondatabase")
+    @Query("SELECT * FROM transactiondatabase ORDER BY transactiondatabase.date DESC")
     fun getTransactions(): LiveData<List<TransactionDatabase>>
 
     @Delete
