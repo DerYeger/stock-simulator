@@ -6,6 +6,17 @@ import androidx.room.*
 import androidx.room.OnConflictStrategy.REPLACE
 import de.uniks.codliners.stock_simulator.domain.Balance
 import de.uniks.codliners.stock_simulator.domain.Quote
+import de.uniks.codliners.stock_simulator.domain.Symbol
+
+@Dao
+interface SymbolDao {
+
+    @Insert(onConflict = REPLACE)
+    fun insertAll(vararg symbols: Symbol)
+
+    @Query("SELECT * FROM symbol")
+    fun getAll(): LiveData<List<Symbol>>
+}
 
 @Dao
 interface QuoteDao {
@@ -114,12 +125,13 @@ interface StockbrotDao {
 }
 
 @Database(
-    entities = [DepotQuote::class, TransactionDatabase::class, Quote::class, Balance::class],
-    version = 8,
+    entities = [Symbol::class, DepotQuote::class, TransactionDatabase::class, Quote::class, Balance::class],
+    version = 9,
     exportSchema = false
 )
 @TypeConverters(Converters::class)
 abstract class StockAppDatabase: RoomDatabase() {
+    abstract val symbolDao: SymbolDao
     abstract val quoteDao: QuoteDao
     abstract val transactionDao: TransactionDao
     abstract val accountDao: AccountDao

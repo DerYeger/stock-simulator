@@ -4,29 +4,22 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.squareup.moshi.JsonClass
 
-@JsonClass(generateAdapter = true)
-data class SearchResult(
-    val symbol: String,
-    val securityName: String,
-    val securityType: String,
-    val exchange: String
-)
-
+@Entity
 @JsonClass(generateAdapter = true)
 data class Symbol(
+    @PrimaryKey
     val symbol: String,
-    val exchange: String,
+    val exchange: String?,
     val name: String,
     val date: String,
     val isEnabled: Boolean,
-    val type: IssueType,
+    val type: String,
     val region: String,
-    val currency: String,
-    val iexId: String
+    val currency: String
 )
 
 enum class IssueType {
-    ad, re, ce, si, lp, cs, et, wt, rt, oef, cef, ps, ut, struct, temp
+    ad, re, ce, si, lp, cs, et, wt, rt, oef, cef, ps, ut, struct, temp, crypto
 }
 
 @Entity

@@ -12,7 +12,9 @@ import de.uniks.codliners.stock_simulator.ui.OnClickListener
 
 class SearchFragment : Fragment() {
 
-    private val viewModel: SearchViewModel by viewModels()
+    private val viewModel: SearchViewModel by viewModels {
+        SearchViewModel.Factory(activity!!.application)
+    }
 
     private lateinit var binding: FragmentSearchBinding
 
@@ -23,10 +25,12 @@ class SearchFragment : Fragment() {
     ): View {
         binding = FragmentSearchBinding.inflate(inflater)
         binding.viewModel = viewModel
-        binding.searchResultRecyclerView.adapter = SearchResultAdapter(OnClickListener { searchResult ->
-            val action = SearchFragmentDirections.actionNavigationSearchToShareFragment(searchResult.symbol)
-            findNavController().navigate(action)
-        })
+        binding.searchResultRecyclerView.adapter =
+            SearchResultAdapter(OnClickListener { searchResult ->
+                val action =
+                    SearchFragmentDirections.actionNavigationSearchToShareFragment(searchResult.symbol)
+                findNavController().navigate(action)
+            })
         binding.lifecycleOwner = this
         return binding.root
     }

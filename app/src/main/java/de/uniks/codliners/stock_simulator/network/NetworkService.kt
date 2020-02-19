@@ -4,7 +4,6 @@ import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import de.uniks.codliners.stock_simulator.BuildConfig
 import de.uniks.codliners.stock_simulator.domain.Quote
-import de.uniks.codliners.stock_simulator.domain.SearchResult
 import de.uniks.codliners.stock_simulator.domain.Symbol
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -20,9 +19,6 @@ val moshi: Moshi = Moshi.Builder()
     .build()
 
 interface IexApi {
-
-    @GET("search/{fragment}")
-    suspend fun search(@Path("fragment") fragment: String, @Query("token") token: String = IEX_API_TOKEN): List<SearchResult>
 
     @GET("stock/{symbol}/quote")
     suspend fun quote(@Path("symbol") symbol: String, @Query("token") token: String = IEX_API_TOKEN): Quote

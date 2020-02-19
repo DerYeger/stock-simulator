@@ -10,11 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import de.uniks.codliners.stock_simulator.R
 import de.uniks.codliners.stock_simulator.database.DepotQuote
-import de.uniks.codliners.stock_simulator.domain.Quote
-import de.uniks.codliners.stock_simulator.domain.SearchResult
+import de.uniks.codliners.stock_simulator.domain.*
 import de.uniks.codliners.stock_simulator.repository.SearchRepository
-import de.uniks.codliners.stock_simulator.domain.Transaction
-import de.uniks.codliners.stock_simulator.domain.TransactionType
 import de.uniks.codliners.stock_simulator.domain.TransactionType.*
 import de.uniks.codliners.stock_simulator.ui.account.DepotQuoteRecyclerViewAdapter
 import de.uniks.codliners.stock_simulator.ui.search.SearchResultAdapter
@@ -34,7 +31,7 @@ fun SwipeRefreshLayout.bindRefreshListener(listener: Runnable) {
 }
 
 @BindingAdapter("searchResults")
-fun RecyclerView.bindSearchResults(symbols: List<SearchResult>?) {
+fun RecyclerView.bindSearchResults(symbols: List<Symbol>?) {
     val adapter = adapter as SearchResultAdapter
     adapter.submitList(symbols)
 }

@@ -27,20 +27,9 @@
             android:ems="10"
             android:inputType="textPersonName"
             android:text="@={viewModel.searchQuery}"
-            app:layout_constraintEnd_toStartOf="@+id/search_button"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:id="@+id/search_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/default_spacing"
-            android:enabled="@{viewModel.searchQuery.length() > 0}"
-            android:onClick="@{() -> viewModel.search()}"
-            android:text="@string/title_search"
-            app:layout_constraintBaseline_toBaselineOf="@+id/search_query_edit_text"
-            app:layout_constraintEnd_toEndOf="parent" />
 
         <ProgressBar
             android:id="@+id/search_progress"
