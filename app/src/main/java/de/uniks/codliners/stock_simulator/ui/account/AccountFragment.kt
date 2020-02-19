@@ -87,7 +87,7 @@ class AccountFragment : Fragment() {
         xAxis.typeface = tfLight
         xAxis.valueFormatter = object : ValueFormatter() {
             private val dateFormatter =
-                SimpleDateFormat("dd.MM.YYYY hh:mm:ss", resources.configuration.locale)
+                SimpleDateFormat("dd.MM.yyyy hh:mm:ss", resources.configuration.locale)
 
             override fun getFormattedValue(value: Float): String {
                 return dateFormatter.format(value)
@@ -109,7 +109,11 @@ class AccountFragment : Fragment() {
     }
 
     private fun updateBalanceChart(balancesList: List<Balance>) {
-        val firstBalanceTimestamp = if (balancesList.isNotEmpty()) balancesList[0].timestamp else 0L
+        if (balancesList.isEmpty()) {
+            return
+        }
+
+        val firstBalanceTimestamp = balancesList[0].timestamp
         val entries = balancesList.map { balance ->
             Entry(
                 (balance.timestamp - firstBalanceTimestamp).toFloat(),
