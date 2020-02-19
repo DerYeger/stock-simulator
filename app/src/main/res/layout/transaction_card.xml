@@ -13,6 +13,10 @@
             name="dateString"
             type="String" />
 
+        <variable
+            name="onClickListener"
+            type="de.uniks.codliners.stock_simulator.ui.OnClickListener" />
+
     </data>
 
     <androidx.cardview.widget.CardView
@@ -21,6 +25,7 @@
         android:layout_margin="@dimen/default_spacing"
         app:cardCornerRadius="@dimen/default_corner_radius"
         app:cardElevation="@dimen/default_elevation"
+        android:onClick="@{() -> onClickListener.onClick(transaction)}"
         app:contentPadding="@dimen/default_spacing">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -32,7 +37,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/half_spacing"
-                android:text="@{transaction.shareName}"
+                android:text="@{transaction.symbol}"
                 app:layout_constraintEnd_toStartOf="@+id/transaction_amount_text"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -42,7 +47,7 @@
                 android:id="@+id/transaction_amount_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{String.valueOf(transaction.number)}"
+                android:text="@{String.valueOf(transaction.amount)}"
                 app:layout_constraintBaseline_toBaselineOf="@+id/transaction_symbol_text"
                 app:layout_constraintEnd_toEndOf="parent"
                 tools:text="42" />

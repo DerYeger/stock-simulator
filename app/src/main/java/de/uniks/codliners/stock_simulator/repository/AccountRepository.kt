@@ -41,8 +41,10 @@ class AccountRepository(private val database: StockAppDatabase) {
                 val newDepotQuote = depotQuote.copy(amount = depotQuote.amount + amount)
 
                 val transaction = TransactionDatabase(
-                    shareName = quote.companyName,
-                    number = amount,
+                    symbol = quote.symbol,
+                    companyName = quote.companyName,
+                    amount = amount,
+                    price = quote.latestPrice,
                     transactionType = TransactionType.BUY,
                     date = System.currentTimeMillis()
                 )
@@ -66,8 +68,10 @@ class AccountRepository(private val database: StockAppDatabase) {
                 val newDepotQuote = depotQuote.copy(amount = depotQuote.amount - amount)
 
                 val transaction = TransactionDatabase(
-                    shareName = quote.companyName,
-                    number = amount,
+                    symbol = quote.symbol,
+                    companyName = quote.companyName,
+                    amount = amount,
+                    price = quote.latestPrice,
                     transactionType = TransactionType.SELL,
                     date = System.currentTimeMillis()
                 )

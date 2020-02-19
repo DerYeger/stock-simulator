@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import de.uniks.codliners.stock_simulator.databinding.FragmentHistoryBinding
+import de.uniks.codliners.stock_simulator.ui.OnClickListener
 
 class HistoryFragment : Fragment() {
 
@@ -23,7 +25,13 @@ class HistoryFragment : Fragment() {
     ): View {
         binding = FragmentHistoryBinding.inflate(inflater)
         binding.viewModel = viewModel
-        binding.historyRecyclerView.adapter = HistoryRecyclerViewAdapter(resources.configuration.locale)
+        binding.historyRecyclerView.adapter = HistoryRecyclerViewAdapter(
+            onClickListener = OnClickListener { transaction ->
+                val action = HistoryFragmentDirections.actionNavigationHistoryToShareFragment(transaction.symbol)
+                findNavController().navigate(action)
+            },
+            locale = resources.configuration.locale
+        )
         binding.lifecycleOwner = this
         return binding.root
     }

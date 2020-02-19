@@ -58,7 +58,6 @@
             android:id="@+id/depot_recycler_view"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="@dimen/default_spacing"
             app:depotQuotes="@{viewModel.depotQuotes}"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"

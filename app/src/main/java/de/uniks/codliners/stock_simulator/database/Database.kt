@@ -29,7 +29,7 @@ interface QuoteDao {
 @Dao
 interface TransactionDao {
 
-    @Query("select * from transactiondatabase where shareName = :shareName")
+    @Query("select * from transactiondatabase where symbol = :shareName")
     fun getTransactionsByShareName(shareName: String): LiveData<List<TransactionDatabase>>
 
     @Query("SELECT * FROM transactiondatabase ORDER BY transactiondatabase.date DESC")
@@ -87,7 +87,7 @@ interface AccountDao {
 
 @Database(
     entities = [DepotQuote::class, TransactionDatabase::class, Quote::class, Balance::class],
-    version = 5,
+    version = 7,
     exportSchema = false
 )
 @TypeConverters(Converters::class)

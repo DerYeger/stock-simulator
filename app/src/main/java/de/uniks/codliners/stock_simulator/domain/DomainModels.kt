@@ -13,8 +13,10 @@ data class Balance(
 enum class TransactionType { BUY, SELL }
 
 data class Transaction(
-    val shareName: String,
-    val number: Int,
+    val symbol: String,
+    val companyName: String,
+    val amount: Int,
+    val price: Double,
     val transactionType: TransactionType,
     val date: Long
 )

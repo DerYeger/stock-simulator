@@ -7,10 +7,14 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import de.uniks.codliners.stock_simulator.databinding.TransactionCardBinding
 import de.uniks.codliners.stock_simulator.domain.Transaction
+import de.uniks.codliners.stock_simulator.ui.OnClickListener
 import java.text.SimpleDateFormat
 import java.util.*
 
-class HistoryRecyclerViewAdapter(locale: Locale): ListAdapter<Transaction,
+class HistoryRecyclerViewAdapter(
+    private val onClickListener: OnClickListener<Transaction>,
+    locale: Locale
+) : ListAdapter<Transaction,
         HistoryRecyclerViewAdapter.ViewHolder>(DiffCallback) {
 
     private val dateFormatter = SimpleDateFormat("dd.MM.YYYY hh:mm", locale)
@@ -23,6 +27,7 @@ class HistoryRecyclerViewAdapter(locale: Locale): ListAdapter<Transaction,
             calendar.timeInMillis = transaction.date
             binding.transaction = transaction
             binding.dateString = dateFormatter.format(calendar.time)
+            binding.onClickListener = onClickListener
             binding.executePendingBindings()
         }
     }
@@ -30,7 +35,8 @@ class HistoryRecyclerViewAdapter(locale: Locale): ListAdapter<Transaction,
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
             TransactionCardBinding.inflate(
-                LayoutInflater.from(parent.context), parent, false)
+                LayoutInflater.from(parent.context), parent, false
+            )
         )
     }
 
