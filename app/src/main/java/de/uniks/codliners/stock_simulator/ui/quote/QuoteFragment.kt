@@ -10,6 +10,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import de.uniks.codliners.stock_simulator.databinding.FragmentQuoteBinding
+import java.util.*
+
 
 class QuoteFragment : Fragment() {
 
