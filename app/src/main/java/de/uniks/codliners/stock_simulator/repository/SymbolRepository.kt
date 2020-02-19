@@ -8,7 +8,6 @@ import de.uniks.codliners.stock_simulator.database.getDatabase
 import de.uniks.codliners.stock_simulator.network.NetworkService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import kotlin.Exception
 
 class SymbolRepository(private val database: StockAppDatabase) {
 
@@ -31,8 +30,12 @@ class SymbolRepository(private val database: StockAppDatabase) {
         withContext(Dispatchers.IO) {
             try {
                 _state.postValue(State.Refreshing)
-                val response = NetworkService.IEX_API.symbols()
-                database.symbolDao.insertAll(*response.toTypedArray())
+                val shareSymbols = NetworkService.IEX_API.symbols()
+                val cryptoSymbols = NetworkService.IEX_API.cryptroSymbols()
+                database.symbolDao.insertAll(
+                    *shareSymbols.toTypedArray(),
+                    *cryptoSymbols.toTypedArray()
+                )
                 _state.postValue(State.Done)
             } catch (exception: Exception) {
                 _state.postValue(State.Error(exception.message ?: "Oops!"))

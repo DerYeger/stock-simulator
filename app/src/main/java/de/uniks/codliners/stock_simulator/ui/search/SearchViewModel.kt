@@ -14,6 +14,9 @@ class SearchViewModel(application: Application) : ViewModel() {
     private val state = symbolRepository.state
     val refreshing = state.map { it === SymbolRepository.State.Refreshing }
 
+    private val _errorAction = MediatorLiveData<String>()
+    val errorAction: LiveData<String> = _errorAction
+
     private val _searchResults = MediatorLiveData<List<Symbol>>()
     val searchResults: LiveData<List<Symbol>> = _searchResults
 
@@ -21,6 +24,15 @@ class SearchViewModel(application: Application) : ViewModel() {
     val typeFilter = MutableLiveData<String>()
 
     init {
+        _errorAction.apply {
+            addSource(state) { state ->
+                value = when (state) {
+                    is SymbolRepository.State.Error -> state.message
+                    else -> null
+                }
+            }
+        }
+
         _searchResults.apply {
             addSource(symbols) { symbols: List<Symbol>? ->
                 value = symbols?.filtered(
@@ -53,20 +65,28 @@ class SearchViewModel(application: Application) : ViewModel() {
         }
     }
 
+    fun onErrorActionCompleted() {
+        viewModelScope.launch {
+            _errorAction.value = null
+        }
+    }
+
     private fun List<Symbol>.filtered(query: String?, typeFilter: String?) = filter { symbol ->
         symbol.matchesQuery(query) && symbol.matchesTypeFilter(typeFilter)
     }
 
     private fun Symbol.matchesQuery(query: String?): Boolean {
         val formattedQuery = query?.toUpperCase(Locale.getDefault())
-        return formattedQuery.isNullOrBlank() || symbol.toUpperCase(Locale.getDefault()).startsWith(formattedQuery)
+        return formattedQuery.isNullOrBlank() || symbol.toUpperCase(Locale.getDefault()).startsWith(
+            formattedQuery
+        )
     }
 
     private fun Symbol.matchesTypeFilter(typeFilter: String?): Boolean {
         // TODO unhack this
         return when (typeFilter) {
-            "Shares" -> type !== "Crypto"
-            "Crypto" -> type === "crypto"
+            "Shares" -> type != "crypto"
+            "Crypto" -> type == "crypto"
             else -> true
         }
     }

@@ -6,6 +6,7 @@ import de.uniks.codliners.stock_simulator.BuildConfig
 import de.uniks.codliners.stock_simulator.domain.HistoricalPriceFromApi
 import de.uniks.codliners.stock_simulator.domain.Quote
 import de.uniks.codliners.stock_simulator.domain.Symbol
+import kotlinx.coroutines.Deferred
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
@@ -23,6 +24,9 @@ interface IexApi {
 
     @GET("ref-data/symbols")
     suspend fun symbols(@Query("token") token: String = IEX_API_TOKEN): List<Symbol>
+
+    @GET("ref-data/crypto/symbols")
+    suspend fun cryptroSymbols(@Query("token") token: String = IEX_API_TOKEN): List<Symbol>
 
     @GET("stock/{symbol}/chart/{range}")
     suspend fun historical(@Path("symbol") symbol: String, @Path("range") range: String = "1m", @Query("token") token: String = IEX_API_TOKEN, @Query("chartCloseOnly") chartCloseOnly: Boolean): List<HistoricalPriceFromApi>
