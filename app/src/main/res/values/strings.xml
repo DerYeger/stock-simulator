@@ -21,7 +21,6 @@
     <string name="prefs_fingerprint_status_hardware">Your device does not have a fingerprint sensor.</string>
     <string name="prefs_fingerprint_status_permissions">Insufficient permissions for biometric authentication.</string>
     <string name="prefs_fingerprint_status_sdk">Your Android version does not support fingerprint authentication.</string>
-    <string name="query">query</string>
     <string name="remove_fingerprint">Remove fingerprint authentication</string>
     <string name="reset_data">Reset data</string>
     <string name="sell">Sell</string>
