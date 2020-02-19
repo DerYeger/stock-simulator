@@ -90,4 +90,7 @@ dependencies {
 
     // Biometric Auth
     implementation(group: 'com.an.biometric', name: 'biometric-auth', version: '0.1.0', ext: 'aar', classifier: '')
+
+    // Background Worker
+    implementation 'androidx.work:work-runtime:2.3.1'
 }

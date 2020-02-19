@@ -8,17 +8,6 @@ import de.uniks.codliners.stock_simulator.domain.Transaction
 import de.uniks.codliners.stock_simulator.domain.TransactionType
 
 @Entity
-data class ShareDatabase constructor(
-    @PrimaryKey
-    val id: String,
-    val name: String,
-    val price: Double,
-    val runningCost: Double,
-    val gap: Double,
-    val gapPercent: Double
-)
-
-@Entity
 data class DepotQuote(
     @PrimaryKey
     val symbol: String,
@@ -29,8 +18,10 @@ data class DepotQuote(
 data class TransactionDatabase constructor(
     @PrimaryKey(autoGenerate = true)
     val primaryKey: Long = 0,
-    val shareName: String,
-    val number: Int,
+    val symbol: String,
+    val companyName: String,
+    val amount: Int,
+    val price: Double,
     val transactionType: TransactionType,
     val date: Long
 )
@@ -72,8 +63,10 @@ fun List<ShareDatabase>.sharesAsDomainModel(): List<Share> {
 }
 
 fun TransactionDatabase.transactionAsDomainModel() = Transaction(
-    shareName = this.shareName,
-    number = this.number,
+    symbol = this.symbol,
+    companyName = this.companyName,
+    amount = this.amount,
+    price = this.price,
     transactionType = this.transactionType,
     date = this.date
 )

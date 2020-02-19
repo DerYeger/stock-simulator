@@ -3,7 +3,6 @@ package de.uniks.codliners.stock_simulator.repository
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import de.uniks.codliners.stock_simulator.domain.SearchResult
-import de.uniks.codliners.stock_simulator.domain.Symbol
 import de.uniks.codliners.stock_simulator.network.NetworkService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

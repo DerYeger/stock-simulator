@@ -9,34 +9,6 @@ import de.uniks.codliners.stock_simulator.domain.HistoricalPriceFromApi
 import de.uniks.codliners.stock_simulator.domain.Quote
 
 @Dao
-interface ShareDao {
-
-    @Query("select * from sharedatabase where name = :shareName")
-    fun getShareByName(shareName: String): LiveData<ShareDatabase>
-
-    @Query("select * from sharedatabase where id = :shareId")
-    fun getShareById(shareId: String): LiveData<ShareDatabase>
-
-    @Query("select * from sharedatabase")
-    fun getShares(): LiveData<List<ShareDatabase>>
-
-    @Delete
-    fun delete(share: ShareDatabase)
-
-    @Delete
-    fun deleteAll(vararg shares: ShareDatabase)
-
-    @Insert
-    fun insert(share: ShareDatabase)
-
-    @Insert(onConflict = REPLACE)
-    fun insertAll(vararg shares: ShareDatabase)
-
-    @Query("DELETE FROM sharedatabase")
-    fun deleteShares()
-}
-
-@Dao
 interface QuoteDao {
 
     @Insert(onConflict = REPLACE)
@@ -58,10 +30,10 @@ interface QuoteDao {
 @Dao
 interface TransactionDao {
 
-    @Query("select * from transactiondatabase where shareName = :shareName")
+    @Query("select * from transactiondatabase where symbol = :shareName")
     fun getTransactionsByShareName(shareName: String): LiveData<List<TransactionDatabase>>
 
-    @Query("select * from transactiondatabase")
+    @Query("SELECT * FROM transactiondatabase ORDER BY transactiondatabase.date DESC")
     fun getTransactions(): LiveData<List<TransactionDatabase>>
 
     @Delete
@@ -115,6 +87,28 @@ interface AccountDao {
 }
 
 @Dao
+interface StockbrotDao {
+
+    @Insert(onConflict = REPLACE)
+    fun insertQuote(quote: Quote)
+
+    @Query("SELECT * FROM quote")
+    fun getQuotes(): LiveData<List<Quote>>
+
+    @Query("SELECT * FROM quote WHERE symbol == :symbol LIMIT 1")
+    fun getQuoteWithSymbol(symbol: String): LiveData<Quote>
+
+    @Query("SELECT * FROM quote WHERE symbol == :symbol LIMIT 1")
+    fun getQuoteBySymbol(symbol: String): Quote?
+
+    @Query("DELETE FROM quote WHERE symbol == :symbol")
+    fun deleteQuoteBySymbol(symbol: String)
+
+    @Query("DELETE FROM quote")
+    fun deleteDepot()
+}
+
+@Dao
 interface HistoricalPriceDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -131,16 +125,16 @@ interface HistoricalPriceDao {
 }
 
 @Database(
-    entities = [ShareDatabase::class, DepotQuote::class, TransactionDatabase::class, Quote::class, Balance::class],
-    version = 4,
+    entities = [DepotQuote::class, TransactionDatabase::class, Quote::class, Balance::class],
+    version = 7,
     exportSchema = false
 )
 @TypeConverters(Converters::class)
 abstract class StockAppDatabase: RoomDatabase() {
-    abstract val shareDao: ShareDao
     abstract val quoteDao: QuoteDao
     abstract val transactionDao: TransactionDao
     abstract val accountDao: AccountDao
+    abstract val stockbrotDao: StockbrotDao
     abstract val historicalDao: HistoricalPriceDao
 }
 

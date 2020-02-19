@@ -9,7 +9,6 @@ import de.uniks.codliners.stock_simulator.repository.AccountRepository
 import de.uniks.codliners.stock_simulator.repository.QuoteRepository
 import de.uniks.codliners.stock_simulator.toSafeLong
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 class QuoteViewModel(application: Application, private val symbol: String) : ViewModel() {
 

@@ -31,7 +31,11 @@
     <fragment
         android:id="@+id/navigation_stockbrot"
         android:name="de.uniks.codliners.stock_simulator.ui.stockbrot.StockbrotFragment"
-        android:label="@string/title_stockbrot" />
+        android:label="@string/title_stockbrot" >
+        <action
+            android:id="@+id/action_navigation_stockbrot_to_navigation_quote"
+            app:destination="@id/navigation_quote" />
+    </fragment>
     <fragment
         android:id="@+id/navigation_settings"
         android:name="de.uniks.codliners.stock_simulator.ui.settings.SettingsFragment"

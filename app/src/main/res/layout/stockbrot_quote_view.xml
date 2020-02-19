@@ -10,7 +10,7 @@
 
         <variable
             name="quote"
-            type="de.uniks.codliners.stock_simulator.database.DepotQuote" />
+            type="de.uniks.codliners.stock_simulator.domain.Quote" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -32,19 +32,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="name" />
-
-        <TextView
-            android:id="@+id/quote_amount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:text="@{String.valueOf(quote.amount)}"
-            android:textAlignment="center"
-            android:textAppearance="@android:style/TextAppearance.Material.Headline"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/quote_symbol"
-            app:layout_constraintTop_toTopOf="@+id/quote_symbol"
-            tools:text="2" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
