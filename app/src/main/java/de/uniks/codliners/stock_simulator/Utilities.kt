@@ -3,12 +3,12 @@ package de.uniks.codliners.stock_simulator
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.ContextWrapper
+import android.content.SharedPreferences
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import de.uniks.codliners.stock_simulator.repository.AccountRepository
 import de.uniks.codliners.stock_simulator.repository.HistoryRepository
 import de.uniks.codliners.stock_simulator.repository.QuoteRepository
-import de.uniks.codliners.stock_simulator.repository.ShareRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -17,9 +17,7 @@ import timber.log.Timber
 
 const val SHARED_PREFERENCES_KEY = "de.uniks.codliners.stock_simulator"
 
-fun ContextWrapper.sharedPreferences() = getSharedPreferences(SHARED_PREFERENCES_KEY, MODE_PRIVATE)
-
-fun Any.truly() = true
+fun ContextWrapper.sharedPreferences(): SharedPreferences = getSharedPreferences(SHARED_PREFERENCES_KEY, MODE_PRIVATE)
 
 fun Context.resetAccount() {
     val self = this
@@ -42,13 +40,6 @@ fun Context.resetQuotes() {
     }
 }
 
-fun Context.resetShares() {
-    val self = this
-    CoroutineScope(Dispatchers.Main).launch {
-        ShareRepository(self).refreshShares()
-    }
-}
-
 fun Context.ensureAccountPresence(lifecycleOwner: LifecycleOwner) {
     val accountRepository = AccountRepository(this)
     accountRepository.latestBalance.observe(lifecycleOwner, Observer { t ->
@@ -63,7 +54,7 @@ fun Context.ensureAccountPresence(lifecycleOwner: LifecycleOwner) {
     })
     accountRepository.balances.observe(lifecycleOwner, Observer { t ->
         run {
-            Timber.i("Created new account with balances: ${t}")
+            Timber.i("Created new account with balances: $t")
         }
     })
 }
