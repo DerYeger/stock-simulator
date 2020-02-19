@@ -1,7 +1,8 @@
 package de.uniks.codliners.stock_simulator.ui.history
 
 import android.app.Application
-import androidx.lifecycle.*
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import de.uniks.codliners.stock_simulator.repository.HistoryRepository
 
 class HistoryViewModel(application: Application) : ViewModel() {

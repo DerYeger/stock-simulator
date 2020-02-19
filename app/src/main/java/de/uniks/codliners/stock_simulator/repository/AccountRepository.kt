@@ -11,6 +11,8 @@ import de.uniks.codliners.stock_simulator.domain.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
+private const val BALANCE_LIMIT: Int = 50
+
 class AccountRepository(private val database: StockAppDatabase) {
 
     constructor(context: Context) : this(getDatabase(context))
@@ -21,6 +23,10 @@ class AccountRepository(private val database: StockAppDatabase) {
 
     val balances by lazy {
         database.accountDao.getBalances()
+    }
+
+    val balancesLimited by lazy {
+        database.accountDao.getBalancesLimited(BALANCE_LIMIT)
     }
 
     val depot by lazy {
@@ -34,15 +40,20 @@ class AccountRepository(private val database: StockAppDatabase) {
         val lastBalance = latestBalance.value
         lastBalance?.let {
             withContext(Dispatchers.IO) {
-                val newBalance = Balance(lastBalance.value - quote.latestPrice * amount)
+                val cashflow = -(quote.latestPrice * amount) - BuildConfig.TRANSACTION_COSTS
+                val newBalance = Balance(lastBalance.value + cashflow)
 
                 val depotQuote = database.accountDao.getDepotQuoteBySymbol(quote.symbol)
                     ?: DepotQuote(quote.symbol, 0)
                 val newDepotQuote = depotQuote.copy(amount = depotQuote.amount + amount)
 
                 val transaction = TransactionDatabase(
-                    shareName = quote.companyName,
-                    number = amount,
+                    symbol = quote.symbol,
+                    companyName = quote.companyName,
+                    amount = amount,
+                    price = quote.latestPrice,
+                    transactionCosts = BuildConfig.TRANSACTION_COSTS,
+                    cashflow = cashflow,
                     transactionType = TransactionType.BUY,
                     date = System.currentTimeMillis()
                 )
@@ -60,14 +71,19 @@ class AccountRepository(private val database: StockAppDatabase) {
         val lastBalance = latestBalance.value
         lastBalance?.let {
             withContext(Dispatchers.IO) {
-                val newBalance = Balance(lastBalance.value + quote.latestPrice * amount)
+                val cashflow = quote.latestPrice * amount - BuildConfig.TRANSACTION_COSTS
+                val newBalance = Balance(lastBalance.value + cashflow)
 
                 val depotQuote = database.accountDao.getDepotQuoteBySymbol(quote.symbol)!!
                 val newDepotQuote = depotQuote.copy(amount = depotQuote.amount - amount)
 
                 val transaction = TransactionDatabase(
-                    shareName = quote.companyName,
-                    number = amount,
+                    symbol = quote.symbol,
+                    companyName = quote.companyName,
+                    amount = amount,
+                    price = quote.latestPrice,
+                    transactionCosts = BuildConfig.TRANSACTION_COSTS,
+                    cashflow = cashflow,
                     transactionType = TransactionType.SELL,
                     date = System.currentTimeMillis()
                 )

@@ -30,10 +30,13 @@ interface QuoteDao {
 @Dao
 interface TransactionDao {
 
-    @Query("select * from transactiondatabase where shareName = :shareName")
+    @Query("select * from transactiondatabase where symbol = :shareName")
     fun getTransactionsByShareName(shareName: String): LiveData<List<TransactionDatabase>>
 
-    @Query("select * from transactiondatabase")
+    @Query("select * from transactiondatabase limit :limit")
+    fun getTransactionsLimited(limit: Int): LiveData<List<TransactionDatabase>>
+
+    @Query("SELECT * FROM transactiondatabase ORDER BY transactiondatabase.date DESC")
     fun getTransactions(): LiveData<List<TransactionDatabase>>
 
     @Delete
@@ -60,6 +63,9 @@ interface AccountDao {
 
     @Query("SELECT * FROM balance ORDER BY balance.timestamp ASC")
     fun getBalances(): LiveData<List<Balance>>
+
+    @Query("SELECT * FROM (SELECT * FROM balance ORDER BY balance.timestamp DESC LIMIT :limit) ORDER BY timestamp ASC")
+    fun getBalancesLimited(limit: Int): LiveData<List<Balance>>
 
     @Query("SELECT * FROM balance ORDER BY balance.timestamp DESC LIMIT 1")
     fun getLatestBalance(): LiveData<Balance>
@@ -110,7 +116,7 @@ interface StockbrotDao {
 
 @Database(
     entities = [DepotQuote::class, TransactionDatabase::class, Quote::class, Balance::class, StockbrotQuote::class],
-    version = 6,
+    version = 8,
     exportSchema = false
 )
 @TypeConverters(Converters::class)

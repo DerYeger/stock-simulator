@@ -2,28 +2,41 @@ package de.uniks.codliners.stock_simulator.ui.history
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import de.uniks.codliners.stock_simulator.databinding.TransactionViewBinding
+import de.uniks.codliners.stock_simulator.databinding.TransactionCardBinding
 import de.uniks.codliners.stock_simulator.domain.Transaction
+import de.uniks.codliners.stock_simulator.ui.OnClickListener
+import java.text.SimpleDateFormat
+import java.util.*
 
-class HistoryRecyclerViewAdapter: ListAdapter<Transaction,
+class HistoryRecyclerViewAdapter(
+    private val onClickListener: OnClickListener<Transaction>,
+    locale: Locale
+) : ListAdapter<Transaction,
         HistoryRecyclerViewAdapter.ViewHolder>(DiffCallback) {
 
-    inner class ViewHolder(private val binding: TransactionViewBinding) :
+    private val dateFormatter = SimpleDateFormat("dd.MM.YYYY hh:mm", locale)
+
+    inner class ViewHolder(private val binding: TransactionCardBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(transaction: Transaction) {
+            val calendar = Calendar.getInstance()
+            calendar.timeInMillis = transaction.date
             binding.transaction = transaction
+            binding.dateString = dateFormatter.format(calendar.time)
+            binding.onClickListener = onClickListener
             binding.executePendingBindings()
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
-            TransactionViewBinding.inflate(
-                LayoutInflater.from(parent.context), parent, false)
+            TransactionCardBinding.inflate(
+                LayoutInflater.from(parent.context), parent, false
+            )
         )
     }
 

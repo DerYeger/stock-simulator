@@ -16,15 +16,23 @@ data class DepotQuote(
 data class TransactionDatabase constructor(
     @PrimaryKey(autoGenerate = true)
     val primaryKey: Long = 0,
-    val shareName: String,
-    val number: Int,
+    val symbol: String,
+    val companyName: String,
+    val amount: Int,
+    val price: Double,
+    val transactionCosts: Double,
+    val cashflow: Double,
     val transactionType: TransactionType,
     val date: Long
 )
 
 fun TransactionDatabase.transactionAsDomainModel() = Transaction(
-    shareName = this.shareName,
-    number = this.number,
+    symbol = this.symbol,
+    companyName = this.companyName,
+    amount = this.amount,
+    price = this.price,
+    transactionCosts = this.transactionCosts,
+    cashflow = this.cashflow,
     transactionType = this.transactionType,
     date = this.date
 )

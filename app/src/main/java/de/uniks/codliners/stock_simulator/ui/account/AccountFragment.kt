@@ -8,15 +8,21 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
+import com.github.mikephil.charting.formatter.ValueFormatter
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import com.github.mikephil.charting.utils.ColorTemplate
 import de.uniks.codliners.stock_simulator.databinding.FragmentAccountBinding
+import de.uniks.codliners.stock_simulator.domain.Balance
 import de.uniks.codliners.stock_simulator.ui.OnClickListener
+import java.text.SimpleDateFormat
+
 
 class AccountFragment : Fragment() {
 
@@ -25,6 +31,8 @@ class AccountFragment : Fragment() {
     }
 
     private lateinit var binding: FragmentAccountBinding
+
+    private lateinit var chart: LineChart
 
     private lateinit var tfLight: Typeface
     private lateinit var tfRegular: Typeface
@@ -47,71 +55,85 @@ class AccountFragment : Fragment() {
             })
         binding.lifecycleOwner = this
 
+        chart = binding.accountChart
+
         initBalanceChart()
+
+        viewModel.balancesLimited.observe(viewLifecycleOwner, Observer { balances ->
+            run {
+                updateBalanceChart(balances)
+            }
+        })
 
         return binding.root
     }
 
     private fun initBalanceChart() {
-        val chart = binding.accountChart
         val xAxis = chart.xAxis
         val yAxis = chart.axisLeft
 
         chart.axisRight.isEnabled = false
-        chart.data = generateLineData(10, 5f)
         chart.description.isEnabled = false
         chart.legend.isEnabled = false
         chart.setBackgroundColor(Color.TRANSPARENT)
         chart.setDrawGridBackground(false)
         chart.setTouchEnabled(false)
 
-        xAxis.axisLineColor = Color.TRANSPARENT
-        xAxis.gridColor = Color.DKGRAY
+        xAxis.gridColor = Color.GRAY
         xAxis.position = XAxis.XAxisPosition.BOTTOM
+        xAxis.setDrawAxisLine(false)
+        xAxis.setLabelCount(2, false)
         xAxis.textColor = Color.WHITE
         xAxis.typeface = tfLight
-//        xAxis.setDrawGridLines(false)
+        xAxis.valueFormatter = object : ValueFormatter() {
+            private val dateFormatter =
+                SimpleDateFormat("dd.MM.YYYY hh:mm:ss", resources.configuration.locale)
 
-        yAxis.axisLineColor = Color.TRANSPARENT
+            override fun getFormattedValue(value: Float): String {
+                return dateFormatter.format(value)
+            }
+        }
+
         yAxis.gridColor = Color.DKGRAY
+        yAxis.setDrawAxisLine(false)
         yAxis.setLabelCount(2, false)
         yAxis.textColor = Color.WHITE
         yAxis.typeface = tfLight
-//        yAxis.setDrawGridLines(false)
+        yAxis.valueFormatter = object : ValueFormatter() {
+            override fun getFormattedValue(value: Float): String {
+                return "%.2f€".format(value)
+            }
+        }
 
         chart.invalidate()
     }
 
-    private fun generateLineData(count: Int, range: Float): LineData {
-        val values: ArrayList<Entry> = ArrayList()
-
-        for (i in 0 until count) {
-            val value = (Math.random() * (range + 1)).toFloat() + 20
-            values.add(Entry(i.toFloat(), value))
+    private fun updateBalanceChart(balancesList: List<Balance>) {
+        val firstBalanceTimestamp = if (balancesList.isNotEmpty()) balancesList[0].timestamp else 0L
+        val entries = balancesList.map { balance ->
+            Entry(
+                (balance.timestamp - firstBalanceTimestamp).toFloat(),
+                balance.value.toFloat()
+            )
         }
-
-        val lds = LineDataSet(values, "Account Balance")
+        val lds = LineDataSet(entries, "Account Balance")
         lds.color = Color.WHITE
         lds.color = ColorTemplate.VORDIPLOM_COLORS[0]
-        lds.cubicIntensity = 0.2f
         lds.fillAlpha = 100
         lds.fillColor = Color.WHITE
         lds.lineWidth = 1.8f
-        lds.mode = LineDataSet.Mode.CUBIC_BEZIER
+        lds.mode = LineDataSet.Mode.STEPPED
         lds.setDrawCircles(false)
         lds.setDrawFilled(true)
         lds.setDrawHorizontalHighlightIndicator(false)
-//        ds1.circleRadius = 4f
-//        ds1.highLightColor = Color.rgb(244, 117, 117)
-//        ds1.setCircleColor(Color.WHITE)
 
         val sets: ArrayList<ILineDataSet> = ArrayList()
         sets.add(lds)
 
         val ld = LineData(sets)
         ld.setDrawValues(false)
-//        lineData.setValueTextColor(Color.WHITE)
-//        lineData.setValueTypeface(tfRegular)
-        return ld
+
+        chart.data = ld
+        chart.invalidate()
     }
 }
