@@ -15,18 +15,29 @@ class AccountRepository(private val database: StockAppDatabase) {
 
     constructor(context: Context) : this(getDatabase(context))
 
-    val account = database.accountDao.getAccount()
+    val latestBalance by lazy {
+        database.accountDao.getLatestBalance()
+    }
 
-    val depot: LiveData<List<DepotQuote>> = database.accountDao.getDepot()
+    val balances by lazy {
+        database.accountDao.getBalances()
+    }
+
+    val depot by lazy {
+        database.accountDao.getDepotQuotes()
+    }
+
+    fun depotQuoteWithSymbol(symbol: String): LiveData<DepotQuote> =
+        database.accountDao.getDepotQuoteWithSymbol(symbol)
 
     suspend fun buy(quote: Quote, amount: Int) {
-        val account = account.value
-        account?.let {
+        val lastBalance = latestBalance.value
+        lastBalance?.let {
             withContext(Dispatchers.IO) {
-                val newBalance = account.balance - quote.latestPrice * amount
-                val newAccount = account.copy(balance = newBalance)
+                val newBalance = Balance(lastBalance.value - quote.latestPrice * amount)
 
                 val depotQuote = database.accountDao.getDepotQuoteBySymbol(quote.symbol)
+                    ?: DepotQuote(quote.symbol, 0)
                 val newDepotQuote = depotQuote.copy(amount = depotQuote.amount + amount)
 
                 val transaction = TransactionDatabase(
@@ -36,21 +47,22 @@ class AccountRepository(private val database: StockAppDatabase) {
                     date = System.currentTimeMillis()
                 )
 
-                database.accountDao.update(newAccount)
-                database.accountDao.insertDepotQuote(newDepotQuote)
+                database.accountDao.apply {
+                    insertBalance(newBalance)
+                    insertDepotQuote(newDepotQuote)
+                }
                 database.transactionDao.insert(transaction)
             }
         }
     }
 
     suspend fun sell(quote: Quote, amount: Int) {
-        val account = account.value
-        account?.let {
+        val lastBalance = latestBalance.value
+        lastBalance?.let {
             withContext(Dispatchers.IO) {
-                val newBalance = account.balance + quote.latestPrice * amount
-                val newAccount = account.copy(balance = newBalance)
+                val newBalance = Balance(lastBalance.value + quote.latestPrice * amount)
 
-                val depotQuote = database.accountDao.getDepotQuoteBySymbol(quote.symbol)
+                val depotQuote = database.accountDao.getDepotQuoteBySymbol(quote.symbol)!!
                 val newDepotQuote = depotQuote.copy(amount = depotQuote.amount - amount)
 
                 val transaction = TransactionDatabase(
@@ -60,13 +72,14 @@ class AccountRepository(private val database: StockAppDatabase) {
                     date = System.currentTimeMillis()
                 )
 
-                database.accountDao.update(newAccount)
-                if (newDepotQuote.amount > 0) {
-                    database.accountDao.insertDepotQuote(newDepotQuote)
-                } else {
-                    database.accountDao.deleteDepotQuoteBySymbol(newDepotQuote.symbol)
+                database.accountDao.apply {
+                    insertBalance(newBalance)
+                    if (newDepotQuote.amount > 0) {
+                        insertDepotQuote(newDepotQuote)
+                    } else {
+                        deleteDepotQuoteBySymbol(newDepotQuote.symbol)
+                    }
                 }
-
                 database.transactionDao.insert(transaction)
             }
         }
@@ -74,8 +87,12 @@ class AccountRepository(private val database: StockAppDatabase) {
 
     suspend fun resetAccount() {
         withContext(Dispatchers.IO) {
-            database.accountDao.deleteDepot()
-            database.accountDao.insert(Account(balance = BuildConfig.NEW_ACCOUNT_BALANCE))
+            database.accountDao.apply {
+                deleteDepot()
+                deleteBalances()
+                val starterBalance = Balance(value = BuildConfig.NEW_ACCOUNT_BALANCE)
+                insertBalance(starterBalance)
+            }
         }
     }
 }

@@ -12,13 +12,14 @@ import de.uniks.codliners.stock_simulator.domain.Share
 import de.uniks.codliners.stock_simulator.domain.Symbol
 import de.uniks.codliners.stock_simulator.ui.OnClickListener
 
-class DepotQuoteRecyclerViewAdapter():
+class DepotQuoteRecyclerViewAdapter(private val onClickListener: OnClickListener<DepotQuote>):
     ListAdapter<DepotQuote, DepotQuoteRecyclerViewAdapter.ViewHolder>(DiffCallback) {
 
     inner class ViewHolder(private val binding: DepotShareViewBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(quote: DepotQuote) {
+            binding.onClickListener = onClickListener
             binding.quote = quote
             binding.executePendingBindings()
         }

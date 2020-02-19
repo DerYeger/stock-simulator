@@ -4,10 +4,10 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-data class Account(
-    val balance: Double,
+data class Balance(
+    val value: Double,
     @PrimaryKey
-    val id: Long = 0L
+    val timestamp: Long = System.currentTimeMillis()
 )
 
 data class Share(

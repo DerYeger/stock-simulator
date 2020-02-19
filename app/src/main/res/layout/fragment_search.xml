@@ -17,7 +17,9 @@
         android:layout_height="match_parent">
 
         <EditText
+            android:hint="@string/query"
             android:id="@+id/search_query_edit_text"
+            android:importantForAutofill="no"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/default_spacing"

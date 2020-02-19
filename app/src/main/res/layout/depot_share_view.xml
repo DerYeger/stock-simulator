@@ -5,13 +5,18 @@
 
     <data>
         <variable
+            name="onClickListener"
+            type="de.uniks.codliners.stock_simulator.ui.OnClickListener" />
+
+        <variable
             name="quote"
             type="de.uniks.codliners.stock_simulator.database.DepotQuote" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:onClick="@{() -> onClickListener.onClick(quote)}">
 
         <TextView
             android:id="@+id/quote_symbol"

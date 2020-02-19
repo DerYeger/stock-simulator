@@ -1,6 +1,6 @@
 package de.uniks.codliners.stock_simulator.repository
 
-import android.app.Application
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import de.uniks.codliners.stock_simulator.database.StockAppDatabase
@@ -12,13 +12,13 @@ import kotlinx.coroutines.withContext
 
 class QuoteRepository(private val database: StockAppDatabase) {
 
-    constructor(application: Application) : this(getDatabase(application))
+    constructor(context: Context) : this(getDatabase(context))
 
     sealed class State {
-        object Empty: State()
-        object Refreshing: State()
-        object Done: State()
-        class Error(val message: String): State()
+        object Empty : State()
+        object Refreshing : State()
+        object Done : State()
+        class Error(val message: String) : State()
     }
 
     private val _state = MutableLiveData<State>().apply {
@@ -27,7 +27,8 @@ class QuoteRepository(private val database: StockAppDatabase) {
     val state: LiveData<State> = _state
 
 
-    fun quoteWithSymbol(symbol: String): LiveData<Quote> = database.quoteDao.getQuoteWithSymbol(symbol)
+    fun quoteWithSymbol(symbol: String): LiveData<Quote> =
+        database.quoteDao.getQuoteWithSymbol(symbol)
 
     suspend fun fetchQuoteWithSymbol(symbol: String) {
         withContext(Dispatchers.IO) {
@@ -38,6 +39,14 @@ class QuoteRepository(private val database: StockAppDatabase) {
                 _state.postValue(State.Done)
             } catch (exception: Exception) {
                 _state.postValue(State.Error(exception.message ?: "Oops!"))
+            }
+        }
+    }
+
+    suspend fun resetQuotes() {
+        withContext(Dispatchers.IO) {
+            database.quoteDao.apply {
+                deleteQuotes()
             }
         }
     }

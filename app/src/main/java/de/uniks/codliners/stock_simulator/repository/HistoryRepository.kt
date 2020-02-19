@@ -1,6 +1,6 @@
 package de.uniks.codliners.stock_simulator.repository
 
-import android.app.Application
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
@@ -10,15 +10,14 @@ import de.uniks.codliners.stock_simulator.database.transactionsAsDomainModel
 import de.uniks.codliners.stock_simulator.domain.Transaction
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import java.lang.Exception
 
-class HistoryRepository(private val stockAppDatabase: StockAppDatabase) {
+class HistoryRepository(private val database: StockAppDatabase) {
 
-    constructor(application: Application): this(getDatabase(application))
+    constructor(context: Context) : this(getDatabase(context))
 
     sealed class State {
-        object Loading: State()
-        object Done: State()
+        object Loading : State()
+        object Done : State()
         class Error(val message: String)
     }
 
@@ -26,15 +25,20 @@ class HistoryRepository(private val stockAppDatabase: StockAppDatabase) {
     val state: LiveData<State> = _state
 
     val transactions: LiveData<List<Transaction>> =
-        Transformations.map(stockAppDatabase.transactionDao.getTransactions()) {
+        Transformations.map(database.transactionDao.getTransactions()) {
             it?.transactionsAsDomainModel()
         }
 
     fun transactionByShareName(shareName: String): LiveData<List<Transaction>> = Transformations
-        .map(stockAppDatabase.transactionDao.getTransactionsByShareName(shareName)) {
+        .map(database.transactionDao.getTransactionsByShareName(shareName)) {
             it?.transactionsAsDomainModel()
         }
 
-
-
+    suspend fun resetHistory() {
+        withContext(Dispatchers.IO) {
+            database.transactionDao.apply {
+                deleteTransactions()
+            }
+        }
+    }
 }
