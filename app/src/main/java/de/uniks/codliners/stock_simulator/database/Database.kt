@@ -63,6 +63,9 @@ interface AccountDao {
     @Query("SELECT * FROM balance ORDER BY balance.timestamp ASC")
     fun getBalances(): LiveData<List<Balance>>
 
+    @Query("SELECT * FROM (SELECT * FROM balance ORDER BY balance.timestamp DESC LIMIT :limit) ORDER BY timestamp ASC")
+    fun getBalancesLimited(limit: Int): LiveData<List<Balance>>
+
     @Query("SELECT * FROM balance ORDER BY balance.timestamp DESC LIMIT 1")
     fun getLatestBalance(): LiveData<Balance>
 

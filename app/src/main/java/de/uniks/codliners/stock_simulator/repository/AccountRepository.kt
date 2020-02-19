@@ -11,6 +11,8 @@ import de.uniks.codliners.stock_simulator.domain.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
+private const val BALANCE_LIMIT: Int = 50
+
 class AccountRepository(private val database: StockAppDatabase) {
 
     constructor(context: Context) : this(getDatabase(context))
@@ -21,6 +23,10 @@ class AccountRepository(private val database: StockAppDatabase) {
 
     val balances by lazy {
         database.accountDao.getBalances()
+    }
+
+    val balancesLimited by lazy {
+        database.accountDao.getBalancesLimited(BALANCE_LIMIT)
     }
 
     val depot by lazy {
