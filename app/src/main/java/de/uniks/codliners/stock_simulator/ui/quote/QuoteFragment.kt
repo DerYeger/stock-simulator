@@ -13,7 +13,6 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.XAxis
-import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
@@ -33,6 +32,7 @@ class QuoteFragment : Fragment() {
 
     private lateinit var tfLight: Typeface
     private lateinit var tfRegular: Typeface
+    private lateinit var chart: LineChart
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -45,6 +45,7 @@ class QuoteFragment : Fragment() {
         binding = FragmentQuoteBinding.inflate(inflater)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
+        chart = binding.quoteChart
 
         viewModel.errorAction.observe(viewLifecycleOwner, Observer { errorMessage: String? ->
             errorMessage?.let {
@@ -54,16 +55,18 @@ class QuoteFragment : Fragment() {
             }
         })
 
-        viewModel.historicalPrices.observe(viewLifecycleOwner, Observer { priceList -> })
+        viewModel.historicalPrices.observe(viewLifecycleOwner, Observer { priceList ->
+            priceList?.let {
+                drawGraph()
+            }
+        })
 
-        initQuoteChart()
+        drawGraph()
 
         return binding.root
     }
 
-    private fun initQuoteChart() {
-        val chart = binding.quoteChart
-
+    private fun drawGraph() {
         chart.data = generateLineData(10, 5f)
         styleGraph(chart)
 //        yAxis.setDrawGridLines(false)
