@@ -109,7 +109,7 @@ class AccountFragment : Fragment() {
     }
 
     private fun updateBalanceChart(balancesList: List<Balance>) {
-        val firstBalanceTimestamp = balancesList[0].timestamp
+        val firstBalanceTimestamp = if (balancesList.isNotEmpty()) balancesList[0].timestamp else 0L
         val entries = balancesList.map { balance ->
             Entry(
                 (balance.timestamp - firstBalanceTimestamp).toFloat(),
