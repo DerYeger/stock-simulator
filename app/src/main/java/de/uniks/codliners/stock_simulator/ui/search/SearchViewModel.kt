@@ -1,24 +1,40 @@
 package de.uniks.codliners.stock_simulator.ui.search
 
 import android.app.Application
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
-import de.uniks.codliners.stock_simulator.repository.SearchRepository
+import androidx.lifecycle.*
+import de.uniks.codliners.stock_simulator.domain.Symbol
+import de.uniks.codliners.stock_simulator.repository.SymbolRepository
 import kotlinx.coroutines.launch
+import timber.log.Timber
+import java.util.*
 
 class SearchViewModel(application: Application) : ViewModel() {
 
-    private val searchRepository = SearchRepository(application)
-    val searchResults = searchRepository.searchResults
-    val searchState = searchRepository.state
+    private val symbolRepository = SymbolRepository(application)
+    private val symbols = symbolRepository.symbols
+    val symbolState = symbolRepository.state
 
-    val searchQuery = searchRepository.searchQuery
+    private val _searchResults = MediatorLiveData<List<Symbol>>()
+    val searchResults: LiveData<List<Symbol>> = _searchResults
+
+    val searchQuery = MutableLiveData<String>()
 
     init {
+        _searchResults.apply {
+            addSource(symbols) { symbols: List<Symbol>? ->
+                val formattedQuery = searchQuery.value?.toUpperCase(Locale.getDefault())
+                value = symbols?.filter { formattedQuery.isNullOrBlank() || it.symbol.startsWith(formattedQuery) }
+            }
+
+            addSource(searchQuery) { query ->
+                val symbols = symbols.value
+                val formattedQuery = query.toUpperCase(Locale.getDefault())
+                value = symbols?.filter { formattedQuery.isNullOrBlank() || it.symbol.startsWith(formattedQuery) }
+            }
+        }
+
        viewModelScope.launch {
-           searchRepository.refreshSymbols()
+           symbolRepository.refreshSymbols()
        }
     }
 

@@ -11,7 +11,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import de.uniks.codliners.stock_simulator.R
 import de.uniks.codliners.stock_simulator.database.DepotQuote
 import de.uniks.codliners.stock_simulator.domain.*
-import de.uniks.codliners.stock_simulator.repository.SearchRepository
+import de.uniks.codliners.stock_simulator.repository.SymbolRepository
 import de.uniks.codliners.stock_simulator.domain.TransactionType.*
 import de.uniks.codliners.stock_simulator.ui.account.DepotQuoteRecyclerViewAdapter
 import de.uniks.codliners.stock_simulator.ui.search.SearchResultAdapter
@@ -43,25 +43,9 @@ fun RecyclerView.bindDepotQuotes(quotes: List<DepotQuote>?) {
 }
 
 @BindingAdapter("searchState")
-fun TextView.bindSearchState(state: SearchRepository.State) {
-    when (state) {
-        is SearchRepository.State.Empty -> {
-            text = context.getText(R.string.no_results)
-            visibility = View.VISIBLE
-        }
-        is SearchRepository.State.Searching -> visibility = View.GONE
-        is SearchRepository.State.Done -> visibility = View.GONE
-        is SearchRepository.State.Error -> {
-            text = state.message
-            visibility = View.VISIBLE
-        }
-    }
-}
-
-@BindingAdapter("searchState")
-fun ProgressBar.bindSearchRepositoryState(state: SearchRepository.State) {
+fun ProgressBar.bindSearchRepositoryState(state: SymbolRepository.State) {
     visibility = when (state) {
-        is SearchRepository.State.Searching -> View.VISIBLE
+        is SymbolRepository.State.Refreshing -> View.VISIBLE
         else -> View.GONE
     }
 }

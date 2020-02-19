@@ -4,7 +4,7 @@
 
     <data>
 
-        <import type="de.uniks.codliners.stock_simulator.repository.SearchRepository.State" />
+        <import type="de.uniks.codliners.stock_simulator.repository.SymbolRepository.State" />
 
         <variable
             name="viewModel"
@@ -16,15 +16,15 @@
         android:layout_height="match_parent">
 
         <EditText
-            android:hint="@string/query"
             android:id="@+id/search_query_edit_text"
-            android:importantForAutofill="no"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/default_spacing"
             android:layout_marginTop="@dimen/default_spacing"
             android:layout_marginEnd="@dimen/default_spacing"
             android:ems="10"
+            android:hint="@string/query"
+            android:importantForAutofill="no"
             android:inputType="textPersonName"
             android:text="@={viewModel.searchQuery}"
             app:layout_constraintEnd_toEndOf="parent"
@@ -44,7 +44,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/search_query_edit_text"
-            app:searchState="@{viewModel.searchState}" />
+            app:searchState="@{viewModel.symbolState}" />
 
         <TextView
             android:id="@+id/state_text"
@@ -60,7 +60,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/search_query_edit_text"
-            app:searchState="@{viewModel.searchState}" />
+            app:visible="@{viewModel.searchResults.size() == 0}" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/search_result_recycler_view"
@@ -69,7 +69,6 @@
             android:layout_marginTop="@dimen/default_spacing"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
-
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/search_query_edit_text"
             app:searchResults="@{viewModel.searchResults}"

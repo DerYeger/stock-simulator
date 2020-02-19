@@ -3,7 +3,7 @@ package de.uniks.codliners.stock_simulator
 import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.edit
-import de.uniks.codliners.stock_simulator.repository.SearchRepository
+import de.uniks.codliners.stock_simulator.repository.SymbolRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -20,7 +20,7 @@ class StockSimulatorApplication : Application() {
 
         onFirstRun {
             CoroutineScope(Dispatchers.Main).launch {
-                SearchRepository(this@StockSimulatorApplication).refreshSymbols()
+                SymbolRepository(this@StockSimulatorApplication).refreshSymbols()
             }
         }
     }

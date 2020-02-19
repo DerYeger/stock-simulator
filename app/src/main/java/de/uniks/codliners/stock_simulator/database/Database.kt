@@ -15,7 +15,7 @@ interface SymbolDao {
     @Insert(onConflict = REPLACE)
     fun insertAll(vararg symbols: Symbol)
 
-    @Query("SELECT * FROM symbol")
+    @Query("SELECT * FROM symbol ORDER BY symbol.symbol ASC")
     fun getAll(): LiveData<List<Symbol>>
 }
 
