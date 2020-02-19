@@ -2,6 +2,7 @@ package de.uniks.codliners.stock_simulator.ui.quote
 
 import android.app.Application
 import androidx.lifecycle.*
+import de.uniks.codliners.stock_simulator.BuildConfig
 import de.uniks.codliners.stock_simulator.database.DepotQuote
 import de.uniks.codliners.stock_simulator.domain.Balance
 import de.uniks.codliners.stock_simulator.noNulls
@@ -87,6 +88,7 @@ class QuoteViewModel(application: Application, private val symbol: String) : Vie
                 value = canSell(
                     amount = it.toSafeLong(),
                     depotQuote = depotQuote.value,
+                    balance = latestBalance.value,
                     state = state.value
                 )
             }
@@ -95,6 +97,16 @@ class QuoteViewModel(application: Application, private val symbol: String) : Vie
                 value = canSell(
                     amount = sellAmount.value?.toSafeLong(),
                     depotQuote = it,
+                    balance = latestBalance.value,
+                    state = state.value
+                )
+            }
+
+            addSource(latestBalance) {
+                value = canSell(
+                    amount = sellAmount.value?.toSafeLong(),
+                    depotQuote = depotQuote.value,
+                    balance = it,
                     state = state.value
                 )
             }
@@ -103,6 +115,7 @@ class QuoteViewModel(application: Application, private val symbol: String) : Vie
                 value = canSell(
                     amount = sellAmount.value?.toSafeLong(),
                     depotQuote = depotQuote.value,
+                    balance = latestBalance.value,
                     state = it
                 )
             }
@@ -143,16 +156,18 @@ class QuoteViewModel(application: Application, private val symbol: String) : Vie
     ) = noNulls(amount, price, depotQuote, state)
             && state === QuoteRepository.State.Done
             && 0 < amount!!
-            && amount * price!! <= balance!!.value
+            && amount * price!! + BuildConfig.TRANSACTION_COSTS <= balance!!.value
 
     private fun canSell(
         amount: Long?,
         depotQuote: DepotQuote?,
+        balance: Balance?,
         state: QuoteRepository.State?
-    ) = noNulls(amount, depotQuote, state)
+    ) = noNulls(amount, depotQuote, balance, state)
             && state === QuoteRepository.State.Done
             && 0 < amount!!
             && amount <= depotQuote!!.amount
+            && BuildConfig.TRANSACTION_COSTS <= balance!!.value
 
     class Factory(
         private val application: Application,

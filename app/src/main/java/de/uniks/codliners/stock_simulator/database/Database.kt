@@ -109,7 +109,7 @@ interface StockbrotDao {
 
 @Database(
     entities = [DepotQuote::class, TransactionDatabase::class, Quote::class, Balance::class],
-    version = 7,
+    version = 8,
     exportSchema = false
 )
 @TypeConverters(Converters::class)

@@ -17,6 +17,8 @@ data class Transaction(
     val companyName: String,
     val amount: Int,
     val price: Double,
+    val transactionCosts: Double,
+    val cashflow: Double,
     val transactionType: TransactionType,
     val date: Long
 )

@@ -20,6 +20,8 @@ data class TransactionDatabase constructor(
     val companyName: String,
     val amount: Int,
     val price: Double,
+    val transactionCosts: Double,
+    val cashflow: Double,
     val transactionType: TransactionType,
     val date: Long
 )
@@ -29,6 +31,8 @@ fun TransactionDatabase.transactionAsDomainModel() = Transaction(
     companyName = this.companyName,
     amount = this.amount,
     price = this.price,
+    transactionCosts = this.transactionCosts,
+    cashflow = this.cashflow,
     transactionType = this.transactionType,
     date = this.date
 )
