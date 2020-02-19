@@ -10,7 +10,7 @@ class AccountViewModel(application: Application) : ViewModel() {
     private val accountRepository = AccountRepository(application)
 
     val balance = accountRepository.latestBalance
-
+    val balancesLimited = accountRepository.balancesLimited
     val depotQuotes = accountRepository.depot
 
     class Factory(
