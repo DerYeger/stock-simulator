@@ -20,6 +20,7 @@ import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import com.github.mikephil.charting.utils.ColorTemplate
 import de.uniks.codliners.stock_simulator.database.HistoricalPrice
 import de.uniks.codliners.stock_simulator.databinding.FragmentQuoteBinding
+import java.text.SimpleDateFormat
 
 class QuoteFragment : Fragment() {
 
@@ -49,27 +50,33 @@ class QuoteFragment : Fragment() {
 
         viewModel.errorAction.observe(viewLifecycleOwner, Observer { errorMessage: String? ->
             errorMessage?.let {
-                Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
-                findNavController().navigateUp()
+                showErrorToast(errorMessage)
                 viewModel.onErrorActionCompleted()
             }
         })
 
         viewModel.historicalPrices.observe(viewLifecycleOwner, Observer { priceList ->
             priceList?.let {
-                drawGraph()
+                drawGraph(priceList)
             }
         })
 
-        drawGraph()
+        if (viewModel.historicalPrices.value != null) {
+            drawGraph(viewModel.historicalPrices.value!!)
+        }
+
 
         return binding.root
     }
 
-    private fun drawGraph() {
-        chart.data = generateLineData(10, 5f)
+    private fun showErrorToast(errorMessage: String?) {
+        Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
+        findNavController().navigateUp()
+    }
+
+    private fun drawGraph(prices: List<HistoricalPrice>) {
+        chart.data = generateLineData(prices)
         styleGraph(chart)
-//        yAxis.setDrawGridLines(false)
 
         chart.invalidate()
     }
@@ -90,7 +97,6 @@ class QuoteFragment : Fragment() {
         xAxis.position = XAxis.XAxisPosition.BOTTOM
         xAxis.textColor = Color.WHITE
         xAxis.typeface = tfLight
-        //        xAxis.setDrawGridLines(false)
 
         yAxis.axisLineColor = Color.TRANSPARENT
         yAxis.gridColor = Color.DKGRAY
@@ -99,21 +105,14 @@ class QuoteFragment : Fragment() {
         yAxis.typeface = tfLight
     }
 
-    private fun generateLineData(count: Int, range: Float): LineData {
-        val values: ArrayList<Entry> = ArrayList()
+    private fun generateLineData(prices: List<HistoricalPrice>): LineData {
 
-        for (i in 0 until count) {
-            val value = (Math.random() * (range + 1)).toFloat() + 20
-            values.add(Entry(i.toFloat(), value))
+        val lineDataValues = prices.map { price ->
+            val date = SimpleDateFormat("yyyy-MM-dd").parse(price.date)
+            Entry(date.time.toFloat(), price.close.toFloat())
         }
 
-        val dummy = listOf<HistoricalPrice>()
-
-        val entries = dummy.map { price ->
-            Entry(price.date.toFloat(), price.close.toFloat())
-        }
-
-        val lds = LineDataSet(values, "Account Balance")
+        val lds = LineDataSet(lineDataValues, "Account Balance")
         lds.color = Color.WHITE
         lds.color = ColorTemplate.VORDIPLOM_COLORS[0]
         lds.cubicIntensity = 0.2f
@@ -124,17 +123,12 @@ class QuoteFragment : Fragment() {
         lds.setDrawCircles(false)
         lds.setDrawFilled(true)
         lds.setDrawHorizontalHighlightIndicator(false)
-//        ds1.circleRadius = 4f
-//        ds1.highLightColor = Color.rgb(244, 117, 117)
-//        ds1.setCircleColor(Color.WHITE)
-
         val sets: ArrayList<ILineDataSet> = ArrayList()
         sets.add(lds)
 
         val ld = LineData(sets)
         ld.setDrawValues(false)
-//        lineData.setValueTextColor(Color.WHITE)
-//        lineData.setValueTypeface(tfRegular)
+
         return ld
     }
 }

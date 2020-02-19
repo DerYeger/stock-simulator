@@ -3,6 +3,7 @@ package de.uniks.codliners.stock_simulator.repository
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import de.uniks.codliners.stock_simulator.database.HistoricalPrice
 import de.uniks.codliners.stock_simulator.database.StockAppDatabase
 import de.uniks.codliners.stock_simulator.database.apiPricesAsPricesWithSymbol
 import de.uniks.codliners.stock_simulator.database.getDatabase
@@ -32,7 +33,7 @@ class QuoteRepository(private val database: StockAppDatabase) {
     fun quoteWithSymbol(symbol: String): LiveData<Quote> =
         database.quoteDao.getQuoteWithSymbol(symbol)
 
-    fun historicalPrices(symbol: String): LiveData<List<HistoricalPriceFromApi>> =
+    fun historicalPrices(symbol: String): LiveData<List<HistoricalPrice>> =
         database.historicalDao.getHistoricalPricesBySymbol(symbol)
 
     suspend fun fetchQuoteWithSymbol(symbol: String) {

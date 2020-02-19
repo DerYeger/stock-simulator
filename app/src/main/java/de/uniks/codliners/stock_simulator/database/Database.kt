@@ -118,15 +118,15 @@ interface HistoricalPriceDao {
     fun insertAll(vararg prices: HistoricalPrice)
 
     @Query("select * from historicalprice where symbol = :symbol")
-    fun getHistoricalPricesBySymbol(symbol: String): LiveData<List<HistoricalPriceFromApi>>
+    fun getHistoricalPricesBySymbol(symbol: String): LiveData<List<HistoricalPrice>>
 
     @Query("delete from historicalprice")
     fun deleteHistoricalPrices()
 }
 
 @Database(
-    entities = [DepotQuote::class, TransactionDatabase::class, Quote::class, Balance::class],
-    version = 7,
+    entities = [DepotQuote::class, TransactionDatabase::class, Quote::class, Balance::class, HistoricalPrice::class],
+    version = 11,
     exportSchema = false
 )
 @TypeConverters(Converters::class)

@@ -63,18 +63,8 @@ data class Quote(
 data class HistoricalPriceFromApi(
     @PrimaryKey
     val date: String,
-    val high: Double,
-    val low: Double,
-    val volume: Long,
-    val open: Double,
     val close: Double,
-    val uHigh: Long,
-    val uLow: Long,
-    val uVolume: Long,
-    val uOpen: Long,
-    val uClose: Long,
-    val changeOverTime: Long,
-    val label: Long,
+    val changeOverTime: Double,
     val change: Double,
     val changePercent: Double
 )
