@@ -19,6 +19,11 @@ class HistoryRepository(private val database: StockAppDatabase) {
             it?.transactionsAsDomainModel()
         }
 
+    fun transactionsLimited(limit: Int): LiveData<List<Transaction>> = Transformations
+        .map(database.transactionDao.getTransactionsLimited(limit)) {
+            it?.transactionsAsDomainModel()
+        }
+
     fun transactionBySymbol(symbol: String): LiveData<List<Transaction>> = Transformations
         .map(database.transactionDao.getTransactionsByShareName(symbol)) {
             it?.transactionsAsDomainModel()

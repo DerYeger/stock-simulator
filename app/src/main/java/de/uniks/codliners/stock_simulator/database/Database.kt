@@ -32,6 +32,9 @@ interface TransactionDao {
     @Query("select * from transactiondatabase where symbol = :shareName")
     fun getTransactionsByShareName(shareName: String): LiveData<List<TransactionDatabase>>
 
+    @Query("select * from transactiondatabase limit :limit")
+    fun getTransactionsLimited(limit: Int): LiveData<List<TransactionDatabase>>
+
     @Query("SELECT * FROM transactiondatabase ORDER BY transactiondatabase.date DESC")
     fun getTransactions(): LiveData<List<TransactionDatabase>>
 
@@ -59,6 +62,9 @@ interface AccountDao {
 
     @Query("SELECT * FROM balance ORDER BY balance.timestamp ASC")
     fun getBalances(): LiveData<List<Balance>>
+
+    @Query("SELECT * FROM (SELECT * FROM balance ORDER BY balance.timestamp DESC LIMIT :limit) ORDER BY timestamp ASC")
+    fun getBalancesLimited(limit: Int): LiveData<List<Balance>>
 
     @Query("SELECT * FROM balance ORDER BY balance.timestamp DESC LIMIT 1")
     fun getLatestBalance(): LiveData<Balance>
