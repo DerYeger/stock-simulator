@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import com.an.biometric.BiometricUtils
 import de.uniks.codliners.stock_simulator.*
 import de.uniks.codliners.stock_simulator.databinding.FragmentSettingsBinding
 
@@ -95,16 +96,55 @@ class SettingsFragment : Fragment() {
             }
         })
 
+        fingerprintButtonInit()
+
         return binding.root
     }
 
-    override fun onResume() {
-        super.onResume()
-        preferences.registerOnSharedPreferenceChangeListener(listener)
+    private fun fingerprintButtonInit() {
+        binding.settingsFingerprintStatus.text = ""
+
+        if (!BiometricUtils.isBiometricPromptEnabled()) {
+            binding.settingsFingerprintStatus.text =
+                getString(R.string.prefs_fingerprint_status_prompt)
+        }
+
+        if (!BiometricUtils.isSdkVersionSupported()) {
+            binding.settingsFingerprintStatus.text =
+                getString(R.string.prefs_fingerprint_status_sdk)
+        }
+
+        if (!BiometricUtils.isHardwareSupported(this.context)) {
+            binding.settingsFingerprintStatus.text =
+                getString(R.string.prefs_fingerprint_status_hardware)
+        }
+
+        if (!BiometricUtils.isFingerprintAvailable(this.context)) {
+            binding.settingsFingerprintStatus.text =
+                getString(R.string.prefs_fingerprint_status_fingerprint)
+        }
+
+        if (!BiometricUtils.isPermissionGranted(this.context)) {
+            binding.settingsFingerprintStatus.text =
+                getString(R.string.prefs_fingerprint_status_permissions)
+        }
+
+        binding.settingsFingerprint.isEnabled =
+            BiometricUtils.isBiometricPromptEnabled()
+                    && BiometricUtils.isSdkVersionSupported()
+                    && BiometricUtils.isHardwareSupported(this.context)
+                    && BiometricUtils.isFingerprintAvailable(this.context)
+                    && BiometricUtils.isPermissionGranted(this.context)
     }
 
     override fun onPause() {
         super.onPause()
         preferences.unregisterOnSharedPreferenceChangeListener(listener)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        preferences.registerOnSharedPreferenceChangeListener(listener)
+        fingerprintButtonInit()
     }
 }
