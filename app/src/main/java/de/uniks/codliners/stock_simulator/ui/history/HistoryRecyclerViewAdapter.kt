@@ -17,7 +17,7 @@ class HistoryRecyclerViewAdapter(
 ) : ListAdapter<Transaction,
         HistoryRecyclerViewAdapter.ViewHolder>(DiffCallback) {
 
-    private val dateFormatter = SimpleDateFormat("dd.MM.YYYY hh:mm", locale)
+    private val dateFormatter = SimpleDateFormat("dd.MM.yyyy hh:mm", locale)
 
     inner class ViewHolder(private val binding: TransactionCardBinding) :
         RecyclerView.ViewHolder(binding.root) {

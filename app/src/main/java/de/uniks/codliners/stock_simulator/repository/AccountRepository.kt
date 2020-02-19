@@ -40,7 +40,8 @@ class AccountRepository(private val database: StockAppDatabase) {
         val lastBalance = latestBalance.value
         lastBalance?.let {
             withContext(Dispatchers.IO) {
-                val newBalance = Balance(lastBalance.value - quote.latestPrice * amount)
+                val cashflow = -(quote.latestPrice * amount) - BuildConfig.TRANSACTION_COSTS
+                val newBalance = Balance(lastBalance.value + cashflow)
 
                 val depotQuote = database.accountDao.getDepotQuoteBySymbol(quote.symbol)
                     ?: DepotQuote(quote.symbol, 0)
@@ -51,6 +52,8 @@ class AccountRepository(private val database: StockAppDatabase) {
                     companyName = quote.companyName,
                     amount = amount,
                     price = quote.latestPrice,
+                    transactionCosts = BuildConfig.TRANSACTION_COSTS,
+                    cashflow = cashflow,
                     transactionType = TransactionType.BUY,
                     date = System.currentTimeMillis()
                 )
@@ -68,7 +71,8 @@ class AccountRepository(private val database: StockAppDatabase) {
         val lastBalance = latestBalance.value
         lastBalance?.let {
             withContext(Dispatchers.IO) {
-                val newBalance = Balance(lastBalance.value + quote.latestPrice * amount)
+                val cashflow = quote.latestPrice * amount - BuildConfig.TRANSACTION_COSTS
+                val newBalance = Balance(lastBalance.value + cashflow)
 
                 val depotQuote = database.accountDao.getDepotQuoteBySymbol(quote.symbol)!!
                 val newDepotQuote = depotQuote.copy(amount = depotQuote.amount - amount)
@@ -78,6 +82,8 @@ class AccountRepository(private val database: StockAppDatabase) {
                     companyName = quote.companyName,
                     amount = amount,
                     price = quote.latestPrice,
+                    transactionCosts = BuildConfig.TRANSACTION_COSTS,
+                    cashflow = cashflow,
                     transactionType = TransactionType.SELL,
                     date = System.currentTimeMillis()
                 )

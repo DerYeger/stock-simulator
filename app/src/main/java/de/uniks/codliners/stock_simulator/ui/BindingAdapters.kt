@@ -2,6 +2,7 @@ package de.uniks.codliners.stock_simulator.ui
 
 import android.view.View
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
@@ -13,6 +14,8 @@ import de.uniks.codliners.stock_simulator.domain.Quote
 import de.uniks.codliners.stock_simulator.domain.SearchResult
 import de.uniks.codliners.stock_simulator.repository.SearchRepository
 import de.uniks.codliners.stock_simulator.domain.Transaction
+import de.uniks.codliners.stock_simulator.domain.TransactionType
+import de.uniks.codliners.stock_simulator.domain.TransactionType.*
 import de.uniks.codliners.stock_simulator.ui.account.DepotQuoteRecyclerViewAdapter
 import de.uniks.codliners.stock_simulator.ui.search.SearchResultAdapter
 import de.uniks.codliners.stock_simulator.ui.history.HistoryRecyclerViewAdapter
@@ -85,4 +88,26 @@ fun Button.bindBotEnabled(enabled: Boolean) {
 fun RecyclerView.bindStockbrotQuotes(quotes: List<Quote>?) {
     val adapter = adapter as StockbrotQuoteRecyclerViewAdapter
     adapter.submitList(quotes)
+}
+
+@BindingAdapter("transactionType")
+fun ImageView.bindTransactionType(transactionType: TransactionType?) {
+    transactionType?.let {
+        val drawableId = when (transactionType) {
+            BUY -> R.drawable.ic_shopping_cart_24dp
+            SELL -> R.drawable.ic_attach_money_24dp
+        }
+        setImageDrawable(resources.getDrawable(drawableId, context.theme))
+    }
+}
+
+@BindingAdapter("transaction")
+fun TextView.bindTransaction(transaction: Transaction?) {
+    transaction?.let {
+        val stringId = when (transaction.transactionType) {
+            BUY -> R.string.buy_amount_format
+            SELL -> R.string.sell_amount_format
+        }
+        text = String.format(resources.getText(stringId).toString(), transaction.amount)
+    }
 }

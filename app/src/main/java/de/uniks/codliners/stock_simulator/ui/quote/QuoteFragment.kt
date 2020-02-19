@@ -9,7 +9,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import com.github.mikephil.charting.data.Entry
 import de.uniks.codliners.stock_simulator.databinding.FragmentQuoteBinding
+import de.uniks.codliners.stock_simulator.initLineChart
+import de.uniks.codliners.stock_simulator.updateLineChart
+import java.text.SimpleDateFormat
 import java.util.*
 
 
@@ -33,12 +37,30 @@ class QuoteFragment : Fragment() {
 
         viewModel.errorAction.observe(viewLifecycleOwner, Observer { errorMessage: String? ->
             errorMessage?.let {
-                Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
-                findNavController().navigateUp()
+                showErrorToast(errorMessage)
                 viewModel.onErrorActionCompleted()
             }
         })
 
+        viewModel.historicalPrices.observe(viewLifecycleOwner, Observer { priceList ->
+            run {
+                val simpleDateFormat =
+                    SimpleDateFormat("yyyy-MM-dd", resources.configuration.locale)
+                val entries = priceList.map { price ->
+                    val timestamp = simpleDateFormat.parse(price.date)!!.time
+                    Entry(timestamp.toFloat(), price.close.toFloat())
+                }
+                updateLineChart(binding.quoteChart, entries, "Historical Prices")
+            }
+        })
+
+        initLineChart(binding.quoteChart, context!!, resources.configuration.locale)
+
         return binding.root
+    }
+
+    private fun showErrorToast(errorMessage: String?) {
+        Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
+        findNavController().navigateUp()
     }
 }
