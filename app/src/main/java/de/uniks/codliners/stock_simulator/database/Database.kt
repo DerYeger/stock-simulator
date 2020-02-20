@@ -21,6 +21,9 @@ interface QuoteDao {
     @Query("SELECT * FROM quote WHERE quote.symbol == :symbol")
     fun getQuoteWithSymbol(symbol: String): LiveData<Quote>
 
+    @Query("SELECT * FROM quote WHERE quote.symbol == :symbol")
+    fun getDepotQuoteBySymbol(symbol: String): Quote?
+
     @Delete
     fun delete(quote: Quote)
 
