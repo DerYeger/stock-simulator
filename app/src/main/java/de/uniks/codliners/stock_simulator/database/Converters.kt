@@ -17,4 +17,12 @@ class Converters {
             else -> TransactionType.SELL
         }
     }
+
+    @TypeConverter
+    fun fromBooleanToInt(enabled: Boolean): Int {
+        return when(enabled) {
+            true -> 1
+            false -> 0
+        }
+    }
 }

@@ -102,6 +102,9 @@ interface StockbrotDao {
     @Query("SELECT * FROM stockbrotquote")
     fun getStockbrotQuotes(): LiveData<List<StockbrotQuote>>
 
+    @Query("SELECT * FROM stockbrotquote WHERE enabled = 1")
+    fun getEnabledStockbrotQuotes(): LiveData<List<StockbrotQuote>>
+
     @Query("SELECT * FROM stockbrotquote WHERE symbol == :symbol LIMIT 1")
     fun getStockbrotQuoteWithSymbol(symbol: String): LiveData<StockbrotQuote>
 
@@ -136,7 +139,7 @@ interface HistoricalPriceDao {
 
 @Database(
     entities = [DepotQuote::class, TransactionDatabase::class, Quote::class, Balance::class, HistoricalPrice::class, StockbrotQuote::class],
-    version = 12,
+    version = 13,
     exportSchema = false
 )
 @TypeConverters(Converters::class)

@@ -9,7 +9,7 @@ class StockbrotViewModel(application: Application) : ViewModel() {
 
     private val stockbrotRepository = StockbrotRepository(application)
 
-    val stockbrotQuotes = stockbrotRepository.quotes
+    val stockbrotQuotes = stockbrotRepository.enabledQuotes
 
     class Factory(
         private val application: Application

@@ -12,8 +12,8 @@ class StockbrotRepository(private val database: StockAppDatabase) {
 
     constructor(context: Context) : this(getDatabase(context))
 
-    val quotes by lazy {
-        database.stockbrotDao.getStockbrotQuotes()
+    val enabledQuotes by lazy {
+        database.stockbrotDao.getEnabledStockbrotQuotes()
     }
 
     suspend fun stockbrotQuoteWithSymbol(symbol: String): MutableLiveData<StockbrotQuote> {
@@ -23,7 +23,7 @@ class StockbrotRepository(private val database: StockAppDatabase) {
         if (stockbrotQuote.value != null) {
             stockbrotQuoteMutableLive.value = stockbrotQuote.value
         } else {
-            val stockbrotQuoteNew = StockbrotQuote(symbol, 0.0, 0.0)
+            val stockbrotQuoteNew = StockbrotQuote(symbol, 0.0, 0.0, false)
             stockbrotQuoteMutableLive.value = stockbrotQuoteNew
             withContext(Dispatchers.IO) {
                 addStockbrotQuote(stockbrotQuoteNew)

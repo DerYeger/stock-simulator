@@ -64,7 +64,8 @@ data class StockbrotQuote(
     @PrimaryKey
     val symbol: String,
     val thresholdBuy: Double,
-    val thresholdSell: Double
+    val thresholdSell: Double,
+    val enabled: Boolean
 )
 
 @Entity
