@@ -8,20 +8,20 @@ import retrofit2.http.Field
 import java.util.*
 
 @JsonClass(generateAdapter = true)
-data class CryptoNetworkSymbol(
+data class CoinGeckoSymbol(
     val id: String,
     val symbol: String,
     val name: String
 )
 
-fun CryptoNetworkSymbol.asDomainSymbol() = Symbol(
+fun CoinGeckoSymbol.asDomainSymbol() = Symbol(
     id = id,
     symbol = symbol.toUpperCase(Locale.ROOT),
     name = id,
     type = Symbol.Type.CRYPTO
 )
 
-fun List<CryptoNetworkSymbol>.asDomainSymbols() = map { it.asDomainSymbol() }.toTypedArray()
+fun List<CoinGeckoSymbol>.asDomainSymbols() = map { it.asDomainSymbol() }.toTypedArray()
 
 @JsonClass(generateAdapter = true)
 data class CoinGeckoMarketChart(

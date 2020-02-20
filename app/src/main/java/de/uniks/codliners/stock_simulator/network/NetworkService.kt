@@ -3,7 +3,6 @@ package de.uniks.codliners.stock_simulator.network
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import de.uniks.codliners.stock_simulator.BuildConfig
-import de.uniks.codliners.stock_simulator.domain.HistoricalPriceFromApi
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
@@ -22,19 +21,19 @@ val moshi: Moshi = Moshi.Builder()
 interface IexApi {
 
     @GET("ref-data/symbols")
-    suspend fun symbols(@Query("token") token: String = IEX_API_TOKEN): List<NetworkSymbol>
+    suspend fun symbols(@Query("token") token: String = IEX_API_TOKEN): List<IEXSymbol>
 
     @GET("stock/{symbol}/chart/{range}")
-    suspend fun historical(@Path("symbol") symbol: String, @Path("range") range: String = "1m", @Query("token") token: String = IEX_API_TOKEN, @Query("chartCloseOnly") chartCloseOnly: Boolean): List<HistoricalPriceFromApi>
+    suspend fun historical(@Path("symbol") symbol: String, @Path("range") range: String = "1m", @Query("token") token: String = IEX_API_TOKEN, @Query("chartCloseOnly") chartCloseOnly: Boolean): List<IEXHistoricalPrice>
 
     @GET("stock/{symbol}/quote")
-    suspend fun quote(@Path("symbol") symbol: String, @Query("token") token: String = IEX_API_TOKEN): NetworkQuote
+    suspend fun quote(@Path("symbol") symbol: String, @Query("token") token: String = IEX_API_TOKEN): IEXQuote
 }
 
 interface CoinGeckoApi {
 
     @GET("coins/list")
-    suspend fun symbols(): List<CryptoNetworkSymbol>
+    suspend fun symbols(): List<CoinGeckoSymbol>
 
     @GET("coins/{id}")
     suspend fun quote(@Path("id") id: String): CoinGeckoQuote
