@@ -34,7 +34,7 @@ class QuoteRepository(private val database: StockAppDatabase) {
         database.quoteDao.getQuoteWithSymbol(symbol)
 
     fun quoteBySymbol(symbol: String): Quote? =
-        database.quoteDao.getDepotQuoteBySymbol(symbol)
+        database.quoteDao.getQuoteValueBySymbol(symbol)
 
     fun historicalPrices(symbol: String): LiveData<List<HistoricalPrice>> =
         database.historicalDao.getHistoricalPricesBySymbol(symbol)

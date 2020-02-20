@@ -190,7 +190,7 @@
                     android:enabled="@{viewModel.stockbrotQuote == null}"
                     android:hint="@string/buy_hint"
                     android:importantForAutofill="no"
-                    android:inputType="number"
+                    android:inputType="@{viewModel.inputType}"
                     android:text="@={viewModel.autoBuyAmount}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

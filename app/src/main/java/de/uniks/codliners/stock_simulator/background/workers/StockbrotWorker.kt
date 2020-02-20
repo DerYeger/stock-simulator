@@ -3,14 +3,16 @@ package de.uniks.codliners.stock_simulator.background.workers
 import android.content.Context
 import androidx.work.Worker
 import androidx.work.WorkerParameters
-import de.uniks.codliners.stock_simulator.background.Constants.Companion.BUY_AMOUNT_DEFAULT
+import de.uniks.codliners.stock_simulator.background.Constants.Companion.DOUBLE_DEFAULT
 import de.uniks.codliners.stock_simulator.background.Constants.Companion.BUY_AMOUNT_KEY
 import de.uniks.codliners.stock_simulator.background.Constants.Companion.SYMBOL_KEY
 import de.uniks.codliners.stock_simulator.background.Constants.Companion.THRESHOLD_BUY_KEY
-import de.uniks.codliners.stock_simulator.background.Constants.Companion.THRESHOLD_DEFAULT
 import de.uniks.codliners.stock_simulator.background.Constants.Companion.THRESHOLD_SELL_KEY
+import de.uniks.codliners.stock_simulator.background.Constants.Companion.TYPE_DEFAULT
+import de.uniks.codliners.stock_simulator.domain.Symbol
 import de.uniks.codliners.stock_simulator.repository.AccountRepository
 import de.uniks.codliners.stock_simulator.repository.QuoteRepository
+import de.uniks.codliners.stock_simulator.toType
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -20,23 +22,25 @@ class StockbrotWorker(context: Context, params: WorkerParameters) : Worker(conte
     private val quoteRepository = QuoteRepository(context)
     private val accountRepository = AccountRepository(context)
     var symbol: String = ""
-    var buyAmount: Int = BUY_AMOUNT_DEFAULT
-    var thresholdBuy: Double = THRESHOLD_DEFAULT
-    var thresholdSell: Double = THRESHOLD_DEFAULT
+    var type: Symbol.Type = TYPE_DEFAULT
+    var buyAmount: Double = DOUBLE_DEFAULT
+    var thresholdBuy: Double = DOUBLE_DEFAULT
+    var thresholdSell: Double = DOUBLE_DEFAULT
 
     init {
         symbol = inputData.getString(SYMBOL_KEY) ?: ""
-        buyAmount = inputData.getInt(BUY_AMOUNT_KEY, BUY_AMOUNT_DEFAULT)
-        thresholdBuy = inputData.getDouble(THRESHOLD_BUY_KEY, THRESHOLD_DEFAULT)
-        thresholdSell = inputData.getDouble(THRESHOLD_SELL_KEY, THRESHOLD_DEFAULT)
+        type = inputData.getString(SYMBOL_KEY)?.toType() ?: TYPE_DEFAULT
+        buyAmount = inputData.getDouble(BUY_AMOUNT_KEY, DOUBLE_DEFAULT)
+        thresholdBuy = inputData.getDouble(THRESHOLD_BUY_KEY, DOUBLE_DEFAULT)
+        thresholdSell = inputData.getDouble(THRESHOLD_SELL_KEY, DOUBLE_DEFAULT)
     }
 
     override fun doWork(): Result {
         println("started StockbrotWorker")
 
         if (
-            (buyAmount == BUY_AMOUNT_DEFAULT && thresholdBuy != THRESHOLD_DEFAULT) ||
-            (thresholdBuy == THRESHOLD_DEFAULT && thresholdSell == THRESHOLD_DEFAULT) ||
+            (buyAmount == DOUBLE_DEFAULT && thresholdBuy != DOUBLE_DEFAULT) ||
+            (thresholdBuy == DOUBLE_DEFAULT && thresholdSell == DOUBLE_DEFAULT) ||
             symbol == ""
         ) {
             println("Bot canceled because of illegal thresholds")
@@ -47,7 +51,7 @@ class StockbrotWorker(context: Context, params: WorkerParameters) : Worker(conte
 
         CoroutineScope(Dispatchers.IO).launch {
             // fetch current quote infos
-            quoteRepository.fetchQuoteWithSymbol(symbol)
+            quoteRepository.fetchQuoteWithSymbol(symbol, type)
 
             val quote = quoteRepository.quoteBySymbol(symbol)
             if (quote != null) {
@@ -55,14 +59,14 @@ class StockbrotWorker(context: Context, params: WorkerParameters) : Worker(conte
                 val depotQuote = accountRepository.depotQuoteBySymbol(symbol)
                 println("latest price: $latestPrice")
 
-                if (thresholdBuy != THRESHOLD_DEFAULT) {
+                if (thresholdBuy != DOUBLE_DEFAULT) {
                     // buy is enabled
                     if (latestPrice >= thresholdBuy) {
                         println("Bot buys $buyAmount quotes with symbol $symbol now")
                         accountRepository.buy(quote, buyAmount)
                     }
                 }
-                if (thresholdSell != THRESHOLD_DEFAULT) {
+                if (thresholdSell != DOUBLE_DEFAULT) {
                     // sell is enabled
                     if (latestPrice <= thresholdSell) {
                         if (depotQuote == null) {
@@ -70,7 +74,7 @@ class StockbrotWorker(context: Context, params: WorkerParameters) : Worker(conte
                         } else {
                             val amount = depotQuote.amount
                             println("Bot sells $amount quotes with symbol $symbol now")
-                            accountRepository.sell(quote, amount.toInt())
+                            accountRepository.sell(quote, amount)
                         }
                     }
                 }

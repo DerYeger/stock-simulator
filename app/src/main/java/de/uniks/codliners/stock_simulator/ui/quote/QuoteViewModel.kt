@@ -166,7 +166,7 @@ class QuoteViewModel(
             addSource(autoBuyAmount) {
                 value = canAddRemoveQuoteToStockbrot(
                     stockbrotQuote.value,
-                    autoBuyAmount.value?.toSafeInt(),
+                    autoBuyAmount.value?.toSafeDouble(),
                     thresholdBuy.value?.toSafeDouble(),
                     thresholdSell.value?.toSafeDouble()
                 )
@@ -175,7 +175,7 @@ class QuoteViewModel(
             addSource(thresholdBuy) {
                 value = canAddRemoveQuoteToStockbrot(
                     stockbrotQuote.value,
-                    autoBuyAmount.value?.toSafeInt(),
+                    autoBuyAmount.value?.toSafeDouble(),
                     thresholdBuy.value?.toSafeDouble(),
                     thresholdSell.value?.toSafeDouble()
                 )
@@ -184,7 +184,7 @@ class QuoteViewModel(
             addSource(thresholdSell) {
                 value = canAddRemoveQuoteToStockbrot(
                     stockbrotQuote.value,
-                    autoBuyAmount.value?.toSafeInt(),
+                    autoBuyAmount.value?.toSafeDouble(),
                     thresholdBuy.value?.toSafeDouble(),
                     thresholdSell.value?.toSafeDouble()
                 )
@@ -238,19 +238,19 @@ class QuoteViewModel(
     private fun addQuoteToStockbrot() {
         viewModelScope.launch {
             val autoBuyAmount = when(autoBuyAmount.value) {
-                null -> Constants.BUY_AMOUNT_DEFAULT
-                else -> autoBuyAmount.value.toSafeInt() ?: Constants.BUY_AMOUNT_DEFAULT
+                null -> Constants.DOUBLE_DEFAULT
+                else -> autoBuyAmount.value.toSafeDouble() ?: Constants.DOUBLE_DEFAULT
             }
             val thresholdBuyDouble = when(thresholdBuy.value) {
-                null -> Constants.THRESHOLD_DEFAULT
-                else -> thresholdBuy.value.toSafeDouble() ?: Constants.THRESHOLD_DEFAULT
+                null -> Constants.DOUBLE_DEFAULT
+                else -> thresholdBuy.value.toSafeDouble() ?: Constants.DOUBLE_DEFAULT
             }
             val thresholdSellDouble = when(thresholdSell.value) {
-                null -> Constants.THRESHOLD_DEFAULT
-                else -> thresholdSell.value.toSafeDouble() ?: Constants.THRESHOLD_DEFAULT
+                null -> Constants.DOUBLE_DEFAULT
+                else -> thresholdSell.value.toSafeDouble() ?: Constants.DOUBLE_DEFAULT
             }
             val newStockbrotQuote =
-                StockbrotQuote(symbol, type, thresholdBuyDouble, thresholdSellDouble)
+                StockbrotQuote(symbol, type, autoBuyAmount, thresholdBuyDouble, thresholdSellDouble)
             stockbrotRepository.saveAddStockbrotControl(newStockbrotQuote)
         }
     }
@@ -297,18 +297,16 @@ class QuoteViewModel(
 
     private fun canAddRemoveQuoteToStockbrot(
         stockbrotQuote: StockbrotQuote?,
-        autoBuyAmount: Int?,
+        autoBuyAmount: Double?,
         thresholdBuy: Double?,
         thresholdSell: Double?
     ) = when(stockbrotQuote) {
-        null -> ( autoBuyAmountValid(autoBuyAmount) && thresholdValid(thresholdBuy) ) ||
-                    thresholdValid(thresholdSell)
+        null -> ( doubleValid(autoBuyAmount) && doubleValid(thresholdBuy) ) ||
+                doubleValid(thresholdSell)
         else -> true
     }
 
-    private fun thresholdValid(threshold: Double?) = noNulls(threshold) && 0 < threshold!!
-
-    private fun autoBuyAmountValid(autoBuyAmount: Int?) = noNulls(autoBuyAmount) && 0 < autoBuyAmount!!
+    private fun doubleValid(threshold: Double?) = noNulls(threshold) && 0 < threshold!!
 
     class Factory(
         private val application: Application,

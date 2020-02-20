@@ -6,6 +6,8 @@ import de.uniks.codliners.stock_simulator.background.Constants.Companion.BUY_AMO
 import de.uniks.codliners.stock_simulator.background.Constants.Companion.SYMBOL_KEY
 import de.uniks.codliners.stock_simulator.background.Constants.Companion.THRESHOLD_BUY_KEY
 import de.uniks.codliners.stock_simulator.background.Constants.Companion.THRESHOLD_SELL_KEY
+import de.uniks.codliners.stock_simulator.background.Constants.Companion.TYPE_DEFAULT
+import de.uniks.codliners.stock_simulator.background.Constants.Companion.TYPE_KEY
 import de.uniks.codliners.stock_simulator.background.workers.StockbrotWorker
 import de.uniks.codliners.stock_simulator.domain.StockbrotQuote
 import java.util.concurrent.TimeUnit
@@ -29,7 +31,8 @@ class StockbrotWorkRequest(context: Context) {
 
         val data = Data.Builder()
             .putString(SYMBOL_KEY, symbol)
-            .putInt(BUY_AMOUNT_KEY, buyAmount)
+            .putString(TYPE_KEY, TYPE_DEFAULT.toString())
+            .putDouble(BUY_AMOUNT_KEY, buyAmount)
             .putDouble(THRESHOLD_BUY_KEY, thresholdBuy)
             .putDouble(THRESHOLD_SELL_KEY, thresholdSell)
             .build()
