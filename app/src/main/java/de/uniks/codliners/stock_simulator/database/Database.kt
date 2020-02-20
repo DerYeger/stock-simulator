@@ -4,10 +4,7 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import androidx.room.OnConflictStrategy.REPLACE
-import de.uniks.codliners.stock_simulator.domain.Balance
-import de.uniks.codliners.stock_simulator.domain.HistoricalPriceFromApi
-import de.uniks.codliners.stock_simulator.domain.Quote
-import de.uniks.codliners.stock_simulator.domain.Symbol
+import de.uniks.codliners.stock_simulator.domain.*
 
 @Dao
 interface SymbolDao {

@@ -3,7 +3,6 @@ package de.uniks.codliners.stock_simulator.ui
 import android.view.View
 import android.widget.*
 import androidx.databinding.BindingAdapter
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -11,12 +10,10 @@ import de.uniks.codliners.stock_simulator.R
 import de.uniks.codliners.stock_simulator.database.DepotQuote
 import de.uniks.codliners.stock_simulator.domain.*
 import de.uniks.codliners.stock_simulator.repository.SymbolRepository
-import de.uniks.codliners.stock_simulator.domain.SearchResult
 import de.uniks.codliners.stock_simulator.domain.StockbrotQuote
 import de.uniks.codliners.stock_simulator.domain.Transaction
 import de.uniks.codliners.stock_simulator.domain.TransactionType
 import de.uniks.codliners.stock_simulator.domain.TransactionType.*
-import de.uniks.codliners.stock_simulator.repository.SearchRepository
 import de.uniks.codliners.stock_simulator.ui.account.DepotQuoteRecyclerViewAdapter
 import de.uniks.codliners.stock_simulator.ui.history.HistoryRecyclerViewAdapter
 import de.uniks.codliners.stock_simulator.ui.search.SearchResultAdapter
