@@ -47,8 +47,7 @@ class HistoryRecyclerViewAdapter(
 
     companion object DiffCallback : DiffUtil.ItemCallback<Transaction>() {
         override fun areItemsTheSame(oldItem: Transaction, newItem: Transaction): Boolean {
-            // refactor
-            return oldItem.date == newItem.date
+            return oldItem == newItem
         }
 
         override fun areContentsTheSame(oldItem: Transaction, newItem: Transaction): Boolean {
