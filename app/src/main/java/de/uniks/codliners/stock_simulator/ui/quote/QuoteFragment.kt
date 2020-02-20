@@ -37,6 +37,7 @@ class QuoteFragment : BaseFragment() {
     ): View {
         binding = FragmentQuoteBinding.inflate(inflater)
         binding.viewModel = viewModel
+        binding.newsRecyclerView.adapter = NewsAdapter(resources.configuration.locale)
         binding.lifecycleOwner = this
 
         viewModel.errorAction.observe(viewLifecycleOwner, Observer { errorMessage: String? ->

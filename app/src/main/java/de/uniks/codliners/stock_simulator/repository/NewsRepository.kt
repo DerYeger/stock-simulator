@@ -29,11 +29,11 @@ class NewsRepository(private val database: StockAppDatabase) {
     private val _news = MutableLiveData<List<News>>()
     val news: LiveData<List<News>> = _news
 
-    suspend fun fetchNews() {
+    suspend fun fetchNews(symbol: String) {
         withContext(Dispatchers.IO) {
             try {
                 _state.postValue(State.Refreshing)
-                val news = NetworkService.IEX_API.news("aapl") //TODO fix hardcode of aapl
+                val news = NetworkService.IEX_API.news(symbol)
                 database.newsDao.insertAll(*news.toTypedArray())
                 _news.postValue(news)
 
