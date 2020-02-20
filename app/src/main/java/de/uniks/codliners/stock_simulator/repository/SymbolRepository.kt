@@ -27,6 +27,8 @@ class SymbolRepository(private val database: StockAppDatabase) {
 
     val symbols = database.symbolDao.getAll()
 
+    fun symbol(symbol: String) = database.symbolDao.get(symbol)
+
     suspend fun refreshSymbols() {
         withContext(Dispatchers.IO) {
             try {

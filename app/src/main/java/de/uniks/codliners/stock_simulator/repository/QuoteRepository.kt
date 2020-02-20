@@ -30,7 +30,6 @@ class QuoteRepository(private val database: StockAppDatabase) {
     }
     val state: LiveData<State> = _state
 
-
     fun quoteWithSymbol(symbol: String): LiveData<Quote> =
         database.quoteDao.getQuoteWithSymbol(symbol)
 
@@ -53,7 +52,6 @@ class QuoteRepository(private val database: StockAppDatabase) {
             }
         }
     }
-
 
     suspend fun resetQuotes() {
         withContext(Dispatchers.IO) {

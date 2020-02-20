@@ -14,6 +14,9 @@ interface SymbolDao {
 
     @Query("SELECT * FROM symbol ORDER BY symbol.symbol ASC")
     fun getAll(): LiveData<List<Symbol>>
+
+    @Query("SELECT * FROM symbol WHERE symbol.symbol == :symbol")
+    fun get(symbol: String): LiveData<Symbol>
 }
 
 @Dao

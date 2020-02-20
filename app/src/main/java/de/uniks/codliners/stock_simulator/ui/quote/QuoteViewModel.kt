@@ -7,21 +7,24 @@ import de.uniks.codliners.stock_simulator.background.StockbrotWorkRequest
 import de.uniks.codliners.stock_simulator.database.DepotQuote
 import de.uniks.codliners.stock_simulator.domain.Balance
 import de.uniks.codliners.stock_simulator.domain.StockbrotQuote
+import de.uniks.codliners.stock_simulator.domain.Symbol
 import de.uniks.codliners.stock_simulator.noNulls
 import de.uniks.codliners.stock_simulator.repository.AccountRepository
 import de.uniks.codliners.stock_simulator.repository.QuoteRepository
 import de.uniks.codliners.stock_simulator.repository.StockbrotRepository
+import de.uniks.codliners.stock_simulator.repository.SymbolRepository
 import de.uniks.codliners.stock_simulator.toSafeDouble
 import de.uniks.codliners.stock_simulator.toSafeLong
 import kotlinx.coroutines.launch
 import java.util.*
 
 
-class QuoteViewModel(application: Application, private val symbol: String) : AndroidViewModel(application) {
-
+class QuoteViewModel(application: Application, private val symbol: String) :
+    AndroidViewModel(application) {
 
     private lateinit var timer: Timer
 
+    private val symbolRepository = SymbolRepository(application)
     private val quoteRepository = QuoteRepository(application)
     private val accountRepository = AccountRepository(application)
     private val stockbrotRepository = StockbrotRepository(application)
@@ -34,6 +37,10 @@ class QuoteViewModel(application: Application, private val symbol: String) : And
     val depotQuote = accountRepository.depotQuoteWithSymbol(symbol)
     lateinit var stockbrotQuote: MutableLiveData<StockbrotQuote>
     val historicalPrices = quoteRepository.historicalPrices(symbol)
+
+    val isShare = symbolRepository.symbol(symbol).map { symbol ->
+        symbol.type === Symbol.Type.SHARE
+    }
 
     private val state = quoteRepository.state
     val refreshing = state.map { it === QuoteRepository.State.Refreshing }
