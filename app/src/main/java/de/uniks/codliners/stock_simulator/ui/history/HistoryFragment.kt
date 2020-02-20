@@ -4,13 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import de.uniks.codliners.stock_simulator.databinding.FragmentHistoryBinding
+import de.uniks.codliners.stock_simulator.ui.BaseFragment
 import de.uniks.codliners.stock_simulator.ui.OnClickListener
 
-class HistoryFragment : Fragment() {
+class HistoryFragment : BaseFragment() {
 
     private val viewModel: HistoryViewModel by viewModels {
         HistoryViewModel.Factory(activity!!.application)

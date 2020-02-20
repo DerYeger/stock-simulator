@@ -4,18 +4,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.github.mikephil.charting.data.Entry
 import de.uniks.codliners.stock_simulator.databinding.FragmentAccountBinding
 import de.uniks.codliners.stock_simulator.initLineChart
+import de.uniks.codliners.stock_simulator.ui.BaseFragment
 import de.uniks.codliners.stock_simulator.ui.OnClickListener
 import de.uniks.codliners.stock_simulator.updateLineChart
 
 
-class AccountFragment : Fragment() {
+class AccountFragment : BaseFragment() {
 
     private val viewModel: AccountViewModel by viewModels {
         AccountViewModel.Factory(activity!!.application)
