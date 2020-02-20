@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import de.uniks.codliners.stock_simulator.database.StockAppDatabase
 import de.uniks.codliners.stock_simulator.database.getDatabase
 import de.uniks.codliners.stock_simulator.domain.News
-import de.uniks.codliners.stock_simulator.domain.SearchResult
 import de.uniks.codliners.stock_simulator.network.NetworkService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -14,11 +13,12 @@ import kotlinx.coroutines.withContext
 class NewsRepository(private val database: StockAppDatabase) {
 
     constructor(context: Context) : this(getDatabase(context))
+
     sealed class State {
-        object Empty: State()
-        object Refreshing: State()
-        object Done: State()
-        class Error(val message: String): State()
+        object Empty : State()
+        object Refreshing : State()
+        object Done : State()
+        class Error(val message: String) : State()
     }
 
     private val _state = MutableLiveData<State>().apply {
