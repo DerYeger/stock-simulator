@@ -55,8 +55,6 @@ class SearchViewModel(application: Application) : ViewModel() {
                 )
             }
         }
-
-        refreshSymbols()
     }
 
     fun refreshSymbols() {
