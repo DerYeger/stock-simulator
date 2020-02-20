@@ -14,6 +14,13 @@ data class DepotQuote(
 )
 
 @Entity
+data class DepotValue(
+    val value: Double,
+    @PrimaryKey
+    val timestamp: Long = System.currentTimeMillis()
+)
+
+@Entity
 data class TransactionDatabase constructor(
     @PrimaryKey(autoGenerate = true)
     val primaryKey: Long = 0,

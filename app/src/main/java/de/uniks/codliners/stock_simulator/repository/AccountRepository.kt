@@ -2,11 +2,10 @@ package de.uniks.codliners.stock_simulator.repository
 
 import android.content.Context
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.map
+import com.github.mikephil.charting.data.Entry
 import de.uniks.codliners.stock_simulator.BuildConfig
-import de.uniks.codliners.stock_simulator.database.DepotQuote
-import de.uniks.codliners.stock_simulator.database.StockAppDatabase
-import de.uniks.codliners.stock_simulator.database.TransactionDatabase
-import de.uniks.codliners.stock_simulator.database.getDatabase
+import de.uniks.codliners.stock_simulator.database.*
 import de.uniks.codliners.stock_simulator.domain.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -31,6 +30,14 @@ class AccountRepository(private val database: StockAppDatabase) {
 
     val depot by lazy {
         database.accountDao.getDepotQuotes()
+    }
+
+    val depotValues by lazy {
+        database.accountDao.getDepotValues()
+    }
+
+    val currentDepotValue by lazy {
+        database.accountDao.getLatestDepotValues()
     }
 
     fun depotQuoteWithSymbol(symbol: String): LiveData<DepotQuote> =
@@ -63,6 +70,18 @@ class AccountRepository(private val database: StockAppDatabase) {
                     insertDepotQuote(newDepotQuote)
                 }
                 database.transactionDao.insert(transaction)
+            }
+        }
+    }
+
+    suspend fun fetchCurrentDepotValue() {
+        val depotValue = currentDepotValue.value
+        depotValue?.let {
+            val depotQuotes = database.accountDao.getDepotQuotes()
+            val entries = depotQuotes.value.map { depotQuote ->
+                val quotePrice = database.quoteDao.getQuoteWithSymbol(depotQuote.symbol).value!!.latestPrice
+                val depotQuoteAmount = depotQuote.amount
+                val depotQuoteValue = quotePrice * depotQuoteAmount
             }
         }
     }
@@ -104,11 +123,20 @@ class AccountRepository(private val database: StockAppDatabase) {
     suspend fun resetAccount() {
         withContext(Dispatchers.IO) {
             database.accountDao.apply {
-                deleteDepot()
-                deleteBalances()
-                val starterBalance = Balance(value = BuildConfig.NEW_ACCOUNT_BALANCE)
-                insertBalance(starterBalance)
+                deleteAccount()
+                setStartBalance()
             }
         }
+    }
+
+    private fun AccountDao.setStartBalance() {
+        val starterBalance = Balance(value = BuildConfig.NEW_ACCOUNT_BALANCE)
+        insertBalance(starterBalance)
+    }
+
+    private fun AccountDao.deleteAccount() {
+        deleteDepot()
+        deleteBalances()
+        deleteDepotValues()
     }
 }

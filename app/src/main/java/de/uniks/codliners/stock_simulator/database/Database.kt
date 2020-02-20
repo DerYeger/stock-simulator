@@ -91,6 +91,18 @@ interface AccountDao {
 
     @Query("DELETE FROM depotquote")
     fun deleteDepot()
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertDepotValue(depotValue: DepotValue)
+
+    @Query("select * from depotvalue")
+    fun getDepotValues(): LiveData<List<DepotValue>>
+
+    @Query("select * from depotvalue order by depotvalue.timestamp desc limit 1")
+    fun getLatestDepotValues(): LiveData<DepotValue>
+
+    @Query("delete from depotvalue")
+    fun deleteDepotValues()
 }
 
 @Dao
@@ -135,8 +147,8 @@ interface HistoricalPriceDao {
 }
 
 @Database(
-    entities = [DepotQuote::class, TransactionDatabase::class, Quote::class, Balance::class, HistoricalPrice::class, StockbrotQuote::class],
-    version = 12,
+    entities = [DepotQuote::class, TransactionDatabase::class, Quote::class, Balance::class, HistoricalPrice::class, StockbrotQuote::class, DepotValue::class],
+    version = 13,
     exportSchema = false
 )
 @TypeConverters(Converters::class)
