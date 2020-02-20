@@ -44,7 +44,7 @@ class AccountRepository(private val database: StockAppDatabase) {
                 val newBalance = Balance(lastBalance.value + cashflow)
 
                 val depotQuote = database.accountDao.getDepotQuoteBySymbol(quote.symbol)
-                    ?: DepotQuote(quote.symbol, 0.0)
+                    ?: DepotQuote(symbol = quote.symbol, type = quote.type, amount = 0.0)
                 val newDepotQuote = depotQuote.copy(amount = depotQuote.amount + amount)
 
                 val transaction = TransactionDatabase(
@@ -100,6 +100,8 @@ class AccountRepository(private val database: StockAppDatabase) {
             }
         }
     }
+
+    suspend fun hasBalance() = withContext(Dispatchers.IO) { database.accountDao.getBalanceCount() > 0 }
 
     suspend fun resetAccount() {
         withContext(Dispatchers.IO) {

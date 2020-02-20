@@ -4,8 +4,6 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.squareup.moshi.JsonClass
 
-
-
 @Entity
 data class Symbol(
     @PrimaryKey

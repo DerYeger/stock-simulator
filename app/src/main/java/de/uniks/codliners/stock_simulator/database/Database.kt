@@ -75,6 +75,9 @@ interface AccountDao {
     @Query("SELECT * FROM balance ORDER BY balance.timestamp ASC")
     fun getBalances(): LiveData<List<Balance>>
 
+    @Query("SELECT COUNT(*) FROM balance")
+    fun getBalanceCount(): Long
+
     @Query("SELECT * FROM (SELECT * FROM balance ORDER BY balance.timestamp DESC LIMIT :limit) ORDER BY timestamp ASC")
     fun getBalancesLimited(limit: Int): LiveData<List<Balance>>
 
@@ -146,7 +149,7 @@ interface HistoricalPriceDao {
 
 @Database(
     entities = [Symbol::class, DepotQuote::class, TransactionDatabase::class, Quote::class, Balance::class, HistoricalPrice::class, StockbrotQuote::class],
-    version = 14,
+    version = 15,
     exportSchema = false
 )
 @TypeConverters(Converters::class)

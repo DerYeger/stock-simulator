@@ -42,6 +42,7 @@ class AccountFragment : Fragment() {
 
         viewModel.balancesLimited.observe(viewLifecycleOwner, Observer { balanceList ->
             run {
+                if (balanceList.isEmpty()) return@run
                 val referenceTimestamp = balanceList[0].timestamp
                 val entries = balanceList.map { balance ->
                     Entry(

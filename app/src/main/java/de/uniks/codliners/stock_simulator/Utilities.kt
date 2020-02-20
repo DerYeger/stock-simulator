@@ -64,21 +64,11 @@ fun Context.resetStockbrot() {
 
 fun Context.ensureAccountPresence(lifecycleOwner: LifecycleOwner) {
     val accountRepository = AccountRepository(this)
-    accountRepository.latestBalance.observe(lifecycleOwner, Observer { t ->
-        run {
-            CoroutineScope(Dispatchers.Main).launch {
-                if (t == null) {
-                    Timber.i("No balance detected. Resetting account")
-                    accountRepository.resetAccount()
-                }
-            }
+    CoroutineScope(Dispatchers.Main).launch {
+        if (!accountRepository.hasBalance()) {
+            accountRepository.resetAccount()
         }
-    })
-    accountRepository.balances.observe(lifecycleOwner, Observer { t ->
-        run {
-            Timber.d("Created new account with balances: $t")
-        }
-    })
+    }
 }
 
 fun noNulls(vararg args: Any?): Boolean {

@@ -1,6 +1,5 @@
 package de.uniks.codliners.stock_simulator.database
 
-import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import de.uniks.codliners.stock_simulator.domain.HistoricalPriceFromApi
@@ -12,6 +11,7 @@ import de.uniks.codliners.stock_simulator.domain.TransactionType
 data class DepotQuote(
     @PrimaryKey
     val symbol: String,
+    val type: Symbol.Type,
     val amount: Double
 )
 
