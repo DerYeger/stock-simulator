@@ -101,7 +101,10 @@ fun String?.toSafeDouble(): Double? {
     }
 }
 
-fun initLineChart(chart: LineChart, context: Context, locale: Locale) {
+/**
+ * Initializes a line chart and its axis.
+ */
+fun initLineChart(chart: LineChart, context: Context) {
     tfLight = Typeface.createFromAsset(context.assets, "OpenSans-Light.ttf")
     tfRegular = Typeface.createFromAsset(context.assets, "OpenSans-Regular.ttf")
 
@@ -121,30 +124,17 @@ fun initLineChart(chart: LineChart, context: Context, locale: Locale) {
     xAxis.setLabelCount(2, false)
     xAxis.textColor = Color.WHITE
     xAxis.typeface = tfLight
-    xAxis.valueFormatter = object : ValueFormatter() {
-        private val dateFormatter =
-            SimpleDateFormat("dd.MM.yyyy hh:mm:ss", locale)
-
-        override fun getFormattedValue(value: Float): String {
-            return dateFormatter.format(value)
-        }
-    }
 
     yAxis.gridColor = Color.GRAY
     yAxis.setDrawAxisLine(false)
     yAxis.setLabelCount(2, false)
     yAxis.textColor = Color.WHITE
     yAxis.typeface = tfLight
-    yAxis.valueFormatter = object : ValueFormatter() {
-        override fun getFormattedValue(value: Float): String {
-            return "%.2f€".format(value)
-        }
-    }
 
     chart.invalidate()
 }
 
-fun updateLineChart(chart: LineChart, entryList: List<Entry>, label: String) {
+fun updateLineChart(chart: LineChart, entryList: List<Entry>, label: String, locale: Locale, referenceTimestamp: Long = 0, xAxisValueFormatter: ValueFormatter = TimestampValueFormatter(referenceTimestamp, locale), axisLeftValueFormatter: ValueFormatter = CurrencyValueFormatter("€")) {
     if (entryList.isEmpty()) {
         return
     }
@@ -166,6 +156,24 @@ fun updateLineChart(chart: LineChart, entryList: List<Entry>, label: String) {
     val ld = LineData(sets)
     ld.setDrawValues(false)
 
+    chart.xAxis.valueFormatter = xAxisValueFormatter
+    chart.axisLeft.valueFormatter = axisLeftValueFormatter
     chart.data = ld
     chart.invalidate()
+}
+
+class TimestampValueFormatter(private val referenceTimestamp: Long, locale: Locale) : ValueFormatter() {
+    private val dateFormatter =
+        SimpleDateFormat("dd.MM.yyyy hh:mm:ss", locale)
+
+    override fun getFormattedValue(value: Float): String {
+        // "toInt()" required to workaround inaccurate results due to unchangeable float usage
+        return dateFormatter.format(value.toInt() + referenceTimestamp)
+    }
+}
+
+class CurrencyValueFormatter(private val currencySymbol: String) : ValueFormatter() {
+    override fun getFormattedValue(value: Float): String {
+        return "%.2f$currencySymbol".format(value)
+    }
 }
