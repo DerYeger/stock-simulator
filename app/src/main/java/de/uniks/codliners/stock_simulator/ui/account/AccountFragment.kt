@@ -62,7 +62,7 @@ class AccountFragment : BaseFragment() {
                 val referenceTimestamp = depotValues[0].timestamp
                 val entries = depotValues.map { depotValue ->
                     Entry(
-                        depotValue.timestamp.toFloat(),
+                        (depotValue.timestamp - referenceTimestamp).toFloat(),
                         depotValue.value.toFloat()
                     )
                 }
