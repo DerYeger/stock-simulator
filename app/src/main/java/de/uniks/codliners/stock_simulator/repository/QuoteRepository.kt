@@ -7,7 +7,6 @@ import de.uniks.codliners.stock_simulator.database.HistoricalPrice
 import de.uniks.codliners.stock_simulator.database.StockAppDatabase
 import de.uniks.codliners.stock_simulator.database.apiPricesAsPricesWithSymbol
 import de.uniks.codliners.stock_simulator.database.getDatabase
-import de.uniks.codliners.stock_simulator.domain.HistoricalPriceFromApi
 import de.uniks.codliners.stock_simulator.domain.Quote
 import de.uniks.codliners.stock_simulator.domain.Symbol
 import de.uniks.codliners.stock_simulator.network.NetworkService

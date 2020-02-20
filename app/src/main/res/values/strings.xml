@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="PluralsCandidate">
     <string name="add_fingerprint">Add fingerprint authentication</string>
     <string name="app_name">stock-simulator</string>
     <string name="biometric_cancelled">Fingerprint authentication has been canceled!</string>

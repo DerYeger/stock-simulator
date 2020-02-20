@@ -15,7 +15,6 @@ import de.uniks.codliners.stock_simulator.repository.QuoteRepository
 import de.uniks.codliners.stock_simulator.repository.StockbrotRepository
 import de.uniks.codliners.stock_simulator.toSafeDouble
 import kotlinx.coroutines.launch
-import timber.log.Timber
 import java.util.*
 
 
