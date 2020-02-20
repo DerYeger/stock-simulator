@@ -43,6 +43,7 @@ class AccountFragment : BaseFragment() {
         viewModel.balancesLimited.observe(viewLifecycleOwner, Observer { balanceList ->
             run {
                 if (balanceList.isEmpty()) return@run
+
                 val referenceTimestamp = balanceList[0].timestamp
                 val entries = balanceList.map { balance ->
                     Entry(
@@ -53,6 +54,24 @@ class AccountFragment : BaseFragment() {
                 updateLineChart(binding.accountChart, entries, "Account Balance", resources.configuration.locale, referenceTimestamp)
             }
         })
+
+        initLineChart(binding.depotChart, context!!)
+
+        viewModel.depotValuesLimited.observe(viewLifecycleOwner, Observer { depotValues ->
+            run {
+                if (depotValues.isEmpty()) return@run
+
+                val referenceTimestamp = depotValues[0].timestamp
+                val entries = depotValues.map { depotValue ->
+                    Entry(
+                        (depotValue.timestamp - referenceTimestamp).toFloat(),
+                        depotValue.value.toFloat()
+                    )
+                }
+                updateLineChart(binding.depotChart, entries, "Depot Balance", resources.configuration.locale, referenceTimestamp)
+            }
+        })
+
 
         return binding.root
     }
