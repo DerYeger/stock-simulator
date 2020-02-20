@@ -26,7 +26,7 @@ interface IexApi {
     suspend fun symbols(@Query("token") token: String = IEX_API_TOKEN): List<NetworkSymbol>
 
     @GET("ref-data/crypto/symbols")
-    suspend fun cryptroSymbols(@Query("token") token: String = IEX_API_TOKEN): List<NetworkSymbol>
+    suspend fun cryptoSymbols(@Query("token") token: String = IEX_API_TOKEN): List<NetworkSymbol>
 
     @GET("stock/{symbol}/chart/{range}")
     suspend fun historical(@Path("symbol") symbol: String, @Path("range") range: String = "1m", @Query("token") token: String = IEX_API_TOKEN, @Query("chartCloseOnly") chartCloseOnly: Boolean): List<HistoricalPriceFromApi>

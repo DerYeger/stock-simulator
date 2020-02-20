@@ -18,7 +18,7 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -85,6 +85,7 @@
                     android:textAlignment="viewEnd"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/quote_price_text"
+                    app:visible="@{viewModel.quote.change != null}"
                     tools:text="-1€" />
 
                 <Button
