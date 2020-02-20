@@ -38,17 +38,18 @@ class AccountFragment : Fragment() {
             })
         binding.lifecycleOwner = this
 
-        initLineChart(binding.accountChart, context!!, resources.configuration.locale)
+        initLineChart(binding.accountChart, context!!)
 
         viewModel.balancesLimited.observe(viewLifecycleOwner, Observer { balanceList ->
             run {
+                val referenceTimestamp = balanceList[0].timestamp
                 val entries = balanceList.map { balance ->
                     Entry(
-                        balance.timestamp.toFloat(),
+                        (balance.timestamp - referenceTimestamp).toFloat(),
                         balance.value.toFloat()
                     )
                 }
-                updateLineChart(binding.accountChart, entries, "Account Balance")
+                updateLineChart(binding.accountChart, entries, "Account Balance", resources.configuration.locale, referenceTimestamp)
             }
         })
 

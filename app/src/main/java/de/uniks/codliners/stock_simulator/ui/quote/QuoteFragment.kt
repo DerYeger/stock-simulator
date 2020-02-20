@@ -50,11 +50,11 @@ class QuoteFragment : Fragment() {
                     val timestamp = simpleDateFormat.parse(price.date)!!.time
                     Entry(timestamp.toFloat(), price.close.toFloat())
                 }
-                updateLineChart(binding.quoteChart, entries, "Historical Prices")
+                updateLineChart(binding.quoteChart, entries, "Historical Prices", resources.configuration.locale)
             }
         })
 
-        initLineChart(binding.quoteChart, context!!, resources.configuration.locale)
+        initLineChart(binding.quoteChart, context!!)
 
         return binding.root
     }
