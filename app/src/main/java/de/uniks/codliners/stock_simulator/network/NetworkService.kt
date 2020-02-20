@@ -5,8 +5,8 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import de.uniks.codliners.stock_simulator.BuildConfig
 import de.uniks.codliners.stock_simulator.domain.HistoricalPriceFromApi
 import de.uniks.codliners.stock_simulator.domain.Quote
-import de.uniks.codliners.stock_simulator.domain.SearchResult
 import de.uniks.codliners.stock_simulator.domain.Symbol
+import kotlinx.coroutines.Deferred
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
@@ -23,16 +23,16 @@ val moshi: Moshi = Moshi.Builder()
 interface IexApi {
 
     @GET("ref-data/symbols")
-    suspend fun symbols(@Query("token") token: String = IEX_API_TOKEN): List<Symbol>
+    suspend fun symbols(@Query("token") token: String = IEX_API_TOKEN): List<NetworkSymbol>
 
-    @GET("search/{fragment}")
-    suspend fun search(@Path("fragment") fragment: String, @Query("token") token: String = IEX_API_TOKEN): List<SearchResult>
+    @GET("ref-data/crypto/symbols")
+    suspend fun cryptoSymbols(@Query("token") token: String = IEX_API_TOKEN): List<NetworkSymbol>
 
     @GET("stock/{symbol}/chart/{range}")
     suspend fun historical(@Path("symbol") symbol: String, @Path("range") range: String = "1m", @Query("token") token: String = IEX_API_TOKEN, @Query("chartCloseOnly") chartCloseOnly: Boolean): List<HistoricalPriceFromApi>
 
     @GET("stock/{symbol}/quote")
-    suspend fun quote(@Path("symbol") symbol: String, @Query("token") token: String = IEX_API_TOKEN): Quote
+    suspend fun quote(@Path("symbol") symbol: String, @Query("token") token: String = IEX_API_TOKEN): NetworkQuote
 }
 
 object NetworkService {

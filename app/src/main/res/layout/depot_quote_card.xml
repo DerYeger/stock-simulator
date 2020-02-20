@@ -26,7 +26,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@{@string/depot_quote_format(quote.symbol, quote.amount)}"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            app:depotQuote="@{quote}" />
     </androidx.cardview.widget.CardView>
 </layout>

@@ -1,24 +1,29 @@
 package de.uniks.codliners.stock_simulator.ui.quote
 
 import android.app.Application
+import android.text.InputType
 import androidx.lifecycle.*
 import de.uniks.codliners.stock_simulator.BuildConfig
 import de.uniks.codliners.stock_simulator.background.StockbrotWorkRequest
 import de.uniks.codliners.stock_simulator.database.DepotQuote
 import de.uniks.codliners.stock_simulator.domain.Balance
 import de.uniks.codliners.stock_simulator.domain.StockbrotQuote
+import de.uniks.codliners.stock_simulator.domain.Symbol
 import de.uniks.codliners.stock_simulator.noNulls
 import de.uniks.codliners.stock_simulator.repository.AccountRepository
 import de.uniks.codliners.stock_simulator.repository.QuoteRepository
 import de.uniks.codliners.stock_simulator.repository.StockbrotRepository
 import de.uniks.codliners.stock_simulator.toSafeDouble
-import de.uniks.codliners.stock_simulator.toSafeLong
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import java.util.*
 
 
-class QuoteViewModel(application: Application, private val symbol: String) : AndroidViewModel(application) {
-
+class QuoteViewModel(
+    application: Application,
+    private val symbol: String,
+    private val type: Symbol.Type
+) : AndroidViewModel(application) {
 
     private lateinit var timer: Timer
 
@@ -35,17 +40,25 @@ class QuoteViewModel(application: Application, private val symbol: String) : And
     lateinit var stockbrotQuote: MutableLiveData<StockbrotQuote>
     val historicalPrices = quoteRepository.historicalPrices(symbol)
 
+    private val isCrypto = type === Symbol.Type.CRYPTO
+
+    val inputType = if (isCrypto) InputType.TYPE_NUMBER_FLAG_DECIMAL else InputType.TYPE_CLASS_NUMBER
+
     private val state = quoteRepository.state
     val refreshing = state.map { it === QuoteRepository.State.Refreshing }
 
     private val _errorAction = MediatorLiveData<String>()
     val errorAction: LiveData<String> = _errorAction
 
-    val buyAmount = MutableLiveData("0")
+    val buyAmount = MutableLiveData<String>().apply {
+        value = if (isCrypto) "0.0" else "0"
+    }
     private val _canBuy = MediatorLiveData<Boolean>()
     val canBuy: LiveData<Boolean> = _canBuy
 
-    val sellAmount = MutableLiveData("0")
+    val sellAmount = MutableLiveData<String>().apply {
+        value = if (isCrypto) "0.0" else "0"
+    }
     private val _canSell = MediatorLiveData<Boolean>()
     val canSell: LiveData<Boolean> = _canSell
 
@@ -67,7 +80,7 @@ class QuoteViewModel(application: Application, private val symbol: String) : And
         _canBuy.apply {
             addSource(buyAmount) {
                 value = canBuy(
-                    amount = it?.toSafeLong(),
+                    amount = it.toSafeDouble(),
                     price = quote.value?.latestPrice,
                     balance = latestBalance.value,
                     state = state.value
@@ -76,7 +89,7 @@ class QuoteViewModel(application: Application, private val symbol: String) : And
 
             addSource(quote) {
                 value = canBuy(
-                    amount = buyAmount.value?.toSafeLong(),
+                    amount = buyAmount.value.toSafeDouble(),
                     price = it?.latestPrice,
                     balance = latestBalance.value,
                     state = state.value
@@ -85,7 +98,7 @@ class QuoteViewModel(application: Application, private val symbol: String) : And
 
             addSource(latestBalance) {
                 value = canBuy(
-                    amount = buyAmount.value?.toSafeLong(),
+                    amount = buyAmount.value.toSafeDouble(),
                     price = quote.value?.latestPrice,
                     balance = it,
                     state = state.value
@@ -94,7 +107,7 @@ class QuoteViewModel(application: Application, private val symbol: String) : And
 
             addSource(state) {
                 value = canBuy(
-                    amount = buyAmount.value?.toSafeLong(),
+                    amount = buyAmount.value.toSafeDouble(),
                     price = quote.value?.latestPrice,
                     balance = latestBalance.value,
                     state = it
@@ -105,7 +118,7 @@ class QuoteViewModel(application: Application, private val symbol: String) : And
         _canSell.apply {
             addSource(sellAmount) {
                 value = canSell(
-                    amount = it.toSafeLong(),
+                    amount = it.toSafeDouble(),
                     depotQuote = depotQuote.value,
                     balance = latestBalance.value,
                     state = state.value
@@ -114,7 +127,7 @@ class QuoteViewModel(application: Application, private val symbol: String) : And
 
             addSource(depotQuote) {
                 value = canSell(
-                    amount = sellAmount.value?.toSafeLong(),
+                    amount = sellAmount.value.toSafeDouble(),
                     depotQuote = it,
                     balance = latestBalance.value,
                     state = state.value
@@ -123,7 +136,7 @@ class QuoteViewModel(application: Application, private val symbol: String) : And
 
             addSource(latestBalance) {
                 value = canSell(
-                    amount = sellAmount.value?.toSafeLong(),
+                    amount = sellAmount.value.toSafeDouble(),
                     depotQuote = depotQuote.value,
                     balance = it,
                     state = state.value
@@ -132,7 +145,7 @@ class QuoteViewModel(application: Application, private val symbol: String) : And
 
             addSource(state) {
                 value = canSell(
-                    amount = sellAmount.value?.toSafeLong(),
+                    amount = sellAmount.value.toSafeDouble(),
                     depotQuote = depotQuote.value,
                     balance = latestBalance.value,
                     state = it
@@ -143,21 +156,21 @@ class QuoteViewModel(application: Application, private val symbol: String) : And
         _canAddQuoteToStockbrot.apply {
             addSource(thresholdBuy) {
                 value = canAddQuoteToStockbrot(
-                    thresholdBuy.value?.toSafeDouble(),
-                    thresholdSell.value?.toSafeDouble()
+                    thresholdBuy.value.toSafeDouble(),
+                    thresholdSell.value.toSafeDouble()
                 )
             }
 
             addSource(thresholdSell) {
                 value = canAddQuoteToStockbrot(
-                    thresholdBuy.value?.toSafeDouble(),
-                    thresholdSell.value?.toSafeDouble()
+                    thresholdBuy.value.toSafeDouble(),
+                    thresholdSell.value.toSafeDouble()
                 )
             }
         }
 
         viewModelScope.launch {
-            stockbrotQuote = stockbrotRepository.stockbrotQuoteWithSymbol(symbol)
+            stockbrotQuote = stockbrotRepository.stockbrotQuoteWithSymbol(symbol, type)
         }
 
         refresh()
@@ -180,13 +193,13 @@ class QuoteViewModel(application: Application, private val symbol: String) : And
 
     fun buy() {
         viewModelScope.launch {
-            accountRepository.buy(quote.value!!, buyAmount.value!!.toInt())
+            accountRepository.buy(quote.value!!, buyAmount.value!!.toDouble())
         }
     }
 
     fun sell() {
         viewModelScope.launch {
-            accountRepository.sell(quote.value!!, sellAmount.value!!.toInt())
+            accountRepository.sell(quote.value!!, sellAmount.value!!.toDouble())
         }
     }
 
@@ -194,7 +207,8 @@ class QuoteViewModel(application: Application, private val symbol: String) : And
         viewModelScope.launch {
             val thresholdBuyDouble = thresholdBuy.value?.toDouble()!!
             val thresholdSellDouble = thresholdSell.value?.toDouble()!!
-            val newStockbrotQuote = StockbrotQuote(symbol, thresholdBuyDouble, thresholdSellDouble)
+            val newStockbrotQuote =
+                StockbrotQuote(symbol, type, thresholdBuyDouble, thresholdSellDouble)
             stockbrotWorkRequest.addQuote(newStockbrotQuote)
             stockbrotRepository.saveAddStockbrotControl(newStockbrotQuote)
         }
@@ -209,7 +223,7 @@ class QuoteViewModel(application: Application, private val symbol: String) : And
 
     fun refresh() {
         viewModelScope.launch {
-            quoteRepository.fetchQuoteWithSymbol(symbol)
+            quoteRepository.fetchQuoteWithSymbol(symbol, type)
         }
     }
 
@@ -220,7 +234,7 @@ class QuoteViewModel(application: Application, private val symbol: String) : And
     }
 
     private fun canBuy(
-        amount: Long?,
+        amount: Double?,
         price: Double?,
         balance: Balance?,
         state: QuoteRepository.State?
@@ -230,7 +244,7 @@ class QuoteViewModel(application: Application, private val symbol: String) : And
             && amount * price!! + BuildConfig.TRANSACTION_COSTS <= balance!!.value
 
     private fun canSell(
-        amount: Long?,
+        amount: Double?,
         depotQuote: DepotQuote?,
         balance: Balance?,
         state: QuoteRepository.State?
@@ -249,16 +263,16 @@ class QuoteViewModel(application: Application, private val symbol: String) : And
 
     class Factory(
         private val application: Application,
-        private val shareId: String
+        private val symbol: String,
+        private val type: Symbol.Type
     ) : ViewModelProvider.Factory {
 
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(QuoteViewModel::class.java)) {
                 @Suppress("UNCHECKED_CAST")
-                return QuoteViewModel(application, shareId) as T
+                return QuoteViewModel(application, symbol, type) as T
             }
             throw IllegalArgumentException("Unable to construct viewmodel")
         }
     }
-
 }
