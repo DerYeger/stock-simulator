@@ -1,4 +1,4 @@
-package de.uniks.codliners.stock_simulator.ui.quote
+package de.uniks.codliners.stock_simulator.ui.news
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -12,9 +12,7 @@ import java.util.*
 
 class NewsAdapter(
     locale: Locale
-) : ListAdapter<News, NewsAdapter.ViewHolder>(
-    DiffCallback
-) {
+) : ListAdapter<News, NewsAdapter.ViewHolder>(DiffCallback) {
 
     private val dateFormatter = SimpleDateFormat("dd.MM.yyyy hh:mm", locale)
 

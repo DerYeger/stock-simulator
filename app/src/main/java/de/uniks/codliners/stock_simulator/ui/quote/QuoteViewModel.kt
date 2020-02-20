@@ -11,7 +11,6 @@ import de.uniks.codliners.stock_simulator.domain.StockbrotQuote
 import de.uniks.codliners.stock_simulator.domain.Symbol
 import de.uniks.codliners.stock_simulator.noNulls
 import de.uniks.codliners.stock_simulator.repository.AccountRepository
-import de.uniks.codliners.stock_simulator.repository.NewsRepository
 import de.uniks.codliners.stock_simulator.repository.QuoteRepository
 import de.uniks.codliners.stock_simulator.repository.StockbrotRepository
 import de.uniks.codliners.stock_simulator.toSafeDouble
@@ -30,13 +29,10 @@ class QuoteViewModel(
     private val quoteRepository = QuoteRepository(application)
     private val accountRepository = AccountRepository(application)
     private val stockbrotRepository = StockbrotRepository(application)
-    private val newsRepository = NewsRepository(application)
 
     private val stockbrotWorkRequest = StockbrotWorkRequest(application)
 
     private val latestBalance = accountRepository.latestBalance
-
-    val news = newsRepository.news
 
     val quote = quoteRepository.quoteWithSymbol(symbol)
     val depotQuote = accountRepository.depotQuoteWithSymbol(symbol)
@@ -45,12 +41,9 @@ class QuoteViewModel(
 
     private val isCrypto = type === Symbol.Type.CRYPTO
 
-    val inputType =
-        if (isCrypto) InputType.TYPE_NUMBER_FLAG_DECIMAL else InputType.TYPE_CLASS_NUMBER
+    val inputType = if (isCrypto) InputType.TYPE_NUMBER_FLAG_DECIMAL else InputType.TYPE_CLASS_NUMBER
 
-    private val _state = MediatorLiveData<QuoteRepository.State>()
-    private val state: LiveData<QuoteRepository.State> = _state
-
+    private val state = quoteRepository.state
     val refreshing = state.map { it === QuoteRepository.State.Refreshing }
 
     private val _errorAction = MediatorLiveData<String>()
@@ -73,28 +66,7 @@ class QuoteViewModel(
     private val _canAddQuoteToStockbrot = MediatorLiveData<Boolean>()
     val canAddQuoteToStockbrot: LiveData<Boolean> = _canAddQuoteToStockbrot
 
-    private fun mapStates(
-        quoteRepositoryState: QuoteRepository.State,
-        newsRepositoryState: NewsRepository.State
-    ): QuoteRepository.State {
-        return if (quoteRepositoryState == QuoteRepository.State.Refreshing || newsRepositoryState == NewsRepository.State.Refreshing) {
-            QuoteRepository.State.Refreshing
-        } else {
-            quoteRepositoryState
-        }
-    }
-
     init {
-        _state.apply {
-            addSource(quoteRepository.state) {
-                value = mapStates(quoteRepository.state.value!!, newsRepository.state.value!!)
-            }
-
-            addSource(newsRepository.state) {
-                value = mapStates(quoteRepository.state.value!!, newsRepository.state.value!!)
-            }
-        }
-
         _errorAction.apply {
             addSource(state) { state ->
                 value = when (state) {
@@ -251,7 +223,6 @@ class QuoteViewModel(
     fun refresh() {
         viewModelScope.launch {
             quoteRepository.fetchQuoteWithSymbol(symbol, type)
-            newsRepository.fetchNews(symbol)
         }
     }
 
