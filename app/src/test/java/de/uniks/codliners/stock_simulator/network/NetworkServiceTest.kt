@@ -6,13 +6,13 @@ import org.junit.Test
 
 
 class NetworkServiceTest {
-    @Test
-    fun symbols_isCorrect() {
-        runBlocking {
-            Assert.assertEquals(
-                symbol?.symbol,
-                NetworkService.IEX_API.symbols(IEX_API_TOKEN)[0].symbol
-            )
-        }
-    }
+//    @Test
+//    fun symbols_isCorrect() {
+//        runBlocking {
+//            Assert.assertEquals(
+//                symbol?.symbol,
+//                NetworkService.IEX_API.symbols(IEX_API_TOKEN)[0].symbol
+//            )
+//        }
+//    }
 }

@@ -25,7 +25,7 @@ class HistoryRepository(private val database: StockAppDatabase) {
         }
 
     fun transactionBySymbol(symbol: String): LiveData<List<Transaction>> = Transformations
-        .map(database.transactionDao.getTransactionsByShareName(symbol)) {
+        .map(database.transactionDao.getTransactionsBySymbol(symbol)) {
             it?.transactionsAsDomainModel()
         }
 

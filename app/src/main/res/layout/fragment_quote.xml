@@ -18,7 +18,7 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -50,7 +50,7 @@
                     tools:text="SYMBOL" />
 
                 <TextView
-                    android:id="@+id/quote_comoany_name_text"
+                    android:id="@+id/quote_company_name_text"
                     style="@style/TextAppearance.MaterialComponents.Headline6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -85,6 +85,7 @@
                     android:textAlignment="viewEnd"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/quote_price_text"
+                    app:visible="@{viewModel.quote.change != null}"
                     tools:text="-1€" />
 
                 <Button
@@ -119,11 +120,12 @@
                     android:ems="10"
                     android:hint="@string/buy_hint"
                     android:importantForAutofill="no"
-                    android:inputType="number"
+                    android:inputType="@{viewModel.inputType}"
                     android:text="@={viewModel.buyAmount}"
                     app:layout_constraintEnd_toStartOf="@+id/buy_button"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/quote_comoany_name_text" />
+                    app:layout_constraintTop_toBottomOf="@+id/quote_company_name_text"
+                    tools:ignore="TextFields" />
 
                 <EditText
                     android:id="@+id/sell_number"
@@ -134,11 +136,12 @@
                     android:layout_marginEnd="@dimen/default_spacing"
                     android:hint="@string/sell_hint"
                     android:importantForAutofill="no"
-                    android:inputType="number"
+                    android:inputType="@{viewModel.inputType}"
                     android:text="@={viewModel.sellAmount}"
                     app:layout_constraintEnd_toStartOf="@+id/sell_button"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/buy_number" />
+                    app:layout_constraintTop_toBottomOf="@+id/buy_number"
+                    tools:ignore="TextFields" />
 
                 <TextView
                     android:id="@+id/depot_text"
@@ -149,7 +152,7 @@
                     android:layout_marginStart="@dimen/default_spacing"
                     android:layout_marginTop="@dimen/default_spacing"
                     android:layout_marginEnd="@dimen/default_spacing"
-                    android:text="@{@string/depot_quote_amount_format(viewModel.depotQuote.amount)}"
+                    app:depotQuoteText="@{viewModel.depotQuote}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/sell_number"
@@ -265,6 +268,5 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
-
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </layout>

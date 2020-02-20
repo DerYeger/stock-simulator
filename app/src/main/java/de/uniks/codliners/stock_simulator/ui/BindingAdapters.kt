@@ -1,21 +1,19 @@
 package de.uniks.codliners.stock_simulator.ui
 
 import android.view.View
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.ProgressBar
-import android.widget.TextView
+import android.widget.*
 import androidx.databinding.BindingAdapter
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import de.uniks.codliners.stock_simulator.R
 import de.uniks.codliners.stock_simulator.database.DepotQuote
-import de.uniks.codliners.stock_simulator.domain.SearchResult
+import de.uniks.codliners.stock_simulator.domain.*
 import de.uniks.codliners.stock_simulator.domain.StockbrotQuote
 import de.uniks.codliners.stock_simulator.domain.Transaction
 import de.uniks.codliners.stock_simulator.domain.TransactionType
 import de.uniks.codliners.stock_simulator.domain.TransactionType.*
-import de.uniks.codliners.stock_simulator.repository.SearchRepository
+import de.uniks.codliners.stock_simulator.isWholeNumber
 import de.uniks.codliners.stock_simulator.ui.account.DepotQuoteRecyclerViewAdapter
 import de.uniks.codliners.stock_simulator.ui.history.HistoryRecyclerViewAdapter
 import de.uniks.codliners.stock_simulator.ui.search.SearchResultAdapter
@@ -34,7 +32,7 @@ fun SwipeRefreshLayout.bindRefreshListener(listener: Runnable) {
 }
 
 @BindingAdapter("searchResults")
-fun RecyclerView.bindSearchResults(symbols: List<SearchResult>?) {
+fun RecyclerView.bindSearchResults(symbols: List<Symbol>?) {
     val adapter = adapter as SearchResultAdapter
     adapter.submitList(symbols)
 }
@@ -45,27 +43,41 @@ fun RecyclerView.bindDepotQuotes(quotes: List<DepotQuote>?) {
     adapter.submitList(quotes)
 }
 
-@BindingAdapter("searchState")
-fun TextView.bindSearchState(state: SearchRepository.State) {
-    when (state) {
-        is SearchRepository.State.Empty -> {
-            text = context.getText(R.string.no_results)
-            visibility = View.VISIBLE
-        }
-        is SearchRepository.State.Searching -> visibility = View.GONE
-        is SearchRepository.State.Done -> visibility = View.GONE
-        is SearchRepository.State.Error -> {
-            text = state.message
-            visibility = View.VISIBLE
+@BindingAdapter("depotQuoteText")
+fun TextView.bindDepotQuoteText(depotQuote: DepotQuote?) {
+    depotQuote?.let {
+        text = when (depotQuote.amount.isWholeNumber()) {
+            true ->
+                String.format(
+                    resources.getText(R.string.long_depot_quote_amount_format).toString(),
+                    depotQuote.amount.toLong()
+                )
+            false ->
+                String.format(
+                    resources.getText(R.string.double_depot_quote_amount_format).toString(),
+                    depotQuote.amount
+                )
         }
     }
 }
 
-@BindingAdapter("searchState")
-fun ProgressBar.bindSearchRepositoryState(state: SearchRepository.State) {
-    visibility = when (state) {
-        is SearchRepository.State.Searching -> View.VISIBLE
-        else -> View.GONE
+@BindingAdapter("depotQuote")
+fun TextView.bindDepotQuote(depotQuote: DepotQuote?) {
+    depotQuote?.let {
+        text = when (depotQuote.amount.isWholeNumber()) {
+            true ->
+                String.format(
+                    resources.getText(R.string.long_depot_quote_format).toString(),
+                    depotQuote.symbol,
+                    depotQuote.amount.toLong()
+                )
+            false ->
+                String.format(
+                    resources.getText(R.string.double_depot_quote_format).toString(),
+                    depotQuote.symbol,
+                    depotQuote.amount
+                )
+        }
     }
 }
 
@@ -104,11 +116,35 @@ fun ImageView.bindTransactionType(transactionType: TransactionType?) {
 @BindingAdapter("transaction")
 fun TextView.bindTransaction(transaction: Transaction?) {
     transaction?.let {
-        val stringId = when (transaction.transactionType) {
-            BUY -> R.string.buy_amount_format
-            SELL -> R.string.sell_amount_format
+        text = if (transaction.amount.isWholeNumber()) {
+            val stringId = when (transaction.transactionType) {
+                BUY -> R.string.long_buy_amount_format
+                SELL -> R.string.long_sell_amount_format
+            }
+            String.format(resources.getText(stringId).toString(), transaction.amount.toLong())
+        } else {
+            val stringId = when (transaction.transactionType) {
+                BUY -> R.string.double_buy_amount_format
+                SELL -> R.string.double_sell_amount_format
+            }
+            String.format(resources.getText(stringId).toString(), transaction.amount)
         }
-        text = String.format(resources.getText(stringId).toString(), transaction.amount)
+    }
+}
+
+@BindingAdapter("observeSelection")
+fun Spinner.bindSelection(selection: MutableLiveData<String>) {
+    val self = this
+
+    this.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+        override fun onNothingSelected(parent: AdapterView<*>?) {
+            // ignore, as it's impossible
+        }
+
+        override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+            val selectedItem = self.getItemAtPosition(position).toString()
+            selection.postValue(selectedItem)
+        }
     }
 }
 

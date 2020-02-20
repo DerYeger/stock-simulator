@@ -4,10 +4,20 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import androidx.room.OnConflictStrategy.REPLACE
-import de.uniks.codliners.stock_simulator.domain.Balance
-import de.uniks.codliners.stock_simulator.domain.HistoricalPriceFromApi
-import de.uniks.codliners.stock_simulator.domain.Quote
-import de.uniks.codliners.stock_simulator.domain.StockbrotQuote
+import de.uniks.codliners.stock_simulator.domain.*
+
+@Dao
+interface SymbolDao {
+
+    @Insert(onConflict = REPLACE)
+    fun insertAll(vararg symbols: Symbol)
+
+    @Query("SELECT * FROM symbol ORDER BY symbol.symbol ASC")
+    fun getAll(): LiveData<List<Symbol>>
+
+    @Query("SELECT * FROM symbol WHERE symbol.symbol == :symbol")
+    fun get(symbol: String): LiveData<Symbol>
+}
 
 @Dao
 interface QuoteDao {
@@ -22,7 +32,7 @@ interface QuoteDao {
     fun getQuoteWithSymbol(symbol: String): LiveData<Quote>
 
     @Query("SELECT * FROM quote WHERE quote.symbol == :symbol")
-    fun getDepotQuoteBySymbol(symbol: String): Quote?
+    fun getQuoteValueBySymbol(symbol: String): Quote
 
     @Delete
     fun delete(quote: Quote)
@@ -34,8 +44,8 @@ interface QuoteDao {
 @Dao
 interface TransactionDao {
 
-    @Query("select * from transactiondatabase where symbol = :shareName")
-    fun getTransactionsByShareName(shareName: String): LiveData<List<TransactionDatabase>>
+    @Query("select * from transactiondatabase where transactiondatabase.symbol = :symbol")
+    fun getTransactionsBySymbol(symbol: String): LiveData<List<TransactionDatabase>>
 
     @Query("select * from transactiondatabase limit :limit")
     fun getTransactionsLimited(limit: Int): LiveData<List<TransactionDatabase>>
@@ -68,6 +78,9 @@ interface AccountDao {
     @Query("SELECT * FROM balance ORDER BY balance.timestamp ASC")
     fun getBalances(): LiveData<List<Balance>>
 
+    @Query("SELECT COUNT(*) FROM balance")
+    fun getBalanceCount(): Long
+
     @Query("SELECT * FROM (SELECT * FROM balance ORDER BY balance.timestamp DESC LIMIT :limit) ORDER BY timestamp ASC")
     fun getBalancesLimited(limit: Int): LiveData<List<Balance>>
 
@@ -83,6 +96,9 @@ interface AccountDao {
     @Query("SELECT * FROM depotquote")
     fun getDepotQuotes(): LiveData<List<DepotQuote>>
 
+    @Query("SELECT * FROM depotquote")
+    fun getDepotQuotesValues(): List<DepotQuote>
+
     @Query("SELECT * FROM depotquote WHERE symbol == :symbol LIMIT 1")
     fun getDepotQuoteWithSymbol(symbol: String): LiveData<DepotQuote>
 
@@ -94,6 +110,21 @@ interface AccountDao {
 
     @Query("DELETE FROM depotquote")
     fun deleteDepot()
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertDepotValue(depotValue: DepotValue)
+
+    @Query("select * from depotvalue")
+    fun getDepotValues(): LiveData<List<DepotValue>>
+
+    @Query("select * from depotvalue order by depotvalue.timestamp desc limit 1")
+    fun getLatestDepotValues(): LiveData<DepotValue>
+
+    @Query("SELECT * FROM (SELECT * FROM depotvalue ORDER BY depotvalue.timestamp DESC LIMIT :limit) ORDER BY timestamp ASC")
+    fun getDepotValuesLimited(limit: Int): LiveData<List<DepotValue>>
+
+    @Query("delete from depotvalue")
+    fun deleteDepotValues()
 }
 
 @Dao
@@ -121,10 +152,10 @@ interface StockbrotDao {
 @Dao
 interface HistoricalPriceDao {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = REPLACE)
     fun insert(priceFromApi: HistoricalPrice)
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = REPLACE)
     fun insertAll(vararg prices: HistoricalPrice)
 
     @Query("select * from historicalprice where symbol = :symbol")
@@ -138,12 +169,13 @@ interface HistoricalPriceDao {
 }
 
 @Database(
-    entities = [DepotQuote::class, TransactionDatabase::class, Quote::class, Balance::class, HistoricalPrice::class, StockbrotQuote::class],
-    version = 15,
+    entities = [Symbol::class, DepotQuote::class, TransactionDatabase::class, Quote::class, Balance::class, HistoricalPrice::class, StockbrotQuote::class, DepotValue::class],
+    version = 17,
     exportSchema = false
 )
 @TypeConverters(Converters::class)
 abstract class StockAppDatabase: RoomDatabase() {
+    abstract val symbolDao: SymbolDao
     abstract val quoteDao: QuoteDao
     abstract val transactionDao: TransactionDao
     abstract val accountDao: AccountDao

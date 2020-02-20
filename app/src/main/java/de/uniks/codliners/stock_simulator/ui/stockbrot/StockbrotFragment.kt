@@ -4,13 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import de.uniks.codliners.stock_simulator.databinding.FragmentStockbrotBinding
+import de.uniks.codliners.stock_simulator.ui.BaseFragment
 import de.uniks.codliners.stock_simulator.ui.OnClickListener
 
-class StockbrotFragment : Fragment() {
+class StockbrotFragment : BaseFragment() {
 
     private val viewModel: StockbrotViewModel by viewModels{
         StockbrotViewModel.Factory(activity!!.application)
@@ -26,7 +26,7 @@ class StockbrotFragment : Fragment() {
         binding = FragmentStockbrotBinding.inflate(inflater)
         binding.viewModel = viewModel
         binding.stockbrotRecyclerView.adapter = StockbrotQuoteRecyclerViewAdapter(OnClickListener { stockbrotQuote ->
-            val action = StockbrotFragmentDirections.actionNavigationStockbrotToNavigationQuote(stockbrotQuote.symbol)
+            val action = StockbrotFragmentDirections.actionNavigationStockbrotToNavigationQuote(stockbrotQuote.symbol, stockbrotQuote.type)
             findNavController().navigate(action)
         })
         binding.lifecycleOwner = this
