@@ -101,6 +101,9 @@ interface AccountDao {
     @Query("select * from depotvalue order by depotvalue.timestamp desc limit 1")
     fun getLatestDepotValues(): LiveData<DepotValue>
 
+    @Query("SELECT * FROM (SELECT * FROM depotvalue ORDER BY depotvalue.timestamp DESC LIMIT :limit) ORDER BY timestamp ASC")
+    fun getDepotValuesLimited(limit: Int): LiveData<List<DepotValue>>
+
     @Query("delete from depotvalue")
     fun deleteDepotValues()
 }

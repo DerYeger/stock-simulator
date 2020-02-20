@@ -3,7 +3,9 @@ package de.uniks.codliners.stock_simulator.ui.account
 import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import de.uniks.codliners.stock_simulator.repository.AccountRepository
+import kotlinx.coroutines.launch
 
 class AccountViewModel(application: Application) : ViewModel() {
 
@@ -12,6 +14,8 @@ class AccountViewModel(application: Application) : ViewModel() {
     val balance = accountRepository.latestBalance
     val balancesLimited = accountRepository.balancesLimited
     val depotQuotes = accountRepository.depot
+    val depotValue = accountRepository.currentDepotValue
+    val depotValuesLimited = accountRepository.depotValuesLimited
 
     class Factory(
         private val application: Application
@@ -23,6 +27,12 @@ class AccountViewModel(application: Application) : ViewModel() {
                 return AccountViewModel(application) as T
             }
             throw IllegalArgumentException("Unable to construct viewmodel")
+        }
+    }
+
+    init {
+        viewModelScope.launch {
+            accountRepository.fetchCurrentDepotValue()
         }
     }
 

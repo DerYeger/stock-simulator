@@ -23,7 +23,7 @@ class AccountRepository(private val database: StockAppDatabase) {
     val balances by lazy {
         database.accountDao.getBalances()
     }
-
+    // the last 50 account balance values
     val balancesLimited by lazy {
         database.accountDao.getBalancesLimited(BALANCE_LIMIT)
     }
@@ -31,9 +31,9 @@ class AccountRepository(private val database: StockAppDatabase) {
     val depot by lazy {
         database.accountDao.getDepotQuotes()
     }
-
-    val depotValues by lazy {
-        database.accountDao.getDepotValues()
+    // the last 50 account depot values
+    val depotValuesLimited by lazy {
+        database.accountDao.getDepotValuesLimited(BALANCE_LIMIT)
     }
 
     val currentDepotValue by lazy {
@@ -76,13 +76,17 @@ class AccountRepository(private val database: StockAppDatabase) {
 
     suspend fun fetchCurrentDepotValue() {
         val depotValue = currentDepotValue.value
+        var newDepotValue: Double = 0.0
         depotValue?.let {
             val depotQuotes = database.accountDao.getDepotQuotes()
-            val entries = depotQuotes.value.map { depotQuote ->
+            depotQuotes.value?.map { depotQuote ->
                 val quotePrice = database.quoteDao.getQuoteWithSymbol(depotQuote.symbol).value!!.latestPrice
                 val depotQuoteAmount = depotQuote.amount
                 val depotQuoteValue = quotePrice * depotQuoteAmount
+                newDepotValue += depotQuoteValue
             }
+            val newDepotValue = DepotValue(newDepotValue)
+            database.accountDao.insertDepotValue(newDepotValue)
         }
     }
 
