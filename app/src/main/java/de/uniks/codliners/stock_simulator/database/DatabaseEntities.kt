@@ -10,7 +10,7 @@ import de.uniks.codliners.stock_simulator.domain.TransactionType
 data class DepotQuote(
     @PrimaryKey
     val symbol: String,
-    val amount: Long
+    val amount: Double
 )
 
 @Entity
@@ -19,7 +19,7 @@ data class TransactionDatabase constructor(
     val primaryKey: Long = 0,
     val symbol: String,
     val companyName: String,
-    val amount: Int,
+    val amount: Double,
     val price: Double,
     val transactionCosts: Double,
     val cashflow: Double,

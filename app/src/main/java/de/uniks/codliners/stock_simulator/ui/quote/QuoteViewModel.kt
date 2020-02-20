@@ -180,13 +180,13 @@ class QuoteViewModel(application: Application, private val symbol: String) : And
 
     fun buy() {
         viewModelScope.launch {
-            accountRepository.buy(quote.value!!, buyAmount.value!!.toInt())
+            accountRepository.buy(quote.value!!, buyAmount.value!!.toDouble())
         }
     }
 
     fun sell() {
         viewModelScope.launch {
-            accountRepository.sell(quote.value!!, sellAmount.value!!.toInt())
+            accountRepository.sell(quote.value!!, sellAmount.value!!.toDouble())
         }
     }
 
@@ -260,5 +260,4 @@ class QuoteViewModel(application: Application, private val symbol: String) : And
             throw IllegalArgumentException("Unable to construct viewmodel")
         }
     }
-
 }

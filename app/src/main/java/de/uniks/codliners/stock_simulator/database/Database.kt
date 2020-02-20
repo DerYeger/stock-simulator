@@ -125,10 +125,10 @@ interface StockbrotDao {
 @Dao
 interface HistoricalPriceDao {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = REPLACE)
     fun insert(priceFromApi: HistoricalPrice)
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = REPLACE)
     fun insertAll(vararg prices: HistoricalPrice)
 
     @Query("select * from historicalprice where symbol = :symbol")
@@ -143,7 +143,7 @@ interface HistoricalPriceDao {
 
 @Database(
     entities = [Symbol::class, DepotQuote::class, TransactionDatabase::class, Quote::class, Balance::class, HistoricalPrice::class, StockbrotQuote::class],
-    version = 12,
+    version = 13,
     exportSchema = false
 )
 @TypeConverters(Converters::class)
