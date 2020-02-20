@@ -9,7 +9,6 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import de.uniks.codliners.stock_simulator.R
 import de.uniks.codliners.stock_simulator.database.DepotQuote
 import de.uniks.codliners.stock_simulator.domain.*
-import de.uniks.codliners.stock_simulator.repository.SymbolRepository
 import de.uniks.codliners.stock_simulator.domain.StockbrotQuote
 import de.uniks.codliners.stock_simulator.domain.Transaction
 import de.uniks.codliners.stock_simulator.domain.TransactionType
@@ -19,7 +18,6 @@ import de.uniks.codliners.stock_simulator.ui.account.DepotQuoteRecyclerViewAdapt
 import de.uniks.codliners.stock_simulator.ui.history.HistoryRecyclerViewAdapter
 import de.uniks.codliners.stock_simulator.ui.search.SearchResultAdapter
 import de.uniks.codliners.stock_simulator.ui.stockbrot.StockbrotQuoteRecyclerViewAdapter
-import timber.log.Timber
 
 @BindingAdapter("visible")
 fun View.bindVisibility(visible: Boolean) {
@@ -45,11 +43,21 @@ fun RecyclerView.bindDepotQuotes(quotes: List<DepotQuote>?) {
     adapter.submitList(quotes)
 }
 
-@BindingAdapter("searchState")
-fun ProgressBar.bindSearchRepositoryState(state: SymbolRepository.State) {
-    visibility = when (state) {
-        is SymbolRepository.State.Refreshing -> View.VISIBLE
-        else -> View.GONE
+@BindingAdapter("depotQuote")
+fun TextView.bindDepotQuote(depotQuote: DepotQuote?) {
+    depotQuote?.let {
+        text = when (depotQuote.amount.isWholeNumber()) {
+            true ->
+                String.format(
+                    resources.getText(R.string.long_depot_quote_amount_format).toString(),
+                    depotQuote.amount.toLong()
+                )
+            false ->
+                String.format(
+                    resources.getText(R.string.double_depot_quote_amount_format).toString(),
+                    depotQuote.amount
+                )
+        }
     }
 }
 

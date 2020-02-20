@@ -152,12 +152,11 @@
                     android:layout_marginStart="@dimen/default_spacing"
                     android:layout_marginTop="@dimen/default_spacing"
                     android:layout_marginEnd="@dimen/default_spacing"
-                    android:text="@{@string/depot_quote_amount_format(viewModel.depotQuote.amount)}"
+                    app:depotQuote="@{viewModel.depotQuote}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/sell_number"
                     tools:text="You own 1 share." />
-
 
                 <TextView
                     android:id="@+id/title_auto_buy_sell"
