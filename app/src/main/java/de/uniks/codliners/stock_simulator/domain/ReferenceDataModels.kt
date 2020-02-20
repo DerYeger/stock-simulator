@@ -53,6 +53,15 @@ data class Quote(
 
 @Entity
 @JsonClass(generateAdapter = true)
+data class StockbrotQuote(
+    @PrimaryKey
+    val symbol: String,
+    val thresholdBuy: Double,
+    val thresholdSell: Double
+)
+
+@Entity
+@JsonClass(generateAdapter = true)
 data class HistoricalPriceFromApi(
     @PrimaryKey
     val date: String,

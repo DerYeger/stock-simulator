@@ -24,8 +24,9 @@
     <string name="sell_hint">Sell amount</string>
     <string name="stockbrot_disable_bot">disable bot</string>
     <string name="stockbrot_enable_bot">enable bot</string>
-    <string name="stockbrot_threshold_buy">threshold buy</string>
-    <string name="stockbrot_threshold_sell">threshold sell</string>
+    <string name="stockbrot_threshold_buy">Threshold buy</string>
+    <string name="stockbrot_threshold_sell">Threshold sell</string>
+    <string name="stockbrot_control_quote">Add quote to stockbrot</string>
     <string name="title_account">Account</string>
     <string name="title_depot">Depot</string>
     <string name="title_history">History</string>
@@ -49,4 +50,5 @@
         <item>Shares</item>
         <item>Crypto</item>
     </string-array>
+    <string name="title_auto_buy_sell">Auto buy/sell</string>
 </resources>

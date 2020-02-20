@@ -16,140 +16,226 @@
         app:onRefresh="@{() -> viewModel.refresh()}"
         app:refreshing="@{viewModel.refreshing}">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:visible="@{viewModel.quote != null}">
+            android:layout_height="match_parent" >
 
-            <com.github.mikephil.charting.charts.LineChart
-                android:id="@+id/quote_chart"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/quote_symbol_text"
-                style="@style/TextAppearance.MaterialComponents.Headline5"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/default_spacing"
-                android:layout_marginTop="16dp"
-                android:text="@{viewModel.quote.symbol}"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/quote_chart"
-                tools:text="SYMBOL" />
+                app:visible="@{viewModel.quote != null}">
 
-            <TextView
-                android:id="@+id/quote_comoany_name_text"
-                style="@style/TextAppearance.MaterialComponents.Headline6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/default_spacing"
-                android:layout_marginTop="@dimen/default_spacing"
-                android:text="@{viewModel.quote.companyName}"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/quote_symbol_text"
-                tools:text="Company Name" />
+                <com.github.mikephil.charting.charts.LineChart
+                    android:id="@+id/quote_chart"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/quote_price_text"
-                style="@style/TextAppearance.MaterialComponents.Headline5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="@dimen/default_spacing"
-                android:text="@{@string/currency_format(viewModel.quote.latestPrice)}"
-                android:textAlignment="viewEnd"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/quote_chart"
-                tools:text="100€" />
+                <TextView
+                    android:id="@+id/quote_symbol_text"
+                    style="@style/TextAppearance.MaterialComponents.Headline5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/default_spacing"
+                    android:layout_marginTop="16dp"
+                    android:text="@{viewModel.quote.symbol}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/quote_chart"
+                    tools:text="SYMBOL" />
 
-            <TextView
-                android:id="@+id/quote_change_text"
-                style="@style/TextAppearance.MaterialComponents.Headline6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/default_spacing"
-                android:layout_marginEnd="@dimen/default_spacing"
-                android:text="@{@string/currency_format(viewModel.quote.change)}"
-                android:textAlignment="viewEnd"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/quote_price_text"
-                tools:text="-1€" />
+                <TextView
+                    android:id="@+id/quote_comoany_name_text"
+                    style="@style/TextAppearance.MaterialComponents.Headline6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/default_spacing"
+                    android:layout_marginTop="@dimen/default_spacing"
+                    android:text="@{viewModel.quote.companyName}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/quote_symbol_text"
+                    tools:text="Company Name" />
 
-            <Button
-                android:id="@+id/buy_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/default_spacing"
-                android:enabled="@{viewModel.canBuy}"
-                android:onClick="@{() -> viewModel.buy()}"
-                android:text="@string/buy"
-                app:layout_constraintBaseline_toBaselineOf="@+id/buy_number"
-                app:layout_constraintEnd_toEndOf="parent" />
+                <TextView
+                    android:id="@+id/quote_price_text"
+                    style="@style/TextAppearance.MaterialComponents.Headline5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="@dimen/default_spacing"
+                    android:text="@{@string/currency_format(viewModel.quote.latestPrice)}"
+                    android:textAlignment="viewEnd"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/quote_chart"
+                    tools:text="100€" />
 
-            <Button
-                android:id="@+id/sell_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/default_spacing"
-                android:enabled="@{viewModel.canSell}"
-                android:onClick="@{() -> viewModel.sell()}"
-                android:text="@string/sell"
-                app:layout_constraintBaseline_toBaselineOf="@+id/sell_number"
-                app:layout_constraintEnd_toEndOf="parent" />
+                <TextView
+                    android:id="@+id/quote_change_text"
+                    style="@style/TextAppearance.MaterialComponents.Headline6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/default_spacing"
+                    android:layout_marginEnd="@dimen/default_spacing"
+                    android:text="@{@string/currency_format(viewModel.quote.change)}"
+                    android:textAlignment="viewEnd"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/quote_price_text"
+                    tools:text="-1€" />
 
-            <EditText
-                android:id="@+id/buy_number"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/default_spacing"
-                android:layout_marginTop="@dimen/default_spacing"
-                android:layout_marginEnd="@dimen/default_spacing"
-                android:ems="10"
-                android:hint="@string/buy_hint"
-                android:importantForAutofill="no"
-                android:inputType="number"
-                android:text="@={viewModel.buyAmount}"
-                app:layout_constraintEnd_toStartOf="@+id/buy_button"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/quote_comoany_name_text" />
+                <Button
+                    android:id="@+id/buy_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/default_spacing"
+                    android:enabled="@{viewModel.canBuy}"
+                    android:onClick="@{() -> viewModel.buy()}"
+                    android:text="@string/buy"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/buy_number"
+                    app:layout_constraintEnd_toEndOf="parent" />
 
-            <EditText
-                android:id="@+id/sell_number"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/default_spacing"
-                android:layout_marginTop="@dimen/default_spacing"
-                android:layout_marginEnd="@dimen/default_spacing"
-                android:hint="@string/sell_hint"
-                android:importantForAutofill="no"
-                android:inputType="number"
-                android:text="@={viewModel.sellAmount}"
-                app:layout_constraintEnd_toStartOf="@+id/sell_button"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/buy_number" />
+                <Button
+                    android:id="@+id/sell_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/default_spacing"
+                    android:enabled="@{viewModel.canSell}"
+                    android:onClick="@{() -> viewModel.sell()}"
+                    android:text="@string/sell"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/sell_number"
+                    app:layout_constraintEnd_toEndOf="parent" />
 
-            <TextView
-                android:id="@+id/depot_text"
-                style="@style/TextAppearance.MaterialComponents.Headline6"
-                visible="@{viewModel.depotQuote != null}"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/default_spacing"
-                android:layout_marginTop="@dimen/default_spacing"
-                android:layout_marginEnd="@dimen/default_spacing"
-                android:text="@{@string/depot_quote_amount_format(viewModel.depotQuote.amount)}"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/sell_number"
-                tools:text="You own 1 share." />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <EditText
+                    android:id="@+id/buy_number"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/default_spacing"
+                    android:layout_marginTop="@dimen/default_spacing"
+                    android:layout_marginEnd="@dimen/default_spacing"
+                    android:ems="10"
+                    android:hint="@string/buy_hint"
+                    android:importantForAutofill="no"
+                    android:inputType="number"
+                    android:text="@={viewModel.buyAmount}"
+                    app:layout_constraintEnd_toStartOf="@+id/buy_button"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/quote_comoany_name_text" />
+
+                <EditText
+                    android:id="@+id/sell_number"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/default_spacing"
+                    android:layout_marginTop="@dimen/default_spacing"
+                    android:layout_marginEnd="@dimen/default_spacing"
+                    android:hint="@string/sell_hint"
+                    android:importantForAutofill="no"
+                    android:inputType="number"
+                    android:text="@={viewModel.sellAmount}"
+                    app:layout_constraintEnd_toStartOf="@+id/sell_button"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/buy_number" />
+
+                <TextView
+                    android:id="@+id/depot_text"
+                    style="@style/TextAppearance.MaterialComponents.Headline6"
+                    visible="@{viewModel.depotQuote != null}"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/default_spacing"
+                    android:layout_marginTop="@dimen/default_spacing"
+                    android:layout_marginEnd="@dimen/default_spacing"
+                    android:text="@{@string/depot_quote_amount_format(viewModel.depotQuote.amount)}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/sell_number"
+                    tools:text="You own 1 share." />
+
+
+                <TextView
+                    android:id="@+id/title_auto_buy_sell"
+                    style="@style/TextAppearance.MaterialComponents.Headline6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="48dp"
+                    android:text="@string/title_auto_buy_sell"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/depot_text" />
+
+                <TextView
+                    android:id="@+id/title_threshold_buy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/stockbrot_threshold_buy"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/title_auto_buy_sell" />
+
+                <EditText
+                    android:id="@+id/stockbrot_threshold_buy"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/default_spacing"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:ems="10"
+                    android:hint="@string/stockbrot_threshold_buy"
+                    android:importantForAutofill="no"
+                    android:inputType="numberDecimal"
+                    android:text="@={viewModel.thresholdBuy}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/title_threshold_buy" />
+
+                <TextView
+                    android:id="@+id/title_threshold_sell"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/stockbrot_threshold_sell"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/stockbrot_threshold_buy" />
+
+                <EditText
+                    android:id="@+id/stockbrot_threshold_sell"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/default_spacing"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:ems="10"
+                    android:hint="@string/stockbrot_threshold_sell"
+                    android:importantForAutofill="no"
+                    android:inputType="numberDecimal"
+                    android:text="@={viewModel.thresholdSell}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/title_threshold_sell" />
+
+                <Button
+                    android:id="@+id/button_add_quote_to_bot"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:enabled="@{viewModel.canAddQuoteToStockbrot}"
+                    android:onClick="@{() -> viewModel.addQuoteToStockbrot()}"
+                    android:text="@string/stockbrot_control_quote"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/stockbrot_threshold_sell" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </layout>

@@ -19,6 +19,7 @@ import com.github.mikephil.charting.utils.ColorTemplate
 import de.uniks.codliners.stock_simulator.repository.AccountRepository
 import de.uniks.codliners.stock_simulator.repository.HistoryRepository
 import de.uniks.codliners.stock_simulator.repository.QuoteRepository
+import de.uniks.codliners.stock_simulator.repository.StockbrotRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -54,6 +55,13 @@ fun Context.resetQuotes() {
     }
 }
 
+fun Context.resetStockbrot() {
+    val self = this
+    CoroutineScope(Dispatchers.Main).launch {
+        StockbrotRepository(self).resetStockbrot()
+    }
+}
+
 fun Context.ensureAccountPresence(lifecycleOwner: LifecycleOwner) {
     val accountRepository = AccountRepository(this)
     accountRepository.latestBalance.observe(lifecycleOwner, Observer { t ->
@@ -80,6 +88,14 @@ fun noNulls(vararg args: Any?): Boolean {
 fun String?.toSafeLong(): Long? {
     return try {
         this?.toLong()
+    } catch (_: Throwable) {
+        null
+    }
+}
+
+fun String?.toSafeDouble(): Double? {
+    return try {
+        this?.toDouble()
     } catch (_: Throwable) {
         null
     }
