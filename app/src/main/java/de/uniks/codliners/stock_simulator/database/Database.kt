@@ -31,6 +31,9 @@ interface QuoteDao {
     @Query("SELECT * FROM quote WHERE quote.symbol == :symbol")
     fun getQuoteWithSymbol(symbol: String): LiveData<Quote>
 
+    @Query("SELECT * FROM quote WHERE quote.symbol == :symbol")
+    fun getQuoteValueBySymbol(symbol: String): Quote
+
     @Delete
     fun delete(quote: Quote)
 
@@ -93,6 +96,9 @@ interface AccountDao {
     @Query("SELECT * FROM depotquote")
     fun getDepotQuotes(): LiveData<List<DepotQuote>>
 
+    @Query("SELECT * FROM depotquote")
+    fun getDepotQuotesValues(): List<DepotQuote>
+
     @Query("SELECT * FROM depotquote WHERE symbol == :symbol LIMIT 1")
     fun getDepotQuoteWithSymbol(symbol: String): LiveData<DepotQuote>
 
@@ -104,6 +110,21 @@ interface AccountDao {
 
     @Query("DELETE FROM depotquote")
     fun deleteDepot()
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertDepotValue(depotValue: DepotValue)
+
+    @Query("select * from depotvalue")
+    fun getDepotValues(): LiveData<List<DepotValue>>
+
+    @Query("select * from depotvalue order by depotvalue.timestamp desc limit 1")
+    fun getLatestDepotValues(): LiveData<DepotValue>
+
+    @Query("SELECT * FROM (SELECT * FROM depotvalue ORDER BY depotvalue.timestamp DESC LIMIT :limit) ORDER BY timestamp ASC")
+    fun getDepotValuesLimited(limit: Int): LiveData<List<DepotValue>>
+
+    @Query("delete from depotvalue")
+    fun deleteDepotValues()
 }
 
 @Dao
@@ -148,8 +169,8 @@ interface HistoricalPriceDao {
 }
 
 @Database(
-    entities = [Symbol::class, DepotQuote::class, TransactionDatabase::class, Quote::class, Balance::class, HistoricalPrice::class, StockbrotQuote::class],
-    version = 16,
+    entities = [Symbol::class, DepotQuote::class, TransactionDatabase::class, Quote::class, Balance::class, HistoricalPrice::class, StockbrotQuote::class, DepotValue::class],
+    version = 17,
     exportSchema = false
 )
 @TypeConverters(Converters::class)
