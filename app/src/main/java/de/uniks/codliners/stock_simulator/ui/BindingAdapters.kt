@@ -18,6 +18,7 @@ import de.uniks.codliners.stock_simulator.ui.account.DepotQuoteRecyclerViewAdapt
 import de.uniks.codliners.stock_simulator.ui.history.HistoryRecyclerViewAdapter
 import de.uniks.codliners.stock_simulator.ui.search.SearchResultAdapter
 import de.uniks.codliners.stock_simulator.ui.stockbrot.StockbrotQuoteRecyclerViewAdapter
+import timber.log.Timber
 
 @BindingAdapter("visible")
 fun View.bindVisibility(visible: Boolean) {
@@ -108,5 +109,10 @@ fun Spinner.bindSelection(selection: MutableLiveData<String>) {
             selection.postValue(selectedItem)
         }
     }
+}
+
+@BindingAdapter("inputType")
+fun EditText.bindInputType(inputType: Int) {
+    this.inputType = inputType
 }
 

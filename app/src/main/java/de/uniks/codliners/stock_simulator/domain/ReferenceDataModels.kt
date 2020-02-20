@@ -1,8 +1,10 @@
 package de.uniks.codliners.stock_simulator.domain
 
+import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.squareup.moshi.JsonClass
+import kotlinx.android.parcel.Parcelize
 
 @Entity
 data class Symbol(
@@ -15,7 +17,8 @@ data class Symbol(
     val region: String,
     val currency: String
 ) {
-    enum class Type { SHARE, CRYPTO }
+    @Parcelize
+    enum class Type : Parcelable { SHARE, CRYPTO }
 }
 
 @Entity
@@ -34,6 +37,7 @@ data class Quote(
 data class StockbrotQuote(
     @PrimaryKey
     val symbol: String,
+    val type: Symbol.Type,
     val thresholdBuy: Double,
     val thresholdSell: Double
 )

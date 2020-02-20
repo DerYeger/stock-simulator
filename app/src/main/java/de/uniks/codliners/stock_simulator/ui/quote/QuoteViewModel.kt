@@ -1,6 +1,7 @@
 package de.uniks.codliners.stock_simulator.ui.quote
 
 import android.app.Application
+import android.text.InputType
 import androidx.lifecycle.*
 import de.uniks.codliners.stock_simulator.BuildConfig
 import de.uniks.codliners.stock_simulator.background.StockbrotWorkRequest
@@ -14,11 +15,15 @@ import de.uniks.codliners.stock_simulator.repository.QuoteRepository
 import de.uniks.codliners.stock_simulator.repository.StockbrotRepository
 import de.uniks.codliners.stock_simulator.toSafeDouble
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import java.util.*
 
 
-class QuoteViewModel(application: Application, private val symbol: String) :
-    AndroidViewModel(application) {
+class QuoteViewModel(
+    application: Application,
+    private val symbol: String,
+    private val type: Symbol.Type
+) : AndroidViewModel(application) {
 
     private lateinit var timer: Timer
 
@@ -35,7 +40,9 @@ class QuoteViewModel(application: Application, private val symbol: String) :
     lateinit var stockbrotQuote: MutableLiveData<StockbrotQuote>
     val historicalPrices = quoteRepository.historicalPrices(symbol)
 
-    val isShare = quote.map { it.type === Symbol.Type.SHARE }
+    private val isCrypto = type === Symbol.Type.CRYPTO
+
+    val inputType = if (isCrypto) InputType.TYPE_NUMBER_FLAG_DECIMAL else InputType.TYPE_CLASS_NUMBER
 
     private val state = quoteRepository.state
     val refreshing = state.map { it === QuoteRepository.State.Refreshing }
@@ -44,13 +51,13 @@ class QuoteViewModel(application: Application, private val symbol: String) :
     val errorAction: LiveData<String> = _errorAction
 
     val buyAmount = MutableLiveData<String>().apply {
-        value = if (isShare.value == true) "0" else "0.0"
+        value = if (isCrypto) "0.0" else "0"
     }
     private val _canBuy = MediatorLiveData<Boolean>()
     val canBuy: LiveData<Boolean> = _canBuy
 
     val sellAmount = MutableLiveData<String>().apply {
-        value = if (isShare.value == true) "0" else "0.0"
+        value = if (isCrypto) "0.0" else "0"
     }
     private val _canSell = MediatorLiveData<Boolean>()
     val canSell: LiveData<Boolean> = _canSell
@@ -163,7 +170,7 @@ class QuoteViewModel(application: Application, private val symbol: String) :
         }
 
         viewModelScope.launch {
-            stockbrotQuote = stockbrotRepository.stockbrotQuoteWithSymbol(symbol)
+            stockbrotQuote = stockbrotRepository.stockbrotQuoteWithSymbol(symbol, type)
         }
 
         refresh()
@@ -200,7 +207,8 @@ class QuoteViewModel(application: Application, private val symbol: String) :
         viewModelScope.launch {
             val thresholdBuyDouble = thresholdBuy.value?.toDouble()!!
             val thresholdSellDouble = thresholdSell.value?.toDouble()!!
-            val newStockbrotQuote = StockbrotQuote(symbol, thresholdBuyDouble, thresholdSellDouble)
+            val newStockbrotQuote =
+                StockbrotQuote(symbol, type, thresholdBuyDouble, thresholdSellDouble)
             stockbrotWorkRequest.addQuote(newStockbrotQuote)
             stockbrotRepository.saveAddStockbrotControl(newStockbrotQuote)
         }
@@ -215,7 +223,7 @@ class QuoteViewModel(application: Application, private val symbol: String) :
 
     fun refresh() {
         viewModelScope.launch {
-            quoteRepository.fetchQuoteWithSymbol(symbol)
+            quoteRepository.fetchQuoteWithSymbol(symbol, type)
         }
     }
 
@@ -255,13 +263,14 @@ class QuoteViewModel(application: Application, private val symbol: String) :
 
     class Factory(
         private val application: Application,
-        private val shareId: String
+        private val symbol: String,
+        private val type: Symbol.Type
     ) : ViewModelProvider.Factory {
 
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(QuoteViewModel::class.java)) {
                 @Suppress("UNCHECKED_CAST")
-                return QuoteViewModel(application, shareId) as T
+                return QuoteViewModel(application, symbol, type) as T
             }
             throw IllegalArgumentException("Unable to construct viewmodel")
         }

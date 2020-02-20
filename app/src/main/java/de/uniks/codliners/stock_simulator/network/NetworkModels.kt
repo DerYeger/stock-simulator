@@ -36,9 +36,9 @@ data class NetworkQuote(
     val change: Double?
 )
 
-fun NetworkQuote.asDomainQuote() = Quote(
+fun NetworkQuote.asDomainQuote(type: Symbol.Type) = Quote(
     symbol = symbol,
-    type = if (sector == "cryptocurrency") Symbol.Type.CRYPTO else Symbol.Type.SHARE,
+    type = type,
     companyName = companyName,
     sector = sector,
     latestPrice = latestPrice,

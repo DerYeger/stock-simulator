@@ -47,5 +47,8 @@
         <argument
             android:name="symbol"
             app:argType="string" />
+        <argument
+            android:name="type"
+            app:argType="de.uniks.codliners.stock_simulator.domain.Symbol$Type" />
     </fragment>
 </navigation>

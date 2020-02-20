@@ -33,7 +33,7 @@ class AccountFragment : Fragment() {
         binding.depotRecyclerView.adapter =
             DepotQuoteRecyclerViewAdapter(OnClickListener { symbol ->
                 val action =
-                    AccountFragmentDirections.actionNavigationAccountToShareFragment(symbol.symbol)
+                    AccountFragmentDirections.actionNavigationAccountToShareFragment(symbol.symbol, symbol.type)
                 findNavController().navigate(action)
             })
         binding.lifecycleOwner = this

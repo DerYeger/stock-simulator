@@ -14,14 +14,18 @@ import de.uniks.codliners.stock_simulator.databinding.FragmentQuoteBinding
 import de.uniks.codliners.stock_simulator.initLineChart
 import de.uniks.codliners.stock_simulator.updateLineChart
 import java.text.SimpleDateFormat
-import java.util.*
-
 
 class QuoteFragment : Fragment() {
 
     private val viewModel: QuoteViewModel by viewModels {
-        val symbol = QuoteFragmentArgs.fromBundle(arguments!!).symbol
-        QuoteViewModel.Factory(activity!!.application, symbol)
+        val args = QuoteFragmentArgs.fromBundle(arguments!!)
+        val symbol = args.symbol
+        val type = args.type
+        QuoteViewModel.Factory(
+            application = activity!!.application,
+            symbol = symbol,
+            type = type
+        )
     }
 
     private lateinit var binding: FragmentQuoteBinding
