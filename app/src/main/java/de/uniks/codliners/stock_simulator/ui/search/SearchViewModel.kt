@@ -83,8 +83,8 @@ class SearchViewModel(application: Application) : ViewModel() {
     private fun Symbol.matchesTypeFilter(typeFilter: String?): Boolean {
         // TODO unhack this
         return when (typeFilter) {
-            "Shares" -> type != "crypto"
-            "Crypto" -> type == "crypto"
+            "Shares" -> type === Symbol.Type.SHARE
+            "Crypto" -> type === Symbol.Type.CRYPTO
             else -> true
         }
     }

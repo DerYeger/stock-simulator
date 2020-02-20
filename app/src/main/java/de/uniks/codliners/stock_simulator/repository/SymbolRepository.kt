@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import de.uniks.codliners.stock_simulator.database.StockAppDatabase
 import de.uniks.codliners.stock_simulator.database.getDatabase
 import de.uniks.codliners.stock_simulator.network.NetworkService
+import de.uniks.codliners.stock_simulator.network.asDomainSymbols
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -33,8 +34,8 @@ class SymbolRepository(private val database: StockAppDatabase) {
                 val shareSymbols = NetworkService.IEX_API.symbols()
                 val cryptoSymbols = NetworkService.IEX_API.cryptroSymbols()
                 database.symbolDao.insertAll(
-                    *shareSymbols.toTypedArray(),
-                    *cryptoSymbols.toTypedArray()
+                    *shareSymbols.asDomainSymbols(),
+                    *cryptoSymbols.asDomainSymbols()
                 )
                 _state.postValue(State.Done)
             } catch (exception: Exception) {

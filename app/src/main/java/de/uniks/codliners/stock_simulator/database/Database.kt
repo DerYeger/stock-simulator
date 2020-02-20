@@ -38,8 +38,8 @@ interface QuoteDao {
 @Dao
 interface TransactionDao {
 
-    @Query("select * from transactiondatabase where symbol = :shareName")
-    fun getTransactionsByShareName(shareName: String): LiveData<List<TransactionDatabase>>
+    @Query("select * from transactiondatabase where transactiondatabase.symbol = :symbol")
+    fun getTransactionsBySymbol(symbol: String): LiveData<List<TransactionDatabase>>
 
     @Query("select * from transactiondatabase limit :limit")
     fun getTransactionsLimited(limit: Int): LiveData<List<TransactionDatabase>>
@@ -143,7 +143,7 @@ interface HistoricalPriceDao {
 
 @Database(
     entities = [Symbol::class, DepotQuote::class, TransactionDatabase::class, Quote::class, Balance::class, HistoricalPrice::class, StockbrotQuote::class],
-    version = 13,
+    version = 14,
     exportSchema = false
 )
 @TypeConverters(Converters::class)

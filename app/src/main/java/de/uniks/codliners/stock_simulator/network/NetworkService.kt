@@ -23,16 +23,16 @@ val moshi: Moshi = Moshi.Builder()
 interface IexApi {
 
     @GET("ref-data/symbols")
-    suspend fun symbols(@Query("token") token: String = IEX_API_TOKEN): List<Symbol>
+    suspend fun symbols(@Query("token") token: String = IEX_API_TOKEN): List<NetworkSymbol>
 
     @GET("ref-data/crypto/symbols")
-    suspend fun cryptroSymbols(@Query("token") token: String = IEX_API_TOKEN): List<Symbol>
+    suspend fun cryptroSymbols(@Query("token") token: String = IEX_API_TOKEN): List<NetworkSymbol>
 
     @GET("stock/{symbol}/chart/{range}")
     suspend fun historical(@Path("symbol") symbol: String, @Path("range") range: String = "1m", @Query("token") token: String = IEX_API_TOKEN, @Query("chartCloseOnly") chartCloseOnly: Boolean): List<HistoricalPriceFromApi>
 
     @GET("stock/{symbol}/quote")
-    suspend fun quote(@Path("symbol") symbol: String, @Query("token") token: String = IEX_API_TOKEN): Quote
+    suspend fun quote(@Path("symbol") symbol: String, @Query("token") token: String = IEX_API_TOKEN): NetworkQuote
 }
 
 object NetworkService {

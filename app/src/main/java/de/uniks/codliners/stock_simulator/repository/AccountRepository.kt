@@ -49,7 +49,7 @@ class AccountRepository(private val database: StockAppDatabase) {
 
                 val transaction = TransactionDatabase(
                     symbol = quote.symbol,
-                    companyName = quote.companyName,
+                    type = quote.type,
                     amount = amount,
                     price = quote.latestPrice,
                     transactionCosts = BuildConfig.TRANSACTION_COSTS,
@@ -79,7 +79,7 @@ class AccountRepository(private val database: StockAppDatabase) {
 
                 val transaction = TransactionDatabase(
                     symbol = quote.symbol,
-                    companyName = quote.companyName,
+                    type = quote.type,
                     amount = amount,
                     price = quote.latestPrice,
                     transactionCosts = BuildConfig.TRANSACTION_COSTS,

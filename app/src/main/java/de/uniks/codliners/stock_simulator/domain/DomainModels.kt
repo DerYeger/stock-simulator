@@ -14,7 +14,7 @@ enum class TransactionType { BUY, SELL }
 
 data class Transaction(
     val symbol: String,
-    val companyName: String,
+    val type: Symbol.Type,
     val amount: Double,
     val price: Double,
     val transactionCosts: Double,

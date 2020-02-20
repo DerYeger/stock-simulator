@@ -1,8 +1,10 @@
 package de.uniks.codliners.stock_simulator.database
 
+import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import de.uniks.codliners.stock_simulator.domain.HistoricalPriceFromApi
+import de.uniks.codliners.stock_simulator.domain.Symbol
 import de.uniks.codliners.stock_simulator.domain.Transaction
 import de.uniks.codliners.stock_simulator.domain.TransactionType
 
@@ -14,11 +16,11 @@ data class DepotQuote(
 )
 
 @Entity
-data class TransactionDatabase constructor(
+data class TransactionDatabase(
     @PrimaryKey(autoGenerate = true)
     val primaryKey: Long = 0,
     val symbol: String,
-    val companyName: String,
+    val type: Symbol.Type,
     val amount: Double,
     val price: Double,
     val transactionCosts: Double,
@@ -28,7 +30,7 @@ data class TransactionDatabase constructor(
 )
 
 @Entity
-data class HistoricalPrice constructor(
+data class HistoricalPrice(
     @PrimaryKey(autoGenerate = true)
     val primaryKey: Long = 0,
     val symbol: String,
@@ -41,7 +43,7 @@ data class HistoricalPrice constructor(
 
 fun TransactionDatabase.transactionAsDomainModel() = Transaction(
     symbol = this.symbol,
-    companyName = this.companyName,
+    type = this.type,
     amount = this.amount,
     price = this.price,
     transactionCosts = this.transactionCosts,
