@@ -50,7 +50,7 @@ data class CoinGeckoQuote(
 @JsonClass(generateAdapter = true)
 data class CoinGeckoMarketData(
     @Field("current_price")
-    val currentPrices: HashMap<String, Double>
+    val currentPrices: Map<String, Double>
 )
 
 fun CoinGeckoQuote.asDomainQuote() = Quote(
