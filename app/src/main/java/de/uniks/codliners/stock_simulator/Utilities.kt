@@ -75,14 +75,6 @@ fun noNulls(vararg args: Any?): Boolean {
     return listOfNotNull(*args).size == args.size
 }
 
-fun String?.toSafeLong(): Long? {
-    return try {
-        this?.toLong()
-    } catch (_: Throwable) {
-        null
-    }
-}
-
 fun String?.toSafeDouble(): Double? {
     return try {
         this?.toDouble()

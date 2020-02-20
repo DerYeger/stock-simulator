@@ -12,9 +12,7 @@ import de.uniks.codliners.stock_simulator.noNulls
 import de.uniks.codliners.stock_simulator.repository.AccountRepository
 import de.uniks.codliners.stock_simulator.repository.QuoteRepository
 import de.uniks.codliners.stock_simulator.repository.StockbrotRepository
-import de.uniks.codliners.stock_simulator.repository.SymbolRepository
 import de.uniks.codliners.stock_simulator.toSafeDouble
-import de.uniks.codliners.stock_simulator.toSafeLong
 import kotlinx.coroutines.launch
 import java.util.*
 
@@ -24,7 +22,6 @@ class QuoteViewModel(application: Application, private val symbol: String) :
 
     private lateinit var timer: Timer
 
-    private val symbolRepository = SymbolRepository(application)
     private val quoteRepository = QuoteRepository(application)
     private val accountRepository = AccountRepository(application)
     private val stockbrotRepository = StockbrotRepository(application)
@@ -38,9 +35,7 @@ class QuoteViewModel(application: Application, private val symbol: String) :
     lateinit var stockbrotQuote: MutableLiveData<StockbrotQuote>
     val historicalPrices = quoteRepository.historicalPrices(symbol)
 
-    val isShare = symbolRepository.symbol(symbol).map { symbol ->
-        symbol.type === Symbol.Type.SHARE
-    }
+    val isShare = quote.map { it.type === Symbol.Type.SHARE }
 
     private val state = quoteRepository.state
     val refreshing = state.map { it === QuoteRepository.State.Refreshing }
@@ -48,11 +43,15 @@ class QuoteViewModel(application: Application, private val symbol: String) :
     private val _errorAction = MediatorLiveData<String>()
     val errorAction: LiveData<String> = _errorAction
 
-    val buyAmount = MutableLiveData("0")
+    val buyAmount = MutableLiveData<String>().apply {
+        value = if (isShare.value == true) "0" else "0.0"
+    }
     private val _canBuy = MediatorLiveData<Boolean>()
     val canBuy: LiveData<Boolean> = _canBuy
 
-    val sellAmount = MutableLiveData("0")
+    val sellAmount = MutableLiveData<String>().apply {
+        value = if (isShare.value == true) "0" else "0.0"
+    }
     private val _canSell = MediatorLiveData<Boolean>()
     val canSell: LiveData<Boolean> = _canSell
 
@@ -74,7 +73,7 @@ class QuoteViewModel(application: Application, private val symbol: String) :
         _canBuy.apply {
             addSource(buyAmount) {
                 value = canBuy(
-                    amount = it?.toSafeLong(),
+                    amount = it.toSafeDouble(),
                     price = quote.value?.latestPrice,
                     balance = latestBalance.value,
                     state = state.value
@@ -83,7 +82,7 @@ class QuoteViewModel(application: Application, private val symbol: String) :
 
             addSource(quote) {
                 value = canBuy(
-                    amount = buyAmount.value?.toSafeLong(),
+                    amount = buyAmount.value.toSafeDouble(),
                     price = it?.latestPrice,
                     balance = latestBalance.value,
                     state = state.value
@@ -92,7 +91,7 @@ class QuoteViewModel(application: Application, private val symbol: String) :
 
             addSource(latestBalance) {
                 value = canBuy(
-                    amount = buyAmount.value?.toSafeLong(),
+                    amount = buyAmount.value.toSafeDouble(),
                     price = quote.value?.latestPrice,
                     balance = it,
                     state = state.value
@@ -101,7 +100,7 @@ class QuoteViewModel(application: Application, private val symbol: String) :
 
             addSource(state) {
                 value = canBuy(
-                    amount = buyAmount.value?.toSafeLong(),
+                    amount = buyAmount.value.toSafeDouble(),
                     price = quote.value?.latestPrice,
                     balance = latestBalance.value,
                     state = it
@@ -112,7 +111,7 @@ class QuoteViewModel(application: Application, private val symbol: String) :
         _canSell.apply {
             addSource(sellAmount) {
                 value = canSell(
-                    amount = it.toSafeLong(),
+                    amount = it.toSafeDouble(),
                     depotQuote = depotQuote.value,
                     balance = latestBalance.value,
                     state = state.value
@@ -121,7 +120,7 @@ class QuoteViewModel(application: Application, private val symbol: String) :
 
             addSource(depotQuote) {
                 value = canSell(
-                    amount = sellAmount.value?.toSafeLong(),
+                    amount = sellAmount.value.toSafeDouble(),
                     depotQuote = it,
                     balance = latestBalance.value,
                     state = state.value
@@ -130,7 +129,7 @@ class QuoteViewModel(application: Application, private val symbol: String) :
 
             addSource(latestBalance) {
                 value = canSell(
-                    amount = sellAmount.value?.toSafeLong(),
+                    amount = sellAmount.value.toSafeDouble(),
                     depotQuote = depotQuote.value,
                     balance = it,
                     state = state.value
@@ -139,7 +138,7 @@ class QuoteViewModel(application: Application, private val symbol: String) :
 
             addSource(state) {
                 value = canSell(
-                    amount = sellAmount.value?.toSafeLong(),
+                    amount = sellAmount.value.toSafeDouble(),
                     depotQuote = depotQuote.value,
                     balance = latestBalance.value,
                     state = it
@@ -150,15 +149,15 @@ class QuoteViewModel(application: Application, private val symbol: String) :
         _canAddQuoteToStockbrot.apply {
             addSource(thresholdBuy) {
                 value = canAddQuoteToStockbrot(
-                    thresholdBuy.value?.toSafeDouble(),
-                    thresholdSell.value?.toSafeDouble()
+                    thresholdBuy.value.toSafeDouble(),
+                    thresholdSell.value.toSafeDouble()
                 )
             }
 
             addSource(thresholdSell) {
                 value = canAddQuoteToStockbrot(
-                    thresholdBuy.value?.toSafeDouble(),
-                    thresholdSell.value?.toSafeDouble()
+                    thresholdBuy.value.toSafeDouble(),
+                    thresholdSell.value.toSafeDouble()
                 )
             }
         }
@@ -227,7 +226,7 @@ class QuoteViewModel(application: Application, private val symbol: String) :
     }
 
     private fun canBuy(
-        amount: Long?,
+        amount: Double?,
         price: Double?,
         balance: Balance?,
         state: QuoteRepository.State?
@@ -237,7 +236,7 @@ class QuoteViewModel(application: Application, private val symbol: String) :
             && amount * price!! + BuildConfig.TRANSACTION_COSTS <= balance!!.value
 
     private fun canSell(
-        amount: Long?,
+        amount: Double?,
         depotQuote: DepotQuote?,
         balance: Balance?,
         state: QuoteRepository.State?
