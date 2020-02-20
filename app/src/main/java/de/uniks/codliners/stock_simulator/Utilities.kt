@@ -154,7 +154,8 @@ class TimestampValueFormatter(private val referenceTimestamp: Long, locale: Loca
 
     override fun getFormattedValue(value: Float): String {
         // "toInt()" required to workaround inaccurate results due to unchangeable float usage
-        return dateFormatter.format(value.toInt() + referenceTimestamp)
+        val tmp = value.toInt() + referenceTimestamp
+        return dateFormatter.format(tmp)
     }
 }
 
