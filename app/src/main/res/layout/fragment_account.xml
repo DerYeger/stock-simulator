@@ -67,17 +67,29 @@
         </com.github.mikephil.charting.charts.LineChart>
 
         <TextView
+            android:id="@+id/performance_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+            app:lossOrWin="@{viewModel.performance}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/depot_chart" />
+
+        <TextView
             android:id="@+id/depot_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/default_spacing"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="@dimen/default_spacing"
             android:text="@string/title_depot"
             android:textAppearance="@android:style/TextAppearance.Material.Headline"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/depot_chart" />
+            app:layout_constraintTop_toBottomOf="@+id/performance_value" />
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/depot_recycler_view"

@@ -96,6 +96,18 @@ fun Button.bindBotEnabled(enabled: Boolean) {
     }
 }
 
+@BindingAdapter("lossOrWin")
+fun TextView.bindPerformanceText(performance: MutableLiveData<Double>) {
+    text = when (performance.value!! > 0.0) {
+        true -> String.format(
+            resources.getText(R.string.performance_format_win).toString(),
+            performance.value)
+        false -> String.format(
+            resources.getText(R.string.performance_format_loss).toString(),
+            performance.value)
+    }
+}
+
 @BindingAdapter("stockbrotQuotes")
 fun RecyclerView.bindStockbrotQuotes(quotes: List<StockbrotQuote>?) {
     val adapter = adapter as StockbrotQuoteRecyclerViewAdapter
