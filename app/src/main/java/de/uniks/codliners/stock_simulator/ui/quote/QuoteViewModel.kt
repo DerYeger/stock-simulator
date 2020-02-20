@@ -66,6 +66,9 @@ class QuoteViewModel(
     private val _canAddQuoteToStockbrot = MediatorLiveData<Boolean>()
     val canAddQuoteToStockbrot: LiveData<Boolean> = _canAddQuoteToStockbrot
 
+    // Button click indicator for reset button.
+    var clickNewsStatus = MutableLiveData<Boolean?>()
+
     init {
         _errorAction.apply {
             addSource(state) { state ->
@@ -273,5 +276,9 @@ class QuoteViewModel(
             }
             throw IllegalArgumentException("Unable to construct viewmodel")
         }
+    }
+
+    fun showNews() {
+        clickNewsStatus.value = true
     }
 }

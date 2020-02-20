@@ -13,7 +13,7 @@ import de.uniks.codliners.stock_simulator.domain.TransactionType.*
 import de.uniks.codliners.stock_simulator.isWholeNumber
 import de.uniks.codliners.stock_simulator.ui.account.DepotQuoteRecyclerViewAdapter
 import de.uniks.codliners.stock_simulator.ui.history.HistoryRecyclerViewAdapter
-import de.uniks.codliners.stock_simulator.ui.quote.NewsAdapter
+import de.uniks.codliners.stock_simulator.ui.news.NewsAdapter
 import de.uniks.codliners.stock_simulator.ui.search.SearchResultAdapter
 import de.uniks.codliners.stock_simulator.ui.stockbrot.StockbrotQuoteRecyclerViewAdapter
 

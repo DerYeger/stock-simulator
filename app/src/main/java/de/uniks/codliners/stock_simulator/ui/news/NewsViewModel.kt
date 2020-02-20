@@ -9,7 +9,7 @@ import de.uniks.codliners.stock_simulator.repository.NewsRepository
 import kotlinx.coroutines.launch
 
 
-class NewsViewModel(application: Application) : ViewModel() {
+class NewsViewModel(application: Application, private val symbol: String) : ViewModel() {
 
     private val newsRepository = NewsRepository(application)
     val news = newsRepository.news
@@ -18,13 +18,14 @@ class NewsViewModel(application: Application) : ViewModel() {
     val refreshing = state.map { it === NewsRepository.State.Refreshing }
 
     class Factory(
-        private val application: Application
+        private val application: Application,
+        private val symbol: String
     ) : ViewModelProvider.Factory {
 
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(NewsViewModel::class.java)) {
                 @Suppress("UNCHECKED_CAST")
-                return NewsViewModel(application) as T
+                return NewsViewModel(application, symbol) as T
             }
             throw IllegalArgumentException("Unable to construct viewmodel")
         }
@@ -32,7 +33,7 @@ class NewsViewModel(application: Application) : ViewModel() {
 
     fun refresh() {
         viewModelScope.launch {
-            newsRepository.fetchNews()
+            newsRepository.fetchNews(symbol)
         }
     }
 }

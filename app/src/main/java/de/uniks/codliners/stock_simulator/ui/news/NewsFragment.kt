@@ -13,7 +13,9 @@ import de.uniks.codliners.stock_simulator.ui.OnClickListener
 class NewsFragment : Fragment() {
 
     private val viewModel: NewsViewModel by viewModels {
-        NewsViewModel.Factory(activity!!.application)
+        val args = NewsFragmentArgs.fromBundle(arguments!!)
+        val symbol = args.symbol
+        NewsViewModel.Factory(activity!!.application, symbol)
     }
 
     private lateinit var binding: FragmentNewsBinding
@@ -27,6 +29,8 @@ class NewsFragment : Fragment() {
         binding.viewModel = viewModel
         binding.newsRecyclerView.adapter = NewsAdapter(resources.configuration.locale)
         binding.lifecycleOwner = this
+
+        viewModel.refresh()
 
         return binding.root
     }
