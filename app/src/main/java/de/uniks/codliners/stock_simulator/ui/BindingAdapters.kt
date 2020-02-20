@@ -87,15 +87,6 @@ fun RecyclerView.bindTransactions(transactions: List<Transaction>?) {
     adapter.submitList(transactions)
 }
 
-@BindingAdapter("botEnabled")
-fun Button.bindBotEnabled(enabled: Boolean) {
-    text = if (enabled) {
-        context.getText(R.string.stockbrot_disable_bot)
-    } else {
-        context.getText(R.string.stockbrot_enable_bot)
-    }
-}
-
 @BindingAdapter("stockbrotQuotes")
 fun RecyclerView.bindStockbrotQuotes(quotes: List<StockbrotQuote>?) {
     val adapter = adapter as StockbrotQuoteRecyclerViewAdapter

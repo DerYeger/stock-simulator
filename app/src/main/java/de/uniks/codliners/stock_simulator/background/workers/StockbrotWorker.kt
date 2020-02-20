@@ -9,6 +9,7 @@ import de.uniks.codliners.stock_simulator.background.Constants.Companion.SYMBOL_
 import de.uniks.codliners.stock_simulator.background.Constants.Companion.THRESHOLD_BUY_KEY
 import de.uniks.codliners.stock_simulator.background.Constants.Companion.THRESHOLD_SELL_KEY
 import de.uniks.codliners.stock_simulator.background.Constants.Companion.TYPE_DEFAULT
+import de.uniks.codliners.stock_simulator.background.Constants.Companion.TYPE_KEY
 import de.uniks.codliners.stock_simulator.domain.Symbol
 import de.uniks.codliners.stock_simulator.repository.AccountRepository
 import de.uniks.codliners.stock_simulator.repository.QuoteRepository
@@ -29,7 +30,7 @@ class StockbrotWorker(context: Context, params: WorkerParameters) : Worker(conte
 
     init {
         symbol = inputData.getString(SYMBOL_KEY) ?: ""
-        type = inputData.getString(SYMBOL_KEY)?.toType() ?: TYPE_DEFAULT
+        type = inputData.getString(TYPE_KEY)?.toType() ?: TYPE_DEFAULT
         buyAmount = inputData.getDouble(BUY_AMOUNT_KEY, DOUBLE_DEFAULT)
         thresholdBuy = inputData.getDouble(THRESHOLD_BUY_KEY, DOUBLE_DEFAULT)
         thresholdSell = inputData.getDouble(THRESHOLD_SELL_KEY, DOUBLE_DEFAULT)

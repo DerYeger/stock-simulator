@@ -64,7 +64,9 @@ class QuoteViewModel(
 
     val thresholdBuy = MutableLiveData("0.0")
     val thresholdSell = MutableLiveData("0.0")
-    val autoBuyAmount = MutableLiveData("0")
+    val autoBuyAmount = MutableLiveData<String>().apply {
+        value = if (isCrypto) "0.0" else "0"
+    }
 
     private val _stockbrotQuoteAction = MediatorLiveData<StockbrotQuote>()
     val stockbrotQuoteAction: LiveData<StockbrotQuote> = _stockbrotQuoteAction
@@ -239,18 +241,25 @@ class QuoteViewModel(
         viewModelScope.launch {
             val autoBuyAmount = when(autoBuyAmount.value) {
                 null -> Constants.DOUBLE_DEFAULT
+                "0.0" -> Constants.DOUBLE_DEFAULT
+                "0" -> Constants.DOUBLE_DEFAULT
                 else -> autoBuyAmount.value.toSafeDouble() ?: Constants.DOUBLE_DEFAULT
             }
             val thresholdBuyDouble = when(thresholdBuy.value) {
                 null -> Constants.DOUBLE_DEFAULT
+                "0.0" -> Constants.DOUBLE_DEFAULT
+                "0" -> Constants.DOUBLE_DEFAULT
                 else -> thresholdBuy.value.toSafeDouble() ?: Constants.DOUBLE_DEFAULT
             }
             val thresholdSellDouble = when(thresholdSell.value) {
                 null -> Constants.DOUBLE_DEFAULT
+                "0.0" -> Constants.DOUBLE_DEFAULT
+                "0" -> Constants.DOUBLE_DEFAULT
                 else -> thresholdSell.value.toSafeDouble() ?: Constants.DOUBLE_DEFAULT
             }
             val newStockbrotQuote =
                 StockbrotQuote(symbol, type, autoBuyAmount, thresholdBuyDouble, thresholdSellDouble)
+            stockbrotWorkRequest.addQuote(newStockbrotQuote)
             stockbrotRepository.saveAddStockbrotControl(newStockbrotQuote)
         }
     }
