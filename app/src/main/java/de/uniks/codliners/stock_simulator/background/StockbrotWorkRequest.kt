@@ -2,6 +2,8 @@ package de.uniks.codliners.stock_simulator.background
 
 import android.content.Context
 import androidx.work.*
+import de.uniks.codliners.stock_simulator.background.Constants.Companion.BUY_AMOUNT_KEY
+import de.uniks.codliners.stock_simulator.background.Constants.Companion.SYMBOL_KEY
 import de.uniks.codliners.stock_simulator.background.Constants.Companion.THRESHOLD_BUY_KEY
 import de.uniks.codliners.stock_simulator.background.Constants.Companion.THRESHOLD_SELL_KEY
 import de.uniks.codliners.stock_simulator.background.workers.StockbrotWorker
@@ -16,6 +18,7 @@ class StockbrotWorkRequest(context: Context) {
     fun addQuote(stockbrotQuote: StockbrotQuote) {
         println("start StockbrotWorkRequest")
 
+        val buyAmount = stockbrotQuote.buyAmount
         val thresholdBuy = stockbrotQuote.thresholdBuy
         val thresholdSell = stockbrotQuote.thresholdSell
         val symbol = stockbrotQuote.symbol
@@ -25,6 +28,8 @@ class StockbrotWorkRequest(context: Context) {
             .build()
 
         val data = Data.Builder()
+            .putString(SYMBOL_KEY, symbol)
+            .putInt(BUY_AMOUNT_KEY, buyAmount)
             .putDouble(THRESHOLD_BUY_KEY, thresholdBuy)
             .putDouble(THRESHOLD_SELL_KEY, thresholdSell)
             .build()

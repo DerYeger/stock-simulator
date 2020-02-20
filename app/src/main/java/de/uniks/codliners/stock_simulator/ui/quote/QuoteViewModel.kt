@@ -3,6 +3,7 @@ package de.uniks.codliners.stock_simulator.ui.quote
 import android.app.Application
 import androidx.lifecycle.*
 import de.uniks.codliners.stock_simulator.*
+import de.uniks.codliners.stock_simulator.background.Constants
 import de.uniks.codliners.stock_simulator.background.StockbrotWorkRequest
 import de.uniks.codliners.stock_simulator.database.DepotQuote
 import de.uniks.codliners.stock_simulator.domain.Balance
@@ -48,6 +49,7 @@ class QuoteViewModel(application: Application, private val symbol: String) : And
 
     val thresholdBuy = MutableLiveData("0.0")
     val thresholdSell = MutableLiveData("0.0")
+    val autoBuyAmount = MutableLiveData("0")
 
     private val _stockbrotQuoteAction = MediatorLiveData<StockbrotQuote>()
     val stockbrotQuoteAction: LiveData<StockbrotQuote> = _stockbrotQuoteAction
@@ -146,9 +148,19 @@ class QuoteViewModel(application: Application, private val symbol: String) : And
         }
 
         _canAddRemoveQuoteToStockbrot.apply {
+            addSource(autoBuyAmount) {
+                value = canAddRemoveQuoteToStockbrot(
+                    stockbrotQuote.value,
+                    autoBuyAmount.value?.toSafeInt(),
+                    thresholdBuy.value?.toSafeDouble(),
+                    thresholdSell.value?.toSafeDouble()
+                )
+            }
+
             addSource(thresholdBuy) {
                 value = canAddRemoveQuoteToStockbrot(
                     stockbrotQuote.value,
+                    autoBuyAmount.value?.toSafeInt(),
                     thresholdBuy.value?.toSafeDouble(),
                     thresholdSell.value?.toSafeDouble()
                 )
@@ -157,6 +169,7 @@ class QuoteViewModel(application: Application, private val symbol: String) : And
             addSource(thresholdSell) {
                 value = canAddRemoveQuoteToStockbrot(
                     stockbrotQuote.value,
+                    autoBuyAmount.value?.toSafeInt(),
                     thresholdBuy.value?.toSafeDouble(),
                     thresholdSell.value?.toSafeDouble()
                 )
@@ -209,15 +222,19 @@ class QuoteViewModel(application: Application, private val symbol: String) : And
 
     private fun addQuoteToStockbrot() {
         viewModelScope.launch {
+            val autoBuyAmount = when(autoBuyAmount.value) {
+                null -> Constants.BUY_AMOUNT_DEFAULT
+                else -> autoBuyAmount.value.toSafeInt() ?: Constants.BUY_AMOUNT_DEFAULT
+            }
             val thresholdBuyDouble = when(thresholdBuy.value) {
-                null -> 0.0
-                else -> thresholdBuy.value.toSafeDouble()!!
+                null -> Constants.THRESHOLD_DEFAULT
+                else -> thresholdBuy.value.toSafeDouble() ?: Constants.THRESHOLD_DEFAULT
             }
             val thresholdSellDouble = when(thresholdSell.value) {
-                null -> 0.0
-                else -> thresholdSell.value.toSafeDouble()!!
+                null -> Constants.THRESHOLD_DEFAULT
+                else -> thresholdSell.value.toSafeDouble() ?: Constants.THRESHOLD_DEFAULT
             }
-            val newStockbrotQuote = StockbrotQuote(symbol, thresholdBuyDouble, thresholdSellDouble)
+            val newStockbrotQuote = StockbrotQuote(symbol, autoBuyAmount, thresholdBuyDouble, thresholdSellDouble)
             stockbrotWorkRequest.addQuote(newStockbrotQuote)
             stockbrotRepository.saveAddStockbrotControl(newStockbrotQuote)
         }
@@ -265,14 +282,18 @@ class QuoteViewModel(application: Application, private val symbol: String) : And
 
     private fun canAddRemoveQuoteToStockbrot(
         stockbrotQuote: StockbrotQuote?,
+        autoBuyAmount: Int?,
         thresholdBuy: Double?,
         thresholdSell: Double?
     ) = when(stockbrotQuote) {
-        null -> thresholdValid(thresholdBuy) || thresholdValid(thresholdSell)
+        null -> ( autoBuyAmountValid(autoBuyAmount) && thresholdValid(thresholdBuy) ) ||
+                    thresholdValid(thresholdSell)
         else -> true
     }
 
     private fun thresholdValid(threshold: Double?) = noNulls(threshold) && 0 < threshold!!
+
+    private fun autoBuyAmountValid(autoBuyAmount: Int?) = noNulls(autoBuyAmount) && 0 < autoBuyAmount!!
 
     class Factory(
         private val application: Application,

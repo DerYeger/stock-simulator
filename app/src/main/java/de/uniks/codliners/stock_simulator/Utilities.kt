@@ -105,6 +105,14 @@ fun String?.toSafeDouble(): Double? {
     }
 }
 
+fun String?.toSafeInt(): Int? {
+    return try {
+        this?.toInt()
+    } catch (_: Throwable) {
+        null
+    }
+}
+
 fun initLineChart(chart: LineChart, context: Context, locale: Locale) {
     tfLight = Typeface.createFromAsset(context.assets, "OpenSans-Light.ttf")
     tfRegular = Typeface.createFromAsset(context.assets, "OpenSans-Regular.ttf")

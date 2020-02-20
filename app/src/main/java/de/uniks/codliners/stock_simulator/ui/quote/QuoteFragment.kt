@@ -45,6 +45,7 @@ class QuoteFragment : Fragment() {
 
         viewModel.stockbrotQuoteAction.observe(this, Observer { stockbrotQuote: StockbrotQuote? ->
             stockbrotQuote?.let {
+                viewModel.autoBuyAmount.value = stockbrotQuote.buyAmount.toString()
                 viewModel.thresholdBuy.value = stockbrotQuote.thresholdBuy.toString()
                 viewModel.thresholdSell.value = stockbrotQuote.thresholdSell.toString()
                 viewModel.onThresholdBuyActionCompleted()
