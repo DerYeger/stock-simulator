@@ -39,6 +39,25 @@ interface QuoteDao {
 }
 
 @Dao
+interface NewsDao {
+
+    @Insert(onConflict = REPLACE)
+    fun insert(news: News)
+
+    @Insert(onConflict = REPLACE)
+    fun insertAll(vararg news: News)
+
+    @Query("SELECT * FROM news")
+    fun getAll(): LiveData<List<News>>
+
+    @Delete
+    fun delete(news: News)
+
+    @Query("DELETE FROM news")
+    fun deleteNews()
+}
+
+@Dao
 interface TransactionDao {
 
     @Query("select * from transactiondatabase where transactiondatabase.symbol = :symbol")
@@ -148,14 +167,15 @@ interface HistoricalPriceDao {
 }
 
 @Database(
-    entities = [Symbol::class, DepotQuote::class, TransactionDatabase::class, Quote::class, Balance::class, HistoricalPrice::class, StockbrotQuote::class],
-    version = 16,
+    entities = [Symbol::class, DepotQuote::class, News::class, TransactionDatabase::class, Quote::class, Balance::class, HistoricalPrice::class, StockbrotQuote::class],
+    version = 17,
     exportSchema = false
 )
 @TypeConverters(Converters::class)
-abstract class StockAppDatabase: RoomDatabase() {
+abstract class StockAppDatabase : RoomDatabase() {
     abstract val symbolDao: SymbolDao
     abstract val quoteDao: QuoteDao
+    abstract val newsDao: NewsDao
     abstract val transactionDao: TransactionDao
     abstract val accountDao: AccountDao
     abstract val stockbrotDao: StockbrotDao

@@ -15,10 +15,7 @@ import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.ValueFormatter
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import com.github.mikephil.charting.utils.ColorTemplate
-import de.uniks.codliners.stock_simulator.repository.AccountRepository
-import de.uniks.codliners.stock_simulator.repository.HistoryRepository
-import de.uniks.codliners.stock_simulator.repository.QuoteRepository
-import de.uniks.codliners.stock_simulator.repository.StockbrotRepository
+import de.uniks.codliners.stock_simulator.repository.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -57,6 +54,13 @@ fun Context.resetStockbrot() {
     val self = this
     CoroutineScope(Dispatchers.Main).launch {
         StockbrotRepository(self).resetStockbrot()
+    }
+}
+
+fun Context.resetNews() {
+    val self = this
+    CoroutineScope(Dispatchers.Main).launch {
+        NewsRepository(self).resetNews()
     }
 }
 
