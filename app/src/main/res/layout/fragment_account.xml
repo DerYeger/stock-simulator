@@ -22,11 +22,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/default_spacing"
             android:layout_marginTop="@dimen/default_spacing"
-            android:layout_marginEnd="@dimen/default_spacing"
-            android:text="@{@string/currency_format(viewModel.balance.value)}"
+            android:text="@{@string/account_currency_format(viewModel.balance.value)}"
             android:textAppearance="@android:style/TextAppearance.Material.Headline"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -50,10 +47,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/default_spacing"
             android:layout_marginTop="@dimen/default_spacing"
-            android:layout_marginEnd="@dimen/default_spacing"
-            android:text="@{@string/currency_format(viewModel.depotValue.value)}"
+            android:text="@{@string/depot_currency_format(viewModel.depotValue.value)}"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/account_chart" />
 

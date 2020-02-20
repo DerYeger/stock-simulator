@@ -76,8 +76,8 @@ class AccountRepository(private val database: StockAppDatabase) {
 
     suspend fun fetchCurrentDepotValue() {
         withContext(Dispatchers.IO) {
-            val depotQuotes = database.accountDao.getDepotQuotes()
-            val newValue = depotQuotes.value?.sumBy { depotQuote ->
+            val depotQuotes = database.accountDao.getDepotQuotesValues()
+            val newValue = depotQuotes.sumByDouble { depotQuote ->
                 val quotePrice = database.quoteDao.getQuoteValueBySymbol(depotQuote.symbol).latestPrice
                 val depotQuoteAmount = depotQuote.amount
                 quotePrice * depotQuoteAmount
@@ -88,7 +88,6 @@ class AccountRepository(private val database: StockAppDatabase) {
         }
     }
 
-    suspend fun sell(quote: Quote, amount: Int) {
     suspend fun sell(quote: Quote, amount: Double) {
         val lastBalance = latestBalance.value
         lastBalance?.let {

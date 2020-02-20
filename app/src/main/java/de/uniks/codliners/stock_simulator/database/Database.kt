@@ -97,7 +97,7 @@ interface AccountDao {
     fun getDepotQuotes(): LiveData<List<DepotQuote>>
 
     @Query("SELECT * FROM depotquote")
-    fun getDepotQuotesValues(): LiveData<List<DepotQuote>>
+    fun getDepotQuotesValues(): List<DepotQuote>
 
     @Query("SELECT * FROM depotquote WHERE symbol == :symbol LIMIT 1")
     fun getDepotQuoteWithSymbol(symbol: String): LiveData<DepotQuote>
@@ -169,10 +169,8 @@ interface HistoricalPriceDao {
 }
 
 @Database(
-    version = 16,
-    entities = [Symbol::class, DepotQuote::class, TransactionDatabase::class, Quote::class, Balance::class, HistoricalPrice::class, StockbrotQuote::class],
-    entities = [DepotQuote::class, TransactionDatabase::class, Quote::class, Balance::class, HistoricalPrice::class, StockbrotQuote::class, DepotValue::class],
-    version = 13,
+    entities = [Symbol::class, DepotQuote::class, TransactionDatabase::class, Quote::class, Balance::class, HistoricalPrice::class, StockbrotQuote::class, DepotValue::class],
+    version = 17,
     exportSchema = false
 )
 @TypeConverters(Converters::class)
