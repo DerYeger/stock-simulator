@@ -8,21 +8,14 @@ import de.uniks.codliners.stock_simulator.domain.Symbol
 data class NetworkSymbol(
     val symbol: String,
     val name: String,
-    val date: String,
-    val isEnabled: Boolean,
     val type: String,
-    val region: String,
     val currency: String
 )
 
 fun NetworkSymbol.asDomainSymbol() = Symbol(
     symbol = symbol,
     name = name,
-    date = date,
-    isEnabled = isEnabled,
-    type = if (type == "crypto") Symbol.Type.CRYPTO else Symbol.Type.SHARE,
-    region = region,
-    currency = currency
+    type = if (type == "crypto") Symbol.Type.CRYPTO else Symbol.Type.SHARE
 )
 
 fun List<NetworkSymbol>.asDomainSymbols() = map { it.asDomainSymbol() }.toTypedArray()

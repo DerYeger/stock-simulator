@@ -11,11 +11,7 @@ data class Symbol(
     @PrimaryKey
     val symbol: String,
     val name: String,
-    val date: String,
-    val isEnabled: Boolean,
-    val type: Type,
-    val region: String,
-    val currency: String
+    val type: Type
 ) {
     @Parcelize
     enum class Type : Parcelable { SHARE, CRYPTO }

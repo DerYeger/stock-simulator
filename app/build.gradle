@@ -21,6 +21,7 @@ android {
         buildConfigField "Double", "TRANSACTION_COSTS", '5.0'
         buildConfigField "String", "IEX_API_BASE_URL", '"https://cloud.iexapis.com/v1/"'
         buildConfigField "String", "IEX_API_TOKEN", '"pk_db34bb4eff904de58dd82611668e075b"'
+        buildConfigField "String", "COINGECKO_BASE_URL", '"https://api.coingecko.com/api/v3/"'
     }
     buildTypes {
         release {
