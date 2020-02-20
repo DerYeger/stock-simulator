@@ -3,7 +3,7 @@ package de.uniks.codliners.stock_simulator.background
 import android.content.Context
 import androidx.work.*
 import de.uniks.codliners.stock_simulator.background.Constants.Companion.BUY_AMOUNT_KEY
-import de.uniks.codliners.stock_simulator.background.Constants.Companion.SYMBOL_KEY
+import de.uniks.codliners.stock_simulator.background.Constants.Companion.ID_KEY
 import de.uniks.codliners.stock_simulator.background.Constants.Companion.THRESHOLD_BUY_KEY
 import de.uniks.codliners.stock_simulator.background.Constants.Companion.THRESHOLD_SELL_KEY
 import de.uniks.codliners.stock_simulator.background.Constants.Companion.TYPE_DEFAULT
@@ -23,21 +23,21 @@ class StockbrotWorkRequest(context: Context) {
         val buyAmount = stockbrotQuote.buyAmount
         val thresholdBuy = stockbrotQuote.thresholdBuy
         val thresholdSell = stockbrotQuote.thresholdSell
-        val symbol = stockbrotQuote.id
+        val id = stockbrotQuote.id
 
         val constraints = Constraints.Builder()
             .setRequiredNetworkType(NetworkType.CONNECTED)
             .build()
 
         val data = Data.Builder()
-            .putString(SYMBOL_KEY, symbol)
+            .putString(ID_KEY, id)
             .putString(TYPE_KEY, TYPE_DEFAULT.toString())
             .putDouble(BUY_AMOUNT_KEY, buyAmount)
             .putDouble(THRESHOLD_BUY_KEY, thresholdBuy)
             .putDouble(THRESHOLD_SELL_KEY, thresholdSell)
             .build()
 
-        val buildWorkerTag = buildWorkerTag(symbol)
+        val buildWorkerTag = buildWorkerTag(id)
         val workRequest = PeriodicWorkRequest.Builder(StockbrotWorker::class.java, intervalMinutes, TimeUnit.MINUTES)
             .addTag(buildWorkerTag)
             .setConstraints(constraints)

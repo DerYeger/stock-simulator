@@ -30,7 +30,7 @@ class StockbrotRepository(private val database: StockAppDatabase) {
         if (stockbrotQuote.value != null) {
             stockbrotQuoteMutableLive.value = stockbrotQuote.value
         } else {
-            val stockbrotQuoteNew = StockbrotQuote(symbol, type, 0.0, 0.0)
+            val stockbrotQuoteNew = StockbrotQuote(symbol, type, 0.0, 0.0, 0.0)
             stockbrotQuoteMutableLive.value = stockbrotQuoteNew
             withContext(Dispatchers.IO) {
                 addStockbrotQuote(stockbrotQuoteNew)
