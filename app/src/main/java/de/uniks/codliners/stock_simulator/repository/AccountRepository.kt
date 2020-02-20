@@ -2,11 +2,11 @@ package de.uniks.codliners.stock_simulator.repository
 
 import android.content.Context
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.map
-import com.github.mikephil.charting.data.Entry
 import de.uniks.codliners.stock_simulator.BuildConfig
 import de.uniks.codliners.stock_simulator.database.*
-import de.uniks.codliners.stock_simulator.domain.*
+import de.uniks.codliners.stock_simulator.domain.Balance
+import de.uniks.codliners.stock_simulator.domain.Quote
+import de.uniks.codliners.stock_simulator.domain.TransactionType
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -75,18 +75,16 @@ class AccountRepository(private val database: StockAppDatabase) {
     }
 
     suspend fun fetchCurrentDepotValue() {
-        val depotValue = currentDepotValue.value
-        var newDepotValue: Double = 0.0
-        depotValue?.let {
+        withContext(Dispatchers.IO) {
             val depotQuotes = database.accountDao.getDepotQuotes()
-            depotQuotes.value?.map { depotQuote ->
-                val quotePrice = database.quoteDao.getQuoteWithSymbol(depotQuote.symbol).value!!.latestPrice
+            val newValue = depotQuotes.value?.sumBy { depotQuote ->
+                val quotePrice = database.quoteDao.getQuoteValueBySymbol(depotQuote.symbol).latestPrice
                 val depotQuoteAmount = depotQuote.amount
-                val depotQuoteValue = quotePrice * depotQuoteAmount
-                newDepotValue += depotQuoteValue
+                quotePrice * depotQuoteAmount
             }
-            val newDepotValue = DepotValue(newDepotValue)
+            val newDepotValue = DepotValue(newValue)
             database.accountDao.insertDepotValue(newDepotValue)
+
         }
     }
 
@@ -129,6 +127,7 @@ class AccountRepository(private val database: StockAppDatabase) {
             database.accountDao.apply {
                 deleteAccount()
                 setStartBalance()
+                setInitialDepotValue()
             }
         }
     }
@@ -136,6 +135,11 @@ class AccountRepository(private val database: StockAppDatabase) {
     private fun AccountDao.setStartBalance() {
         val starterBalance = Balance(value = BuildConfig.NEW_ACCOUNT_BALANCE)
         insertBalance(starterBalance)
+    }
+
+    private fun AccountDao.setInitialDepotValue() {
+        val starterDepotValue = DepotValue(value = BuildConfig.NEW_DEPOT_VALUE)
+        insertDepotValue(starterDepotValue)
     }
 
     private fun AccountDao.deleteAccount() {

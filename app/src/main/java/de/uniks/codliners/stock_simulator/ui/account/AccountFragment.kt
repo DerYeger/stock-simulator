@@ -52,6 +52,8 @@ class AccountFragment : Fragment() {
             }
         })
 
+        initLineChart(binding.depotChart, context!!, resources.configuration.locale)
+
         viewModel.depotValuesLimited.observe(viewLifecycleOwner, Observer { depotValues ->
             run {
                 val entries = depotValues.map { depotValue ->
@@ -60,11 +62,10 @@ class AccountFragment : Fragment() {
                         depotValue.value.toFloat()
                     )
                 }
-                updateLineChart(binding.accountChart, entries, "Depot Balance")
+                updateLineChart(binding.depotChart, entries, "Depot Balance")
             }
         })
 
-        initLineChart(binding.depotChart, context!!, resources.configuration.locale)
 
         return binding.root
     }

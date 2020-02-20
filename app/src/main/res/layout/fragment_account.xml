@@ -46,16 +46,16 @@
 
         <TextView
             android:id="@+id/depot_value"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:text="@{@string/currency_format(viewModel.depotValue)}"
+            android:layout_marginStart="@dimen/default_spacing"
+            android:layout_marginTop="@dimen/default_spacing"
+            android:layout_marginEnd="@dimen/default_spacing"
+            android:text="@{@string/currency_format(viewModel.depotValue.value)}"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/account_chart"
-            tools:text="@string/depot_quote_amount_format" />
+            app:layout_constraintTop_toBottomOf="@+id/account_chart" />
 
         <com.github.mikephil.charting.charts.LineChart
             android:id="@+id/depot_chart"

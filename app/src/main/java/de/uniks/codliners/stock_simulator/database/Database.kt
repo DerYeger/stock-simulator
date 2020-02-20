@@ -21,6 +21,9 @@ interface QuoteDao {
     @Query("SELECT * FROM quote WHERE quote.symbol == :symbol")
     fun getQuoteWithSymbol(symbol: String): LiveData<Quote>
 
+    @Query("SELECT * FROM quote WHERE quote.symbol == :symbol")
+    fun getQuoteValueBySymbol(symbol: String): Quote
+
     @Delete
     fun delete(quote: Quote)
 
@@ -79,6 +82,9 @@ interface AccountDao {
 
     @Query("SELECT * FROM depotquote")
     fun getDepotQuotes(): LiveData<List<DepotQuote>>
+
+    @Query("SELECT * FROM depotquote")
+    fun getDepotQuotesValues(): LiveData<List<DepotQuote>>
 
     @Query("SELECT * FROM depotquote WHERE symbol == :symbol LIMIT 1")
     fun getDepotQuoteWithSymbol(symbol: String): LiveData<DepotQuote>
