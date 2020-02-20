@@ -3,6 +3,7 @@ package de.uniks.codliners.stock_simulator.network
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import de.uniks.codliners.stock_simulator.BuildConfig
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
@@ -44,15 +45,21 @@ interface CoinGeckoApi {
 
 object NetworkService {
 
+    private val client = OkHttpClient()
+
+    private val converterFactory = MoshiConverterFactory.create(moshi)
+
     val IEX_API: IexApi = Retrofit.Builder()
         .baseUrl(IEX_API_BASE_URL)
-        .addConverterFactory(MoshiConverterFactory.create(moshi))
+        .client(client)
+        .addConverterFactory(converterFactory)
         .build()
         .create(IexApi::class.java)
 
     val COINGECKO_API: CoinGeckoApi = Retrofit.Builder()
         .baseUrl(COINGECKO_BASE_URL)
-        .addConverterFactory(MoshiConverterFactory.create(moshi))
+        .client(client)
+        .addConverterFactory(converterFactory)
         .build()
         .create(CoinGeckoApi::class.java)
 }
