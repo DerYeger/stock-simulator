@@ -1,5 +1,6 @@
 package de.uniks.codliners.stock_simulator.domain
 
+import androidx.annotation.IntegerRes
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
@@ -21,4 +22,13 @@ data class Transaction(
     val cashflow: Double,
     val transactionType: TransactionType,
     val date: Long
+)
+
+@Entity
+data class Achievement(
+    @PrimaryKey
+    @IntegerRes
+    val name: Int,
+    @IntegerRes
+    val unlockRequirement: Int
 )
