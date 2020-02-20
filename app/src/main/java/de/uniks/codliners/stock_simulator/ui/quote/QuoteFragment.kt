@@ -44,16 +44,10 @@ class QuoteFragment : BaseFragment() {
 
         viewModel.historicalPrices.observe(viewLifecycleOwner, Observer { priceList ->
             run {
-                val entries = priceList.map { price ->
-                    Entry(price.date.toFloat(), price.price.toFloat())
                 if (priceList.isEmpty()) return@run
-
-                val simpleDateFormat =
-                    SimpleDateFormat("yyyy-MM-dd", resources.configuration.locale)
-                val referenceTimestamp = simpleDateFormat.parse(priceList[0].date)!!.time
+                val referenceTimestamp = priceList[0].date
                 val entries = priceList.map { price ->
-                    val timestamp = simpleDateFormat.parse(price.date)!!.time
-                    Entry((timestamp - referenceTimestamp).toFloat(), price.close.toFloat())
+                    Entry((price.date - referenceTimestamp).toFloat(), price.price.toFloat())
                 }
                 updateLineChart(
                     binding.quoteChart,

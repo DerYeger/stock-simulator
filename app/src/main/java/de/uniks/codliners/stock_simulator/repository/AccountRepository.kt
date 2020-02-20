@@ -83,7 +83,7 @@ class AccountRepository(private val database: StockAppDatabase) {
         withContext(Dispatchers.IO) {
             val depotQuotes = database.accountDao.getDepotQuotesValues()
             val newValue = depotQuotes.sumByDouble { depotQuote ->
-                val quotePrice = database.quoteDao.getQuoteValueBySymbol(depotQuote.symbol).latestPrice
+                val quotePrice = database.quoteDao.getQuoteValueBySymbol(depotQuote.id).latestPrice
                 val depotQuoteAmount = depotQuote.amount
                 quotePrice * depotQuoteAmount
             }
