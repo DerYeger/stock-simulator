@@ -110,9 +110,3 @@ fun Spinner.bindSelection(selection: MutableLiveData<String>) {
         }
     }
 }
-
-@BindingAdapter("inputType")
-fun EditText.bindInputType(inputType: Int) {
-    this.inputType = inputType
-}
-
