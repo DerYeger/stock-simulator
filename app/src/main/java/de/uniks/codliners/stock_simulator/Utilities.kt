@@ -83,6 +83,8 @@ fun String?.toSafeDouble(): Double? {
     }
 }
 
+fun Double.isWholeNumber() = toLong().toDouble() == this
+
 /**
  * Initializes a line chart and its axis.
  */

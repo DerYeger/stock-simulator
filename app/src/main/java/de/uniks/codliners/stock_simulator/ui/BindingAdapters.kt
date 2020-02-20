@@ -14,6 +14,7 @@ import de.uniks.codliners.stock_simulator.domain.StockbrotQuote
 import de.uniks.codliners.stock_simulator.domain.Transaction
 import de.uniks.codliners.stock_simulator.domain.TransactionType
 import de.uniks.codliners.stock_simulator.domain.TransactionType.*
+import de.uniks.codliners.stock_simulator.isWholeNumber
 import de.uniks.codliners.stock_simulator.ui.account.DepotQuoteRecyclerViewAdapter
 import de.uniks.codliners.stock_simulator.ui.history.HistoryRecyclerViewAdapter
 import de.uniks.codliners.stock_simulator.ui.search.SearchResultAdapter
@@ -87,11 +88,19 @@ fun ImageView.bindTransactionType(transactionType: TransactionType?) {
 @BindingAdapter("transaction")
 fun TextView.bindTransaction(transaction: Transaction?) {
     transaction?.let {
-        val stringId = when (transaction.transactionType) {
-            BUY -> R.string.buy_amount_format
-            SELL -> R.string.sell_amount_format
+        text = if (transaction.amount.isWholeNumber()) {
+            val stringId = when (transaction.transactionType) {
+                BUY -> R.string.long_buy_amount_format
+                SELL -> R.string.long_sell_amount_format
+            }
+            String.format(resources.getText(stringId).toString(), transaction.amount.toLong())
+        } else {
+            val stringId = when (transaction.transactionType) {
+                BUY -> R.string.double_buy_amount_format
+                SELL -> R.string.double_sell_amount_format
+            }
+            String.format(resources.getText(stringId).toString(), transaction.amount)
         }
-        text = String.format(resources.getText(stringId).toString(), transaction.amount)
     }
 }
 

@@ -11,7 +11,8 @@
     <string name="buy">Buy</string>
     <string name="buy_hint">Buy amount</string>
     <string name="cancel">Cancel</string>
-    <string name="depot_quote_amount_format">%f in depot</string>
+    <string name="double_depot_quote_amount_format">%f in depot</string>
+    <string name="long_depot_quote_amount_format">%d in depot</string>
     <string name="no_results">No results</string>
     <string name="prefs_fingerprint_added">prefs_fingerprint_added</string>
     <string name="prefs_fingerprint_status_fingerprint">There is no fingerprint registered in Android.</string>
@@ -38,8 +39,10 @@
     <string name="currency_format">%.2f€</string>
     <string name="depot_quote_format">%s - %f</string>
     <string name="transaction_type_image_description">Image of the transaction type</string>
-    <string name="buy_amount_format">%f bought</string>
-    <string name="sell_amount_format">%f sold</string>
+    <string name="double_buy_amount_format">%f bought</string>
+    <string name="double_sell_amount_format">%f sold</string>
+    <string name="long_buy_amount_format">%d bought</string>
+    <string name="long_sell_amount_format">%d sold</string>
     <string name="details">Details</string>
     <string name="transaction_costs_format">Transaction costs: %.2f€</string>
     <string name="date_format">Date: %s</string>
