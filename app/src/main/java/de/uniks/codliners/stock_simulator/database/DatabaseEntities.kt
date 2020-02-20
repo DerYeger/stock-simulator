@@ -12,16 +12,16 @@ import java.util.*
 @Entity
 data class DepotQuote(
     @PrimaryKey
-    val symbol: String,
+    val id: String,
     val type: Symbol.Type,
     val amount: Double
 )
 
 @Entity
-data class TransactionDatabase(
+data class DatabaseTransaction(
     @PrimaryKey(autoGenerate = true)
     val primaryKey: Long = 0,
-    val symbol: String,
+    val id: String,
     val type: Symbol.Type,
     val amount: Double,
     val price: Double,
@@ -35,13 +35,13 @@ data class TransactionDatabase(
 data class HistoricalPrice(
     @PrimaryKey(autoGenerate = true)
     val primaryKey: Long = 0,
-    val symbol: String,
+    val id: String,
     val date: Long,
     val price: Double
-    )
+)
 
-fun TransactionDatabase.transactionAsDomainModel() = Transaction(
-    symbol = this.symbol,
+fun DatabaseTransaction.transactionAsDomainModel() = Transaction(
+    id = this.id,
     type = this.type,
     amount = this.amount,
     price = this.price,
@@ -51,15 +51,15 @@ fun TransactionDatabase.transactionAsDomainModel() = Transaction(
     date = this.date
 )
 
-fun List<TransactionDatabase>.transactionsAsDomainModel(): List<Transaction> {
+fun List<DatabaseTransaction>.transactionsAsDomainModel(): List<Transaction> {
     return map {
         it.transactionAsDomainModel()
     }
 }
 
 fun HistoricalPriceFromApi.apiPriceAsPriceWithSymbol(symbol: String) = HistoricalPrice(
-    symbol = symbol,
-    date =  SimpleDateFormat("yyyy-MM-dd", Locale.ROOT).parse(date)!!.time,
+    id = symbol,
+    date = SimpleDateFormat("yyyy-MM-dd", Locale.ROOT).parse(date)!!.time,
     price = this.close
 )
 

@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import de.uniks.codliners.stock_simulator.BuildConfig
 import de.uniks.codliners.stock_simulator.database.DepotQuote
 import de.uniks.codliners.stock_simulator.database.StockAppDatabase
-import de.uniks.codliners.stock_simulator.database.TransactionDatabase
+import de.uniks.codliners.stock_simulator.database.DatabaseTransaction
 import de.uniks.codliners.stock_simulator.database.getDatabase
 import de.uniks.codliners.stock_simulator.domain.*
 import kotlinx.coroutines.Dispatchers
@@ -34,7 +34,7 @@ class AccountRepository(private val database: StockAppDatabase) {
     }
 
     fun depotQuoteWithSymbol(symbol: String): LiveData<DepotQuote> =
-        database.accountDao.getDepotQuoteWithSymbol(symbol)
+        database.accountDao.getDepotQuoteWitId(symbol)
 
     suspend fun buy(quote: Quote, amount: Double) {
         val lastBalance = latestBalance.value
@@ -43,12 +43,12 @@ class AccountRepository(private val database: StockAppDatabase) {
                 val cashflow = -(quote.latestPrice * amount) - BuildConfig.TRANSACTION_COSTS
                 val newBalance = Balance(lastBalance.value + cashflow)
 
-                val depotQuote = database.accountDao.getDepotQuoteBySymbol(quote.symbol)
-                    ?: DepotQuote(symbol = quote.symbol, type = quote.type, amount = 0.0)
+                val depotQuote = database.accountDao.getDepotQuoteById(quote.symbol)
+                    ?: DepotQuote(id = quote.id, type = quote.type, amount = 0.0)
                 val newDepotQuote = depotQuote.copy(amount = depotQuote.amount + amount)
 
-                val transaction = TransactionDatabase(
-                    symbol = quote.symbol,
+                val transaction = DatabaseTransaction(
+                    id = quote.id,
                     type = quote.type,
                     amount = amount,
                     price = quote.latestPrice,
@@ -74,11 +74,11 @@ class AccountRepository(private val database: StockAppDatabase) {
                 val cashflow = quote.latestPrice * amount - BuildConfig.TRANSACTION_COSTS
                 val newBalance = Balance(lastBalance.value + cashflow)
 
-                val depotQuote = database.accountDao.getDepotQuoteBySymbol(quote.symbol)!!
+                val depotQuote = database.accountDao.getDepotQuoteById(quote.symbol)!!
                 val newDepotQuote = depotQuote.copy(amount = depotQuote.amount - amount)
 
-                val transaction = TransactionDatabase(
-                    symbol = quote.symbol,
+                val transaction = DatabaseTransaction(
+                    id = quote.id,
                     type = quote.type,
                     amount = amount,
                     price = quote.latestPrice,
@@ -93,7 +93,7 @@ class AccountRepository(private val database: StockAppDatabase) {
                     if (newDepotQuote.amount > 0) {
                         insertDepotQuote(newDepotQuote)
                     } else {
-                        deleteDepotQuoteBySymbol(newDepotQuote.symbol)
+                        deleteDepotQuoteById(newDepotQuote.id)
                     }
                 }
                 database.transactionDao.insert(transaction)

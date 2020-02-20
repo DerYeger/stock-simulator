@@ -23,7 +23,7 @@ class StockbrotRepository(private val database: StockAppDatabase) {
     ): MutableLiveData<StockbrotQuote> {
         val stockbrotQuoteMutableLive = MutableLiveData<StockbrotQuote>()
 
-        val stockbrotQuote = database.stockbrotDao.getStockbrotQuoteWithSymbol(symbol)
+        val stockbrotQuote = database.stockbrotDao.getStockbrotQuoteWithId(symbol)
         if (stockbrotQuote.value != null) {
             stockbrotQuoteMutableLive.value = stockbrotQuote.value
         } else {
@@ -39,7 +39,7 @@ class StockbrotRepository(private val database: StockAppDatabase) {
     private suspend fun addStockbrotQuote(stockbrotQuote: StockbrotQuote) {
         withContext(Dispatchers.IO) {
             database.stockbrotDao.insertStockbrotQuote(stockbrotQuote)
-            database.stockbrotDao.getStockbrotQuoteWithSymbol(stockbrotQuote.symbol)
+            database.stockbrotDao.getStockbrotQuoteWithId(stockbrotQuote.id)
         }
     }
 
@@ -54,7 +54,7 @@ class StockbrotRepository(private val database: StockAppDatabase) {
     suspend fun saveRemoveStockbrotControl(stockbrotQuote: StockbrotQuote) {
         withContext(Dispatchers.IO) {
             database.stockbrotDao.apply {
-                deleteStockbrotQuoteBySymbol(stockbrotQuote.symbol)
+                deleteStockbrotQuoteById(stockbrotQuote.id)
             }
         }
     }
@@ -62,7 +62,7 @@ class StockbrotRepository(private val database: StockAppDatabase) {
     suspend fun resetStockbrot() {
         withContext(Dispatchers.IO) {
             database.stockbrotDao.apply {
-                deleteStockbrote()
+                deleteStockbrotQuotes()
             }
         }
     }

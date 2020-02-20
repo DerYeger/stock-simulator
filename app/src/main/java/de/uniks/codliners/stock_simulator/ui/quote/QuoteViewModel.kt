@@ -20,7 +20,7 @@ import java.util.*
 
 class QuoteViewModel(
     application: Application,
-    private val symbol: String,
+    private val id: String,
     private val type: Symbol.Type
 ) : AndroidViewModel(application) {
 
@@ -34,10 +34,10 @@ class QuoteViewModel(
 
     private val latestBalance = accountRepository.latestBalance
 
-    val quote = quoteRepository.quoteWithSymbol(symbol)
-    val depotQuote = accountRepository.depotQuoteWithSymbol(symbol)
+    val quote = quoteRepository.quoteWithSymbol(id)
+    val depotQuote = accountRepository.depotQuoteWithSymbol(id)
     lateinit var stockbrotQuote: MutableLiveData<StockbrotQuote>
-    val historicalPrices = quoteRepository.historicalPrices(symbol)
+    val historicalPrices = quoteRepository.historicalPrices(id)
 
     private val isCrypto = type === Symbol.Type.CRYPTO
 
@@ -169,7 +169,7 @@ class QuoteViewModel(
         }
 
         viewModelScope.launch {
-            stockbrotQuote = stockbrotRepository.stockbrotQuoteWithSymbol(symbol, type)
+            stockbrotQuote = stockbrotRepository.stockbrotQuoteWithSymbol(id, type)
         }
 
         refresh()
@@ -207,7 +207,7 @@ class QuoteViewModel(
             val thresholdBuyDouble = thresholdBuy.value?.toDouble()!!
             val thresholdSellDouble = thresholdSell.value?.toDouble()!!
             val newStockbrotQuote =
-                StockbrotQuote(symbol, type, thresholdBuyDouble, thresholdSellDouble)
+                StockbrotQuote(id, type, thresholdBuyDouble, thresholdSellDouble)
             stockbrotWorkRequest.addQuote(newStockbrotQuote)
             stockbrotRepository.saveAddStockbrotControl(newStockbrotQuote)
         }
@@ -222,7 +222,10 @@ class QuoteViewModel(
 
     fun refresh() {
         viewModelScope.launch {
-            quoteRepository.fetchQuoteWithSymbol(symbol, type)
+            when (type) {
+                Symbol.Type.SHARE -> quoteRepository.fetchIEXQuote(id)
+                Symbol.Type.CRYPTO -> quoteRepository.fetchCoinGeckoQuote(id)
+            }
         }
     }
 
@@ -262,14 +265,14 @@ class QuoteViewModel(
 
     class Factory(
         private val application: Application,
-        private val symbol: String,
+        private val id: String,
         private val type: Symbol.Type
     ) : ViewModelProvider.Factory {
 
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(QuoteViewModel::class.java)) {
                 @Suppress("UNCHECKED_CAST")
-                return QuoteViewModel(application, symbol, type) as T
+                return QuoteViewModel(application, id, type) as T
             }
             throw IllegalArgumentException("Unable to construct viewmodel")
         }

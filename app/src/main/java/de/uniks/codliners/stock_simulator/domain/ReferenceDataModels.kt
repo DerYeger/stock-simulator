@@ -9,6 +9,7 @@ import kotlinx.android.parcel.Parcelize
 @Entity
 data class Symbol(
     @PrimaryKey
+    val id: String,
     val symbol: String,
     val name: String,
     val type: Type
@@ -20,10 +21,10 @@ data class Symbol(
 @Entity
 data class Quote(
     @PrimaryKey
+    val id: String,
     val symbol: String,
     val type: Symbol.Type,
-    val companyName: String?,
-    val sector: String?,
+    val name: String,
     val latestPrice: Double,
     val change: Double?
 )
@@ -32,7 +33,7 @@ data class Quote(
 @JsonClass(generateAdapter = true)
 data class StockbrotQuote(
     @PrimaryKey
-    val symbol: String,
+    val id: String,
     val type: Symbol.Type,
     val thresholdBuy: Double,
     val thresholdSell: Double

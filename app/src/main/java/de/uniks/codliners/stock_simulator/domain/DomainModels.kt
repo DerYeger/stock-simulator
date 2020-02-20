@@ -13,7 +13,7 @@ data class Balance(
 enum class TransactionType { BUY, SELL }
 
 data class Transaction(
-    val symbol: String,
+    val id: String,
     val type: Symbol.Type,
     val amount: Double,
     val price: Double,

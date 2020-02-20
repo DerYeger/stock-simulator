@@ -13,7 +13,7 @@ import retrofit2.http.Query
 const val IEX_API_BASE_URL = BuildConfig.IEX_API_BASE_URL
 const val IEX_API_TOKEN = BuildConfig.IEX_API_TOKEN
 
-const val COINGECKGO_BASE_URL = BuildConfig.COINGECKO_BASE_URL
+const val COINGECKO_BASE_URL = BuildConfig.COINGECKO_BASE_URL
 
 val moshi: Moshi = Moshi.Builder()
     .add(KotlinJsonAdapterFactory())
@@ -34,10 +34,13 @@ interface IexApi {
 interface CoinGeckoApi {
 
     @GET("coins/list")
-    suspend fun cryptoSymbols(): List<CryptoNetworkSymbol>
+    suspend fun symbols(): List<CryptoNetworkSymbol>
+
+    @GET("coins/{id}")
+    suspend fun quote(@Path("id") id: String): CoinGeckoQuote
 
     @GET("/coins/{id}/market_chart")
-    suspend fun cryptoHistorical(@Path("id") cryptoId: String): CoinGeckoMarketChart
+    suspend fun historical(@Path("id") id: String): CoinGeckoMarketChart
 }
 
 object NetworkService {
@@ -49,7 +52,7 @@ object NetworkService {
         .create(IexApi::class.java)
 
     val COINGECKO_API: CoinGeckoApi = Retrofit.Builder()
-        .baseUrl(COINGECKGO_BASE_URL)
+        .baseUrl(COINGECKO_BASE_URL)
         .addConverterFactory(MoshiConverterFactory.create(moshi))
         .build()
         .create(CoinGeckoApi::class.java)
