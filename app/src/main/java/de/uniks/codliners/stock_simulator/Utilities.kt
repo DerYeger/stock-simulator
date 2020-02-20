@@ -16,6 +16,7 @@ import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.ValueFormatter
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import com.github.mikephil.charting.utils.ColorTemplate
+import de.uniks.codliners.stock_simulator.background.StockbrotWorkRequest
 import de.uniks.codliners.stock_simulator.repository.AccountRepository
 import de.uniks.codliners.stock_simulator.repository.HistoryRepository
 import de.uniks.codliners.stock_simulator.repository.QuoteRepository
@@ -58,7 +59,10 @@ fun Context.resetQuotes() {
 fun Context.resetStockbrot() {
     val self = this
     CoroutineScope(Dispatchers.Main).launch {
+        // reset stockbrot database
         StockbrotRepository(self).resetStockbrot()
+        // cancel all running workers
+        StockbrotWorkRequest(self).cancelAll()
     }
 }
 

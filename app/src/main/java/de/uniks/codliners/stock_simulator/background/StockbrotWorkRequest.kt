@@ -45,6 +45,10 @@ class StockbrotWorkRequest(context: Context) {
         workManager.cancelAllWorkByTag(buildWorkerTag)
     }
 
+    fun cancelAll() {
+        workManager.cancelAllWork()
+    }
+
     private fun buildWorkerTag(symbol: String): String {
         return "WORKER_TAG_$symbol"
     }
