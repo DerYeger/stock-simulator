@@ -1,6 +1,7 @@
 package de.uniks.codliners.stock_simulator.repository
 
 import android.content.Context
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import de.uniks.codliners.stock_simulator.database.StockAppDatabase
 import de.uniks.codliners.stock_simulator.database.getDatabase
@@ -17,6 +18,8 @@ class StockbrotRepository(private val database: StockAppDatabase) {
         database.stockbrotDao.getStockbrotQuotes()
     }
 
+    fun stockbrotQuoteWithSymbol(symbol: String): LiveData<StockbrotQuote> =
+        database.stockbrotDao.getStockbrotQuoteWithId(symbol)
     suspend fun stockbrotQuoteWithSymbol(
         symbol: String,
         type: Symbol.Type
@@ -27,7 +30,7 @@ class StockbrotRepository(private val database: StockAppDatabase) {
         if (stockbrotQuote.value != null) {
             stockbrotQuoteMutableLive.value = stockbrotQuote.value
         } else {
-            val stockbrotQuoteNew = StockbrotQuote(symbol, type, 0.0, 0.0)
+            val stockbrotQuoteNew = StockbrotQuote(symbol, type, 0.0, 0.0, 0.0)
             stockbrotQuoteMutableLive.value = stockbrotQuoteNew
             withContext(Dispatchers.IO) {
                 addStockbrotQuote(stockbrotQuoteNew)

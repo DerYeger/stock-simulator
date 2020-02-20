@@ -66,11 +66,11 @@ data class Quote(
 )
 
 @Entity
-@JsonClass(generateAdapter = true)
 data class StockbrotQuote(
     @PrimaryKey
     val id: String,
     val type: Symbol.Type,
+    val buyAmount: Double,
     val thresholdBuy: Double,
     val thresholdSell: Double
 )

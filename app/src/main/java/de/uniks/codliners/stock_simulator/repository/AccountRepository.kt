@@ -48,6 +48,9 @@ class AccountRepository(private val database: StockAppDatabase) {
     fun depotQuoteWithSymbol(symbol: String): LiveData<DepotQuote> =
         database.accountDao.getDepotQuoteWitId(symbol)
 
+    fun depotQuoteBySymbol(symbol: String): DepotQuote? =
+        database.accountDao.getDepotQuoteById(symbol)
+
     suspend fun buy(quote: Quote, amount: Double) {
         val lastBalance = latestBalance.value
         lastBalance?.let {

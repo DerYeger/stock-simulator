@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.github.mikephil.charting.data.Entry
 import de.uniks.codliners.stock_simulator.databinding.FragmentQuoteBinding
+import de.uniks.codliners.stock_simulator.domain.StockbrotQuote
 import de.uniks.codliners.stock_simulator.initLineChart
 import de.uniks.codliners.stock_simulator.ui.BaseFragment
 import de.uniks.codliners.stock_simulator.ui.news.NewsAdapter
@@ -53,6 +54,15 @@ class QuoteFragment : BaseFragment() {
             errorMessage?.let {
                 showErrorToast(errorMessage)
                 viewModel.onErrorActionCompleted()
+            }
+        })
+
+        viewModel.stockbrotQuoteAction.observe(this, Observer { stockbrotQuote: StockbrotQuote? ->
+            stockbrotQuote?.let {
+                viewModel.autoBuyAmount.value = stockbrotQuote.buyAmount.toString()
+                viewModel.thresholdBuy.value = stockbrotQuote.thresholdBuy.toString()
+                viewModel.thresholdSell.value = stockbrotQuote.thresholdSell.toString()
+                viewModel.onThresholdBuyActionCompleted()
             }
         })
 

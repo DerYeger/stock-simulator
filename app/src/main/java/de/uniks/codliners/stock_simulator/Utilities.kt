@@ -15,6 +15,8 @@ import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.ValueFormatter
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import com.github.mikephil.charting.utils.ColorTemplate
+import de.uniks.codliners.stock_simulator.background.StockbrotWorkRequest
+import de.uniks.codliners.stock_simulator.domain.Symbol
 import de.uniks.codliners.stock_simulator.repository.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -27,7 +29,8 @@ const val SHARED_PREFERENCES_KEY = "de.uniks.codliners.stock_simulator"
 private lateinit var tfLight: Typeface
 private lateinit var tfRegular: Typeface
 
-fun ContextWrapper.sharedPreferences(): SharedPreferences = getSharedPreferences(SHARED_PREFERENCES_KEY, MODE_PRIVATE)
+fun ContextWrapper.sharedPreferences(): SharedPreferences =
+    getSharedPreferences(SHARED_PREFERENCES_KEY, MODE_PRIVATE)
 
 fun Context.resetAccount() {
     val self = this
@@ -53,7 +56,10 @@ fun Context.resetQuotes() {
 fun Context.resetStockbrot() {
     val self = this
     CoroutineScope(Dispatchers.Main).launch {
+        // reset stockbrot database
         StockbrotRepository(self).resetStockbrot()
+        // cancel all running workers
+        StockbrotWorkRequest(self).cancelAll()
     }
 }
 
@@ -82,6 +88,14 @@ fun String?.toSafeDouble(): Double? {
         this?.toDouble()
     } catch (_: Throwable) {
         null
+    }
+}
+
+fun String.toType(): Symbol.Type? {
+    return when (this) {
+        "SHARE" -> Symbol.Type.SHARE
+        "CRYPTO" -> Symbol.Type.CRYPTO
+        else -> null
     }
 }
 
@@ -120,7 +134,18 @@ fun initLineChart(chart: LineChart, context: Context) {
     chart.invalidate()
 }
 
-fun updateLineChart(chart: LineChart, entryList: List<Entry>, label: String, locale: Locale, referenceTimestamp: Long = 0, xAxisValueFormatter: ValueFormatter = TimestampValueFormatter(referenceTimestamp, locale), axisLeftValueFormatter: ValueFormatter = CurrencyValueFormatter("€")) {
+fun updateLineChart(
+    chart: LineChart,
+    entryList: List<Entry>,
+    label: String,
+    locale: Locale,
+    referenceTimestamp: Long = 0,
+    xAxisValueFormatter: ValueFormatter = TimestampValueFormatter(
+        referenceTimestamp,
+        locale
+    ),
+    axisLeftValueFormatter: ValueFormatter = CurrencyValueFormatter("€")
+) {
     if (entryList.isEmpty()) {
         return
     }
@@ -148,7 +173,8 @@ fun updateLineChart(chart: LineChart, entryList: List<Entry>, label: String, loc
     chart.invalidate()
 }
 
-class TimestampValueFormatter(private val referenceTimestamp: Long, locale: Locale) : ValueFormatter() {
+class TimestampValueFormatter(private val referenceTimestamp: Long, locale: Locale) :
+    ValueFormatter() {
     private val dateFormatter =
         SimpleDateFormat("dd.MM.yyyy hh:mm:ss", locale)
 

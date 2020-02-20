@@ -91,15 +91,6 @@ fun RecyclerView.bindTransactions(transactions: List<Transaction>?) {
     adapter.submitList(transactions)
 }
 
-@BindingAdapter("botEnabled")
-fun Button.bindBotEnabled(enabled: Boolean) {
-    text = if (enabled) {
-        context.getText(R.string.stockbrot_disable_bot)
-    } else {
-        context.getText(R.string.stockbrot_enable_bot)
-    }
-}
-
 @BindingAdapter("stockbrotQuotes")
 fun RecyclerView.bindStockbrotQuotes(quotes: List<StockbrotQuote>?) {
     val adapter = adapter as StockbrotQuoteRecyclerViewAdapter
@@ -149,5 +140,14 @@ fun Spinner.bindSelection(selection: MutableLiveData<String>) {
             val selectedItem = self.getItemAtPosition(position).toString()
             selection.postValue(selectedItem)
         }
+    }
+}
+
+@BindingAdapter("botAddRemoveQuote")
+fun Button.bindBotAddRemoveQuote(enabled: Boolean) {
+    text = if (enabled) {
+        context.getText(R.string.stockbrot_remove_control_quote)
+    } else {
+        context.getText(R.string.stockbrot_add_control_quote)
     }
 }
