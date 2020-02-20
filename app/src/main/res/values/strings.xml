@@ -37,7 +37,8 @@
     <string name="title_stockbrot">Stockbrot</string>
     <string name="query">Symbol</string>
     <string name="currency_format">%.2f€</string>
-    <string name="depot_quote_format">%s - %f</string>
+    <string name="double_depot_quote_format">%s - %f</string>
+    <string name="long_depot_quote_format">%s - %d</string>
     <string name="transaction_type_image_description">Image of the transaction type</string>
     <string name="double_buy_amount_format">%f bought</string>
     <string name="double_sell_amount_format">%f sold</string>

@@ -152,7 +152,7 @@
                     android:layout_marginStart="@dimen/default_spacing"
                     android:layout_marginTop="@dimen/default_spacing"
                     android:layout_marginEnd="@dimen/default_spacing"
-                    app:depotQuote="@{viewModel.depotQuote}"
+                    app:depotQuoteText="@{viewModel.depotQuote}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/sell_number"

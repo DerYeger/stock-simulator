@@ -43,8 +43,8 @@ fun RecyclerView.bindDepotQuotes(quotes: List<DepotQuote>?) {
     adapter.submitList(quotes)
 }
 
-@BindingAdapter("depotQuote")
-fun TextView.bindDepotQuote(depotQuote: DepotQuote?) {
+@BindingAdapter("depotQuoteText")
+fun TextView.bindDepotQuoteText(depotQuote: DepotQuote?) {
     depotQuote?.let {
         text = when (depotQuote.amount.isWholeNumber()) {
             true ->
@@ -55,6 +55,26 @@ fun TextView.bindDepotQuote(depotQuote: DepotQuote?) {
             false ->
                 String.format(
                     resources.getText(R.string.double_depot_quote_amount_format).toString(),
+                    depotQuote.amount
+                )
+        }
+    }
+}
+
+@BindingAdapter("depotQuote")
+fun TextView.bindDepotQuote(depotQuote: DepotQuote?) {
+    depotQuote?.let {
+        text = when (depotQuote.amount.isWholeNumber()) {
+            true ->
+                String.format(
+                    resources.getText(R.string.long_depot_quote_format).toString(),
+                    depotQuote.symbol,
+                    depotQuote.amount.toLong()
+                )
+            false ->
+                String.format(
+                    resources.getText(R.string.double_depot_quote_format).toString(),
+                    depotQuote.symbol,
                     depotQuote.amount
                 )
         }
