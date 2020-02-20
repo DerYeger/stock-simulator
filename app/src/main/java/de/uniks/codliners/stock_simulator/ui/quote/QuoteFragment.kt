@@ -12,11 +12,13 @@ import com.github.mikephil.charting.data.Entry
 import de.uniks.codliners.stock_simulator.databinding.FragmentQuoteBinding
 import de.uniks.codliners.stock_simulator.initLineChart
 import de.uniks.codliners.stock_simulator.ui.BaseFragment
+import de.uniks.codliners.stock_simulator.ui.news.NewsAdapter
 import de.uniks.codliners.stock_simulator.updateLineChart
 class QuoteFragment : BaseFragment() {
 
     private val viewModel: QuoteViewModel by viewModels {
         val args = QuoteFragmentArgs.fromBundle(arguments!!)
+
         QuoteViewModel.Factory(
             application = activity!!.application,
             id = args.id,
@@ -34,6 +36,18 @@ class QuoteFragment : BaseFragment() {
         binding = FragmentQuoteBinding.inflate(inflater)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
+
+        // React to reset button clicks.
+        viewModel.clickNewsStatus.observe(viewLifecycleOwner, Observer { status ->
+            status?.let {
+
+                // Reset click indicator.
+                viewModel.clickNewsStatus.value = null
+
+                val action = QuoteFragmentDirections.actionNavigationQuoteToNavigationNews(viewModel.quote.value!!.symbol)
+                findNavController().navigate(action)
+            }
+        })
 
         viewModel.errorAction.observe(viewLifecycleOwner, Observer { errorMessage: String? ->
             errorMessage?.let {

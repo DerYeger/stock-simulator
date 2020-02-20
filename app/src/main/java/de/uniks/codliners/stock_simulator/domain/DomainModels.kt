@@ -13,6 +13,22 @@ data class Balance(
     val timestamp: Long = System.currentTimeMillis()
 )
 
+@Entity
+@JsonClass(generateAdapter = true)
+data class News constructor(
+    @PrimaryKey(autoGenerate = true)
+    val primaryKey: Long = 0,
+    val datetime: Long,
+    val headline: String,
+    val source: String,
+    val url: String,
+    val summary: String,
+    val related: String,
+    val image: String,
+    val lang: String,
+    val hasPaywall: Boolean
+)
+
 enum class TransactionType { BUY, SELL }
 
 data class Transaction(
