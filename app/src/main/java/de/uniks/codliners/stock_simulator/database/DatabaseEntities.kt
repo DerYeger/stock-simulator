@@ -6,6 +6,8 @@ import de.uniks.codliners.stock_simulator.domain.HistoricalPriceFromApi
 import de.uniks.codliners.stock_simulator.domain.Symbol
 import de.uniks.codliners.stock_simulator.domain.Transaction
 import de.uniks.codliners.stock_simulator.domain.TransactionType
+import java.text.SimpleDateFormat
+import java.util.*
 
 @Entity
 data class DepotQuote(
@@ -34,12 +36,9 @@ data class HistoricalPrice(
     @PrimaryKey(autoGenerate = true)
     val primaryKey: Long = 0,
     val symbol: String,
-    val date: String,
-    val close: Double,
-    val change: Double,
-    val changeOverTime: Double,
-    val changePercent: Double
-)
+    val date: Long,
+    val price: Double
+    )
 
 fun TransactionDatabase.transactionAsDomainModel() = Transaction(
     symbol = this.symbol,
@@ -60,11 +59,8 @@ fun List<TransactionDatabase>.transactionsAsDomainModel(): List<Transaction> {
 
 fun HistoricalPriceFromApi.apiPriceAsPriceWithSymbol(symbol: String) = HistoricalPrice(
     symbol = symbol,
-    date = this.date,
-    close = this.close,
-    changeOverTime = this.changeOverTime,
-    change = this.change,
-    changePercent = this.changePercent
+    date =  SimpleDateFormat("yyyy-MM-dd", Locale.ROOT).parse(date)!!.time,
+    price = this.close
 )
 
 fun List<HistoricalPriceFromApi>.apiPricesAsPricesWithSymbol(symbol: String): List<HistoricalPrice> {

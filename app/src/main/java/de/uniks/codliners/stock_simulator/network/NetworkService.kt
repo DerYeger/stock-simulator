@@ -37,7 +37,7 @@ interface CoinGeckoApi {
     suspend fun cryptoSymbols(): List<CryptoNetworkSymbol>
 
     @GET("/coins/{id}/market_chart")
-    suspend fun cryptoHistorical(@Path("id") cryptoId: String): Any
+    suspend fun cryptoHistorical(@Path("id") cryptoId: String): CoinGeckoMarketChart
 }
 
 object NetworkService {
