@@ -26,7 +26,8 @@
     <string name="stockbrot_enable_bot">enable bot</string>
     <string name="stockbrot_threshold_buy">Threshold buy</string>
     <string name="stockbrot_threshold_sell">Threshold sell</string>
-    <string name="stockbrot_control_quote">Add quote to stockbrot</string>
+    <string name="stockbrot_add_control_quote">Add quote to stockbrot</string>
+    <string name="stockbrot_remove_control_quote">Remove quote from stockbrot</string>
     <string name="title_account">Account</string>
     <string name="title_depot">Depot</string>
     <string name="title_history">History</string>

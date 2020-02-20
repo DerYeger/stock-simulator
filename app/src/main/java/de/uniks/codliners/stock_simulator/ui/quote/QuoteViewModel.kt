@@ -51,8 +51,11 @@ class QuoteViewModel(application: Application, private val symbol: String) : And
 
     val thresholdBuy = MutableLiveData("0.0")
     val thresholdSell = MutableLiveData("0.0")
-    private val _canAddQuoteToStockbrot = MediatorLiveData<Boolean>()
-    val canAddQuoteToStockbrot: LiveData<Boolean> = _canAddQuoteToStockbrot
+    private val _canAddRemoveQuoteToStockbrot = MediatorLiveData<Boolean>()
+    val canAddRemoveQuoteToStockbrot: LiveData<Boolean> = _canAddRemoveQuoteToStockbrot
+
+    private val _botEnabled = MutableLiveData(false)
+    val botEnabled: LiveData<Boolean> = _botEnabled
 
     init {
         _errorAction.apply {
@@ -140,16 +143,18 @@ class QuoteViewModel(application: Application, private val symbol: String) : And
             }
         }
 
-        _canAddQuoteToStockbrot.apply {
+        _canAddRemoveQuoteToStockbrot.apply {
             addSource(thresholdBuy) {
-                value = canAddQuoteToStockbrot(
+                value = canAddRemoveQuoteToStockbrot(
+                    botEnabled.value,
                     thresholdBuy.value?.toSafeDouble(),
                     thresholdSell.value?.toSafeDouble()
                 )
             }
 
             addSource(thresholdSell) {
-                value = canAddQuoteToStockbrot(
+                value = canAddRemoveQuoteToStockbrot(
+                    botEnabled.value,
                     thresholdBuy.value?.toSafeDouble(),
                     thresholdSell.value?.toSafeDouble()
                 )
@@ -190,7 +195,15 @@ class QuoteViewModel(application: Application, private val symbol: String) : And
         }
     }
 
-    fun addQuoteToStockbrot() {
+    fun addRemoveQuoteToStockbrot() {
+        when(botEnabled.value) {
+            true -> removeQuoteFromStockbrot()
+            false -> addQuoteToStockbrot()
+        }
+    }
+
+    private fun addQuoteToStockbrot() {
+        _botEnabled.value = true
         viewModelScope.launch {
             val thresholdBuyDouble = thresholdBuy.value?.toDouble()!!
             val thresholdSellDouble = thresholdSell.value?.toDouble()!!
@@ -200,7 +213,8 @@ class QuoteViewModel(application: Application, private val symbol: String) : And
         }
     }
 
-    fun removeQuoteFromStockbrot() {
+    private fun removeQuoteFromStockbrot() {
+        _botEnabled.value = false
         viewModelScope.launch {
             stockbrotWorkRequest.removeQuote(stockbrotQuote.value!!)
             stockbrotRepository.saveRemoveStockbrotControl(stockbrotQuote.value!!)
@@ -240,10 +254,14 @@ class QuoteViewModel(application: Application, private val symbol: String) : And
             && amount <= depotQuote!!.amount
             && BuildConfig.TRANSACTION_COSTS <= balance!!.value
 
-    private fun canAddQuoteToStockbrot(
+    private fun canAddRemoveQuoteToStockbrot(
+        botEnabled: Boolean?,
         thresholdBuy: Double?,
         thresholdSell: Double?
-    ) = thresholdValid(thresholdBuy) && thresholdValid(thresholdSell)
+    ) = when(botEnabled!!) {
+        true -> true
+        false -> thresholdValid(thresholdBuy) && thresholdValid(thresholdSell)
+    }
 
     private fun thresholdValid(threshold: Double?) = noNulls(threshold) && 0 < threshold!!
 

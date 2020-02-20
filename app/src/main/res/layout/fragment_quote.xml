@@ -155,7 +155,6 @@
                     app:layout_constraintTop_toBottomOf="@+id/sell_number"
                     tools:text="You own 1 share." />
 
-
                 <TextView
                     android:id="@+id/title_auto_buy_sell"
                     style="@style/TextAppearance.MaterialComponents.Headline6"
@@ -189,6 +188,7 @@
                     android:importantForAutofill="no"
                     android:inputType="numberDecimal"
                     android:text="@={viewModel.thresholdBuy}"
+                    android:enabled="@{!viewModel.botEnabled}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/title_threshold_buy" />
@@ -215,24 +215,26 @@
                     android:importantForAutofill="no"
                     android:inputType="numberDecimal"
                     android:text="@={viewModel.thresholdSell}"
+                    android:enabled="@{!viewModel.botEnabled}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/title_threshold_sell" />
 
                 <Button
-                    android:id="@+id/button_add_quote_to_bot"
+                    android:id="@+id/button_bot_add_remove_quote"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
-                    android:enabled="@{viewModel.canAddQuoteToStockbrot}"
-                    android:onClick="@{() -> viewModel.addQuoteToStockbrot()}"
-                    android:text="@string/stockbrot_control_quote"
+                    android:enabled="@{viewModel.canAddRemoveQuoteToStockbrot}"
+                    android:onClick="@{() -> viewModel.addRemoveQuoteToStockbrot()}"
+                    app:botAddRemoveQuote="@{viewModel.botEnabled}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/stockbrot_threshold_sell" />
+                    app:layout_constraintTop_toBottomOf="@+id/stockbrot_threshold_sell"
+                    tools:text="@string/stockbrot_add_control_quote" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>

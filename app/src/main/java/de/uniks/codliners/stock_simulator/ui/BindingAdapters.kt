@@ -111,3 +111,12 @@ fun TextView.bindTransaction(transaction: Transaction?) {
         text = String.format(resources.getText(stringId).toString(), transaction.amount)
     }
 }
+
+@BindingAdapter("botAddRemoveQuote")
+fun Button.bindBotAddRemoveQuote(enabled: Boolean) {
+    text = if (enabled) {
+        context.getText(R.string.stockbrot_remove_control_quote)
+    } else {
+        context.getText(R.string.stockbrot_add_control_quote)
+    }
+}
