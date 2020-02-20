@@ -23,7 +23,7 @@ class StockbrotWorkRequest(context: Context) {
         val buyAmount = stockbrotQuote.buyAmount
         val thresholdBuy = stockbrotQuote.thresholdBuy
         val thresholdSell = stockbrotQuote.thresholdSell
-        val symbol = stockbrotQuote.symbol
+        val symbol = stockbrotQuote.id
 
         val constraints = Constraints.Builder()
             .setRequiredNetworkType(NetworkType.CONNECTED)
@@ -49,7 +49,7 @@ class StockbrotWorkRequest(context: Context) {
 
     fun removeQuote(stockbrotQuote: StockbrotQuote) {
         println("stop StockbrotWorkRequest")
-        val buildWorkerTag = buildWorkerTag(stockbrotQuote.symbol)
+        val buildWorkerTag = buildWorkerTag(stockbrotQuote.id)
         workManager.cancelAllWorkByTag(buildWorkerTag)
     }
 

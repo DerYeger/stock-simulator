@@ -2,7 +2,6 @@ package de.uniks.codliners.stock_simulator.database
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import de.uniks.codliners.stock_simulator.domain.HistoricalPriceFromApi
 import de.uniks.codliners.stock_simulator.domain.Symbol
 import de.uniks.codliners.stock_simulator.domain.Transaction
 import de.uniks.codliners.stock_simulator.domain.TransactionType
@@ -10,7 +9,7 @@ import de.uniks.codliners.stock_simulator.domain.TransactionType
 @Entity
 data class DepotQuote(
     @PrimaryKey
-    val symbol: String,
+    val id: String,
     val type: Symbol.Type,
     val amount: Double
 )
@@ -23,10 +22,10 @@ data class DepotValue(
 )
 
 @Entity
-data class TransactionDatabase constructor(
+data class DatabaseTransaction(
     @PrimaryKey(autoGenerate = true)
     val primaryKey: Long = 0,
-    val symbol: String,
+    val id: String,
     val type: Symbol.Type,
     val amount: Double,
     val price: Double,
@@ -40,16 +39,13 @@ data class TransactionDatabase constructor(
 data class HistoricalPrice(
     @PrimaryKey(autoGenerate = true)
     val primaryKey: Long = 0,
-    val symbol: String,
-    val date: String,
-    val close: Double,
-    val change: Double,
-    val changeOverTime: Double,
-    val changePercent: Double
+    val id: String,
+    val date: Long,
+    val price: Double
 )
 
-fun TransactionDatabase.transactionAsDomainModel() = Transaction(
-    symbol = this.symbol,
+fun DatabaseTransaction.transactionAsDomainModel() = Transaction(
+    id = this.id,
     type = this.type,
     amount = this.amount,
     price = this.price,
@@ -59,23 +55,8 @@ fun TransactionDatabase.transactionAsDomainModel() = Transaction(
     date = this.date
 )
 
-fun List<TransactionDatabase>.transactionsAsDomainModel(): List<Transaction> {
+fun List<DatabaseTransaction>.transactionsAsDomainModel(): List<Transaction> {
     return map {
         it.transactionAsDomainModel()
-    }
-}
-
-fun HistoricalPriceFromApi.apiPriceAsPriceWithSymbol(symbol: String) = HistoricalPrice(
-    symbol = symbol,
-    date = this.date,
-    close = this.close,
-    changeOverTime = this.changeOverTime,
-    change = this.change,
-    changePercent = this.changePercent
-)
-
-fun List<HistoricalPriceFromApi>.apiPricesAsPricesWithSymbol(symbol: String): List<HistoricalPrice> {
-    return map {
-        it.apiPriceAsPriceWithSymbol(symbol)
     }
 }

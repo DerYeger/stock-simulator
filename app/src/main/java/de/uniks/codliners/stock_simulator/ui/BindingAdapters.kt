@@ -68,13 +68,13 @@ fun TextView.bindDepotQuote(depotQuote: DepotQuote?) {
             true ->
                 String.format(
                     resources.getText(R.string.long_depot_quote_format).toString(),
-                    depotQuote.symbol,
+                    depotQuote.id,
                     depotQuote.amount.toLong()
                 )
             false ->
                 String.format(
                     resources.getText(R.string.double_depot_quote_format).toString(),
-                    depotQuote.symbol,
+                    depotQuote.id,
                     depotQuote.amount
                 )
         }

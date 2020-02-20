@@ -56,7 +56,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/default_spacing"
                     android:layout_marginTop="@dimen/default_spacing"
-                    android:text="@{viewModel.quote.companyName}"
+                    android:text="@{viewModel.quote.name}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/quote_symbol_text"
                     tools:text="Company Name" />

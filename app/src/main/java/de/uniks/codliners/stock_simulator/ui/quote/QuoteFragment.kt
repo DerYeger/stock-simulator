@@ -14,18 +14,14 @@ import de.uniks.codliners.stock_simulator.domain.StockbrotQuote
 import de.uniks.codliners.stock_simulator.initLineChart
 import de.uniks.codliners.stock_simulator.ui.BaseFragment
 import de.uniks.codliners.stock_simulator.updateLineChart
-import java.text.SimpleDateFormat
-
 class QuoteFragment : BaseFragment() {
 
     private val viewModel: QuoteViewModel by viewModels {
         val args = QuoteFragmentArgs.fromBundle(arguments!!)
-        val symbol = args.symbol
-        val type = args.type
         QuoteViewModel.Factory(
             application = activity!!.application,
-            symbol = symbol,
-            type = type
+            id = args.id,
+            type = args.type
         )
     }
 
@@ -59,13 +55,9 @@ class QuoteFragment : BaseFragment() {
         viewModel.historicalPrices.observe(viewLifecycleOwner, Observer { priceList ->
             run {
                 if (priceList.isEmpty()) return@run
-
-                val simpleDateFormat =
-                    SimpleDateFormat("yyyy-MM-dd", resources.configuration.locale)
-                val referenceTimestamp = simpleDateFormat.parse(priceList[0].date)!!.time
+                val referenceTimestamp = priceList[0].date
                 val entries = priceList.map { price ->
-                    val timestamp = simpleDateFormat.parse(price.date)!!.time
-                    Entry((timestamp - referenceTimestamp).toFloat(), price.close.toFloat())
+                    Entry((price.date - referenceTimestamp).toFloat(), price.price.toFloat())
                 }
                 updateLineChart(
                     binding.quoteChart,

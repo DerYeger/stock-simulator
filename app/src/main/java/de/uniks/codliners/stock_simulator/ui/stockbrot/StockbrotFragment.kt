@@ -26,7 +26,7 @@ class StockbrotFragment : BaseFragment() {
         binding = FragmentStockbrotBinding.inflate(inflater)
         binding.viewModel = viewModel
         binding.stockbrotRecyclerView.adapter = StockbrotQuoteRecyclerViewAdapter(OnClickListener { stockbrotQuote ->
-            val action = StockbrotFragmentDirections.actionNavigationStockbrotToNavigationQuote(stockbrotQuote.symbol, stockbrotQuote.type)
+            val action = StockbrotFragmentDirections.actionNavigationStockbrotToNavigationQuote(stockbrotQuote.id, stockbrotQuote.type)
             findNavController().navigate(action)
         })
         binding.lifecycleOwner = this

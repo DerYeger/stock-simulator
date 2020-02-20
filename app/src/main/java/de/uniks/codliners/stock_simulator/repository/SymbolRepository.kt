@@ -34,7 +34,7 @@ class SymbolRepository(private val database: StockAppDatabase) {
             try {
                 _state.postValue(State.Refreshing)
                 val shareSymbols = NetworkService.IEX_API.symbols()
-                val cryptoSymbols = NetworkService.IEX_API.cryptoSymbols()
+                val cryptoSymbols = NetworkService.COINGECKO_API.symbols()
                 database.symbolDao.insertAll(
                     *shareSymbols.asDomainSymbols(),
                     *cryptoSymbols.asDomainSymbols()
