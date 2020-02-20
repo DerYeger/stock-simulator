@@ -1,7 +1,7 @@
 package de.uniks.codliners.stock_simulator.repository
 
 import android.content.Context
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.LiveData
 import de.uniks.codliners.stock_simulator.database.StockAppDatabase
 import de.uniks.codliners.stock_simulator.database.getDatabase
 import de.uniks.codliners.stock_simulator.domain.StockbrotQuote
@@ -12,32 +12,12 @@ class StockbrotRepository(private val database: StockAppDatabase) {
 
     constructor(context: Context) : this(getDatabase(context))
 
-    val enabledQuotes by lazy {
-        database.stockbrotDao.getEnabledStockbrotQuotes()
+    val quotes by lazy {
+        database.stockbrotDao.getStockbrotQuotes()
     }
 
-    suspend fun stockbrotQuoteWithSymbol(symbol: String): MutableLiveData<StockbrotQuote> {
-        val stockbrotQuoteMutableLive = MutableLiveData<StockbrotQuote>()
-
-        val stockbrotQuote = database.stockbrotDao.getStockbrotQuoteWithSymbol(symbol)
-        if (stockbrotQuote.value != null) {
-            stockbrotQuoteMutableLive.value = stockbrotQuote.value
-        } else {
-            val stockbrotQuoteNew = StockbrotQuote(symbol, 0.0, 0.0, false)
-            stockbrotQuoteMutableLive.value = stockbrotQuoteNew
-            withContext(Dispatchers.IO) {
-                addStockbrotQuote(stockbrotQuoteNew)
-            }
-        }
-        return stockbrotQuoteMutableLive
-    }
-
-    private suspend fun addStockbrotQuote(stockbrotQuote: StockbrotQuote) {
-        withContext(Dispatchers.IO) {
-            database.stockbrotDao.insertStockbrotQuote(stockbrotQuote)
-            database.stockbrotDao.getStockbrotQuoteWithSymbol(stockbrotQuote.symbol)
-        }
-    }
+    fun stockbrotQuoteWithSymbol(symbol: String): LiveData<StockbrotQuote> =
+        database.stockbrotDao.getStockbrotQuoteWithSymbol(symbol)
 
     suspend fun saveAddStockbrotControl(stockbrotQuote: StockbrotQuote) {
         withContext(Dispatchers.IO) {
