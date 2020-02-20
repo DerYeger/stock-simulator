@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.github.mikephil.charting.data.Entry
 import de.uniks.codliners.stock_simulator.databinding.FragmentQuoteBinding
+import de.uniks.codliners.stock_simulator.domain.StockbrotQuote
 import de.uniks.codliners.stock_simulator.initLineChart
 import de.uniks.codliners.stock_simulator.updateLineChart
 import java.text.SimpleDateFormat
@@ -39,6 +40,14 @@ class QuoteFragment : Fragment() {
             errorMessage?.let {
                 showErrorToast(errorMessage)
                 viewModel.onErrorActionCompleted()
+            }
+        })
+
+        viewModel.stockbrotQuoteAction.observe(this, Observer { stockbrotQuote: StockbrotQuote? ->
+            stockbrotQuote?.let {
+                viewModel.thresholdBuy.value = stockbrotQuote.thresholdBuy.toString()
+                viewModel.thresholdSell.value = stockbrotQuote.thresholdSell.toString()
+                viewModel.onThresholdBuyActionCompleted()
             }
         })
 

@@ -2,17 +2,14 @@ package de.uniks.codliners.stock_simulator.ui.quote
 
 import android.app.Application
 import androidx.lifecycle.*
-import de.uniks.codliners.stock_simulator.BuildConfig
+import de.uniks.codliners.stock_simulator.*
 import de.uniks.codliners.stock_simulator.background.StockbrotWorkRequest
 import de.uniks.codliners.stock_simulator.database.DepotQuote
 import de.uniks.codliners.stock_simulator.domain.Balance
 import de.uniks.codliners.stock_simulator.domain.StockbrotQuote
-import de.uniks.codliners.stock_simulator.noNulls
 import de.uniks.codliners.stock_simulator.repository.AccountRepository
 import de.uniks.codliners.stock_simulator.repository.QuoteRepository
 import de.uniks.codliners.stock_simulator.repository.StockbrotRepository
-import de.uniks.codliners.stock_simulator.toSafeDouble
-import de.uniks.codliners.stock_simulator.toSafeLong
 import kotlinx.coroutines.launch
 import java.util.*
 
@@ -51,6 +48,10 @@ class QuoteViewModel(application: Application, private val symbol: String) : And
 
     val thresholdBuy = MutableLiveData("0.0")
     val thresholdSell = MutableLiveData("0.0")
+
+    private val _stockbrotQuoteAction = MediatorLiveData<StockbrotQuote>()
+    val stockbrotQuoteAction: LiveData<StockbrotQuote> = _stockbrotQuoteAction
+
     private val _canAddRemoveQuoteToStockbrot = MediatorLiveData<Boolean>()
     val canAddRemoveQuoteToStockbrot: LiveData<Boolean> = _canAddRemoveQuoteToStockbrot
 
@@ -62,6 +63,10 @@ class QuoteViewModel(application: Application, private val symbol: String) : And
                     else -> null
                 }
             }
+        }
+
+        _stockbrotQuoteAction.addSource(stockbrotQuote) { stockbrotQuote ->
+            _stockbrotQuoteAction.value = stockbrotQuote
         }
 
         _canBuy.apply {
@@ -162,6 +167,13 @@ class QuoteViewModel(application: Application, private val symbol: String) : And
         initTimer()
     }
 
+    fun onThresholdBuyActionCompleted() {
+        viewModelScope.launch {
+            _stockbrotQuoteAction.value = null
+        }
+    }
+
+
     private fun initTimer() {
         timer = Timer()
         timer.schedule(object : TimerTask() {
@@ -197,8 +209,14 @@ class QuoteViewModel(application: Application, private val symbol: String) : And
 
     private fun addQuoteToStockbrot() {
         viewModelScope.launch {
-            val thresholdBuyDouble = thresholdBuy.value?.toDouble()!!
-            val thresholdSellDouble = thresholdSell.value?.toDouble()!!
+            val thresholdBuyDouble = when(thresholdBuy.value) {
+                null -> 0.0
+                else -> thresholdBuy.value.toSafeDouble()!!
+            }
+            val thresholdSellDouble = when(thresholdSell.value) {
+                null -> 0.0
+                else -> thresholdSell.value.toSafeDouble()!!
+            }
             val newStockbrotQuote = StockbrotQuote(symbol, thresholdBuyDouble, thresholdSellDouble)
             stockbrotWorkRequest.addQuote(newStockbrotQuote)
             stockbrotRepository.saveAddStockbrotControl(newStockbrotQuote)
@@ -250,8 +268,8 @@ class QuoteViewModel(application: Application, private val symbol: String) : And
         thresholdBuy: Double?,
         thresholdSell: Double?
     ) = when(stockbrotQuote) {
-        null -> true
-        else -> thresholdValid(thresholdBuy) && thresholdValid(thresholdSell)
+        null -> thresholdValid(thresholdBuy) || thresholdValid(thresholdSell)
+        else -> true
     }
 
     private fun thresholdValid(threshold: Double?) = noNulls(threshold) && 0 < threshold!!
