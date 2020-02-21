@@ -8,7 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import de.uniks.codliners.stock_simulator.R
 import de.uniks.codliners.stock_simulator.domain.*
-import de.uniks.codliners.stock_simulator.domain.TransactionType.*
+import de.uniks.codliners.stock_simulator.domain.TransactionType.BUY
+import de.uniks.codliners.stock_simulator.domain.TransactionType.SELL
 import de.uniks.codliners.stock_simulator.isWholeNumber
 import de.uniks.codliners.stock_simulator.ui.account.DepotQuoteRecyclerViewAdapter
 import de.uniks.codliners.stock_simulator.ui.history.HistoryRecyclerViewAdapter
@@ -88,6 +89,34 @@ fun TextView.bindDepotQuote(depotQuote: DepotQuote?) {
 fun RecyclerView.bindTransactions(transactions: List<Transaction>?) {
     val adapter = adapter as HistoryRecyclerViewAdapter
     adapter.submitList(transactions)
+}
+
+@BindingAdapter("lossOrWin")
+fun TextView.bindPerformanceText(performance: Double) {
+    if (performance > 0.0) {
+        text = String.format(resources.getText(R.string.performance_format_win).toString(), performance)
+        this.setTextColor(resources.getColor(R.color.colorAccent))
+    } else if (performance == 0.0) {
+        text = String.format(resources.getText(R.string.performance_format_neutral).toString(), performance)
+        this.setTextColor(resources.getColor(R.color.trendingFlat))
+    } else {
+        text = String.format(resources.getText(R.string.performance_format_loss).toString(), performance)
+        this.setTextColor(resources.getColor(R.color.trendingDown))
+    }
+}
+
+@BindingAdapter("trendingImage")
+fun ImageView.bindPerformanceIcon(performance: Double) {
+    if (performance > 0.0) {
+        setImageDrawable(resources.getDrawable(R.drawable.ic_trending_up_black_24dp, context.theme))
+        this.setColorFilter(resources.getColor(R.color.colorAccent))
+    } else if (performance == 0.0) {
+        setImageDrawable(resources.getDrawable(R.drawable.ic_trending_flat_black_24dp, context.theme))
+        this.setColorFilter(resources.getColor(R.color.trendingFlat))
+    } else {
+        setImageDrawable(resources.getDrawable(R.drawable.ic_trending_down_black_24dp, context.theme))
+        this.setColorFilter(resources.getColor(R.color.trendingDown))
+    }
 }
 
 @BindingAdapter("stockbrotQuotes")

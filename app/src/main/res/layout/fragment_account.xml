@@ -69,6 +69,38 @@
 
             </com.github.mikephil.charting.charts.LineChart>
 
+                    <TextView
+            android:id="@+id/performance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/performance"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/depot_chart" />
+
+        <TextView
+            android:id="@+id/performance_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+            app:layout_constraintBaseline_toBaselineOf="@+id/performance"
+            app:layout_constraintStart_toEndOf="@+id/performance"
+            app:lossOrWin="@{viewModel.performance}" />
+
+        <ImageView
+            android:id="@+id/trend_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/performance_value"
+            app:layout_constraintStart_toEndOf="@+id/performance_value"
+            app:layout_constraintTop_toTopOf="@+id/performance_value"
+            app:trendingImage="@{viewModel.performance}"
+            app:srcCompat="@drawable/ic_trending_up_black_24dp" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/depot_recycler_view"
                 android:layout_width="0dp"
@@ -77,10 +109,10 @@
                 app:depotQuotes="@{viewModel.depotQuotes}"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"ø
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/depot_chart"
+                app:layout_constraintTop_toBottomOf="@+id/trend_image"
                 app:spanCount="3" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

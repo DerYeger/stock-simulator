@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="PluralsCandidate">
     <string name="add_fingerprint">Add fingerprint authentication</string>
-    <string name="app_name">stock-simulator</string>
+    <string name="app_name">Stock Simulator</string>
     <string name="biometric_cancelled">Fingerprint authentication has been canceled!</string>
     <string name="biometric_error_fingerprint_not_available">Device has no fingerprints registered!</string>
     <string name="biometric_error_hardware_not_supported">Device does not contain any fingerprint sensors!</string>
@@ -41,6 +41,13 @@
     <string name="account_currency_format">Balance: %s$</string>
     <string name="depot_currency_format">Depot: %s$</string>
     <string name="currency_format">%s$</string>
+    <string name="account_currency_format">Account Balance: %.2f€</string>
+    <string name="depot_currency_format">Depot Value: %.2f€</string>
+    <string name="performance">Performance: </string>
+    <string name="performance_format_win">+ %.5f %%</string>
+    <string name="performance_format_loss">- %.5f %%</string>
+    <string name="performance_format_neutral">%.5f %%</string>
+    <string name="currency_format">%.2f€</string>
     <string name="double_depot_quote_format">%s - %f</string>
     <string name="long_depot_quote_format">%s - %d</string>
     <string name="transaction_type_image_description">Image of the transaction type</string>
