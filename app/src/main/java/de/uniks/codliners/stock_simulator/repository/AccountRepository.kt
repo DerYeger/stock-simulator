@@ -150,7 +150,9 @@ class AccountRepository(private val database: StockAppDatabase) {
 
     private fun AccountDao.setStartBalance() {
         val starterBalance = Balance(value = BuildConfig.NEW_ACCOUNT_BALANCE)
+        val secondStarterBalance = starterBalance.copy(timestamp = starterBalance.timestamp - 60 * 1000)
         insertBalance(starterBalance)
+        insertBalance(secondStarterBalance)
     }
 
     private fun AccountDao.setInitialDepotValue() {
