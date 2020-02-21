@@ -33,7 +33,7 @@ class AccountFragment : BaseFragment() {
         binding.depotRecyclerView.adapter =
             DepotQuoteRecyclerViewAdapter(OnClickListener { symbol ->
                 val action =
-                    AccountFragmentDirections.actionNavigationAccountToShareFragment(symbol.symbol, symbol.type)
+                    AccountFragmentDirections.actionNavigationAccountToShareFragment(symbol.id, symbol.type)
                 findNavController().navigate(action)
             })
         binding.lifecycleOwner = this
@@ -43,6 +43,7 @@ class AccountFragment : BaseFragment() {
         viewModel.balancesLimited.observe(viewLifecycleOwner, Observer { balanceList ->
             run {
                 if (balanceList.isEmpty()) return@run
+
                 val referenceTimestamp = balanceList[0].timestamp
                 val entries = balanceList.map { balance ->
                     Entry(
@@ -59,6 +60,7 @@ class AccountFragment : BaseFragment() {
         viewModel.depotValuesLimited.observe(viewLifecycleOwner, Observer { depotValues ->
             run {
                 if (depotValues.isEmpty()) return@run
+
                 val referenceTimestamp = depotValues[0].timestamp
                 val entries = depotValues.map { depotValue ->
                     Entry(

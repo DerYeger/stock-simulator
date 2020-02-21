@@ -5,8 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import de.uniks.codliners.stock_simulator.database.DepotQuote
 import de.uniks.codliners.stock_simulator.databinding.DepotQuoteCardBinding
+import de.uniks.codliners.stock_simulator.domain.DepotQuote
 import de.uniks.codliners.stock_simulator.ui.OnClickListener
 
 class DepotQuoteRecyclerViewAdapter(private val onClickListener: OnClickListener<DepotQuote>):
@@ -24,7 +24,7 @@ class DepotQuoteRecyclerViewAdapter(private val onClickListener: OnClickListener
 
     companion object DiffCallback : DiffUtil.ItemCallback<DepotQuote>() {
         override fun areItemsTheSame(oldItem: DepotQuote, newItem: DepotQuote) =
-            oldItem.symbol == newItem.symbol
+            oldItem.id == newItem.id
 
         override fun areContentsTheSame(oldItem: DepotQuote, newItem: DepotQuote) =
             oldItem == newItem

@@ -10,7 +10,7 @@
 
         <variable
             name="quote"
-            type="de.uniks.codliners.stock_simulator.database.DepotQuote" />
+            type="de.uniks.codliners.stock_simulator.domain.DepotQuote" />
     </data>
 
     <androidx.cardview.widget.CardView

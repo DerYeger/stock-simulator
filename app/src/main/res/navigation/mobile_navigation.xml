@@ -45,10 +45,21 @@
         android:name="de.uniks.codliners.stock_simulator.ui.quote.QuoteFragment"
         android:label="@string/title_quote">
         <argument
-            android:name="symbol"
+            android:name="id"
             app:argType="string" />
         <argument
             android:name="type"
             app:argType="de.uniks.codliners.stock_simulator.domain.Symbol$Type" />
+        <action
+            android:id="@+id/action_navigation_quote_to_navigation_news"
+            app:destination="@id/navigation_news" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_news"
+        android:name="de.uniks.codliners.stock_simulator.ui.news.NewsFragment"
+        android:label="@string/title_news">
+        <argument
+            android:name="symbol"
+            app:argType="string" />
     </fragment>
 </navigation>

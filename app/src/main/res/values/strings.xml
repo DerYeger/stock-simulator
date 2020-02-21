@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="PluralsCandidate">
     <string name="add_fingerprint">Add fingerprint authentication</string>
-    <string name="app_name">stock-simulator</string>
+    <string name="app_name">Stock Simulator</string>
     <string name="biometric_cancelled">Fingerprint authentication has been canceled!</string>
     <string name="biometric_error_fingerprint_not_available">Device has no fingerprints registered!</string>
     <string name="biometric_error_hardware_not_supported">Device does not contain any fingerprint sensors!</string>
@@ -27,22 +27,24 @@
     <string name="stockbrot_enable_bot">enable bot</string>
     <string name="stockbrot_threshold_buy">Threshold buy</string>
     <string name="stockbrot_threshold_sell">Threshold sell</string>
-    <string name="stockbrot_control_quote">Add quote to stockbrot</string>
+    <string name="stockbrot_add_control_quote">Add quote to stockbrot</string>
+    <string name="stockbrot_remove_control_quote">Remove quote from stockbrot</string>
     <string name="title_account">Account</string>
     <string name="title_depot">Depot</string>
     <string name="title_history">History</string>
+    <string name="title_news">News</string>
     <string name="title_quote">Quote</string>
     <string name="title_search">Search</string>
     <string name="title_settings">Settings</string>
     <string name="title_stockbrot">Stockbrot</string>
     <string name="query">Symbol</string>
-    <string name="account_currency_format">Account Balance: %.2f€</string>
-    <string name="depot_currency_format">Depot Value: %.2f€</string>
+    <string name="account_currency_format">Balance: %s$</string>
+    <string name="depot_currency_format">Depot: %s$</string>
+    <string name="currency_format">%s$</string>
     <string name="performance">Performance: </string>
-    <string name="performance_format_win">+ %.5f %%</string>
-    <string name="performance_format_loss">- %.5f %%</string>
-    <string name="performance_format_neutral">%.5f %%</string>
-    <string name="currency_format">%.2f€</string>
+    <string name="performance_format_win">+%.2f %%</string>
+    <string name="performance_format_loss">%.2f %%</string>
+    <string name="performance_format_neutral">%.2f %%</string>
     <string name="double_depot_quote_format">%s - %f</string>
     <string name="long_depot_quote_format">%s - %d</string>
     <string name="transaction_type_image_description">Image of the transaction type</string>
@@ -51,10 +53,10 @@
     <string name="long_buy_amount_format">%d bought</string>
     <string name="long_sell_amount_format">%d sold</string>
     <string name="details">Details</string>
-    <string name="transaction_costs_format">Transaction costs: %.2f€</string>
+    <string name="transaction_costs_format">Transaction costs: %s$</string>
     <string name="date_format">Date: %s</string>
-    <string name="cashflow_format">Cashflow: %.2f€</string>
-    <string name="price_format">Price: %.2f€</string>
+    <string name="cashflow_format">Cashflow: %s$</string>
+    <string name="price_format">Price: %s$</string>
     <string-array name="type_filter_array">
         <item>Any</item>
         <item>Shares</item>

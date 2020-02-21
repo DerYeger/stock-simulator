@@ -53,7 +53,7 @@ class AccountViewModel(application: Application) : ViewModel() {
 
     private fun calculatePerformance(balance: Double?, depotValue: Double?): Double? {
         if (balance == null || depotValue == null) return 0.0
-        return ((balance + depotValue ) / BuildConfig.NEW_ACCOUNT_BALANCE) - 1
+        return (((balance + depotValue ) / BuildConfig.NEW_ACCOUNT_BALANCE) - 1) * 100
     }
 
 }

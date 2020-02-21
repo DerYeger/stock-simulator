@@ -25,7 +25,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            android:text="@{stockbrotQuote.symbol}"
+            android:text="@{stockbrotQuote.id}"
             android:textAlignment="center"
             android:textAppearance="@android:style/TextAppearance.Material.Headline"
             app:layout_constraintBottom_toBottomOf="parent"
