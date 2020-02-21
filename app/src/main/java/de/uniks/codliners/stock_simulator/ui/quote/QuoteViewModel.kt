@@ -4,7 +4,6 @@ import android.app.Application
 import android.text.InputType
 import androidx.lifecycle.*
 import de.uniks.codliners.stock_simulator.BuildConfig
-import de.uniks.codliners.stock_simulator.background.Constants
 import de.uniks.codliners.stock_simulator.background.StockbrotWorkRequest
 import de.uniks.codliners.stock_simulator.domain.*
 import de.uniks.codliners.stock_simulator.noNulls
@@ -34,7 +33,7 @@ class QuoteViewModel(
 
     val quote = quoteRepository.quoteWithId(id)
     val depotQuote = accountRepository.depotQuoteWithSymbol(id)
-    val stockbrotQuote = stockbrotRepository.stockbrotQuoteWithSymbol(id)
+    val stockbrotQuote = stockbrotRepository.stockbrotQuoteWithId(id)
     val historicalPrices = quoteRepository.historicalPrices(id)
 
     val isCrypto = type === Symbol.Type.CRYPTO
@@ -241,35 +240,19 @@ class QuoteViewModel(
 
     private fun addQuoteToStockbrot() {
         viewModelScope.launch {
-            val autoBuyAmount = when (autoBuyAmount.value) {
-                null -> Constants.DOUBLE_DEFAULT
-                "0.0" -> Constants.DOUBLE_DEFAULT
-                "0" -> Constants.DOUBLE_DEFAULT
-                else -> autoBuyAmount.value.toSafeDouble() ?: Constants.DOUBLE_DEFAULT
-            }
-            val thresholdBuyDouble = when (thresholdBuy.value) {
-                null -> Constants.DOUBLE_DEFAULT
-                "0.0" -> Constants.DOUBLE_DEFAULT
-                "0" -> Constants.DOUBLE_DEFAULT
-                else -> thresholdBuy.value.toSafeDouble() ?: Constants.DOUBLE_DEFAULT
-            }
-            val thresholdSellDouble = when (thresholdSell.value) {
-                null -> Constants.DOUBLE_DEFAULT
-                "0.0" -> Constants.DOUBLE_DEFAULT
-                "0" -> Constants.DOUBLE_DEFAULT
-                else -> thresholdSell.value.toSafeDouble() ?: Constants.DOUBLE_DEFAULT
-            }
-            val newStockbrotQuote =
-                StockbrotQuote(id, type, autoBuyAmount, thresholdBuyDouble, thresholdSellDouble)
+            val autoBuyAmount = autoBuyAmount.value.toSafeDouble() ?: 0.0
+            val thresholdBuyDouble = thresholdBuy.value.toSafeDouble() ?: 0.0
+            val thresholdSellDouble = thresholdSell.value.toSafeDouble() ?: 0.0
+            val newStockbrotQuote = StockbrotQuote(id, type, autoBuyAmount, thresholdBuyDouble, thresholdSellDouble)
             stockbrotWorkRequest.addQuote(newStockbrotQuote)
-            stockbrotRepository.saveAddStockbrotControl(newStockbrotQuote)
+            stockbrotRepository.addStockbrotQuote(newStockbrotQuote)
         }
     }
 
     private fun removeQuoteFromStockbrot() {
         viewModelScope.launch {
             stockbrotWorkRequest.removeQuote(stockbrotQuote.value!!)
-            stockbrotRepository.saveRemoveStockbrotControl(stockbrotQuote.value!!)
+            stockbrotRepository.removeStockbrotQuote(stockbrotQuote.value!!)
         }
     }
 

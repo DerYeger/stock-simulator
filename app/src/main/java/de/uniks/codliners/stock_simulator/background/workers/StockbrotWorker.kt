@@ -4,18 +4,13 @@ import android.content.Context
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 import de.uniks.codliners.stock_simulator.BuildConfig
-import de.uniks.codliners.stock_simulator.background.Constants.Companion.BUY_AMOUNT_KEY
-import de.uniks.codliners.stock_simulator.background.Constants.Companion.DOUBLE_DEFAULT
-import de.uniks.codliners.stock_simulator.background.Constants.Companion.ID_KEY
-import de.uniks.codliners.stock_simulator.background.Constants.Companion.THRESHOLD_BUY_KEY
-import de.uniks.codliners.stock_simulator.background.Constants.Companion.THRESHOLD_SELL_KEY
-import de.uniks.codliners.stock_simulator.background.Constants.Companion.TYPE_DEFAULT
-import de.uniks.codliners.stock_simulator.background.Constants.Companion.TYPE_KEY
+import de.uniks.codliners.stock_simulator.background.ID_KEY
 import de.uniks.codliners.stock_simulator.domain.Quote
+import de.uniks.codliners.stock_simulator.domain.StockbrotQuote
 import de.uniks.codliners.stock_simulator.domain.Symbol
 import de.uniks.codliners.stock_simulator.repository.AccountRepository
 import de.uniks.codliners.stock_simulator.repository.QuoteRepository
-import de.uniks.codliners.stock_simulator.toType
+import de.uniks.codliners.stock_simulator.repository.StockbrotRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -25,49 +20,37 @@ class StockbrotWorker(context: Context, params: WorkerParameters) : Worker(conte
 
     private val quoteRepository = QuoteRepository(context)
     private val accountRepository = AccountRepository(context)
+    private val stockbrotRepository = StockbrotRepository(context)
     private val id = inputData.getString(ID_KEY) ?: ""
-    private val type: Symbol.Type = inputData.getString(TYPE_KEY)?.toType() ?: TYPE_DEFAULT
-    private val buyAmount: Double = inputData.getDouble(BUY_AMOUNT_KEY, DOUBLE_DEFAULT)
-    private val thresholdBuy: Double = inputData.getDouble(THRESHOLD_BUY_KEY, DOUBLE_DEFAULT)
-    private val thresholdSell: Double = inputData.getDouble(THRESHOLD_SELL_KEY, DOUBLE_DEFAULT)
+
+    private val scope = CoroutineScope(Dispatchers.Unconfined)
 
     override fun doWork(): Result {
-        Timber.i("Started StockbrotWorker")
-
-        if (
-            (buyAmount == DOUBLE_DEFAULT && thresholdBuy != DOUBLE_DEFAULT) ||
-            (thresholdBuy == DOUBLE_DEFAULT && thresholdSell == DOUBLE_DEFAULT) ||
-            id.isBlank()
-        ) {
-            Timber.i("Bot canceled because of illegal thresholds")
-            return Result.failure()
-        }
-
-        Timber.i("Bot is checking quotes for $id")
-
-        CoroutineScope(Dispatchers.IO).launch {
+        scope.launch {
             // fetch current quote infos
-            when (type) {
+            val stockbrotQuote = stockbrotRepository.stockbrotQuoteById(id) ?: return@launch
+
+            when (stockbrotQuote.type) {
                 Symbol.Type.SHARE -> quoteRepository.fetchIEXQuote(id)
                 Symbol.Type.CRYPTO -> quoteRepository.fetchCoinGeckoQuote(id)
             }
 
             quoteRepository.quoteById(id)?.let {
                 Timber.i("Bot is using quote $it")
-                if (thresholdBuy != DOUBLE_DEFAULT) {
+                if (stockbrotQuote.thresholdBuy != 0.0) {
                     // buy is enabled
-                    executeBuyOrder(it)
+                    stockbrotQuote.executeBuyOrder(it)
                 }
-                if (thresholdSell != DOUBLE_DEFAULT) {
+                if (stockbrotQuote.thresholdSell != 0.0) {
                     // sell is enabled
-                    executeSellOrder(it)
+                    stockbrotQuote.executeSellOrder(it)
                 }
             }
         }
         return Result.success()
     }
 
-    private suspend fun executeBuyOrder(quote: Quote) {
+    private suspend fun StockbrotQuote.executeBuyOrder(quote: Quote) {
         if (quote.latestPrice <= thresholdBuy) {
             val balance = accountRepository.getLatestBalance()
             val amount = (balance.value - BuildConfig.TRANSACTION_COSTS) / quote.latestPrice
@@ -76,11 +59,13 @@ class StockbrotWorker(context: Context, params: WorkerParameters) : Worker(conte
                 Symbol.Type.CRYPTO -> amount
             }.coerceAtMost(buyAmount)
             Timber.i("Bot is buying $actualAmount ($amount) for ${quote.latestPrice}")
+            val newStockbrotQuote = this.copy(buyAmount = buyAmount - actualAmount)
+            stockbrotRepository.addStockbrotQuote(newStockbrotQuote)
             accountRepository.buy(quote, actualAmount)
         }
     }
 
-    private suspend fun executeSellOrder(quote: Quote) {
+    private suspend fun StockbrotQuote.executeSellOrder(quote: Quote) {
         val depotQuote = accountRepository.depotQuoteBySymbol(id) ?: return
         if (quote.latestPrice >= thresholdSell) {
             val amount = depotQuote.amount
