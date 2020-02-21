@@ -21,9 +21,6 @@ class AccountRepository(private val database: StockAppDatabase) {
         database.accountDao.getLatestBalance()
     }
 
-    val balances by lazy {
-        database.accountDao.getBalances()
-    }
     // the last 50 account balance values
     val balancesLimited by lazy {
         database.accountDao.getBalancesLimited(BALANCE_LIMIT)

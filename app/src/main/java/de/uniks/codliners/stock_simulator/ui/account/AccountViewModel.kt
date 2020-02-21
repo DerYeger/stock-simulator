@@ -1,14 +1,13 @@
 package de.uniks.codliners.stock_simulator.ui.account
 
 import android.app.Application
-import androidx.lifecycle.MediatorLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import de.uniks.codliners.stock_simulator.R
 import de.uniks.codliners.stock_simulator.domain.Achievement
+import de.uniks.codliners.stock_simulator.domain.Balance
 import de.uniks.codliners.stock_simulator.repository.AccountRepository
 import de.uniks.codliners.stock_simulator.repository.AchievementsRepository
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 class AccountViewModel(application: Application) : ViewModel() {
@@ -23,10 +22,7 @@ class AccountViewModel(application: Application) : ViewModel() {
     val depotValuesLimited = accountRepository.depotValuesLimited
 
     private val _balanceChanged = MediatorLiveData<Boolean>()
-
-    private fun getAchievementByName(name: Int): Achievement? {
-        return achievementsRepository.getAchievementsByName(name)
-    }
+    val balanceChanged: LiveData<Boolean> = _balanceChanged
 
     private fun insertAchievement(achievement: Achievement) {
         viewModelScope.launch {
@@ -40,35 +36,40 @@ class AccountViewModel(application: Application) : ViewModel() {
         }
 
         _balanceChanged.apply {
-            addSource(balance) { balance ->
+            addSource(balance) { balance: Balance? ->
+
+                if (balance === null) return@addSource
+
                 value = true
 
-                if (balance.value <= 99995) {
-                    val achievement =
-                        getAchievementByName(R.string.achievement_99995reached_name)
-                    val newAchievement = achievement!!.copy(
-                        reached = true,
-                        timestamp = System.currentTimeMillis()
-                    )
-                    insertAchievement(newAchievement)
-                }
-                if (balance.value >= 10010) {
-                    val achievement =
-                        getAchievementByName(R.string.achievement_10010reached_name)
-                    val newAchievement = achievement!!.copy(
-                        reached = true,
-                        timestamp = System.currentTimeMillis()
-                    )
-                    insertAchievement(newAchievement)
-                }
-                if (balance.value >= 20000) {
-                    val achievement =
-                        getAchievementByName(R.string.achievement_20000reached_name)
-                    val newAchievement = achievement!!.copy(
-                        reached = true,
-                        timestamp = System.currentTimeMillis()
-                    )
-                    insertAchievement(newAchievement)
+                viewModelScope.launch {
+                    if (balance.value <= 99995) {
+                        val achievement =
+                            achievementsRepository.getAchievementsByName(R.string.achievement_99995reached_name)
+                        val newAchievement = achievement!!.copy(
+                            reached = true,
+                            timestamp = System.currentTimeMillis()
+                        )
+                        insertAchievement(newAchievement)
+                    }
+                    if (balance.value >= 10010) {
+                        val achievement =
+                            achievementsRepository.getAchievementsByName(R.string.achievement_10010reached_name)
+                        val newAchievement = achievement!!.copy(
+                            reached = true,
+                            timestamp = System.currentTimeMillis()
+                        )
+                        insertAchievement(newAchievement)
+                    }
+                    if (balance.value >= 20000) {
+                        val achievement =
+                            achievementsRepository.getAchievementsByName(R.string.achievement_20000reached_name)
+                        val newAchievement = achievement!!.copy(
+                            reached = true,
+                            timestamp = System.currentTimeMillis()
+                        )
+                        insertAchievement(newAchievement)
+                    }
                 }
             }
         }

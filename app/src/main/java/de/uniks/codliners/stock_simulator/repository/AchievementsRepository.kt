@@ -22,22 +22,30 @@ class AchievementsRepository(private val database: StockAppDatabase) {
     }
 
     suspend fun initAchievements() {
-        insertAchievement(Achievement(
-            R.string.achievement_99995reached_name,
-            R.string.achievement_99995reached_description
-        ))
-        insertAchievement(Achievement(
-            R.string.achievement_10010reached_name,
-            R.string.achievement_10010reached_description
-        ))
-        insertAchievement(Achievement(
-            R.string.achievement_20000reached_name,
-            R.string.achievement_20000reached_description
-        ))
+        insertAchievement(
+            Achievement(
+                R.string.achievement_99995reached_name,
+                R.string.achievement_99995reached_description
+            )
+        )
+        insertAchievement(
+            Achievement(
+                R.string.achievement_10010reached_name,
+                R.string.achievement_10010reached_description
+            )
+        )
+        insertAchievement(
+            Achievement(
+                R.string.achievement_20000reached_name,
+                R.string.achievement_20000reached_description
+            )
+        )
     }
 
-    fun getAchievementsByName(name: Int): Achievement? {
-        return database.achievementDao.getAchievementByName(name)
+    suspend fun getAchievementsByName(name: Int): Achievement? {
+        return withContext(Dispatchers.IO) {
+            database.achievementDao.getAchievementByName(name)
+        }
     }
 
     suspend fun insertAchievement(achievement: Achievement) {
