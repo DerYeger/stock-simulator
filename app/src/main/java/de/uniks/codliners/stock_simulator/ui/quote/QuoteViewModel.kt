@@ -3,7 +3,7 @@ package de.uniks.codliners.stock_simulator.ui.quote
 import android.app.Application
 import android.text.InputType
 import androidx.lifecycle.*
-import de.uniks.codliners.stock_simulator.*
+import de.uniks.codliners.stock_simulator.BuildConfig
 import de.uniks.codliners.stock_simulator.background.Constants
 import de.uniks.codliners.stock_simulator.background.StockbrotWorkRequest
 import de.uniks.codliners.stock_simulator.database.DepotQuote

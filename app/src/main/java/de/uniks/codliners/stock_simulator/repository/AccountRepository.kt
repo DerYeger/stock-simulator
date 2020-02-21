@@ -74,26 +74,6 @@ class AccountRepository(private val database: StockAppDatabase) {
                     insertDepotQuote(newDepotQuote)
                 }
                 database.transactionDao.insert(transaction)
-
-                // check for reached achievements
-                if (newBalance.value <= 99995) {
-                    val achievement =
-                        database.achievementDao.getAchievementByName(R.string.achievement_99995reached_name)
-                    val newAchievement = achievement!!.copy(timestamp = System.currentTimeMillis())
-                    database.achievementDao.insert(newAchievement)
-                }
-                if (newBalance.value >= 10010) {
-                    val achievement =
-                        database.achievementDao.getAchievementByName(R.string.achievement_10010reached_name)
-                    val newAchievement = achievement!!.copy(timestamp = System.currentTimeMillis())
-                    database.achievementDao.insert(newAchievement)
-                }
-                if (newBalance.value >= 20000) {
-                    val achievement =
-                        database.achievementDao.getAchievementByName(R.string.achievement_20000reached_name)
-                    val newAchievement = achievement!!.copy(timestamp = System.currentTimeMillis())
-                    database.achievementDao.insert(newAchievement)
-                }
             }
         }
     }

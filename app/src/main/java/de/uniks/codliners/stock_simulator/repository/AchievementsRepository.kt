@@ -36,6 +36,10 @@ class AchievementsRepository(private val database: StockAppDatabase) {
         ))
     }
 
+    fun getAchievementsByName(name: Int): Achievement? {
+        return database.achievementDao.getAchievementByName(name)
+    }
+
     suspend fun insertAchievement(achievement: Achievement) {
         withContext(Dispatchers.IO) {
             database.achievementDao.insert(achievement)

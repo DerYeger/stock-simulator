@@ -72,7 +72,6 @@ class AccountFragment : BaseFragment() {
             }
         })
 
-
         return binding.root
     }
 }
