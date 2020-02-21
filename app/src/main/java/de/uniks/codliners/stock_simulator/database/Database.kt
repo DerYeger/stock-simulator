@@ -197,10 +197,16 @@ interface AchievementsDao {
     fun getAchievements(): LiveData<List<Achievement>>
 
     @Query("select * from achievement where name = :name")
-    fun getAchievementById(name: String): LiveData<Achievement>
+    fun getAchievementWithName(name: Int): LiveData<Achievement>
+
+    @Query("select * from achievement where name = :name")
+    fun getAchievementByName(name: Int): Achievement?
+
+    @Query("select * from achievement ORDER BY timestamp DESC LIMIT 1")
+    fun getLatestAchievement(): LiveData<Achievement>
 
     @Query("delete from achievement where name = :name")
-    fun deleteAchievementById(name: String)
+    fun deleteAchievementById(name: Int)
 
     @Query("delete from achievement")
     fun deleteAchievements()

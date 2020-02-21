@@ -17,20 +17,28 @@ class AchievementsRepository(private val database: StockAppDatabase) {
         database.achievementDao.getAchievements()
     }
 
+    val latestAchievement by lazy {
+        database.achievementDao.getLatestAchievement()
+    }
+
     suspend fun initAchievements() {
+        insertAchievement(Achievement(
+            R.string.achievement_99995reached_name,
+            R.string.achievement_99995reached_description
+        ))
+        insertAchievement(Achievement(
+            R.string.achievement_10010reached_name,
+            R.string.achievement_10010reached_description
+        ))
+        insertAchievement(Achievement(
+            R.string.achievement_20000reached_name,
+            R.string.achievement_20000reached_description
+        ))
+    }
+
+    suspend fun insertAchievement(achievement: Achievement) {
         withContext(Dispatchers.IO) {
-            database.achievementDao.insert(Achievement(
-                R.string.achievement_99995reached_name,
-                R.string.achievement_99995reached_description
-            ))
-            database.achievementDao.insert(Achievement(
-                R.string.achievement_10010reached_name,
-                R.string.achievement_10010reached_description
-            ))
-            database.achievementDao.insert(Achievement(
-                R.string.achievement_20000reached_name,
-                R.string.achievement_20000reached_description
-            ))
+            database.achievementDao.insert(achievement)
         }
     }
 

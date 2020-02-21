@@ -13,8 +13,8 @@ import de.uniks.codliners.stock_simulator.databinding.FragmentQuoteBinding
 import de.uniks.codliners.stock_simulator.domain.StockbrotQuote
 import de.uniks.codliners.stock_simulator.initLineChart
 import de.uniks.codliners.stock_simulator.ui.BaseFragment
-import de.uniks.codliners.stock_simulator.ui.news.NewsAdapter
 import de.uniks.codliners.stock_simulator.updateLineChart
+
 class QuoteFragment : BaseFragment() {
 
     private val viewModel: QuoteViewModel by viewModels {

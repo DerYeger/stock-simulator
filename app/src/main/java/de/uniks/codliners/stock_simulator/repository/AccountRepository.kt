@@ -3,11 +3,7 @@ package de.uniks.codliners.stock_simulator.repository
 import android.content.Context
 import androidx.lifecycle.LiveData
 import de.uniks.codliners.stock_simulator.BuildConfig
-import de.uniks.codliners.stock_simulator.database.DepotQuote
-import de.uniks.codliners.stock_simulator.database.StockAppDatabase
-import de.uniks.codliners.stock_simulator.database.DatabaseTransaction
-import de.uniks.codliners.stock_simulator.database.getDatabase
-import de.uniks.codliners.stock_simulator.domain.*
+import de.uniks.codliners.stock_simulator.R
 import de.uniks.codliners.stock_simulator.database.*
 import de.uniks.codliners.stock_simulator.domain.Balance
 import de.uniks.codliners.stock_simulator.domain.Quote
@@ -78,6 +74,26 @@ class AccountRepository(private val database: StockAppDatabase) {
                     insertDepotQuote(newDepotQuote)
                 }
                 database.transactionDao.insert(transaction)
+
+                // check for reached achievements
+                if (newBalance.value <= 99995) {
+                    val achievement =
+                        database.achievementDao.getAchievementByName(R.string.achievement_99995reached_name)
+                    val newAchievement = achievement!!.copy(timestamp = System.currentTimeMillis())
+                    database.achievementDao.insert(newAchievement)
+                }
+                if (newBalance.value >= 10010) {
+                    val achievement =
+                        database.achievementDao.getAchievementByName(R.string.achievement_10010reached_name)
+                    val newAchievement = achievement!!.copy(timestamp = System.currentTimeMillis())
+                    database.achievementDao.insert(newAchievement)
+                }
+                if (newBalance.value >= 20000) {
+                    val achievement =
+                        database.achievementDao.getAchievementByName(R.string.achievement_20000reached_name)
+                    val newAchievement = achievement!!.copy(timestamp = System.currentTimeMillis())
+                    database.achievementDao.insert(newAchievement)
+                }
             }
         }
     }
