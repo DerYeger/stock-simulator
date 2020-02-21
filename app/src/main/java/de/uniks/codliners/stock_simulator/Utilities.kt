@@ -91,6 +91,14 @@ fun String?.toSafeDouble(): Double? {
     }
 }
 
+fun String?.toSafeInt(): Int? {
+    return try {
+        this?.toInt()
+    } catch (_: Throwable) {
+        null
+    }
+}
+
 fun String.toType(): Symbol.Type? {
     return when (this) {
         "SHARE" -> Symbol.Type.SHARE

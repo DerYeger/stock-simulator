@@ -51,7 +51,7 @@ class AccountRepository(private val database: StockAppDatabase) {
     fun depotQuoteBySymbol(symbol: String): DepotQuote? =
         database.accountDao.getDepotQuoteById(symbol)
 
-    suspend fun buy(quote: Quote, amount: Double) {
+    suspend fun buy(quote: Quote, amount: Double, lever: Int) {
         val lastBalance = latestBalance.value
         lastBalance?.let {
             withContext(Dispatchers.IO) {
@@ -59,14 +59,18 @@ class AccountRepository(private val database: StockAppDatabase) {
                 val newBalance = Balance(lastBalance.value + cashflow)
 
                 val depotQuote = database.accountDao.getDepotQuoteById(quote.symbol)
-                    ?: DepotQuote(id = quote.id, type = quote.type, amount = 0.0)
-                val newDepotQuote = depotQuote.copy(amount = depotQuote.amount + amount)
+                    ?: DepotQuote(id = quote.id, type = quote.type, amount = 0.0, lever = 1)
+                val newDepotQuote = depotQuote.copy(
+                    amount = depotQuote.amount + amount,
+                    lever = depotQuote.lever + lever
+                )
 
                 val transaction = DatabaseTransaction(
                     id = quote.id,
                     type = quote.type,
                     amount = amount,
                     price = quote.latestPrice,
+                    lever = lever,
                     transactionCosts = BuildConfig.TRANSACTION_COSTS,
                     cashflow = cashflow,
                     transactionType = TransactionType.BUY,

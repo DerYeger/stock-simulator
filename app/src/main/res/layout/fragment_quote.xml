@@ -120,7 +120,7 @@
                     android:hint="@string/lever_hint"
                     android:importantForAutofill="no"
                     android:inputType="number"
-                    android:text="@={viewModel.buyAmount}"
+                    android:text="@={viewModel.lever}"
                     app:layout_constraintEnd_toStartOf="@+id/buy_button"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/title_lever_amount"

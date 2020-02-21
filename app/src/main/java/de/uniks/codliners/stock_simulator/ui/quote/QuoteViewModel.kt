@@ -53,6 +53,7 @@ class QuoteViewModel(
     val buyAmount = MutableLiveData<String>().apply {
         value = if (isCrypto) "0.0" else "0"
     }
+    val lever = MutableLiveData<String>("0")
     private val _canBuy = MediatorLiveData<Boolean>()
     val canBuy: LiveData<Boolean> = _canBuy
 
@@ -94,7 +95,18 @@ class QuoteViewModel(
         _canBuy.apply {
             addSource(buyAmount) {
                 value = canBuy(
-                    amount = it.toSafeDouble(),
+                    buyAmount = it.toSafeDouble(),
+                    lever = lever.value.toSafeInt(),
+                    price = quote.value?.latestPrice,
+                    balance = latestBalance.value,
+                    state = state.value
+                )
+            }
+
+            addSource(lever) {
+                value = canBuy(
+                    buyAmount = buyAmount.value.toSafeDouble(),
+                    lever = it.toSafeInt(),
                     price = quote.value?.latestPrice,
                     balance = latestBalance.value,
                     state = state.value
@@ -103,7 +115,8 @@ class QuoteViewModel(
 
             addSource(quote) {
                 value = canBuy(
-                    amount = buyAmount.value.toSafeDouble(),
+                    buyAmount = buyAmount.value.toSafeDouble(),
+                    lever = lever.value.toSafeInt(),
                     price = it?.latestPrice,
                     balance = latestBalance.value,
                     state = state.value
@@ -112,7 +125,8 @@ class QuoteViewModel(
 
             addSource(latestBalance) {
                 value = canBuy(
-                    amount = buyAmount.value.toSafeDouble(),
+                    buyAmount = buyAmount.value.toSafeDouble(),
+                    lever = lever.value.toSafeInt(),
                     price = quote.value?.latestPrice,
                     balance = it,
                     state = state.value
@@ -121,7 +135,8 @@ class QuoteViewModel(
 
             addSource(state) {
                 value = canBuy(
-                    amount = buyAmount.value.toSafeDouble(),
+                    buyAmount = buyAmount.value.toSafeDouble(),
+                    lever = lever.value.toSafeInt(),
                     price = quote.value?.latestPrice,
                     balance = latestBalance.value,
                     state = it
@@ -223,7 +238,11 @@ class QuoteViewModel(
 
     fun buy() {
         viewModelScope.launch {
-            accountRepository.buy(quote.value!!, buyAmount.value!!.toDouble())
+            accountRepository.buy(
+                quote.value!!,
+                buyAmount.value!!.toDouble(),
+                lever.value!!.toInt()
+            )
         }
     }
 
@@ -290,14 +309,16 @@ class QuoteViewModel(
     }
 
     private fun canBuy(
-        amount: Double?,
+        buyAmount: Double?,
+        lever: Int?,
         price: Double?,
         balance: Balance?,
         state: QuoteRepository.State?
-    ) = noNulls(amount, price, depotQuote, state)
+    ) = noNulls(buyAmount, lever, price, depotQuote, state)
             && state === QuoteRepository.State.Done
-            && 0 < amount!!
-            && amount * price!! + BuildConfig.TRANSACTION_COSTS <= balance!!.value
+            && 0 < buyAmount!!
+            && 0 < lever!!
+            && buyAmount * price!! + BuildConfig.TRANSACTION_COSTS <= balance!!.value
 
     private fun canSell(
         amount: Double?,

@@ -11,7 +11,8 @@ data class DepotQuote(
     @PrimaryKey
     val id: String,
     val type: Symbol.Type,
-    val amount: Double
+    val amount: Double,
+    val lever: Int
 )
 
 @Entity
@@ -29,6 +30,7 @@ data class DatabaseTransaction(
     val type: Symbol.Type,
     val amount: Double,
     val price: Double,
+    val lever: Int,
     val transactionCosts: Double,
     val cashflow: Double,
     val transactionType: TransactionType,
