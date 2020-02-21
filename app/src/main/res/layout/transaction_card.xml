@@ -115,6 +115,7 @@
                     android:layout_height="wrap_content"
                     android:onClick="@{() -> onClickListener.onClick(transaction)}"
                     android:text="@string/details"
+                    android:textColor="@color/colorAccent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent" />
 
