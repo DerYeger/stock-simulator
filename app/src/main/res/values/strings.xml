@@ -45,6 +45,9 @@
     <string name="performance_format_win">+%.2f %%</string>
     <string name="performance_format_loss">%.2f %%</string>
     <string name="performance_format_neutral">%.2f %%</string>
+    <string name="transaction_format_win">+%.2f $</string>
+    <string name="transaction_format_loss">%.2f $</string>
+    <string name="transaction_format_neutral">%.2f $</string>
     <string name="double_depot_quote_format">%s - %f</string>
     <string name="long_depot_quote_format">%s - %d</string>
     <string name="transaction_type_image_description">Image of the transaction type</string>
