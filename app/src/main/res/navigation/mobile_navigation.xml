@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
     app:startDestination="@+id/navigation_account">
 
@@ -44,6 +45,20 @@
         android:id="@+id/navigation_quote"
         android:name="de.uniks.codliners.stock_simulator.ui.quote.QuoteFragment"
         android:label="@string/title_quote">
+        <argument
+            android:name="id"
+            app:argType="string" />
+        <argument
+            android:name="type"
+            app:argType="de.uniks.codliners.stock_simulator.domain.Symbol$Type" />
+        <action
+            android:id="@+id/action_navigation_quote_to_navigation_news"
+            app:destination="@id/navigation_news" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_achievements"
+        android:name="de.uniks.codliners.stock_simulator.ui.achievements.AchievementsFragment"
+        android:label="@string/title_achievements">
         <argument
             android:name="id"
             app:argType="string" />
