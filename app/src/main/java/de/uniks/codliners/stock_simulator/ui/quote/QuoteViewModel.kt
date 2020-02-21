@@ -169,27 +169,27 @@ class QuoteViewModel(
             addSource(autoBuyAmount) {
                 value = canAddRemoveQuoteToStockbrot(
                     stockbrotQuote.value,
-                    autoBuyAmount.value?.toSafeDouble(),
-                    thresholdBuy.value?.toSafeDouble(),
-                    thresholdSell.value?.toSafeDouble()
+                    autoBuyAmount.value.toSafeDouble(),
+                    thresholdBuy.value.toSafeDouble(),
+                    thresholdSell.value.toSafeDouble()
                 )
             }
 
             addSource(thresholdBuy) {
                 value = canAddRemoveQuoteToStockbrot(
                     stockbrotQuote.value,
-                    autoBuyAmount.value?.toSafeDouble(),
-                    thresholdBuy.value?.toSafeDouble(),
-                    thresholdSell.value?.toSafeDouble()
+                    autoBuyAmount.value.toSafeDouble(),
+                    thresholdBuy.value.toSafeDouble(),
+                    thresholdSell.value.toSafeDouble()
                 )
             }
 
             addSource(thresholdSell) {
                 value = canAddRemoveQuoteToStockbrot(
                     stockbrotQuote.value,
-                    autoBuyAmount.value?.toSafeDouble(),
-                    thresholdBuy.value?.toSafeDouble(),
-                    thresholdSell.value?.toSafeDouble()
+                    autoBuyAmount.value.toSafeDouble(),
+                    thresholdBuy.value.toSafeDouble(),
+                    thresholdSell.value.toSafeDouble()
                 )
             }
         }
