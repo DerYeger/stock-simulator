@@ -28,4 +28,20 @@ class Converters {
     fun fromStringToSymbolType(typeString: String): Symbol.Type {
         return Symbol.Type.valueOf(typeString)
     }
+
+    @TypeConverter
+    fun fromBooleanToInt(enabled: Boolean): Int {
+        return when(enabled) {
+            true -> 1
+            false -> 0
+        }
+    }
+
+    @TypeConverter
+    fun fromIntToBoolean(booleanInt: Int): Boolean {
+        return when(booleanInt) {
+            0 -> false
+            else -> true
+        }
+    }
 }

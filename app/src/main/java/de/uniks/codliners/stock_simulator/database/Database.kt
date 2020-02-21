@@ -215,7 +215,7 @@ interface AchievementsDao {
 
 @Database(
     entities = [Symbol::class, DepotQuote::class, News::class, DatabaseTransaction::class, Quote::class, Balance::class, HistoricalPrice::class, StockbrotQuote::class, DepotValue::class, Achievement::class],
-    version = 22,
+    version = 24,
     exportSchema = false
 )
 @TypeConverters(Converters::class)

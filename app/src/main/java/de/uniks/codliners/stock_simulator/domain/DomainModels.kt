@@ -83,5 +83,7 @@ data class Achievement(
     val name: Int,
     @StringRes
     val description: Int,
-    val timestamp: Long? = null  // null if achievement not reached otherwise the reached timestamp
+    val reached: Boolean = false,
+    val timestamp: Long? = null,  // null if achievement not reached otherwise the reached timestamp
+    val displayed: Boolean = false
 )
