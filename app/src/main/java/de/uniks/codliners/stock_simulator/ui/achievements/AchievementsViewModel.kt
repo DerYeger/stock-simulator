@@ -3,9 +3,7 @@ package de.uniks.codliners.stock_simulator.ui.achievements
 import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
 import de.uniks.codliners.stock_simulator.repository.AchievementsRepository
-import kotlinx.coroutines.launch
 
 
 class AchievementsViewModel(application: Application) : ViewModel() {
@@ -23,12 +21,6 @@ class AchievementsViewModel(application: Application) : ViewModel() {
                 return AchievementsViewModel(application) as T
             }
             throw IllegalArgumentException("Unable to construct viewmodel")
-        }
-    }
-
-    fun refresh() {
-        viewModelScope.launch {
-            achievementsRepository.resetAchievements()
         }
     }
 }

@@ -28,9 +28,6 @@ class AchievementsFragment : BaseFragment() {
         binding.viewModel = viewModel
         binding.achievementsRecyclerView.adapter = AchievementsAdapter()
         binding.lifecycleOwner = this
-
-        viewModel.refresh()
-
         return binding.root
     }
 
