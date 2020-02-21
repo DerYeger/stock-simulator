@@ -15,7 +15,6 @@ class AccountViewModel(application: Application) : ViewModel() {
     val depotQuotes = accountRepository.depot
     val depotValue = accountRepository.currentDepotValue
     val depotValuesLimited = accountRepository.depotValuesLimited
-    //var performance =  MutableLiveData<Double>(0.0)
 
     private val _performance = MediatorLiveData<Double>()
     val performance: LiveData<Double> = _performance

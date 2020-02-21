@@ -40,10 +40,10 @@ class AccountRepository(private val database: StockAppDatabase) {
         database.accountDao.getLatestDepotValues()
     }
 
-    fun depotQuoteWithSymbol(symbol: String): LiveData<DepotQuote> =
+    fun depotQuoteWithSymbol(symbol: String): LiveData<DepotQuotePurchase> =
         database.accountDao.getDepotQuoteWitId(symbol)
 
-    fun depotQuoteBySymbol(symbol: String): DepotQuote? =
+    fun depotQuoteBySymbol(symbol: String): DepotQuotePurchase? =
         database.accountDao.getDepotQuoteById(symbol)
 
     suspend fun buy(quote: Quote, amount: Double) {
@@ -53,14 +53,14 @@ class AccountRepository(private val database: StockAppDatabase) {
                 val cashflow = -(quote.latestPrice * amount) - BuildConfig.TRANSACTION_COSTS
                 val newBalance = Balance(lastBalance.value + cashflow)
 
-                val depotQuote = database.accountDao.getDepotQuoteById(quote.symbol)
-                    ?: DepotQuote(
-                        id = quote.id,
-                        symbol = quote.symbol,
-                        type = quote.type,
-                        amount = 0.0
-                    )
-                val newDepotQuote = depotQuote.copy(amount = depotQuote.amount + amount)
+
+                val newDepotQuote = DepotQuotePurchase(
+                    id = quote.id,
+                    symbol = quote.symbol,
+                    type = quote.type,
+                    buyingPrice = quote.latestPrice,
+                    amount = amount
+                )
 
                 val transaction = Transaction(
                     id = quote.id,
@@ -71,7 +71,8 @@ class AccountRepository(private val database: StockAppDatabase) {
                     transactionCosts = BuildConfig.TRANSACTION_COSTS,
                     cashflow = cashflow,
                     transactionType = TransactionType.BUY,
-                    date = System.currentTimeMillis()
+                    date = System.currentTimeMillis(),
+                    result = null
                 )
 
                 database.accountDao.apply {
@@ -85,7 +86,7 @@ class AccountRepository(private val database: StockAppDatabase) {
 
     suspend fun fetchCurrentDepotValue() {
         withContext(Dispatchers.IO) {
-            val depotQuotes = database.accountDao.getDepotQuotesValues()
+            val depotQuotes = database.accountDao.getDepotQuotePurchasesValuesOrderedByPrice()
             val newValue = depotQuotes.sumByDouble { depotQuote ->
                 val quotePrice = database.quoteDao.getQuoteValueById(depotQuote.id).latestPrice
                 val depotQuoteAmount = depotQuote.amount
@@ -104,8 +105,7 @@ class AccountRepository(private val database: StockAppDatabase) {
                 val cashflow = quote.latestPrice * amount - BuildConfig.TRANSACTION_COSTS
                 val newBalance = Balance(lastBalance.value + cashflow)
 
-                val depotQuote = database.accountDao.getDepotQuoteById(quote.id)!!
-                val newDepotQuote = depotQuote.copy(amount = depotQuote.amount - amount)
+                val transactionResult = calculateResultAndUpdateQuotePurchases(amount, cashflow)
 
                 val transaction = Transaction(
                     id = quote.id,
@@ -116,21 +116,49 @@ class AccountRepository(private val database: StockAppDatabase) {
                     transactionCosts = BuildConfig.TRANSACTION_COSTS,
                     cashflow = cashflow,
                     transactionType = TransactionType.SELL,
-                    date = System.currentTimeMillis()
+                    date = System.currentTimeMillis(),
+                    result = transactionResult
                 )
 
                 database.accountDao.apply {
                     insertBalance(newBalance)
-                    if (newDepotQuote.amount > 0) {
-                        insertDepotQuote(newDepotQuote)
-                    } else {
-                        deleteDepotQuoteById(newDepotQuote.id)
-                    }
+                    // deleteDepotQuotes(*depotQuotesToSell.toTypedArray())
                 }
                 database.transactionDao.insert(transaction)
             }
         }
     }
+
+    private fun calculateResultAndUpdateQuotePurchases(
+        amount: Double,
+        cashflow: Double
+    ): Double {
+        val allQuotesOPurchases = database.accountDao.getDepotQuotePurchasesValuesOrderedByPrice()
+
+        val quotesToSell = mutableListOf<DepotQuotePurchase>()
+        var transactionResult = 0.0
+
+        while (quotesToSell.size < amount) {
+            var count = 0
+            val amountOfQuotesMissing = amount - quotesToSell.size
+            val quotePurchases = allQuotesOPurchases[count]
+            if (quotePurchases.amount <= amountOfQuotesMissing) {
+                quotesToSell.add(quotePurchases)
+                database.accountDao.deleteDepotQuotes(quotePurchases)
+                transactionResult += cashflow - (quotePurchases.buyingPrice * quotePurchases.amount)
+            } else {
+                val newAmount = quotePurchases.amount - amountOfQuotesMissing
+                val newDepotQuote =
+                    quotePurchases.copy(amount = newAmount)
+                quotesToSell.add(newDepotQuote)
+                database.accountDao.insertDepotQuote(newDepotQuote)
+                transactionResult += cashflow - (quotePurchases.buyingPrice * amountOfQuotesMissing)
+            }
+            ++count
+        }
+        return transactionResult
+    }
+
 
     suspend fun hasBalance() =
         withContext(Dispatchers.IO) { database.accountDao.getBalanceCount() > 0 }

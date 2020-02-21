@@ -132,7 +132,7 @@ class QuoteViewModel(
             addSource(sellAmount) {
                 value = canSell(
                     amount = it.toSafeDouble(),
-                    depotQuote = depotQuote.value,
+                    depotQuotePurchase = depotQuote.value,
                     balance = latestBalance.value,
                     state = state.value
                 )
@@ -141,7 +141,7 @@ class QuoteViewModel(
             addSource(depotQuote) {
                 value = canSell(
                     amount = sellAmount.value.toSafeDouble(),
-                    depotQuote = it,
+                    depotQuotePurchase = it,
                     balance = latestBalance.value,
                     state = state.value
                 )
@@ -150,7 +150,7 @@ class QuoteViewModel(
             addSource(latestBalance) {
                 value = canSell(
                     amount = sellAmount.value.toSafeDouble(),
-                    depotQuote = depotQuote.value,
+                    depotQuotePurchase = depotQuote.value,
                     balance = it,
                     state = state.value
                 )
@@ -159,7 +159,7 @@ class QuoteViewModel(
             addSource(state) {
                 value = canSell(
                     amount = sellAmount.value.toSafeDouble(),
-                    depotQuote = depotQuote.value,
+                    depotQuotePurchase = depotQuote.value,
                     balance = latestBalance.value,
                     state = it
                 )
@@ -300,13 +300,13 @@ class QuoteViewModel(
 
     private fun canSell(
         amount: Double?,
-        depotQuote: DepotQuote?,
+        depotQuotePurchase: DepotQuotePurchase?,
         balance: Balance?,
         state: QuoteRepository.State?
-    ) = noNulls(amount, depotQuote, balance, state)
+    ) = noNulls(amount, depotQuotePurchase, balance, state)
             && state === QuoteRepository.State.Done
             && 0 < amount!!
-            && amount <= depotQuote!!.amount
+            && amount <= depotQuotePurchase!!.amount
             && BuildConfig.TRANSACTION_COSTS <= balance!!.value
 
     private fun canAddRemoveQuoteToStockbrot(

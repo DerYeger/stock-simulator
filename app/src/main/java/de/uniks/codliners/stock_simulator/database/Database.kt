@@ -111,24 +111,30 @@ interface AccountDao {
     fun deleteBalances()
 
     @Insert(onConflict = REPLACE)
-    fun insertDepotQuote(depot: DepotQuote)
+    fun insertDepotQuote(depotPurchase: DepotQuotePurchase)
 
-    @Query("SELECT * FROM depotquote")
-    fun getDepotQuotes(): LiveData<List<DepotQuote>>
+    @Query("SELECT * FROM depotquotepurchase")
+    fun getDepotQuotes(): LiveData<List<DepotQuotePurchase>>
 
-    @Query("SELECT * FROM depotquote WHERE id == :id LIMIT 1")
-    fun getDepotQuoteWitId(id: String): LiveData<DepotQuote>
+    @Query("SELECT * FROM depotquotepurchase WHERE id == :id LIMIT 1")
+    fun getDepotQuoteWitId(id: String): LiveData<DepotQuotePurchase>
 
-    @Query("SELECT * FROM depotquote")
-    fun getDepotQuotesValues(): List<DepotQuote>
+    @Query("SELECT * FROM depotquotepurchase ORDER BY depotquotepurchase.buyingPrice ASC")
+    fun getDepotQuotePurchasesValuesOrderedByPrice(): List<DepotQuotePurchase>
 
-    @Query("SELECT * FROM depotquote WHERE id == :id LIMIT 1")
-    fun getDepotQuoteById(id: String): DepotQuote?
+    @Query("SELECT * FROM depotquotepurchase WHERE id == :id LIMIT 1")
+    fun getDepotQuoteById(id: String): DepotQuotePurchase?
 
-    @Query("DELETE FROM depotquote WHERE id == :id")
+//    @Query("SELECT * FROM depotquote WHERE id = :id ORDER BY depotquote.buyingPrice ASC LIMIT :amount")
+//    fun getLeastWorthDepotQuotesByIdAndAmount(id: String, amount: Double): List<DepotQuote>?
+
+    @Query("DELETE FROM depotquotepurchase WHERE id == :id")
     fun deleteDepotQuoteById(id: String)
 
-    @Query("DELETE FROM depotquote")
+    @Delete
+    fun deleteDepotQuotes(vararg depotPurchase: DepotQuotePurchase)
+
+    @Query("DELETE FROM depotquotepurchase")
     fun deleteDepot()
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -189,7 +195,7 @@ interface HistoricalPriceDao {
 }
 
 @Database(
-    entities = [Symbol::class, DepotQuote::class, News::class, Transaction::class, Quote::class, Balance::class, HistoricalPrice::class, StockbrotQuote::class, DepotValue::class],
+    entities = [Symbol::class, DepotQuotePurchase::class, News::class, Transaction::class, Quote::class, Balance::class, HistoricalPrice::class, StockbrotQuote::class, DepotValue::class],
     version = 24,
     exportSchema = false
 )
