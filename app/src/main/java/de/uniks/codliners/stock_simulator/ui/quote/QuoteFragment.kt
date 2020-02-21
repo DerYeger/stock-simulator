@@ -13,7 +13,6 @@ import de.uniks.codliners.stock_simulator.databinding.FragmentQuoteBinding
 import de.uniks.codliners.stock_simulator.domain.StockbrotQuote
 import de.uniks.codliners.stock_simulator.initLineChart
 import de.uniks.codliners.stock_simulator.ui.BaseFragment
-import de.uniks.codliners.stock_simulator.ui.news.NewsAdapter
 import de.uniks.codliners.stock_simulator.updateLineChart
 
 class QuoteFragment : BaseFragment() {
@@ -46,7 +45,8 @@ class QuoteFragment : BaseFragment() {
                 // Reset click indicator.
                 viewModel.clickNewsStatus.value = null
 
-                val action = QuoteFragmentDirections.actionNavigationQuoteToNavigationNews(viewModel.quote.value!!.symbol)
+                val action =
+                    QuoteFragmentDirections.actionNavigationQuoteToNavigationNews(viewModel.quote.value!!.symbol)
                 findNavController().navigate(action)
             }
         })
@@ -74,6 +74,9 @@ class QuoteFragment : BaseFragment() {
                 val entries = priceList.map { price ->
                     Entry((price.date - referenceTimestamp).toFloat(), price.price.toFloat())
                 }
+
+                // resources.configuration.locales[0] requires API level 24
+                @Suppress("DEPRECATION")
                 updateLineChart(
                     binding.quoteChart,
                     entries,

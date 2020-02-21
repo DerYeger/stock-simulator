@@ -70,7 +70,7 @@ fun Context.resetNews() {
     }
 }
 
-fun Context.ensureAccountPresence(lifecycleOwner: LifecycleOwner) {
+fun Context.ensureAccountPresence() {
     val accountRepository = AccountRepository(this)
     CoroutineScope(Dispatchers.Main).launch {
         if (!accountRepository.hasBalance()) {

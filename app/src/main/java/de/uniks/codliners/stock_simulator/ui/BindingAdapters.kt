@@ -99,21 +99,21 @@ fun TextView.bindPerformanceText(performance: Double) {
                 resources.getText(R.string.performance_format_win).toString(),
                 performance
             )
-            this.setTextColor(resources.getColor(R.color.colorAccent))
+            this.setTextColor(resources.getColor(R.color.colorAccent, context.theme))
         }
         performance == 0.0 -> {
             text = String.format(
                 resources.getText(R.string.performance_format_neutral).toString(),
                 performance
             )
-            this.setTextColor(resources.getColor(R.color.trendingFlat))
+            this.setTextColor(resources.getColor(R.color.trendingFlat, context.theme))
         }
         else -> {
             text = String.format(
                 resources.getText(R.string.performance_format_loss).toString(),
                 performance
             )
-            this.setTextColor(resources.getColor(R.color.trendingDown))
+            this.setTextColor(resources.getColor(R.color.trendingDown, context.theme))
         }
     }
 }
@@ -123,7 +123,7 @@ fun ImageView.bindPerformanceIcon(performance: Double) {
     when {
         performance > 0.0 -> {
             setImageDrawable(resources.getDrawable(R.drawable.ic_trending_up_black_24dp, context.theme))
-            this.setColorFilter(resources.getColor(R.color.colorAccent))
+            this.setColorFilter(resources.getColor(R.color.colorAccent, context.theme))
         }
         performance == 0.0 -> {
             setImageDrawable(
@@ -132,7 +132,7 @@ fun ImageView.bindPerformanceIcon(performance: Double) {
                     context.theme
                 )
             )
-            this.setColorFilter(resources.getColor(R.color.trendingFlat))
+            this.setColorFilter(resources.getColor(R.color.trendingFlat, context.theme))
         }
         else -> {
             setImageDrawable(
@@ -141,7 +141,7 @@ fun ImageView.bindPerformanceIcon(performance: Double) {
                     context.theme
                 )
             )
-            this.setColorFilter(resources.getColor(R.color.trendingDown))
+            this.setColorFilter(resources.getColor(R.color.trendingDown, context.theme))
         }
     }
 }
