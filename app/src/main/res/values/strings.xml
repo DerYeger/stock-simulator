@@ -38,8 +38,8 @@
     <string name="title_settings">Settings</string>
     <string name="title_stockbrot">Stockbrot</string>
     <string name="query">Symbol</string>
-    <string name="account_currency_format">Account Balance: %s$</string>
-    <string name="depot_currency_format">Depot Value: %s$</string>
+    <string name="account_currency_format">Balance: %s$</string>
+    <string name="depot_currency_format">Depot: %s$</string>
     <string name="currency_format">%s$</string>
     <string name="double_depot_quote_format">%s - %f</string>
     <string name="long_depot_quote_format">%s - %d</string>

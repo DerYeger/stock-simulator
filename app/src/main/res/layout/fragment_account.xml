@@ -69,30 +69,18 @@
 
             </com.github.mikephil.charting.charts.LineChart>
 
-            <TextView
-                android:id="@+id/depot_text"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/default_spacing"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="@dimen/default_spacing"
-                android:text="@string/title_depot"
-                android:textAppearance="@android:style/TextAppearance.Material.Headline"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/depot_chart" />
-
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/depot_recycler_view"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_spacing"
                 app:depotQuotes="@{viewModel.depotQuotes}"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/depot_text"
+                app:layout_constraintTop_toBottomOf="@+id/depot_chart"
                 app:spanCount="3" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
