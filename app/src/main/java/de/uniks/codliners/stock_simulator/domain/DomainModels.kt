@@ -73,6 +73,7 @@ data class Quote(
 data class StockbrotQuote(
     @PrimaryKey
     val id: String,
+    val symbol: String,
     val type: Symbol.Type,
     val buyAmount: Double,
     val thresholdBuy: Double,

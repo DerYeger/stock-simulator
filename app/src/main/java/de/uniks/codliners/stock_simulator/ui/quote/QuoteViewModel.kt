@@ -243,7 +243,7 @@ class QuoteViewModel(
             val autoBuyAmount = autoBuyAmount.value.toSafeDouble() ?: 0.0
             val thresholdBuyDouble = thresholdBuy.value.toSafeDouble() ?: 0.0
             val thresholdSellDouble = thresholdSell.value.toSafeDouble() ?: 0.0
-            val newStockbrotQuote = StockbrotQuote(id, type, autoBuyAmount, thresholdBuyDouble, thresholdSellDouble)
+            val newStockbrotQuote = StockbrotQuote(id, quote.value!!.symbol, type, autoBuyAmount, thresholdBuyDouble, thresholdSellDouble)
             stockbrotWorkRequest.addQuote(newStockbrotQuote)
             stockbrotRepository.addStockbrotQuote(newStockbrotQuote)
         }
