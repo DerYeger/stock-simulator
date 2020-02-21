@@ -203,13 +203,13 @@ interface AchievementsDao {
     fun deleteAchievementById(name: String)
 
     @Query("delete from achievement")
-    fun deleteAchivements()
+    fun deleteAchievements()
 
 }
 
 @Database(
-    entities = [Symbol::class, DepotQuote::class, News::class, DatabaseTransaction::class, Quote::class, Balance::class, HistoricalPrice::class, StockbrotQuote::class, DepotValue::class],
-    version = 21,
+    entities = [Symbol::class, DepotQuote::class, News::class, DatabaseTransaction::class, Quote::class, Balance::class, HistoricalPrice::class, StockbrotQuote::class, DepotValue::class, Achievement::class],
+    version = 22,
     exportSchema = false
 )
 @TypeConverters(Converters::class)

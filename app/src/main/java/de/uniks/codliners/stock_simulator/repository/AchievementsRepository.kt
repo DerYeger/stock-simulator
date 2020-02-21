@@ -18,7 +18,7 @@ class AchievementsRepository(private val database: StockAppDatabase) {
     suspend fun resetAchievements() {
         withContext(Dispatchers.IO) {
             database.achievementDao.apply {
-                deleteAchivements()
+                deleteAchievements()
             }
         }
     }
