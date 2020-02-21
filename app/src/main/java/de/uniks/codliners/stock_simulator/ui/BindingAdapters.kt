@@ -8,14 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import de.uniks.codliners.stock_simulator.R
 import de.uniks.codliners.stock_simulator.database.DepotQuote
-import de.uniks.codliners.stock_simulator.domain.StockbrotQuote
-import de.uniks.codliners.stock_simulator.domain.Symbol
-import de.uniks.codliners.stock_simulator.domain.Transaction
-import de.uniks.codliners.stock_simulator.domain.TransactionType
+import de.uniks.codliners.stock_simulator.domain.*
 import de.uniks.codliners.stock_simulator.domain.TransactionType.BUY
 import de.uniks.codliners.stock_simulator.domain.TransactionType.SELL
-import de.uniks.codliners.stock_simulator.domain.*
-import de.uniks.codliners.stock_simulator.domain.TransactionType.*
 import de.uniks.codliners.stock_simulator.isWholeNumber
 import de.uniks.codliners.stock_simulator.ui.account.DepotQuoteRecyclerViewAdapter
 import de.uniks.codliners.stock_simulator.ui.history.HistoryRecyclerViewAdapter
