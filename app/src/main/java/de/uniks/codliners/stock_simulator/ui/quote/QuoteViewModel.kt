@@ -3,11 +3,11 @@ package de.uniks.codliners.stock_simulator.ui.quote
 import android.app.Application
 import android.text.InputType
 import androidx.lifecycle.*
-import de.uniks.codliners.stock_simulator.*
+import de.uniks.codliners.stock_simulator.BuildConfig
 import de.uniks.codliners.stock_simulator.background.Constants
 import de.uniks.codliners.stock_simulator.background.StockbrotWorkRequest
-import de.uniks.codliners.stock_simulator.database.DepotQuote
 import de.uniks.codliners.stock_simulator.domain.Balance
+import de.uniks.codliners.stock_simulator.domain.DepotQuote
 import de.uniks.codliners.stock_simulator.domain.StockbrotQuote
 import de.uniks.codliners.stock_simulator.domain.Symbol
 import de.uniks.codliners.stock_simulator.noNulls
@@ -42,7 +42,8 @@ class QuoteViewModel(
 
     private val isCrypto = type === Symbol.Type.CRYPTO
 
-    val inputType = if (isCrypto) InputType.TYPE_NUMBER_FLAG_DECIMAL else InputType.TYPE_CLASS_NUMBER
+    val inputType =
+        if (isCrypto) InputType.TYPE_NUMBER_FLAG_DECIMAL else InputType.TYPE_CLASS_NUMBER
 
     private val state = quoteRepository.state
     val refreshing = state.map { it === QuoteRepository.State.Refreshing }
@@ -234,7 +235,7 @@ class QuoteViewModel(
     }
 
     fun addRemoveQuoteToStockbrot() {
-        when(stockbrotQuote.value) {
+        when (stockbrotQuote.value) {
             null -> addQuoteToStockbrot()
             else -> removeQuoteFromStockbrot()
         }
@@ -242,19 +243,19 @@ class QuoteViewModel(
 
     private fun addQuoteToStockbrot() {
         viewModelScope.launch {
-            val autoBuyAmount = when(autoBuyAmount.value) {
+            val autoBuyAmount = when (autoBuyAmount.value) {
                 null -> Constants.DOUBLE_DEFAULT
                 "0.0" -> Constants.DOUBLE_DEFAULT
                 "0" -> Constants.DOUBLE_DEFAULT
                 else -> autoBuyAmount.value.toSafeDouble() ?: Constants.DOUBLE_DEFAULT
             }
-            val thresholdBuyDouble = when(thresholdBuy.value) {
+            val thresholdBuyDouble = when (thresholdBuy.value) {
                 null -> Constants.DOUBLE_DEFAULT
                 "0.0" -> Constants.DOUBLE_DEFAULT
                 "0" -> Constants.DOUBLE_DEFAULT
                 else -> thresholdBuy.value.toSafeDouble() ?: Constants.DOUBLE_DEFAULT
             }
-            val thresholdSellDouble = when(thresholdSell.value) {
+            val thresholdSellDouble = when (thresholdSell.value) {
                 null -> Constants.DOUBLE_DEFAULT
                 "0.0" -> Constants.DOUBLE_DEFAULT
                 "0" -> Constants.DOUBLE_DEFAULT
@@ -315,8 +316,8 @@ class QuoteViewModel(
         autoBuyAmount: Double?,
         thresholdBuy: Double?,
         thresholdSell: Double?
-    ) = when(stockbrotQuote) {
-        null -> ( doubleValid(autoBuyAmount) && doubleValid(thresholdBuy) ) ||
+    ) = when (stockbrotQuote) {
+        null -> (doubleValid(autoBuyAmount) && doubleValid(thresholdBuy)) ||
                 doubleValid(thresholdSell)
         else -> true
     }

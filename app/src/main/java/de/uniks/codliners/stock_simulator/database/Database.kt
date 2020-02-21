@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.room.*
 import androidx.room.OnConflictStrategy.REPLACE
 import de.uniks.codliners.stock_simulator.domain.*
+import de.uniks.codliners.stock_simulator.domain.Transaction
 
 @Dao
 interface SymbolDao {
@@ -63,28 +64,28 @@ interface NewsDao {
 @Dao
 interface TransactionDao {
 
-    @Query("select * from databasetransaction where databasetransaction.id = :id")
-    fun getTransactionsById(id: String): LiveData<List<DatabaseTransaction>>
+    @Query("select * from `transaction` where `transaction`.id = :id")
+    fun getTransactionsById(id: String): LiveData<List<Transaction>>
 
-    @Query("select * from databasetransaction limit :limit")
-    fun getTransactionsLimited(limit: Int): LiveData<List<DatabaseTransaction>>
+    @Query("select * from `transaction` limit :limit")
+    fun getTransactionsLimited(limit: Int): LiveData<List<Transaction>>
 
-    @Query("SELECT * FROM databasetransaction ORDER BY databasetransaction.date DESC")
-    fun getTransactions(): LiveData<List<DatabaseTransaction>>
-
-    @Delete
-    fun deleteAll(vararg transactions: DatabaseTransaction)
+    @Query("SELECT * FROM `transaction` ORDER BY `transaction`.date DESC")
+    fun getTransactions(): LiveData<List<Transaction>>
 
     @Delete
-    fun delete(transaction: DatabaseTransaction)
+    fun deleteAll(vararg transactions: Transaction)
+
+    @Delete
+    fun delete(transaction: Transaction)
 
     @Insert
-    fun insert(transaction: DatabaseTransaction)
+    fun insert(transaction: Transaction)
 
     @Insert(onConflict = REPLACE)
-    fun insertAll(vararg transactions: DatabaseTransaction)
+    fun insertAll(vararg transactions: Transaction)
 
-    @Query("DELETE FROM databasetransaction")
+    @Query("DELETE FROM `transaction`")
     fun deleteTransactions()
 }
 
@@ -188,8 +189,8 @@ interface HistoricalPriceDao {
 }
 
 @Database(
-    entities = [Symbol::class, DepotQuote::class, News::class, DatabaseTransaction::class, Quote::class, Balance::class, HistoricalPrice::class, StockbrotQuote::class, DepotValue::class],
-    version = 21,
+    entities = [Symbol::class, DepotQuote::class, News::class, Transaction::class, Quote::class, Balance::class, HistoricalPrice::class, StockbrotQuote::class, DepotValue::class],
+    version = 24,
     exportSchema = false
 )
 @TypeConverters(Converters::class)

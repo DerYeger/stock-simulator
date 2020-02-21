@@ -2,7 +2,7 @@ package de.uniks.codliners.stock_simulator.network
 
 import androidx.room.PrimaryKey
 import com.squareup.moshi.JsonClass
-import de.uniks.codliners.stock_simulator.database.HistoricalPrice
+import de.uniks.codliners.stock_simulator.domain.HistoricalPrice
 import de.uniks.codliners.stock_simulator.domain.Quote
 import de.uniks.codliners.stock_simulator.domain.Symbol
 import java.text.SimpleDateFormat

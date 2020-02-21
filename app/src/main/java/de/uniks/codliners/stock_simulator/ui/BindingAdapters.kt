@@ -7,7 +7,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import de.uniks.codliners.stock_simulator.R
-import de.uniks.codliners.stock_simulator.database.DepotQuote
 import de.uniks.codliners.stock_simulator.domain.*
 import de.uniks.codliners.stock_simulator.domain.TransactionType.*
 import de.uniks.codliners.stock_simulator.isWholeNumber
@@ -72,13 +71,13 @@ fun TextView.bindDepotQuote(depotQuote: DepotQuote?) {
             true ->
                 String.format(
                     resources.getText(R.string.long_depot_quote_format).toString(),
-                    depotQuote.id,
+                    depotQuote.symbol,
                     depotQuote.amount.toLong()
                 )
             false ->
                 String.format(
                     resources.getText(R.string.double_depot_quote_format).toString(),
-                    depotQuote.id,
+                    depotQuote.symbol,
                     depotQuote.amount
                 )
         }

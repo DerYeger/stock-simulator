@@ -15,7 +15,7 @@ data class Balance(
 
 @Entity
 @JsonClass(generateAdapter = true)
-data class News constructor(
+data class News(
     @PrimaryKey(autoGenerate = true)
     val primaryKey: Long = 0,
     val datetime: Long,
@@ -31,8 +31,12 @@ data class News constructor(
 
 enum class TransactionType { BUY, SELL }
 
+@Entity
 data class Transaction(
+    @PrimaryKey(autoGenerate = true)
+    val primaryKey: Long = 0,
     val id: String,
+    val symbol: String,
     val type: Symbol.Type,
     val amount: Double,
     val price: Double,
@@ -73,4 +77,29 @@ data class StockbrotQuote(
     val buyAmount: Double,
     val thresholdBuy: Double,
     val thresholdSell: Double
+)
+
+@Entity
+data class DepotQuote(
+    @PrimaryKey
+    val id: String,
+    val symbol: String,
+    val type: Symbol.Type,
+    val amount: Double
+)
+
+@Entity
+data class DepotValue(
+    val value: Double,
+    @PrimaryKey
+    val timestamp: Long = System.currentTimeMillis()
+)
+
+@Entity
+data class HistoricalPrice(
+    @PrimaryKey(autoGenerate = true)
+    val primaryKey: Long = 0,
+    val id: String,
+    val date: Long,
+    val price: Double
 )

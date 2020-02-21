@@ -3,9 +3,9 @@ package de.uniks.codliners.stock_simulator.repository
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import de.uniks.codliners.stock_simulator.database.HistoricalPrice
 import de.uniks.codliners.stock_simulator.database.StockAppDatabase
 import de.uniks.codliners.stock_simulator.database.getDatabase
+import de.uniks.codliners.stock_simulator.domain.HistoricalPrice
 import de.uniks.codliners.stock_simulator.domain.Quote
 import de.uniks.codliners.stock_simulator.network.NetworkService
 import de.uniks.codliners.stock_simulator.network.asDomainHistoricalPrices
@@ -44,7 +44,9 @@ class QuoteRepository(private val database: StockAppDatabase) {
                 _state.postValue(State.Refreshing)
                 val quote = NetworkService.IEX_API.quote(symbol).asDomainQuote()
                 database.quoteDao.insert(quote)
-                val historicalPrices = NetworkService.IEX_API.historical(symbol = symbol, chartCloseOnly = true).asDomainHistoricalPrices(symbol)
+                val historicalPrices =
+                    NetworkService.IEX_API.historical(symbol = symbol, chartCloseOnly = true)
+                        .asDomainHistoricalPrices(symbol)
                 database.historicalDao.deleteHistoricalPricesById(symbol)
                 database.historicalDao.insertAll(*historicalPrices.toTypedArray())
                 _state.postValue(State.Done)

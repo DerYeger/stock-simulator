@@ -43,7 +43,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/default_spacing"
                 android:layout_marginEnd="@dimen/default_spacing"
-                android:text="@{transaction.id}"
+                android:text="@{transaction.symbol}"
                 app:layout_constraintBaseline_toBaselineOf="@+id/transaction_type_image"
                 app:layout_constraintEnd_toStartOf="@+id/expand_toggle_button"
                 app:layout_constraintStart_toEndOf="@+id/transaction_type_image"

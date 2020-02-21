@@ -3,14 +3,10 @@ package de.uniks.codliners.stock_simulator.repository
 import android.content.Context
 import androidx.lifecycle.LiveData
 import de.uniks.codliners.stock_simulator.BuildConfig
-import de.uniks.codliners.stock_simulator.database.DepotQuote
+import de.uniks.codliners.stock_simulator.database.AccountDao
 import de.uniks.codliners.stock_simulator.database.StockAppDatabase
-import de.uniks.codliners.stock_simulator.database.DatabaseTransaction
 import de.uniks.codliners.stock_simulator.database.getDatabase
-import de.uniks.codliners.stock_simulator.database.*
-import de.uniks.codliners.stock_simulator.domain.Balance
-import de.uniks.codliners.stock_simulator.domain.Quote
-import de.uniks.codliners.stock_simulator.domain.TransactionType
+import de.uniks.codliners.stock_simulator.domain.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -58,11 +54,17 @@ class AccountRepository(private val database: StockAppDatabase) {
                 val newBalance = Balance(lastBalance.value + cashflow)
 
                 val depotQuote = database.accountDao.getDepotQuoteById(quote.symbol)
-                    ?: DepotQuote(id = quote.id, type = quote.type, amount = 0.0)
+                    ?: DepotQuote(
+                        id = quote.id,
+                        symbol = quote.symbol,
+                        type = quote.type,
+                        amount = 0.0
+                    )
                 val newDepotQuote = depotQuote.copy(amount = depotQuote.amount + amount)
 
-                val transaction = DatabaseTransaction(
+                val transaction = Transaction(
                     id = quote.id,
+                    symbol = quote.symbol,
                     type = quote.type,
                     amount = amount,
                     price = quote.latestPrice,
@@ -105,8 +107,9 @@ class AccountRepository(private val database: StockAppDatabase) {
                 val depotQuote = database.accountDao.getDepotQuoteById(quote.symbol)!!
                 val newDepotQuote = depotQuote.copy(amount = depotQuote.amount - amount)
 
-                val transaction = DatabaseTransaction(
+                val transaction = Transaction(
                     id = quote.id,
+                    symbol = quote.symbol,
                     type = quote.type,
                     amount = amount,
                     price = quote.latestPrice,
@@ -129,7 +132,8 @@ class AccountRepository(private val database: StockAppDatabase) {
         }
     }
 
-    suspend fun hasBalance() = withContext(Dispatchers.IO) { database.accountDao.getBalanceCount() > 0 }
+    suspend fun hasBalance() =
+        withContext(Dispatchers.IO) { database.accountDao.getBalanceCount() > 0 }
 
     suspend fun resetAccount() {
         withContext(Dispatchers.IO) {
