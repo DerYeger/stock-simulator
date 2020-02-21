@@ -1,2 +1,2 @@
 include ':app'
-rootProject.name='stock-simulator'
+rootProject.name='Stock Simulator'

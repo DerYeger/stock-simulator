@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="PluralsCandidate">
     <string name="add_fingerprint">Add fingerprint authentication</string>
-    <string name="app_name">stock-simulator</string>
+    <string name="app_name">Stock Simulator</string>
     <string name="biometric_cancelled">Fingerprint authentication has been canceled!</string>
     <string name="biometric_error_fingerprint_not_available">Device has no fingerprints registered!</string>
     <string name="biometric_error_hardware_not_supported">Device does not contain any fingerprint sensors!</string>
