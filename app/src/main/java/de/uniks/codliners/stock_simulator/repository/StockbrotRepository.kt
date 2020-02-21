@@ -2,11 +2,9 @@ package de.uniks.codliners.stock_simulator.repository
 
 import android.content.Context
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import de.uniks.codliners.stock_simulator.database.StockAppDatabase
 import de.uniks.codliners.stock_simulator.database.getDatabase
 import de.uniks.codliners.stock_simulator.domain.StockbrotQuote
-import de.uniks.codliners.stock_simulator.domain.Symbol
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 

@@ -5,7 +5,6 @@ import androidx.lifecycle.*
 import de.uniks.codliners.stock_simulator.domain.Symbol
 import de.uniks.codliners.stock_simulator.repository.SymbolRepository
 import kotlinx.coroutines.launch
-import timber.log.Timber
 import java.util.*
 
 class SearchViewModel(application: Application) : ViewModel() {
