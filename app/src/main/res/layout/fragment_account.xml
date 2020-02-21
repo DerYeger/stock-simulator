@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
@@ -10,86 +9,91 @@
             type="de.uniks.codliners.stock_simulator.ui.account.AccountViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/test"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/account_balance"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/default_spacing"
-            android:layout_marginTop="@dimen/default_spacing"
-            android:text="@{@string/account_currency_format(viewModel.balance.value)}"
-            android:textAppearance="@android:style/TextAppearance.Material.Headline"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <com.github.mikephil.charting.charts.LineChart
-            android:id="@+id/account_chart"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/container_layout"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_marginStart="@dimen/default_spacing"
-            android:layout_marginTop="@dimen/default_spacing"
-            android:layout_marginEnd="@dimen/default_spacing"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/account_balance" >
-
-        </com.github.mikephil.charting.charts.LineChart>
-
-        <TextView
-            android:id="@+id/depot_value"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/default_spacing"
-            android:layout_marginTop="@dimen/default_spacing"
-            android:text="@{@string/depot_currency_format(viewModel.depotValue.value)}"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/account_chart" />
+            android:orientation="vertical">
 
-        <com.github.mikephil.charting.charts.LineChart
-            android:id="@+id/depot_chart"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_marginStart="@dimen/default_spacing"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="@dimen/default_spacing"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/depot_value">
+            <TextView
+                android:id="@+id/account_balance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/default_spacing"
+                android:layout_marginTop="@dimen/default_spacing"
+                android:text="@{@string/account_currency_format(viewModel.balance.value)}"
+                android:textAppearance="@android:style/TextAppearance.Material.Headline"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        </com.github.mikephil.charting.charts.LineChart>
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/account_chart"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginStart="@dimen/default_spacing"
+                android:layout_marginTop="@dimen/default_spacing"
+                android:layout_marginEnd="@dimen/default_spacing"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/account_balance">
 
-        <TextView
-            android:id="@+id/depot_text"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/default_spacing"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="@dimen/default_spacing"
-            android:text="@string/title_depot"
-            android:textAppearance="@android:style/TextAppearance.Material.Headline"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/depot_chart" />
+            </com.github.mikephil.charting.charts.LineChart>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/depot_recycler_view"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:depotQuotes="@{viewModel.depotQuotes}"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/depot_text"
-            app:spanCount="3" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/depot_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/default_spacing"
+                android:layout_marginTop="@dimen/default_spacing"
+                android:text="@{@string/depot_currency_format(viewModel.depotValue.value)}"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/account_chart" />
+
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/depot_chart"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginStart="@dimen/default_spacing"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="@dimen/default_spacing"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/depot_value">
+
+            </com.github.mikephil.charting.charts.LineChart>
+
+            <TextView
+                android:id="@+id/depot_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/default_spacing"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="@dimen/default_spacing"
+                android:text="@string/title_depot"
+                android:textAppearance="@android:style/TextAppearance.Material.Headline"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/depot_chart" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/depot_recycler_view"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:depotQuotes="@{viewModel.depotQuotes}"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/depot_text"
+                app:spanCount="3" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </layout>
