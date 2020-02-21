@@ -46,8 +46,6 @@
     <string name="sell">Sell</string>
     <string name="sell_hint">Sell amount</string>
     <string name="stockbrot_add_control_quote">Add to Stockbrot</string>
-    <string name="stockbrot_disable_bot">disable bot</string>
-    <string name="stockbrot_enable_bot">enable bot</string>
     <string name="stockbrot_quote_buying_amount_format_double">Buying %s at %s$</string>
     <string name="stockbrot_quote_buying_amount_format_long">Buying %d at %s$</string>
     <string name="stockbrot_quote_buying_format">Buying at %s$</string>
@@ -66,6 +64,7 @@
     <string name="title_stockbrot">Stockbrot</string>
     <string name="transaction_costs_format">Transaction costs: %s$</string>
     <string name="transaction_type_image_description">Image of the transaction type</string>
+    <string name="trend_image_description">Trend image</string>
     <string-array name="type_filter_array">
         <item>Any</item>
         <item>Shares</item>
