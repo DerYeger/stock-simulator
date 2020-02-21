@@ -57,27 +57,11 @@
     <string name="title_search">Search</string>
     <string name="title_settings">Settings</string>
     <string name="title_stockbrot">Stockbrot</string>
-    <string name="query">Symbol</string>
-    <string name="account_currency_format">Balance: %s$</string>
-    <string name="depot_currency_format">Depot: %s$</string>
-    <string name="currency_format">%s$</string>
-    <string name="performance">Performance: </string>
-    <string name="performance_format_win">+%.2f %%</string>
-    <string name="performance_format_loss">%.2f %%</string>
-    <string name="performance_format_neutral">%.2f %%</string>
     <string name="transaction_format_win">+%.2f $</string>
     <string name="transaction_format_loss">%.2f $</string>
     <string name="transaction_format_neutral">%.2f $</string>
-    <string name="double_depot_quote_format">%s - %f</string>
-    <string name="long_depot_quote_format">%s - %d</string>
     <string name="transaction_type_image_description">Image of the transaction type</string>
-    <string name="double_buy_amount_format">%f bought</string>
-    <string name="double_sell_amount_format">%f sold</string>
-    <string name="long_buy_amount_format">%d bought</string>
-    <string name="long_sell_amount_format">%d sold</string>
-    <string name="details">Details</string>
     <string name="transaction_costs_format">Transaction costs: %s$</string>
-    <string name="transaction_type_image_description">Image of the transaction type</string>
     <string-array name="type_filter_array">
         <item>Any</item>
         <item>Shares</item>
