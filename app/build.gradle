@@ -100,6 +100,10 @@ dependencies {
 }
 
 dokka {
-    outputFormat = 'html'
+    outputFormat = 'javadoc'
     outputDirectory = "$buildDir/dokka"
+
+    configuration {
+        reportUndocumented = true
+    }
 }
