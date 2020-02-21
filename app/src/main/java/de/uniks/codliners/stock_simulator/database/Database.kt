@@ -107,6 +107,9 @@ interface AccountDao {
     @Query("SELECT * FROM balance ORDER BY balance.timestamp DESC LIMIT 1")
     fun getLatestBalance(): LiveData<Balance>
 
+    @Query("SELECT * FROM balance ORDER BY balance.timestamp DESC LIMIT 1")
+    fun getLatestBalanceValue(): Balance
+
     @Query("DELETE FROM balance")
     fun deleteBalances()
 

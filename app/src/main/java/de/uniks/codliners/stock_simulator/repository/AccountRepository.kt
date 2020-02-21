@@ -20,9 +20,6 @@ class AccountRepository(private val database: StockAppDatabase) {
         database.accountDao.getLatestBalance()
     }
 
-    val balances by lazy {
-        database.accountDao.getBalances()
-    }
     // the last 50 account balance values
     val balancesLimited by lazy {
         database.accountDao.getBalancesLimited(BALANCE_LIMIT)
@@ -46,41 +43,77 @@ class AccountRepository(private val database: StockAppDatabase) {
     fun depotQuoteBySymbol(symbol: String): DepotQuotePurchase? =
         database.accountDao.getDepotQuoteById(symbol)
 
+    suspend fun getLatestBalance() = withContext(Dispatchers.IO) { database.accountDao.getLatestBalanceValue() }
+
     suspend fun buy(quote: Quote, amount: Double) {
-        val lastBalance = latestBalance.value
-        lastBalance?.let {
-            withContext(Dispatchers.IO) {
-                val cashflow = -(quote.latestPrice * amount) - BuildConfig.TRANSACTION_COSTS
-                val newBalance = Balance(lastBalance.value + cashflow)
-
-
-                val newDepotQuote = DepotQuotePurchase(
-                    id = quote.id,
-                    symbol = quote.symbol,
-                    type = quote.type,
-                    buyingPrice = quote.latestPrice,
-                    amount = amount
-                )
-
-                val transaction = Transaction(
-                    id = quote.id,
-                    symbol = quote.symbol,
-                    type = quote.type,
-                    amount = amount,
-                    price = quote.latestPrice,
-                    transactionCosts = BuildConfig.TRANSACTION_COSTS,
-                    cashflow = cashflow,
-                    transactionType = TransactionType.BUY,
-                    date = System.currentTimeMillis(),
-                    result = null
-                )
-
-                database.accountDao.apply {
-                    insertBalance(newBalance)
-                    insertDepotQuote(newDepotQuote)
-                }
-                database.transactionDao.insert(transaction)
+        if (amount <= 0.0) return
+        withContext(Dispatchers.IO) {
+            val oldBalance = database.accountDao.getLatestBalanceValue()
+            val cashflow = -(quote.latestPrice * amount) - BuildConfig.TRANSACTION_COSTS
+            if (-cashflow >= oldBalance.value) {
+                return@withContext
             }
+            val newBalance = Balance(oldBalance.value + cashflow)
+
+            val newDepotQuote = DepotQuotePurchase(
+                id = quote.id,
+                symbol = quote.symbol,
+                type = quote.type,
+                buyingPrice = quote.latestPrice,
+                amount = amount
+            )
+
+            val transaction = Transaction(
+                id = quote.id,
+                symbol = quote.symbol,
+                type = quote.type,
+                amount = amount,
+                price = quote.latestPrice,
+                transactionCosts = BuildConfig.TRANSACTION_COSTS,
+                cashflow = cashflow,
+                transactionType = TransactionType.BUY,
+                date = System.currentTimeMillis(),
+                result = null
+            )
+
+            database.accountDao.apply {
+                insertBalance(newBalance)
+                insertDepotQuote(newDepotQuote)
+            }
+            database.transactionDao.insert(transaction)
+        }
+    }
+
+    suspend fun sell(quote: Quote, amount: Double) {
+        if (amount <= 0.0) return
+        withContext(Dispatchers.IO) {
+            val oldBalance = database.accountDao.getLatestBalanceValue()
+            if (BuildConfig.TRANSACTION_COSTS >= oldBalance.value) {
+                return@withContext
+            }
+            val cashflow = quote.latestPrice * amount - BuildConfig.TRANSACTION_COSTS
+            val newBalance = Balance(oldBalance.value + cashflow)
+
+            val transactionResult = calculateResultAndUpdateQuotePurchases(amount, cashflow)
+
+            val transaction = Transaction(
+                id = quote.id,
+                symbol = quote.symbol,
+                type = quote.type,
+                amount = amount,
+                price = quote.latestPrice,
+                transactionCosts = BuildConfig.TRANSACTION_COSTS,
+                cashflow = cashflow,
+                transactionType = TransactionType.SELL,
+                date = System.currentTimeMillis(),
+                result = transactionResult
+            )
+
+            database.accountDao.apply {
+                insertBalance(newBalance)
+                // deleteDepotQuotes(*depotQuotesToSell.toTypedArray())
+            }
+            database.transactionDao.insert(transaction)
         }
     }
 
@@ -95,37 +128,6 @@ class AccountRepository(private val database: StockAppDatabase) {
             val newDepotValue = DepotValue(newValue)
             database.accountDao.insertDepotValue(newDepotValue)
 
-        }
-    }
-
-    suspend fun sell(quote: Quote, amount: Double) {
-        val lastBalance = latestBalance.value
-        lastBalance?.let {
-            withContext(Dispatchers.IO) {
-                val cashflow = quote.latestPrice * amount - BuildConfig.TRANSACTION_COSTS
-                val newBalance = Balance(lastBalance.value + cashflow)
-
-                val transactionResult = calculateResultAndUpdateQuotePurchases(amount, cashflow)
-
-                val transaction = Transaction(
-                    id = quote.id,
-                    symbol = quote.symbol,
-                    type = quote.type,
-                    amount = amount,
-                    price = quote.latestPrice,
-                    transactionCosts = BuildConfig.TRANSACTION_COSTS,
-                    cashflow = cashflow,
-                    transactionType = TransactionType.SELL,
-                    date = System.currentTimeMillis(),
-                    result = transactionResult
-                )
-
-                database.accountDao.apply {
-                    insertBalance(newBalance)
-                    // deleteDepotQuotes(*depotQuotesToSell.toTypedArray())
-                }
-                database.transactionDao.insert(transaction)
-            }
         }
     }
 
@@ -161,7 +163,6 @@ class AccountRepository(private val database: StockAppDatabase) {
         }
         return transactionResult
     }
-
 
     suspend fun hasBalance() =
         withContext(Dispatchers.IO) { database.accountDao.getBalanceCount() > 0 }

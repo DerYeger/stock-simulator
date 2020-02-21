@@ -30,10 +30,10 @@ class QuoteRepository(private val database: StockAppDatabase) {
     }
     val state: LiveData<State> = _state
 
-    fun quoteWithSymbol(symbol: String): LiveData<Quote> =
+    fun quoteWithId(symbol: String): LiveData<Quote> =
         database.quoteDao.getQuoteWithId(symbol)
 
-    fun quoteBySymbol(symbol: String): Quote? =
+    fun quoteById(symbol: String): Quote? =
         database.quoteDao.getQuoteValueById(symbol)
 
     fun historicalPrices(symbol: String): LiveData<List<HistoricalPrice>> =
