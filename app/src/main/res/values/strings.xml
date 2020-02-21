@@ -38,9 +38,9 @@
     <string name="title_settings">Settings</string>
     <string name="title_stockbrot">Stockbrot</string>
     <string name="query">Symbol</string>
-    <string name="account_currency_format">Account Balance: %.2f€</string>
-    <string name="depot_currency_format">Depot Value: %.2f€</string>
-    <string name="currency_format">%.2f€</string>
+    <string name="account_currency_format">Account Balance: %.2f$</string>
+    <string name="depot_currency_format">Depot Value: %.2f$</string>
+    <string name="currency_format">%.2f$</string>
     <string name="double_depot_quote_format">%s - %f</string>
     <string name="long_depot_quote_format">%s - %d</string>
     <string name="transaction_type_image_description">Image of the transaction type</string>
@@ -49,10 +49,10 @@
     <string name="long_buy_amount_format">%d bought</string>
     <string name="long_sell_amount_format">%d sold</string>
     <string name="details">Details</string>
-    <string name="transaction_costs_format">Transaction costs: %.2f€</string>
+    <string name="transaction_costs_format">Transaction costs: %.2f$</string>
     <string name="date_format">Date: %s</string>
-    <string name="cashflow_format">Cashflow: %.2f€</string>
-    <string name="price_format">Price: %.2f€</string>
+    <string name="cashflow_format">Cashflow: %.2f$</string>
+    <string name="price_format">Price: %.2f$</string>
     <string-array name="type_filter_array">
         <item>Any</item>
         <item>Shares</item>
