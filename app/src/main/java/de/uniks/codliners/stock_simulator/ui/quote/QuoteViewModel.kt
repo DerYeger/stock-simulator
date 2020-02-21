@@ -6,10 +6,7 @@ import androidx.lifecycle.*
 import de.uniks.codliners.stock_simulator.BuildConfig
 import de.uniks.codliners.stock_simulator.background.Constants
 import de.uniks.codliners.stock_simulator.background.StockbrotWorkRequest
-import de.uniks.codliners.stock_simulator.domain.Balance
-import de.uniks.codliners.stock_simulator.domain.DepotQuote
-import de.uniks.codliners.stock_simulator.domain.StockbrotQuote
-import de.uniks.codliners.stock_simulator.domain.Symbol
+import de.uniks.codliners.stock_simulator.domain.*
 import de.uniks.codliners.stock_simulator.noNulls
 import de.uniks.codliners.stock_simulator.repository.AccountRepository
 import de.uniks.codliners.stock_simulator.repository.QuoteRepository
@@ -41,6 +38,7 @@ class QuoteViewModel(
     val historicalPrices = quoteRepository.historicalPrices(id)
 
     val isCrypto = type === Symbol.Type.CRYPTO
+    val hasChange = quote.map { quote: Quote? -> quote !== null && !isCrypto }
 
     val inputType =
         if (isCrypto) InputType.TYPE_NUMBER_FLAG_DECIMAL else InputType.TYPE_CLASS_NUMBER
@@ -76,7 +74,7 @@ class QuoteViewModel(
     val canAddRemoveQuoteToStockbrot: LiveData<Boolean> = _canAddRemoveQuoteToStockbrot
 
     // Button click indicator for reset button.
-    var clickNewsStatus = MutableLiveData<Boolean?>()
+    val clickNewsStatus = MutableLiveData<Boolean?>()
 
     init {
         _errorAction.apply {

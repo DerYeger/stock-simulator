@@ -85,7 +85,7 @@
                     android:textAlignment="viewEnd"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/quote_price_text"
-                    app:visible="@{viewModel.quote.change != null}"
+                    app:visible="@{viewModel.hasChange}"
                     tools:text="-1€" />
 
                 <Button
