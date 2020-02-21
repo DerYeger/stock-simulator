@@ -48,5 +48,6 @@ class AchievementsRepository(private val database: StockAppDatabase) {
                 deleteAchievements()
             }
         }
+        initAchievements()
     }
 }
