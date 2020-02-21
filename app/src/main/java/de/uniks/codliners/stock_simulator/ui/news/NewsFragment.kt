@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import de.uniks.codliners.stock_simulator.databinding.FragmentNewsBinding
-import de.uniks.codliners.stock_simulator.ui.OnClickListener
 
 
 class NewsFragment : Fragment() {
