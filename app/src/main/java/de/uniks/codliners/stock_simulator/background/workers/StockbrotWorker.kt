@@ -54,10 +54,11 @@ class StockbrotWorker(context: Context, params: WorkerParameters) : Worker(conte
         if (quote.latestPrice <= thresholdBuy) {
             val balance = accountRepository.getLatestBalance()
             val amount = (balance.value - BuildConfig.TRANSACTION_COSTS) / quote.latestPrice
-            val actualAmount = when (quote.type) {
+            val typedAmount = when (quote.type) {
                 Symbol.Type.SHARE -> amount.toLong().toDouble()
                 Symbol.Type.CRYPTO -> amount
             }.coerceAtMost(buyAmount)
+            val actualAmount = if (buyAmount <= 0.0) typedAmount.coerceAtLeast(0.0) else typedAmount.coerceAtMost(buyAmount)
             Timber.i("Bot is buying $actualAmount ($amount) for ${quote.latestPrice}")
             val newStockbrotQuote = this.copy(buyAmount = buyAmount - actualAmount)
             stockbrotRepository.addStockbrotQuote(newStockbrotQuote)
