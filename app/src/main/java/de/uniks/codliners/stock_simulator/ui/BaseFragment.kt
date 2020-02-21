@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.Snackbar
 import de.uniks.codliners.stock_simulator.R
 
 abstract class BaseFragment : Fragment() {
@@ -21,8 +22,13 @@ abstract class BaseFragment : Fragment() {
         setHasOptionsMenu(true)
 
         baseViewModel.latestAchievement.observe(this, Observer { achievement ->
-            if (achievement.timestamp != null) {
+            println("latest achievement $achievement - " + getString(achievement.name))
+            if (achievement?.reached == true && !achievement.displayed) {
                 println("achievement $achievement reached")
+                Snackbar
+                    .make(this.view!!, getString(achievement.name), Snackbar.LENGTH_SHORT)
+                    .show()
+                baseViewModel.markAchievementAsDisplayed(achievement)
             }
         })
     }
