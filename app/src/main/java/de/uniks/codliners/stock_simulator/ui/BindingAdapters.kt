@@ -9,13 +9,11 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import de.uniks.codliners.stock_simulator.R
 import de.uniks.codliners.stock_simulator.database.DepotQuote
 import de.uniks.codliners.stock_simulator.domain.*
-import de.uniks.codliners.stock_simulator.domain.StockbrotQuote
-import de.uniks.codliners.stock_simulator.domain.Transaction
-import de.uniks.codliners.stock_simulator.domain.TransactionType
 import de.uniks.codliners.stock_simulator.domain.TransactionType.*
 import de.uniks.codliners.stock_simulator.isWholeNumber
 import de.uniks.codliners.stock_simulator.ui.account.DepotQuoteRecyclerViewAdapter
 import de.uniks.codliners.stock_simulator.ui.history.HistoryRecyclerViewAdapter
+import de.uniks.codliners.stock_simulator.ui.news.NewsAdapter
 import de.uniks.codliners.stock_simulator.ui.search.SearchResultAdapter
 import de.uniks.codliners.stock_simulator.ui.stockbrot.StockbrotQuoteRecyclerViewAdapter
 
@@ -35,6 +33,12 @@ fun SwipeRefreshLayout.bindRefreshListener(listener: Runnable) {
 fun RecyclerView.bindSearchResults(symbols: List<Symbol>?) {
     val adapter = adapter as SearchResultAdapter
     adapter.submitList(symbols)
+}
+
+@BindingAdapter("news")
+fun RecyclerView.bindNews(news: List<News>?) {
+    val adapter = adapter as NewsAdapter
+    adapter.submitList(news)
 }
 
 @BindingAdapter("depotQuotes")
@@ -68,13 +72,13 @@ fun TextView.bindDepotQuote(depotQuote: DepotQuote?) {
             true ->
                 String.format(
                     resources.getText(R.string.long_depot_quote_format).toString(),
-                    depotQuote.symbol,
+                    depotQuote.id,
                     depotQuote.amount.toLong()
                 )
             false ->
                 String.format(
                     resources.getText(R.string.double_depot_quote_format).toString(),
-                    depotQuote.symbol,
+                    depotQuote.id,
                     depotQuote.amount
                 )
         }
@@ -85,15 +89,6 @@ fun TextView.bindDepotQuote(depotQuote: DepotQuote?) {
 fun RecyclerView.bindTransactions(transactions: List<Transaction>?) {
     val adapter = adapter as HistoryRecyclerViewAdapter
     adapter.submitList(transactions)
-}
-
-@BindingAdapter("botEnabled")
-fun Button.bindBotEnabled(enabled: Boolean) {
-    text = if (enabled) {
-        context.getText(R.string.stockbrot_disable_bot)
-    } else {
-        context.getText(R.string.stockbrot_enable_bot)
-    }
 }
 
 @BindingAdapter("stockbrotQuotes")
@@ -145,5 +140,14 @@ fun Spinner.bindSelection(selection: MutableLiveData<String>) {
             val selectedItem = self.getItemAtPosition(position).toString()
             selection.postValue(selectedItem)
         }
+    }
+}
+
+@BindingAdapter("botAddRemoveQuote")
+fun Button.bindBotAddRemoveQuote(enabled: Boolean) {
+    text = if (enabled) {
+        context.getText(R.string.stockbrot_remove_control_quote)
+    } else {
+        context.getText(R.string.stockbrot_add_control_quote)
     }
 }

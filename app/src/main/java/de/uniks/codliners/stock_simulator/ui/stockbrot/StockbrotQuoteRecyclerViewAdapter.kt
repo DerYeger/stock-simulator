@@ -24,7 +24,7 @@ class StockbrotQuoteRecyclerViewAdapter(private val onClickListener: OnClickList
 
     companion object DiffCallback : DiffUtil.ItemCallback<StockbrotQuote>() {
         override fun areItemsTheSame(oldItem: StockbrotQuote, newItem: StockbrotQuote) =
-            oldItem.symbol == newItem.symbol
+            oldItem.id == newItem.id
 
         override fun areContentsTheSame(oldItem: StockbrotQuote, newItem: StockbrotQuote) =
             oldItem == newItem

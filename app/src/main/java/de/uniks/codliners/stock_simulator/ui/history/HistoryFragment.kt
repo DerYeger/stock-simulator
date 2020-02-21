@@ -27,7 +27,7 @@ class HistoryFragment : BaseFragment() {
         binding.viewModel = viewModel
         binding.historyRecyclerView.adapter = HistoryRecyclerViewAdapter(
             onClickListener = OnClickListener { transaction ->
-                val action = HistoryFragmentDirections.actionNavigationHistoryToShareFragment(transaction.symbol, transaction.type)
+                val action = HistoryFragmentDirections.actionNavigationHistoryToShareFragment(transaction.id, transaction.type)
                 findNavController().navigate(action)
             },
             locale = resources.configuration.locale

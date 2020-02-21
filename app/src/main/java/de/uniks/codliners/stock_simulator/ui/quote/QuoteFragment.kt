@@ -10,21 +10,20 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.github.mikephil.charting.data.Entry
 import de.uniks.codliners.stock_simulator.databinding.FragmentQuoteBinding
+import de.uniks.codliners.stock_simulator.domain.StockbrotQuote
 import de.uniks.codliners.stock_simulator.initLineChart
 import de.uniks.codliners.stock_simulator.ui.BaseFragment
+import de.uniks.codliners.stock_simulator.ui.news.NewsAdapter
 import de.uniks.codliners.stock_simulator.updateLineChart
-import java.text.SimpleDateFormat
-
 class QuoteFragment : BaseFragment() {
 
     private val viewModel: QuoteViewModel by viewModels {
         val args = QuoteFragmentArgs.fromBundle(arguments!!)
-        val symbol = args.symbol
-        val type = args.type
+
         QuoteViewModel.Factory(
             application = activity!!.application,
-            symbol = symbol,
-            type = type
+            id = args.id,
+            type = args.type
         )
     }
 
@@ -39,6 +38,18 @@ class QuoteFragment : BaseFragment() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
+        // React to reset button clicks.
+        viewModel.clickNewsStatus.observe(viewLifecycleOwner, Observer { status ->
+            status?.let {
+
+                // Reset click indicator.
+                viewModel.clickNewsStatus.value = null
+
+                val action = QuoteFragmentDirections.actionNavigationQuoteToNavigationNews(viewModel.quote.value!!.symbol)
+                findNavController().navigate(action)
+            }
+        })
+
         viewModel.errorAction.observe(viewLifecycleOwner, Observer { errorMessage: String? ->
             errorMessage?.let {
                 showErrorToast(errorMessage)
@@ -46,15 +57,29 @@ class QuoteFragment : BaseFragment() {
             }
         })
 
+        viewModel.stockbrotQuoteAction.observe(this, Observer { stockbrotQuote: StockbrotQuote? ->
+            stockbrotQuote?.let {
+                viewModel.autoBuyAmount.value = stockbrotQuote.buyAmount.toString()
+                viewModel.thresholdBuy.value = stockbrotQuote.thresholdBuy.toString()
+                viewModel.thresholdSell.value = stockbrotQuote.thresholdSell.toString()
+                viewModel.onThresholdBuyActionCompleted()
+            }
+        })
+
         viewModel.historicalPrices.observe(viewLifecycleOwner, Observer { priceList ->
             run {
-                val simpleDateFormat =
-                    SimpleDateFormat("yyyy-MM-dd", resources.configuration.locale)
+                if (priceList.isEmpty()) return@run
+                val referenceTimestamp = priceList[0].date
                 val entries = priceList.map { price ->
-                    val timestamp = simpleDateFormat.parse(price.date)!!.time
-                    Entry(timestamp.toFloat(), price.close.toFloat())
+                    Entry((price.date - referenceTimestamp).toFloat(), price.price.toFloat())
                 }
-                updateLineChart(binding.quoteChart, entries, "Historical Prices", resources.configuration.locale)
+                updateLineChart(
+                    binding.quoteChart,
+                    entries,
+                    "Historical Prices",
+                    resources.configuration.locale,
+                    referenceTimestamp
+                )
             }
         })
 

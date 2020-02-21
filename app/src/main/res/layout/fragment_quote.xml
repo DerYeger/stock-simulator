@@ -56,7 +56,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/default_spacing"
                     android:layout_marginTop="@dimen/default_spacing"
-                    android:text="@{viewModel.quote.companyName}"
+                    android:text="@{viewModel.quote.name}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/quote_symbol_text"
                     tools:text="Company Name" />
@@ -170,6 +170,33 @@
                     app:layout_constraintTop_toBottomOf="@+id/depot_text" />
 
                 <TextView
+                    android:id="@+id/title_stockbrot_buy_amount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/buy_hint"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/title_auto_buy_sell" />
+
+                <EditText
+                    android:id="@+id/stockbrot_buy_amount"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:ems="10"
+                    android:enabled="@{viewModel.stockbrotQuote == null}"
+                    android:hint="@string/buy_hint"
+                    android:importantForAutofill="no"
+                    android:inputType="@{viewModel.inputType}"
+                    android:text="@={viewModel.autoBuyAmount}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/title_stockbrot_buy_amount" />
+
+                <TextView
                     android:id="@+id/title_threshold_buy"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -177,7 +204,7 @@
                     android:layout_marginTop="16dp"
                     android:text="@string/stockbrot_threshold_buy"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/title_auto_buy_sell" />
+                    app:layout_constraintTop_toBottomOf="@+id/stockbrot_buy_amount" />
 
                 <EditText
                     android:id="@+id/stockbrot_threshold_buy"
@@ -187,6 +214,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
                     android:ems="10"
+                    android:enabled="@{viewModel.stockbrotQuote == null}"
                     android:hint="@string/stockbrot_threshold_buy"
                     android:importantForAutofill="no"
                     android:inputType="numberDecimal"
@@ -213,6 +241,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
                     android:ems="10"
+                    android:enabled="@{viewModel.stockbrotQuote == null}"
                     android:hint="@string/stockbrot_threshold_sell"
                     android:importantForAutofill="no"
                     android:inputType="numberDecimal"
@@ -223,18 +252,32 @@
                     app:layout_constraintTop_toBottomOf="@+id/title_threshold_sell" />
 
                 <Button
-                    android:id="@+id/button_add_quote_to_bot"
+                    android:id="@+id/button_bot_add_remove_quote"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
-                    android:enabled="@{viewModel.canAddQuoteToStockbrot}"
-                    android:onClick="@{() -> viewModel.addQuoteToStockbrot()}"
-                    android:text="@string/stockbrot_control_quote"
+                    android:enabled="@{viewModel.canAddRemoveQuoteToStockbrot}"
+                    android:onClick="@{() -> viewModel.addRemoveQuoteToStockbrot()}"
+                    app:botAddRemoveQuote="@{viewModel.stockbrotQuote != null}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/stockbrot_threshold_sell" />
+                    app:layout_constraintTop_toBottomOf="@+id/stockbrot_threshold_sell"
+                    tools:text="@string/stockbrot_add_control_quote" />
+
+                <Button
+                    android:id="@+id/news_button"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:onClick="@{() -> viewModel.showNews()}"
+                    android:text="@string/title_news"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/button_bot_add_remove_quote" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
