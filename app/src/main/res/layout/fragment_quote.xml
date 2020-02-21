@@ -50,7 +50,7 @@
                     tools:text="SYMBOL" />
 
                 <TextView
-                    android:id="@+id/quote_company_name_text"
+                    android:id="@+id/quote_name_text"
                     style="@style/TextAppearance.MaterialComponents.Headline6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -59,7 +59,7 @@
                     android:text="@{viewModel.quote.name}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/quote_symbol_text"
-                    tools:text="Company Name" />
+                    tools:text="Name" />
 
                 <TextView
                     android:id="@+id/quote_price_text"
@@ -88,6 +88,33 @@
                     app:visible="@{viewModel.hasChange}"
                     tools:text="-1€" />
 
+                <TextView
+                    android:id="@+id/buy_label_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/buy_hint"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/quote_name_text" />
+
+                <EditText
+                    android:id="@+id/buy_number"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/default_spacing"
+                    android:layout_marginTop="@dimen/half_spacing"
+                    android:layout_marginEnd="@dimen/default_spacing"
+                    android:ems="10"
+                    android:hint="@string/buy_hint"
+                    android:importantForAutofill="no"
+                    android:inputType="@{viewModel.inputType}"
+                    android:text="@={viewModel.buyAmount}"
+                    app:layout_constraintEnd_toStartOf="@+id/buy_button"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/buy_label_text"
+                    tools:ignore="TextFields" />
+
                 <Button
                     android:id="@+id/buy_button"
                     android:layout_width="wrap_content"
@@ -99,6 +126,32 @@
                     app:layout_constraintBaseline_toBaselineOf="@+id/buy_number"
                     app:layout_constraintEnd_toEndOf="parent" />
 
+                <TextView
+                    android:id="@+id/sell_label_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/buy_hint"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/buy_number" />
+
+                <EditText
+                    android:id="@+id/sell_number"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/default_spacing"
+                    android:layout_marginTop="@dimen/half_spacing"
+                    android:layout_marginEnd="@dimen/default_spacing"
+                    android:hint="@string/sell_hint"
+                    android:importantForAutofill="no"
+                    android:inputType="@{viewModel.inputType}"
+                    android:text="@={viewModel.sellAmount}"
+                    app:layout_constraintEnd_toStartOf="@+id/sell_button"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/sell_label_text"
+                    tools:ignore="TextFields" />
+
                 <Button
                     android:id="@+id/sell_button"
                     android:layout_width="wrap_content"
@@ -109,39 +162,6 @@
                     android:text="@string/sell"
                     app:layout_constraintBaseline_toBaselineOf="@+id/sell_number"
                     app:layout_constraintEnd_toEndOf="parent" />
-
-                <EditText
-                    android:id="@+id/buy_number"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/default_spacing"
-                    android:layout_marginTop="@dimen/default_spacing"
-                    android:layout_marginEnd="@dimen/default_spacing"
-                    android:ems="10"
-                    android:hint="@string/buy_hint"
-                    android:importantForAutofill="no"
-                    android:inputType="@{viewModel.inputType}"
-                    android:text="@={viewModel.buyAmount}"
-                    app:layout_constraintEnd_toStartOf="@+id/buy_button"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/quote_company_name_text"
-                    tools:ignore="TextFields" />
-
-                <EditText
-                    android:id="@+id/sell_number"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/default_spacing"
-                    android:layout_marginTop="@dimen/default_spacing"
-                    android:layout_marginEnd="@dimen/default_spacing"
-                    android:hint="@string/sell_hint"
-                    android:importantForAutofill="no"
-                    android:inputType="@{viewModel.inputType}"
-                    android:text="@={viewModel.sellAmount}"
-                    app:layout_constraintEnd_toStartOf="@+id/sell_button"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/buy_number"
-                    tools:ignore="TextFields" />
 
                 <TextView
                     android:id="@+id/depot_text"
