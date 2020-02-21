@@ -137,13 +137,15 @@ class AccountRepository(private val database: StockAppDatabase) {
 
         val quotesToSell = mutableListOf<DepotQuotePurchase>()
         var transactionResult = 0.0
+        var amountCount = 0.0
 
-        while (quotesToSell.size < amount) {
+        while (amountCount < amount) {
             var count = 0
             val amountOfQuotesMissing = amount - quotesToSell.size
             val quotePurchases = allQuotesOPurchases[count]
             if (quotePurchases.amount <= amountOfQuotesMissing) {
                 quotesToSell.add(quotePurchases)
+                amountCount += quotePurchases.amount
                 database.accountDao.deleteDepotQuotes(quotePurchases)
                 transactionResult += cashflow - (quotePurchases.buyingPrice * quotePurchases.amount)
             } else {
@@ -151,6 +153,7 @@ class AccountRepository(private val database: StockAppDatabase) {
                 val newDepotQuote =
                     quotePurchases.copy(amount = newAmount)
                 quotesToSell.add(newDepotQuote)
+                amountCount += quotePurchases.amount
                 database.accountDao.insertDepotQuote(newDepotQuote)
                 transactionResult += cashflow - (quotePurchases.buyingPrice * amountOfQuotesMissing)
             }

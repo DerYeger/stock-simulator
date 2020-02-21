@@ -160,7 +160,7 @@
                     app:layout_constraintEnd_toStartOf="@+id/result_value"
                     app:layout_constraintTop_toTopOf="@+id/result_value"
                     app:srcCompat="@drawable/ic_trending_up_black_24dp"
-                    app:trendingImage="@{transaction.result}"/>
+                    app:transactionResultIcon="@{transaction.result}"/>
 
                 <TextView
                     android:id="@+id/result_value"
@@ -168,9 +168,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
-                    android:text="TextView"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:transactionResultText="@{transaction.result}"/>
+
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
