@@ -97,14 +97,10 @@ fun Button.bindBotEnabled(enabled: Boolean) {
 }
 
 @BindingAdapter("lossOrWin")
-fun TextView.bindPerformanceText(performance: MutableLiveData<Double>) {
-    text = when (performance.value!! > 0.0) {
-        true -> String.format(
-            resources.getText(R.string.performance_format_win).toString(),
-            performance.value)
-        false -> String.format(
-            resources.getText(R.string.performance_format_loss).toString(),
-            performance.value)
+fun TextView.bindPerformanceText(performance: Double) {
+    text = when (performance > 0.0) {
+        true -> String.format(resources.getText(R.string.performance_format_win).toString(), performance)
+        false -> String.format(resources.getText(R.string.performance_format_loss).toString(), performance)
     }
 }
 

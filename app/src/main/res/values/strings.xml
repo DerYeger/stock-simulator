@@ -38,8 +38,8 @@
     <string name="query">Symbol</string>
     <string name="account_currency_format">Account Balance: %.2f€</string>
     <string name="depot_currency_format">Depot Value: %.2f€</string>
-    <string name="performance_format_win">Performance: + %.5d %</string>
-    <string name="performance_format_loss">Performance: - %.5d %</string>
+    <string name="performance_format_win">Performance: + %.5f %%</string>
+    <string name="performance_format_loss">Performance: - %.5f %%</string>
     <string name="currency_format">%.2f€</string>
     <string name="double_depot_quote_format">%s - %f</string>
     <string name="long_depot_quote_format">%s - %d</string>
