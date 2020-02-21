@@ -12,6 +12,7 @@ import de.uniks.codliners.stock_simulator.domain.*
 import de.uniks.codliners.stock_simulator.domain.TransactionType.*
 import de.uniks.codliners.stock_simulator.isWholeNumber
 import de.uniks.codliners.stock_simulator.ui.account.DepotQuoteRecyclerViewAdapter
+import de.uniks.codliners.stock_simulator.ui.achievements.AchievementsAdapter
 import de.uniks.codliners.stock_simulator.ui.history.HistoryRecyclerViewAdapter
 import de.uniks.codliners.stock_simulator.ui.news.NewsAdapter
 import de.uniks.codliners.stock_simulator.ui.search.SearchResultAdapter
@@ -39,6 +40,12 @@ fun RecyclerView.bindSearchResults(symbols: List<Symbol>?) {
 fun RecyclerView.bindNews(news: List<News>?) {
     val adapter = adapter as NewsAdapter
     adapter.submitList(news)
+}
+
+@BindingAdapter("achievements")
+fun RecyclerView.bindAchievements(achievements: List<Achievement>?) {
+    val adapter = adapter as AchievementsAdapter
+    adapter.submitList(achievements)
 }
 
 @BindingAdapter("depotQuotes")
