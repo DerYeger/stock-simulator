@@ -64,7 +64,6 @@
         <item>Shares</item>
         <item>Crypto</item>
     </string-array>
-    <string name="title_auto_buy_sell">Auto buy/sell</string>
     <string name="empty_hint">It\'s empty in here!</string>
     <string name="stockbrot_quote_buying_format">Buying at %s$</string>
     <string name="stockbrot_quote_buying_amount_format_long">Buying %d at %s$</string>
