@@ -43,8 +43,6 @@
     <string name="sell">Sell</string>
     <string name="sell_hint">Sell amount</string>
     <string name="stockbrot_add_control_quote">Add to Stockbrot</string>
-    <string name="stockbrot_disable_bot">disable bot</string>
-    <string name="stockbrot_enable_bot">enable bot</string>
     <string name="stockbrot_remove_control_quote">Remove quote from stockbrot</string>
     <string name="stockbrot_threshold_buy">Maximum Buy Price</string>
     <string name="stockbrot_threshold_sell">Minimum Sell Price</string>
@@ -69,4 +67,5 @@
     <string name="stockbrot_quote_buying_amount_format_long">Buying %d at %s$</string>
     <string name="stockbrot_quote_buying_amount_format_double">Buying %s at %s$</string>
     <string name="stockbrot_quote_selling_format">Selling at %s$</string>
+    <string name="trend_image_description">Trend image</string>
 </resources>
