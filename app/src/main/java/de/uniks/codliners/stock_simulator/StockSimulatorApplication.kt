@@ -18,8 +18,10 @@ class StockSimulatorApplication : Application() {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         Timber.plant(Timber.DebugTree())
 
+        ensureAccountPresence()
+
         onFirstRun {
-            CoroutineScope(Dispatchers.Main).launch {
+            CoroutineScope(Dispatchers.Unconfined).launch {
                 SymbolRepository(this@StockSimulatorApplication).refreshSymbols()
             }
         }

@@ -61,8 +61,6 @@ class MainActivity : AppCompatActivity(), BiometricCallback {
             // ... unlock application.
             isApplicationUnlocked = true
         }
-
-        ensureAccountPresence()
     }
 
     override fun onSdkVersionNotSupported() {

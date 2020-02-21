@@ -32,28 +32,28 @@ fun ContextWrapper.sharedPreferences(): SharedPreferences =
 
 fun Context.resetAccount() {
     val self = this
-    CoroutineScope(Dispatchers.Main).launch {
+    CoroutineScope(Dispatchers.IO).launch {
         AccountRepository(self).resetAccount()
     }
 }
 
 fun Context.resetHistory() {
     val self = this
-    CoroutineScope(Dispatchers.Main).launch {
+    CoroutineScope(Dispatchers.IO).launch {
         HistoryRepository(self).resetHistory()
     }
 }
 
 fun Context.resetQuotes() {
     val self = this
-    CoroutineScope(Dispatchers.Main).launch {
+    CoroutineScope(Dispatchers.IO).launch {
         QuoteRepository(self).resetQuotes()
     }
 }
 
 fun Context.resetStockbrot() {
     val self = this
-    CoroutineScope(Dispatchers.Main).launch {
+    CoroutineScope(Dispatchers.IO).launch {
         // reset stockbrot database
         StockbrotRepository(self).resetStockbrot()
         // cancel all running workers
@@ -63,14 +63,15 @@ fun Context.resetStockbrot() {
 
 fun Context.resetNews() {
     val self = this
-    CoroutineScope(Dispatchers.Main).launch {
+    CoroutineScope(Dispatchers.IO).launch {
         NewsRepository(self).resetNews()
     }
 }
 
 fun Context.ensureAccountPresence() {
-    val accountRepository = AccountRepository(this)
-    CoroutineScope(Dispatchers.Main).launch {
+    val self = this
+    CoroutineScope(Dispatchers.IO).launch {
+        val accountRepository = AccountRepository(self)
         if (!accountRepository.hasBalance()) {
             accountRepository.resetAccount()
         }

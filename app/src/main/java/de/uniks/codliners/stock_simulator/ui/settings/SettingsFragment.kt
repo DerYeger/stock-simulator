@@ -13,6 +13,9 @@ import androidx.lifecycle.Observer
 import com.an.biometric.BiometricUtils
 import de.uniks.codliners.stock_simulator.*
 import de.uniks.codliners.stock_simulator.databinding.FragmentSettingsBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 class SettingsFragment : Fragment() {
@@ -57,28 +60,25 @@ class SettingsFragment : Fragment() {
 
         // React to reset button clicks.
         viewModel.clickResetStatus.observe(viewLifecycleOwner, Observer { status ->
-            status?.let {
-
-                // Reset click indicator.
-                viewModel.clickResetStatus.value = null
-
-                this.context!!.resetAccount()
-                this.context!!.resetHistory()
-                this.context!!.resetQuotes()
-                this.context!!.resetStockbrot()
-                this.context!!.resetNews()
+            if (status) {
+                val context = context!!
+                CoroutineScope(Dispatchers.Unconfined).launch {
+                    context.resetAccount()
+                    context.resetHistory()
+                    context.resetQuotes()
+                    context.resetStockbrot()
+                    context.resetNews()
+                }
 
                 Toast.makeText(this.context, "Data reset successfully.", Toast.LENGTH_SHORT).show()
+
+                viewModel.onGameReset()
             }
         })
 
         // React to fingerprint button clicks.
         viewModel.toggleFingerprintStatus.observe(viewLifecycleOwner, Observer { status ->
-            status?.let {
-
-                // Reset click indicator.
-                viewModel.toggleFingerprintStatus.value = null
-
+            if (status) {
                 // If fingerprint authentication is enabled...
                 if (activity!!.getPreferences(Context.MODE_PRIVATE).getBoolean(
                         getString(R.string.prefs_fingerprint_added),
@@ -94,6 +94,8 @@ class SettingsFragment : Fragment() {
                     // ... enable fingerprint authentication.
                     (activity as MainActivity).biometricManager.authenticate(activity as MainActivity)
                 }
+
+                viewModel.onFingerprintToggled()
             }
         })
 
