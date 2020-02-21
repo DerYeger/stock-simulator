@@ -30,7 +30,7 @@ class SearchFragment : BaseFragment() {
         binding.searchResultRecyclerView.adapter =
             SearchResultAdapter(OnClickListener { searchResult ->
                 val action =
-                    SearchFragmentDirections.actionNavigationSearchToShareFragment(searchResult.symbol, searchResult.type)
+                    SearchFragmentDirections.actionNavigationSearchToShareFragment(searchResult.id, searchResult.type)
                 findNavController().navigate(action)
             })
         binding.lifecycleOwner = this

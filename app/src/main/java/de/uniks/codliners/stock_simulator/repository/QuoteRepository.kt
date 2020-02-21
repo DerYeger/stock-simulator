@@ -44,10 +44,9 @@ class QuoteRepository(private val database: StockAppDatabase) {
                 _state.postValue(State.Refreshing)
                 val quote = NetworkService.IEX_API.quote(symbol).asDomainQuote()
                 database.quoteDao.insert(quote)
-                val historicalPricesFromApi = NetworkService.IEX_API.historical(symbol = symbol, chartCloseOnly = true)
-                val historicalPricesWithSymbol = historicalPricesFromApi.asDomainHistoricalPrices(symbol)
+                val historicalPrices = NetworkService.IEX_API.historical(symbol = symbol, chartCloseOnly = true).asDomainHistoricalPrices(symbol)
                 database.historicalDao.deleteHistoricalPricesById(symbol)
-                database.historicalDao.insertAll(*historicalPricesWithSymbol.toTypedArray())
+                database.historicalDao.insertAll(*historicalPrices.toTypedArray())
                 _state.postValue(State.Done)
             } catch (exception: Exception) {
                 _state.postValue(State.Error(exception.message ?: "Oops!"))
