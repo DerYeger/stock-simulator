@@ -97,6 +97,9 @@ dependencies {
 
     // Background Worker
     implementation "androidx.work:work-runtime:$ax_work_version"
+
+    // Picasso (image downloading)
+    implementation "com.squareup.picasso:picasso:$picasso_version"
 }
 
 dokka {

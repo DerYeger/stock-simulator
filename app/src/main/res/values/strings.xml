@@ -22,11 +22,13 @@
     <string name="double_depot_quote_amount_format">%f in depot</string>
     <string name="double_depot_quote_format">%s - %f</string>
     <string name="double_sell_amount_format">%f sold</string>
+    <string name="empty_hint">It\'s empty in here!</string>
     <string name="long_buy_amount_format">%d bought</string>
     <string name="long_depot_quote_amount_format">%d in depot</string>
     <string name="long_depot_quote_format">%s - %d</string>
     <string name="long_sell_amount_format">%d sold</string>
     <string name="no_results">No results</string>
+    <string name="paywall_indicator">Paywall indicator.</string>
     <string name="performance">Performance: </string>
     <string name="performance_format_loss">%.2f %%</string>
     <string name="performance_format_neutral">%.2f %%</string>
@@ -38,6 +40,7 @@
     <string name="prefs_fingerprint_status_sdk">Your Android version does not support fingerprint authentication.</string>
     <string name="price_format">Price: %s$</string>
     <string name="query">Symbol</string>
+    <string name="read_full_article">Read full article</string>
     <string name="remove_fingerprint">Remove fingerprint authentication</string>
     <string name="reset_data">Reset data</string>
     <string name="sell">Sell</string>
@@ -45,6 +48,10 @@
     <string name="stockbrot_add_control_quote">Add to Stockbrot</string>
     <string name="stockbrot_disable_bot">disable bot</string>
     <string name="stockbrot_enable_bot">enable bot</string>
+    <string name="stockbrot_quote_buying_amount_format_double">Buying %s at %s$</string>
+    <string name="stockbrot_quote_buying_amount_format_long">Buying %d at %s$</string>
+    <string name="stockbrot_quote_buying_format">Buying at %s$</string>
+    <string name="stockbrot_quote_selling_format">Selling at %s$</string>
     <string name="stockbrot_remove_control_quote">Remove quote from stockbrot</string>
     <string name="stockbrot_threshold_buy">Maximum Buy Price</string>
     <string name="stockbrot_threshold_sell">Minimum Sell Price</string>
@@ -64,9 +71,4 @@
         <item>Shares</item>
         <item>Crypto</item>
     </string-array>
-    <string name="empty_hint">It\'s empty in here!</string>
-    <string name="stockbrot_quote_buying_format">Buying at %s$</string>
-    <string name="stockbrot_quote_buying_amount_format_long">Buying %d at %s$</string>
-    <string name="stockbrot_quote_buying_amount_format_double">Buying %s at %s$</string>
-    <string name="stockbrot_quote_selling_format">Selling at %s$</string>
 </resources>

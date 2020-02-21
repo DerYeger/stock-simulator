@@ -36,17 +36,30 @@
             android:layout_height="wrap_content"
             android:animateLayoutChanges="true">
 
+            <ImageView
+                android:id="@+id/news_paywall_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="4dp"
+                android:contentDescription="@string/paywall_indicator"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:paywallType="@{news.hasPaywall}"
+                app:srcCompat="@drawable/ic_adb_black_24dp" />
+
             <TextView
-                style="@style/TextAppearance.MaterialComponents.Headline5"
                 android:id="@+id/news_headline"
+                style="@style/TextAppearance.MaterialComponents.Headline5"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
                 android:layout_marginEnd="@dimen/default_spacing"
                 android:layout_marginBottom="16dp"
                 android:text="@{news.headline}"
                 app:layout_constraintBottom_toBottomOf="@+id/expand_toggle_button"
                 app:layout_constraintEnd_toStartOf="@+id/expand_toggle_button"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/news_paywall_image"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="Headline" />
 
@@ -74,14 +87,24 @@
                 app:layout_constraintTop_toBottomOf="@+id/news_headline"
                 app:visible="@{expanded}">
 
+                <ImageView
+                    android:id="@+id/news_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/article_header_image"
+                    android:src="@{news.image}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
                 <TextView
                     android:id="@+id/news_date"
                     style="@style/TextAppearance.MaterialComponents.Body1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
                     android:text="@{dateString}"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/news_image"
                     tools:text="date" />
 
                 <TextView
@@ -89,7 +112,6 @@
                     style="@style/TextAppearance.MaterialComponents.Body1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
                     android:text="@{news.source}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/news_date"
@@ -105,6 +127,15 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/news_source"
                     tools:text="A short summary." />
+
+                <Button
+                    android:id="@+id/news_openArticle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/read_full_article"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/news_summary" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

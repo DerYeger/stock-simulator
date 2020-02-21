@@ -155,6 +155,17 @@ fun ImageView.bindTransactionType(transactionType: TransactionType?) {
     }
 }
 
+@BindingAdapter("paywallType")
+fun ImageView.bindPaywallType(paywallType: Boolean?) {
+    paywallType?.let {
+        val drawableId = when (paywallType) {
+            true -> R.drawable.ic_attach_money_24dp
+            false -> R.drawable.ic_money_off_black_24dp
+        }
+        setImageDrawable(resources.getDrawable(drawableId, context.theme))
+    }
+}
+
 @BindingAdapter("transaction")
 fun TextView.bindTransaction(transaction: Transaction?) {
     transaction?.let {
