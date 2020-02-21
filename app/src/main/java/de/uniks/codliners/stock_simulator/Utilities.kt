@@ -70,6 +70,13 @@ fun Context.resetNews() {
     }
 }
 
+fun Context.resetAchievements() {
+    val self = this
+    CoroutineScope(Dispatchers.Main).launch {
+        AchievementsRepository(self).resetAchievements()
+    }
+}
+
 fun Context.ensureAccountPresence(lifecycleOwner: LifecycleOwner) {
     val accountRepository = AccountRepository(this)
     CoroutineScope(Dispatchers.Main).launch {

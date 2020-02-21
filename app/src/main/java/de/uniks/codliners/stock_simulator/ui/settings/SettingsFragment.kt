@@ -67,6 +67,7 @@ class SettingsFragment : Fragment() {
                 this.context!!.resetQuotes()
                 this.context!!.resetStockbrot()
                 this.context!!.resetNews()
+                this.context!!.resetAchievements()
 
                 Toast.makeText(this.context, "Data reset successfully.", Toast.LENGTH_SHORT).show()
             }
