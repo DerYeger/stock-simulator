@@ -40,7 +40,7 @@ class QuoteViewModel(
     val stockbrotQuote = stockbrotRepository.stockbrotQuoteWithSymbol(id)
     val historicalPrices = quoteRepository.historicalPrices(id)
 
-    private val isCrypto = type === Symbol.Type.CRYPTO
+    val isCrypto = type === Symbol.Type.CRYPTO
 
     val inputType =
         if (isCrypto) InputType.TYPE_NUMBER_FLAG_DECIMAL else InputType.TYPE_CLASS_NUMBER
