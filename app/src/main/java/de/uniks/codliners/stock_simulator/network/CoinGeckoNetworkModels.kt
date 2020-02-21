@@ -1,10 +1,10 @@
 package de.uniks.codliners.stock_simulator.network
 
+import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import de.uniks.codliners.stock_simulator.database.HistoricalPrice
 import de.uniks.codliners.stock_simulator.domain.Quote
 import de.uniks.codliners.stock_simulator.domain.Symbol
-import retrofit2.http.Field
 import java.util.*
 
 @JsonClass(generateAdapter = true)
@@ -43,13 +43,13 @@ data class CoinGeckoQuote(
     val id: String,
     val symbol: String,
     val name: String,
-    @Field("market_data")
+    @Json(name = "market_data")
     val marketData: CoinGeckoMarketData
 )
 
 @JsonClass(generateAdapter = true)
 data class CoinGeckoMarketData(
-    @Field("current_price")
+    @Json(name = "current_price")
     val currentPrices: Map<String, Double>
 )
 

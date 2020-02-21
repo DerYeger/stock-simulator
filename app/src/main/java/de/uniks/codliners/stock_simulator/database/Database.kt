@@ -31,8 +31,8 @@ interface QuoteDao {
     @Query("SELECT * FROM quote WHERE quote.id == :id")
     fun getQuoteWithId(id: String): LiveData<Quote>
 
-    @Query("SELECT * FROM quote WHERE quote.symbol == :symbol")
-    fun getQuoteValueBySymbol(symbol: String): Quote
+    @Query("SELECT * FROM quote WHERE quote.id == :id")
+    fun getQuoteValueById(id: String): Quote
 
     @Delete
     fun delete(quote: Quote)

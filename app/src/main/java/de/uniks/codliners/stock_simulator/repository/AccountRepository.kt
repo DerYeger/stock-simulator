@@ -7,7 +7,6 @@ import de.uniks.codliners.stock_simulator.database.DepotQuote
 import de.uniks.codliners.stock_simulator.database.StockAppDatabase
 import de.uniks.codliners.stock_simulator.database.DatabaseTransaction
 import de.uniks.codliners.stock_simulator.database.getDatabase
-import de.uniks.codliners.stock_simulator.domain.*
 import de.uniks.codliners.stock_simulator.database.*
 import de.uniks.codliners.stock_simulator.domain.Balance
 import de.uniks.codliners.stock_simulator.domain.Quote
@@ -86,7 +85,7 @@ class AccountRepository(private val database: StockAppDatabase) {
         withContext(Dispatchers.IO) {
             val depotQuotes = database.accountDao.getDepotQuotesValues()
             val newValue = depotQuotes.sumByDouble { depotQuote ->
-                val quotePrice = database.quoteDao.getQuoteValueBySymbol(depotQuote.id).latestPrice
+                val quotePrice = database.quoteDao.getQuoteValueById(depotQuote.id).latestPrice
                 val depotQuoteAmount = depotQuote.amount
                 quotePrice * depotQuoteAmount
             }
