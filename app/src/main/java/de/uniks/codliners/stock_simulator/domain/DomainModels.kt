@@ -1,7 +1,7 @@
 package de.uniks.codliners.stock_simulator.domain
 
 import android.os.Parcelable
-import androidx.annotation.IntegerRes
+import androidx.annotation.StringRes
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.squareup.moshi.JsonClass
@@ -79,8 +79,8 @@ data class StockbrotQuote(
 @Entity
 data class Achievement(
     @PrimaryKey
-    @IntegerRes
+    @StringRes
     val name: Int,
-    @IntegerRes
-    val unlockRequirement: Int
+    @StringRes
+    val description: Int
 )

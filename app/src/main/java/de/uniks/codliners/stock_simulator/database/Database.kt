@@ -187,6 +187,26 @@ interface HistoricalPriceDao {
     fun deleteHistoricalPricesById(id: String)
 }
 
+@Dao
+interface AchievementsDao {
+
+    @Insert(onConflict = REPLACE)
+    fun insert(achievement: Achievement)
+
+    @Query("SELECT * FROM achievement")
+    fun getAchievements(): LiveData<List<Achievement>>
+
+    @Query("select * from achievement where name = :name")
+    fun getAchievementById(name: String): LiveData<Achievement>
+
+    @Query("delete from achievement where name = :name")
+    fun deleteAchievementById(name: String)
+
+    @Query("delete from achievement")
+    fun deleteAchivements()
+
+}
+
 @Database(
     entities = [Symbol::class, DepotQuote::class, News::class, DatabaseTransaction::class, Quote::class, Balance::class, HistoricalPrice::class, StockbrotQuote::class, DepotValue::class],
     version = 21,
@@ -201,6 +221,7 @@ abstract class StockAppDatabase : RoomDatabase() {
     abstract val accountDao: AccountDao
     abstract val stockbrotDao: StockbrotDao
     abstract val historicalDao: HistoricalPriceDao
+    abstract val achievementDao: AchievementsDao
 }
 
 private lateinit var INSTANCE: StockAppDatabase
