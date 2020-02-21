@@ -10,6 +10,7 @@ import de.uniks.codliners.stock_simulator.domain.Quote
 import de.uniks.codliners.stock_simulator.network.NetworkService
 import de.uniks.codliners.stock_simulator.network.asDomainHistoricalPrices
 import de.uniks.codliners.stock_simulator.network.asDomainQuote
+import de.uniks.codliners.stock_simulator.network.asHistoricalPrices
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -44,9 +45,9 @@ class QuoteRepository(private val database: StockAppDatabase) {
                 _state.postValue(State.Refreshing)
                 val quote = NetworkService.IEX_API.quote(symbol).asDomainQuote()
                 database.quoteDao.insert(quote)
-                val historicalPrices =
-                    NetworkService.IEX_API.historical(symbol = symbol, chartCloseOnly = true)
-                        .asDomainHistoricalPrices(symbol)
+                val historicalPrices = NetworkService.IEX_API
+                    .historicalPrices(symbol = symbol, chartCloseOnly = true)
+                    .asDomainHistoricalPrices(symbol)
                 database.historicalDao.deleteHistoricalPricesById(symbol)
                 database.historicalDao.insertAll(*historicalPrices.toTypedArray())
                 _state.postValue(State.Done)
@@ -62,7 +63,11 @@ class QuoteRepository(private val database: StockAppDatabase) {
                 _state.postValue(State.Refreshing)
                 val quote = NetworkService.COINGECKO_API.quote(id).asDomainQuote()
                 database.quoteDao.insert(quote)
-                // TODO fetch historical data
+                val historicalPrices = NetworkService.COINGECKO_API
+                    .historicalPrices(id = id)
+                    .asHistoricalPrices(id)
+                database.historicalDao.deleteHistoricalPricesById(id)
+                database.historicalDao.insertAll(*historicalPrices.toTypedArray())
                 _state.postValue(State.Done)
             } catch (exception: Exception) {
                 _state.postValue(State.Error(exception.message ?: "Oops!"))

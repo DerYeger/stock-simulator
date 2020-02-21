@@ -28,11 +28,11 @@ interface IexApi {
     @GET("ref-data/symbols")
     suspend fun symbols(@Query("token") token: String = IEX_API_TOKEN): List<IEXSymbol>
 
-    @GET("stock/{symbol}/chart/{range}")
-    suspend fun historical(@Path("symbol") symbol: String, @Path("range") range: String = "1m", @Query("token") token: String = IEX_API_TOKEN, @Query("chartCloseOnly") chartCloseOnly: Boolean): List<IEXHistoricalPrice>
-
     @GET("stock/{symbol}/quote")
     suspend fun quote(@Path("symbol") symbol: String, @Query("token") token: String = IEX_API_TOKEN): IEXQuote
+
+    @GET("stock/{symbol}/chart/{range}")
+    suspend fun historicalPrices(@Path("symbol") symbol: String, @Path("range") range: String = "1m", @Query("token") token: String = IEX_API_TOKEN, @Query("chartCloseOnly") chartCloseOnly: Boolean): List<IEXHistoricalPrice>
 }
 
 interface CoinGeckoApi {
@@ -43,8 +43,8 @@ interface CoinGeckoApi {
     @GET("coins/{id}")
     suspend fun quote(@Path("id") id: String): CoinGeckoQuote
 
-    @GET("/coins/{id}/market_chart")
-    suspend fun historical(@Path("id") id: String): CoinGeckoMarketChart
+    @GET("coins/{id}/market_chart")
+    suspend fun historicalPrices(@Path("id") id: String, @Query("vs_currency") currency: String = "usd", @Query("days") days: String = "max"): CoinGeckoMarketChart
 }
 
 object NetworkService {

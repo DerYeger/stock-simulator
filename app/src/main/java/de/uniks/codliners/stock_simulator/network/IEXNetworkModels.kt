@@ -52,14 +52,14 @@ data class IEXHistoricalPrice(
     val changePercent: Double
 )
 
-fun IEXHistoricalPrice.asDomainHistoricalPrice(symbol: String) = HistoricalPrice(
-    id = symbol,
+fun IEXHistoricalPrice.asDomainHistoricalPrice(id: String) = HistoricalPrice(
+    id = id,
     date = SimpleDateFormat("yyyy-MM-dd", Locale.ROOT).parse(date)!!.time,
     price = this.close
 )
 
-fun List<IEXHistoricalPrice>.asDomainHistoricalPrices(symbol: String): List<HistoricalPrice> {
+fun List<IEXHistoricalPrice>.asDomainHistoricalPrices(id: String): List<HistoricalPrice> {
     return map {
-        it.asDomainHistoricalPrice(symbol)
+        it.asDomainHistoricalPrice(id)
     }
 }
