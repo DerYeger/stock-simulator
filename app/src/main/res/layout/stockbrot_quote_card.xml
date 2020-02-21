@@ -21,24 +21,38 @@
         android:onClick="@{() -> onClickListener.onClick(stockbrotQuote)}"
         app:cardCornerRadius="@dimen/default_corner_radius"
         app:cardElevation="@dimen/default_elevation"
-        app:contentPadding="@dimen/half_spacing">
+        app:contentPadding="@dimen/default_spacing">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <TextView
-                android:id="@+id/quote_symbol"
-                android:layout_width="0dp"
+                android:id="@+id/symbol_text"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@{stockbrotQuote.symbol}"
-                android:textAlignment="center"
-                android:textAppearance="@android:style/TextAppearance.Material.Headline"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="name" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                tools:text="SYMBOL"
+                android:paddingBottom="@dimen/half_spacing"/>
+
+            <TextView
+                android:id="@+id/buy_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                app:stockbrotQuote="@{stockbrotQuote}"
+                tools:text="Buying at 42$"
+                android:paddingBottom="@dimen/half_spacing" />
+
+            <TextView
+                android:id="@+id/sell_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{@string/stockbrot_quote_selling_format(stockbrotQuote.thresholdSell)}"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                tools:text="Selling at 42$" />
+        </LinearLayout>
     </androidx.cardview.widget.CardView>
 </layout>

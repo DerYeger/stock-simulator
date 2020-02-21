@@ -94,13 +94,22 @@ fun RecyclerView.bindTransactions(transactions: List<Transaction>?) {
 @BindingAdapter("lossOrWin")
 fun TextView.bindPerformanceText(performance: Double) {
     if (performance > 0.0) {
-        text = String.format(resources.getText(R.string.performance_format_win).toString(), performance)
+        text = String.format(
+            resources.getText(R.string.performance_format_win).toString(),
+            performance
+        )
         this.setTextColor(resources.getColor(R.color.colorAccent))
     } else if (performance == 0.0) {
-        text = String.format(resources.getText(R.string.performance_format_neutral).toString(), performance)
+        text = String.format(
+            resources.getText(R.string.performance_format_neutral).toString(),
+            performance
+        )
         this.setTextColor(resources.getColor(R.color.trendingFlat))
     } else {
-        text = String.format(resources.getText(R.string.performance_format_loss).toString(), performance)
+        text = String.format(
+            resources.getText(R.string.performance_format_loss).toString(),
+            performance
+        )
         this.setTextColor(resources.getColor(R.color.trendingDown))
     }
 }
@@ -111,10 +120,20 @@ fun ImageView.bindPerformanceIcon(performance: Double) {
         setImageDrawable(resources.getDrawable(R.drawable.ic_trending_up_black_24dp, context.theme))
         this.setColorFilter(resources.getColor(R.color.colorAccent))
     } else if (performance == 0.0) {
-        setImageDrawable(resources.getDrawable(R.drawable.ic_trending_flat_black_24dp, context.theme))
+        setImageDrawable(
+            resources.getDrawable(
+                R.drawable.ic_trending_flat_black_24dp,
+                context.theme
+            )
+        )
         this.setColorFilter(resources.getColor(R.color.trendingFlat))
     } else {
-        setImageDrawable(resources.getDrawable(R.drawable.ic_trending_down_black_24dp, context.theme))
+        setImageDrawable(
+            resources.getDrawable(
+                R.drawable.ic_trending_down_black_24dp,
+                context.theme
+            )
+        )
         this.setColorFilter(resources.getColor(R.color.trendingDown))
     }
 }
@@ -177,5 +196,32 @@ fun Button.bindBotAddRemoveQuote(enabled: Boolean) {
         context.getText(R.string.stockbrot_remove_control_quote)
     } else {
         context.getText(R.string.stockbrot_add_control_quote)
+    }
+}
+
+@BindingAdapter("stockbrotQuote")
+fun TextView.bindStockbrotQuote(stockbrotQuote: StockbrotQuote) {
+    text = when (stockbrotQuote.buyAmount == 0.0) {
+        true -> {
+            String.format(
+                resources.getText(R.string.stockbrot_quote_buying_format).toString(),
+                stockbrotQuote.thresholdBuy
+            )
+        }
+        false -> {
+            when (stockbrotQuote.type) {
+                Symbol.Type.SHARE -> String.format(
+                    resources.getText(R.string.stockbrot_quote_buying_amount_format_long).toString(),
+                    stockbrotQuote.buyAmount.toLong(),
+                    stockbrotQuote.thresholdBuy
+                )
+                Symbol.Type.CRYPTO -> String.format(
+                    resources.getText(R.string.stockbrot_quote_buying_amount_format_double).toString(),
+                    stockbrotQuote.buyAmount,
+                    stockbrotQuote.thresholdBuy
+                )
+            }
+
+        }
     }
 }
