@@ -3,6 +3,7 @@ package de.uniks.codliners.stock_simulator
 import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.edit
+import de.uniks.codliners.stock_simulator.repository.AchievementsRepository
 import de.uniks.codliners.stock_simulator.repository.SymbolRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -35,5 +36,10 @@ class StockSimulatorApplication : Application() {
                     putBoolean(FIRST_RUN_KEY, false)
                 }
             }
+
+        val achievementsRepository = AchievementsRepository(this@StockSimulatorApplication)
+        CoroutineScope(Dispatchers.Main).launch {
+            achievementsRepository.initAchievements()
+        }
     }
 }

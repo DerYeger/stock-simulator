@@ -60,4 +60,10 @@
         <item>Crypto</item>
     </string-array>
     <string name="title_auto_buy_sell">Auto buy/sell</string>
+    <string name="achievement_99995reached_name">99995$ reached</string>
+    <string name="achievement_99995reached_description">You have reached a credit of 99995$</string>
+    <string name="achievement_10010reached_name">10010$ reached</string>
+    <string name="achievement_10010reached_description">You have reached a credit of 10010$</string>
+    <string name="achievement_20000reached_name">20000$ reached</string>
+    <string name="achievement_20000reached_description">You have reached a credit of 20000$</string>
 </resources>
