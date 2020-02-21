@@ -294,16 +294,17 @@ class QuoteViewModel(
 
     private fun canAddRemoveQuoteToStockbrot(
         stockbrotQuote: StockbrotQuote?,
-        autoBuyAmount: Double?,
+        buyAmount: Double?,
         thresholdBuy: Double?,
         thresholdSell: Double?
     ) = when (stockbrotQuote) {
-        null -> (doubleValid(autoBuyAmount) && doubleValid(thresholdBuy)) ||
-                doubleValid(thresholdSell)
+        null -> buyAmountIsValid(buyAmount) && thresholdIsValid(thresholdBuy) || thresholdIsValid(thresholdSell)
         else -> true
     }
 
-    private fun doubleValid(threshold: Double?) = noNulls(threshold) && 0 < threshold!!
+    private fun buyAmountIsValid(buyAmount: Double?) = buyAmount != null && buyAmount >= 0
+
+    private fun thresholdIsValid(threshold: Double?) = threshold != null && threshold > 0
 
     class Factory(
         private val application: Application,
