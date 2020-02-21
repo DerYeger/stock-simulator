@@ -116,7 +116,7 @@ interface AccountDao {
     @Query("SELECT * FROM (SELECT * FROM depotvalue ORDER BY depotvalue.timestamp DESC LIMIT :limit) ORDER BY timestamp ASC")
     fun getDepotValuesLimited(limit: Int): LiveData<List<DepotValue>>
 
-    @Query("delete FROM depotvalue")
+    @Query("DELETE FROM depotvalue")
     fun deleteDepotValues()
 }
 
@@ -151,7 +151,7 @@ interface HistoricalPriceDao {
     @Query("SELECT * FROM historicalprice WHERE id = :id")
     fun getHistoricalPricesById(id: String): LiveData<List<HistoricalPrice>>
 
-    @Query("delete FROM historicalprice WHERE id = :id")
+    @Query("DELETE FROM historicalprice WHERE id = :id")
     fun deleteHistoricalPricesById(id: String)
 }
 

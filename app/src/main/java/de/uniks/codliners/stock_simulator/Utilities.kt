@@ -90,14 +90,6 @@ fun String?.toSafeDouble(): Double? {
     }
 }
 
-fun String.toType(): Symbol.Type? {
-    return when (this) {
-        "SHARE" -> Symbol.Type.SHARE
-        "CRYPTO" -> Symbol.Type.CRYPTO
-        else -> null
-    }
-}
-
 fun Double.isWholeNumber() = toLong().toDouble() == this
 
 /**
