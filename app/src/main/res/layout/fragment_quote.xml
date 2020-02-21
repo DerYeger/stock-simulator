@@ -96,7 +96,7 @@
                     android:enabled="@{viewModel.canBuy}"
                     android:onClick="@{() -> viewModel.buy()}"
                     android:text="@string/buy"
-                    app:layout_constraintBaseline_toBaselineOf="@+id/buy_number"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/lever_number"
                     app:layout_constraintEnd_toEndOf="parent" />
 
                 <Button
@@ -111,20 +111,34 @@
                     app:layout_constraintEnd_toEndOf="parent" />
 
                 <EditText
-                    android:id="@+id/buy_number"
+                    android:id="@+id/lever_number"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/default_spacing"
-                    android:layout_marginTop="@dimen/default_spacing"
                     android:layout_marginEnd="@dimen/default_spacing"
+                    android:ems="10"
+                    android:hint="@string/lever_hint"
+                    android:importantForAutofill="no"
+                    android:inputType="number"
+                    android:text="@={viewModel.buyAmount}"
+                    app:layout_constraintEnd_toStartOf="@+id/buy_button"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/title_lever_amount"
+                    tools:ignore="TextFields" />
+
+                <EditText
+                    android:id="@+id/buy_number"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
                     android:ems="10"
                     android:hint="@string/buy_hint"
                     android:importantForAutofill="no"
                     android:inputType="@{viewModel.inputType}"
                     android:text="@={viewModel.buyAmount}"
-                    app:layout_constraintEnd_toStartOf="@+id/buy_button"
+                    app:layout_constraintEnd_toEndOf="@+id/lever_number"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/quote_company_name_text"
+                    app:layout_constraintTop_toBottomOf="@+id/title_buy_amount"
                     tools:ignore="TextFields" />
 
                 <EditText
@@ -132,7 +146,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/default_spacing"
-                    android:layout_marginTop="@dimen/default_spacing"
                     android:layout_marginEnd="@dimen/default_spacing"
                     android:hint="@string/sell_hint"
                     android:importantForAutofill="no"
@@ -140,7 +153,7 @@
                     android:text="@={viewModel.sellAmount}"
                     app:layout_constraintEnd_toStartOf="@+id/sell_button"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/buy_number"
+                    app:layout_constraintTop_toBottomOf="@+id/title_sell_amount"
                     tools:ignore="TextFields" />
 
                 <TextView
@@ -179,12 +192,41 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/title_auto_buy_sell" />
 
+                <TextView
+                    android:id="@+id/title_buy_amount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/buy_hint"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/quote_company_name_text" />
+
+                <TextView
+                    android:id="@+id/title_sell_amount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/sell_hint"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/lever_number" />
+
+                <TextView
+                    android:id="@+id/title_lever_amount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/lever_hint"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/buy_number" />
+
                 <EditText
                     android:id="@+id/stockbrot_buy_amount"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
                     android:ems="10"
                     android:enabled="@{viewModel.stockbrotQuote == null}"
@@ -201,7 +243,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="8dp"
                     android:text="@string/stockbrot_threshold_buy"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/stockbrot_buy_amount" />
@@ -211,7 +253,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/default_spacing"
-                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
                     android:ems="10"
                     android:enabled="@{viewModel.stockbrotQuote == null}"
@@ -228,7 +269,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="8dp"
                     android:text="@string/stockbrot_threshold_sell"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/stockbrot_threshold_buy" />
@@ -238,7 +279,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/default_spacing"
-                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
                     android:ems="10"
                     android:enabled="@{viewModel.stockbrotQuote == null}"

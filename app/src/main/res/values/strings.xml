@@ -10,6 +10,7 @@
     <string name="biometric_success">Fingerprint authenticated successfully!</string>
     <string name="buy">Buy</string>
     <string name="buy_hint">Buy amount</string>
+    <string name="lever_hint">Lever</string>
     <string name="cancel">Cancel</string>
     <string name="double_depot_quote_amount_format">%f in depot</string>
     <string name="long_depot_quote_amount_format">%d in depot</string>
