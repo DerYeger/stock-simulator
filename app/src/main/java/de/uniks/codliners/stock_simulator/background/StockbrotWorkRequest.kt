@@ -18,8 +18,6 @@ class StockbrotWorkRequest(context: Context) {
     private val intervalMinutes: Long = 15
 
     fun addQuote(stockbrotQuote: StockbrotQuote) {
-        println("start StockbrotWorkRequest")
-
         val buyAmount = stockbrotQuote.buyAmount
         val thresholdBuy = stockbrotQuote.thresholdBuy
         val thresholdSell = stockbrotQuote.thresholdSell
@@ -48,7 +46,6 @@ class StockbrotWorkRequest(context: Context) {
     }
 
     fun removeQuote(stockbrotQuote: StockbrotQuote) {
-        println("stop StockbrotWorkRequest")
         val buildWorkerTag = buildWorkerTag(stockbrotQuote.id)
         workManager.cancelAllWorkByTag(buildWorkerTag)
     }

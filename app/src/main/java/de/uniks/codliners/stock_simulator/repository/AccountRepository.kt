@@ -43,10 +43,16 @@ class AccountRepository(private val database: StockAppDatabase) {
     fun depotQuoteBySymbol(symbol: String): DepotQuote? =
         database.accountDao.getDepotQuoteById(symbol)
 
+    suspend fun getLatestBalance() = withContext(Dispatchers.IO) { database.accountDao.getLatestBalanceValue() }
+
     suspend fun buy(quote: Quote, amount: Double) {
+        if (amount <= 0.0) return
         withContext(Dispatchers.IO) {
             val oldBalance = database.accountDao.getLatestBalanceValue()
             val cashflow = -(quote.latestPrice * amount) - BuildConfig.TRANSACTION_COSTS
+            if (-cashflow >= oldBalance.value) {
+                return@withContext
+            }
             val newBalance = Balance(oldBalance.value + cashflow)
 
             val depotQuote = database.accountDao.getDepotQuoteById(quote.symbol)
@@ -79,8 +85,12 @@ class AccountRepository(private val database: StockAppDatabase) {
     }
 
     suspend fun sell(quote: Quote, amount: Double) {
+        if (amount <= 0.0) return
         withContext(Dispatchers.IO) {
             val oldBalance = database.accountDao.getLatestBalanceValue()
+            if (BuildConfig.TRANSACTION_COSTS >= oldBalance.value) {
+                return@withContext
+            }
             val cashflow = quote.latestPrice * amount - BuildConfig.TRANSACTION_COSTS
             val newBalance = Balance(oldBalance.value + cashflow)
 

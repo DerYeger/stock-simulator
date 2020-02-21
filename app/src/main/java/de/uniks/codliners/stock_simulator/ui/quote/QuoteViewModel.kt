@@ -32,7 +32,7 @@ class QuoteViewModel(
 
     private val latestBalance = accountRepository.latestBalance
 
-    val quote = quoteRepository.quoteWithSymbol(id)
+    val quote = quoteRepository.quoteWithId(id)
     val depotQuote = accountRepository.depotQuoteWithSymbol(id)
     val stockbrotQuote = stockbrotRepository.stockbrotQuoteWithSymbol(id)
     val historicalPrices = quoteRepository.historicalPrices(id)
