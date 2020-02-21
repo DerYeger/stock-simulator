@@ -104,7 +104,7 @@ class AccountRepository(private val database: StockAppDatabase) {
                 val cashflow = quote.latestPrice * amount - BuildConfig.TRANSACTION_COSTS
                 val newBalance = Balance(lastBalance.value + cashflow)
 
-                val depotQuote = database.accountDao.getDepotQuoteById(quote.symbol)!!
+                val depotQuote = database.accountDao.getDepotQuoteById(quote.id)!!
                 val newDepotQuote = depotQuote.copy(amount = depotQuote.amount - amount)
 
                 val transaction = Transaction(
