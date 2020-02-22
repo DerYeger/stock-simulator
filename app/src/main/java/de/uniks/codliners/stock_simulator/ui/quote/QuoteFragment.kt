@@ -1,5 +1,6 @@
 package de.uniks.codliners.stock_simulator.ui.quote
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.github.mikephil.charting.data.Entry
+import de.uniks.codliners.stock_simulator.R
 import de.uniks.codliners.stock_simulator.databinding.FragmentQuoteBinding
 import de.uniks.codliners.stock_simulator.domain.StockbrotQuote
 import de.uniks.codliners.stock_simulator.initLineChart
@@ -58,6 +60,24 @@ class QuoteFragment : BaseFragment() {
             }
         })
 
+        viewModel.buyAction.observe(viewLifecycleOwner, Observer { status: Boolean? ->
+            status?.let {
+                showTransactionDialog {
+                    viewModel.buy()
+                }
+                viewModel.onBuyActionCompleted()
+            }
+        })
+
+        viewModel.sellAction.observe(viewLifecycleOwner, Observer { status: Boolean? ->
+            status?.let {
+                showTransactionDialog {
+                    viewModel.sell()
+                }
+                viewModel.onSellActionCompleted()
+            }
+        })
+
         viewModel.stockbrotQuoteAction.observe(this, Observer { stockbrotQuote: StockbrotQuote? ->
             stockbrotQuote?.let {
                 viewModel.autoBuyAmount.value = stockbrotQuote.buyAmount.toString()
@@ -90,6 +110,21 @@ class QuoteFragment : BaseFragment() {
         initLineChart(binding.quoteChart, context!!)
 
         return binding.root
+    }
+
+    private fun showTransactionDialog(onConfirmation: () -> Unit) {
+        AlertDialog.Builder(context)
+            .setMessage(R.string.dialog_confirm_transaction)
+            .setPositiveButton(R.string.yes) { dialog, id ->
+                onConfirmation()
+            }
+            .setNegativeButton(R.string.cancel) { dialog, id ->
+                Toast
+                    .makeText(context, "Transaction canceled", Toast.LENGTH_SHORT)
+                    .show()
+            }
+            .create()
+            .show()
     }
 
     private fun showErrorToast(errorMessage: String?) {
