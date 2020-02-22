@@ -45,7 +45,8 @@ class QuoteFragment : BaseFragment() {
                 // Reset click indicator.
                 viewModel.clickNewsStatus.value = null
 
-                val action = QuoteFragmentDirections.actionNavigationQuoteToNavigationNews(viewModel.quote.value!!.symbol)
+                val action =
+                    QuoteFragmentDirections.actionNavigationQuoteToNavigationNews(viewModel.quote.value!!.symbol)
                 findNavController().navigate(action)
             }
         })
@@ -73,6 +74,9 @@ class QuoteFragment : BaseFragment() {
                 val entries = priceList.map { price ->
                     Entry((price.date - referenceTimestamp).toFloat(), price.price.toFloat())
                 }
+
+                // resources.configuration.locales[0] requires API level 24
+                @Suppress("DEPRECATION")
                 updateLineChart(
                     binding.quoteChart,
                     entries,

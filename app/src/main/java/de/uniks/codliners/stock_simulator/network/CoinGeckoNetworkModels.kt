@@ -1,10 +1,10 @@
 package de.uniks.codliners.stock_simulator.network
 
+import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
-import de.uniks.codliners.stock_simulator.database.HistoricalPrice
+import de.uniks.codliners.stock_simulator.domain.HistoricalPrice
 import de.uniks.codliners.stock_simulator.domain.Quote
 import de.uniks.codliners.stock_simulator.domain.Symbol
-import retrofit2.http.Field
 import java.util.*
 
 @JsonClass(generateAdapter = true)
@@ -24,32 +24,17 @@ fun CoinGeckoSymbol.asDomainSymbol() = Symbol(
 fun List<CoinGeckoSymbol>.asDomainSymbols() = map { it.asDomainSymbol() }.toTypedArray()
 
 @JsonClass(generateAdapter = true)
-data class CoinGeckoMarketChart(
-    val prices: List<Pair<Long, Double>>
-)
-
-private fun Pair<Long, Double>.asHistoricalPrice(id: String) = HistoricalPrice(
-    id = id,
-    date = first,
-    price = second
-)
-
-fun CoinGeckoMarketChart.asHistoricalPrices(symbol: String) =
-    prices.map { it.asHistoricalPrice(symbol) }
-
-
-@JsonClass(generateAdapter = true)
 data class CoinGeckoQuote(
     val id: String,
     val symbol: String,
     val name: String,
-    @Field("market_data")
+    @Json(name = "market_data")
     val marketData: CoinGeckoMarketData
 )
 
 @JsonClass(generateAdapter = true)
 data class CoinGeckoMarketData(
-    @Field("current_price")
+    @Json(name = "current_price")
     val currentPrices: Map<String, Double>
 )
 
@@ -61,3 +46,17 @@ fun CoinGeckoQuote.asDomainQuote() = Quote(
     latestPrice = marketData.currentPrices["usd"] ?: 0.0,
     change = 0.0
 )
+
+@JsonClass(generateAdapter = true)
+data class CoinGeckoMarketChart(
+    val prices: List<List<Any>>
+)
+
+private fun List<Any>.asHistoricalPrice(id: String) = HistoricalPrice(
+    id = id,
+    date = (get(0) as Double).toLong(),
+    price = get(1) as Double
+)
+
+fun CoinGeckoMarketChart.asHistoricalPrices(id: String) =
+    prices.map { it.asHistoricalPrice(id) }

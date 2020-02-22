@@ -3,12 +3,7 @@ package de.uniks.codliners.stock_simulator.ui.account
 import android.app.Application
 import androidx.lifecycle.*
 import de.uniks.codliners.stock_simulator.BuildConfig
-import de.uniks.codliners.stock_simulator.R
-import de.uniks.codliners.stock_simulator.domain.Achievement
-import de.uniks.codliners.stock_simulator.domain.Balance
 import de.uniks.codliners.stock_simulator.repository.AccountRepository
-import de.uniks.codliners.stock_simulator.repository.AchievementsRepository
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 class AccountViewModel(application: Application) : ViewModel() {
@@ -21,11 +16,8 @@ class AccountViewModel(application: Application) : ViewModel() {
     val depotValue = accountRepository.currentDepotValue
     val depotValuesLimited = accountRepository.depotValuesLimited
 
-    init {
-        viewModelScope.launch {
-            accountRepository.fetchCurrentDepotValue()
-        }
-    }
+    private val _performance = MediatorLiveData<Double>()
+    val performance: LiveData<Double> = _performance
 
     class Factory(
         private val application: Application
@@ -38,6 +30,29 @@ class AccountViewModel(application: Application) : ViewModel() {
             }
             throw IllegalArgumentException("Unable to construct viewmodel")
         }
+    }
+
+    init {
+        _performance.value = 0.0
+        viewModelScope.launch {
+            accountRepository.fetchCurrentDepotValue()
+        }
+        _performance.apply {
+            addSource(balance) {
+                value = calculatePerformance(balance.value?.value, depotValue.value?.value)
+            }
+        }
+        _performance.apply {
+            addSource(depotValue) {
+                value = calculatePerformance(balance.value?.value, depotValue.value?.value)
+            }
+        }
+
+    }
+
+    private fun calculatePerformance(balance: Double?, depotValue: Double?): Double? {
+        if (balance == null || depotValue == null) return 0.0
+        return (((balance + depotValue ) / BuildConfig.NEW_ACCOUNT_BALANCE) - 1) * 100
     }
 
 }

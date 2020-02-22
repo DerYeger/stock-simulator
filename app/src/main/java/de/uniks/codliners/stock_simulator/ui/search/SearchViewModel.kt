@@ -69,24 +69,22 @@ class SearchViewModel(application: Application) : ViewModel() {
         }
     }
 
-    private fun List<Symbol>.filtered(query: String?, typeFilter: String?) = filter { symbol ->
-        symbol.matchesQuery(query) && symbol.matchesTypeFilter(typeFilter)
-    }
-
-    private fun Symbol.matchesQuery(query: String?): Boolean {
+    private fun List<Symbol>.filtered(query: String?, typeFilter: String?): List<Symbol> {
         val formattedQuery = query?.toUpperCase(Locale.getDefault())
-        return formattedQuery.isNullOrBlank() || symbol.toUpperCase(Locale.getDefault()).startsWith(
-            formattedQuery
-        )
+        return if (typeFilter == "Any") {
+            filter { symbol -> symbol.matchesQuery(formattedQuery) }
+        } else {
+            val type = typeFilter.asSymbolType()
+            filter { symbol -> symbol.type === type && symbol.matchesQuery(formattedQuery) }
+        }
     }
 
-    private fun Symbol.matchesTypeFilter(typeFilter: String?): Boolean {
-        // TODO unhack this
-        return when (typeFilter) {
-            "Shares" -> type === Symbol.Type.SHARE
-            "Crypto" -> type === Symbol.Type.CRYPTO
-            else -> true
-        }
+    private fun Symbol.matchesQuery(query: String?) =
+        query === null || symbol.toUpperCase(Locale.getDefault()).startsWith(query)
+
+    private fun String?.asSymbolType() = when (this) {
+        "Crypto" -> Symbol.Type.CRYPTO
+        else -> Symbol.Type.SHARE
     }
 
     class Factory(

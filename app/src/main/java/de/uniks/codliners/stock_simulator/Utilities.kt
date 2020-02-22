@@ -6,7 +6,6 @@ import android.content.ContextWrapper
 import android.content.SharedPreferences
 import android.graphics.Color
 import android.graphics.Typeface
-import androidx.lifecycle.LifecycleOwner
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.Entry
@@ -16,7 +15,6 @@ import com.github.mikephil.charting.formatter.ValueFormatter
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import com.github.mikephil.charting.utils.ColorTemplate
 import de.uniks.codliners.stock_simulator.background.StockbrotWorkRequest
-import de.uniks.codliners.stock_simulator.domain.Symbol
 import de.uniks.codliners.stock_simulator.repository.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -34,28 +32,28 @@ fun ContextWrapper.sharedPreferences(): SharedPreferences =
 
 fun Context.resetAccount() {
     val self = this
-    CoroutineScope(Dispatchers.Main).launch {
+    CoroutineScope(Dispatchers.IO).launch {
         AccountRepository(self).resetAccount()
     }
 }
 
 fun Context.resetHistory() {
     val self = this
-    CoroutineScope(Dispatchers.Main).launch {
+    CoroutineScope(Dispatchers.IO).launch {
         HistoryRepository(self).resetHistory()
     }
 }
 
 fun Context.resetQuotes() {
     val self = this
-    CoroutineScope(Dispatchers.Main).launch {
+    CoroutineScope(Dispatchers.IO).launch {
         QuoteRepository(self).resetQuotes()
     }
 }
 
 fun Context.resetStockbrot() {
     val self = this
-    CoroutineScope(Dispatchers.Main).launch {
+    CoroutineScope(Dispatchers.IO).launch {
         // reset stockbrot database
         StockbrotRepository(self).resetStockbrot()
         // cancel all running workers
@@ -65,7 +63,7 @@ fun Context.resetStockbrot() {
 
 fun Context.resetNews() {
     val self = this
-    CoroutineScope(Dispatchers.Main).launch {
+    CoroutineScope(Dispatchers.IO).launch {
         NewsRepository(self).resetNews()
     }
 }
@@ -77,9 +75,10 @@ fun Context.resetAchievements() {
     }
 }
 
-fun Context.ensureAccountPresence(lifecycleOwner: LifecycleOwner) {
-    val accountRepository = AccountRepository(this)
-    CoroutineScope(Dispatchers.Main).launch {
+fun Context.ensureAccountPresence() {
+    val self = this
+    CoroutineScope(Dispatchers.IO).launch {
+        val accountRepository = AccountRepository(self)
         if (!accountRepository.hasBalance()) {
             accountRepository.resetAccount()
         }
@@ -95,14 +94,6 @@ fun String?.toSafeDouble(): Double? {
         this?.toDouble()
     } catch (_: Throwable) {
         null
-    }
-}
-
-fun String.toType(): Symbol.Type? {
-    return when (this) {
-        "SHARE" -> Symbol.Type.SHARE
-        "CRYPTO" -> Symbol.Type.CRYPTO
-        else -> null
     }
 }
 
@@ -194,6 +185,6 @@ class TimestampValueFormatter(private val referenceTimestamp: Long, locale: Loca
 
 class CurrencyValueFormatter(private val currencySymbol: String) : ValueFormatter() {
     override fun getFormattedValue(value: Float): String {
-        return "%.2f$currencySymbol".format(value)
+        return "%s$currencySymbol".format(value)
     }
 }

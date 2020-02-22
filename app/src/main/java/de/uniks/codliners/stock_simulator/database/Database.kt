@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.room.*
 import androidx.room.OnConflictStrategy.REPLACE
 import de.uniks.codliners.stock_simulator.domain.*
+import de.uniks.codliners.stock_simulator.domain.Transaction
 
 @Dao
 interface SymbolDao {
@@ -25,17 +26,11 @@ interface QuoteDao {
     @Insert(onConflict = REPLACE)
     fun insert(quote: Quote)
 
-    @Query("SELECT * FROM quote")
-    fun getAll(): LiveData<List<Quote>>
-
     @Query("SELECT * FROM quote WHERE quote.id == :id")
     fun getQuoteWithId(id: String): LiveData<Quote>
 
-    @Query("SELECT * FROM quote WHERE quote.symbol == :symbol")
-    fun getQuoteValueBySymbol(symbol: String): Quote
-
-    @Delete
-    fun delete(quote: Quote)
+    @Query("SELECT * FROM quote WHERE quote.id == :id")
+    fun getQuoteValueById(id: String): Quote
 
     @Query("DELETE FROM quote")
     fun deleteQuotes()
@@ -45,16 +40,7 @@ interface QuoteDao {
 interface NewsDao {
 
     @Insert(onConflict = REPLACE)
-    fun insert(news: News)
-
-    @Insert(onConflict = REPLACE)
     fun insertAll(vararg news: News)
-
-    @Query("SELECT * FROM news")
-    fun getAll(): LiveData<List<News>>
-
-    @Delete
-    fun delete(news: News)
 
     @Query("DELETE FROM news")
     fun deleteNews()
@@ -63,28 +49,19 @@ interface NewsDao {
 @Dao
 interface TransactionDao {
 
-    @Query("select * from databasetransaction where databasetransaction.id = :id")
-    fun getTransactionsById(id: String): LiveData<List<DatabaseTransaction>>
+    @Query("SELECT * from `transaction` WHERE `transaction`.id = :id")
+    fun getTransactionsById(id: String): LiveData<List<Transaction>>
 
-    @Query("select * from databasetransaction limit :limit")
-    fun getTransactionsLimited(limit: Int): LiveData<List<DatabaseTransaction>>
+    @Query("SELECT * from `transaction` LIMIT :limit")
+    fun getTransactionsLimited(limit: Int): LiveData<List<Transaction>>
 
-    @Query("SELECT * FROM databasetransaction ORDER BY databasetransaction.date DESC")
-    fun getTransactions(): LiveData<List<DatabaseTransaction>>
-
-    @Delete
-    fun deleteAll(vararg transactions: DatabaseTransaction)
-
-    @Delete
-    fun delete(transaction: DatabaseTransaction)
+    @Query("SELECT * FROM `transaction` ORDER BY `transaction`.date DESC")
+    fun getTransactions(): LiveData<List<Transaction>>
 
     @Insert
-    fun insert(transaction: DatabaseTransaction)
+    fun insert(transaction: Transaction)
 
-    @Insert(onConflict = REPLACE)
-    fun insertAll(vararg transactions: DatabaseTransaction)
-
-    @Query("DELETE FROM databasetransaction")
+    @Query("DELETE FROM `transaction`")
     fun deleteTransactions()
 }
 
@@ -94,9 +71,6 @@ interface AccountDao {
     @Insert(onConflict = REPLACE)
     fun insertBalance(balance: Balance)
 
-    @Query("SELECT * FROM balance ORDER BY balance.timestamp ASC")
-    fun getBalances(): LiveData<List<Balance>>
-
     @Query("SELECT COUNT(*) FROM balance")
     fun getBalanceCount(): Long
 
@@ -105,6 +79,9 @@ interface AccountDao {
 
     @Query("SELECT * FROM balance ORDER BY balance.timestamp DESC LIMIT 1")
     fun getLatestBalance(): LiveData<Balance>
+
+    @Query("SELECT * FROM balance ORDER BY balance.timestamp DESC LIMIT 1")
+    fun getLatestBalanceValue(): Balance
 
     @Query("DELETE FROM balance")
     fun deleteBalances()
@@ -130,19 +107,16 @@ interface AccountDao {
     @Query("DELETE FROM depotquote")
     fun deleteDepot()
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = REPLACE)
     fun insertDepotValue(depotValue: DepotValue)
 
-    @Query("select * from depotvalue")
-    fun getDepotValues(): LiveData<List<DepotValue>>
-
-    @Query("select * from depotvalue order by depotvalue.timestamp desc limit 1")
+    @Query("SELECT * FROM depotvalue ORDER BY depotvalue.timestamp DESC LIMIT 1")
     fun getLatestDepotValues(): LiveData<DepotValue>
 
     @Query("SELECT * FROM (SELECT * FROM depotvalue ORDER BY depotvalue.timestamp DESC LIMIT :limit) ORDER BY timestamp ASC")
     fun getDepotValuesLimited(limit: Int): LiveData<List<DepotValue>>
 
-    @Query("delete from depotvalue")
+    @Query("DELETE FROM depotvalue")
     fun deleteDepotValues()
 }
 
@@ -172,18 +146,12 @@ interface StockbrotDao {
 interface HistoricalPriceDao {
 
     @Insert(onConflict = REPLACE)
-    fun insert(priceFromApi: HistoricalPrice)
-
-    @Insert(onConflict = REPLACE)
     fun insertAll(vararg prices: HistoricalPrice)
 
-    @Query("select * from historicalprice where id = :id")
+    @Query("SELECT * FROM historicalprice WHERE id = :id")
     fun getHistoricalPricesById(id: String): LiveData<List<HistoricalPrice>>
 
-    @Query("delete from historicalprice")
-    fun deleteHistoricalPrices()
-
-    @Query("delete from historicalprice where id = :id")
+    @Query("DELETE FROM historicalprice WHERE id = :id")
     fun deleteHistoricalPricesById(id: String)
 }
 
@@ -214,8 +182,8 @@ interface AchievementsDao {
 }
 
 @Database(
-    entities = [Symbol::class, DepotQuote::class, News::class, DatabaseTransaction::class, Quote::class, Balance::class, HistoricalPrice::class, StockbrotQuote::class, DepotValue::class, Achievement::class],
-    version = 24,
+    entities = [Symbol::class, DepotQuote::class, News::class, Transaction::class, Quote::class, Balance::class, HistoricalPrice::class, StockbrotQuote::class, DepotValue::class, Achievement::class],
+    version = 25,
     exportSchema = false
 )
 @TypeConverters(Converters::class)

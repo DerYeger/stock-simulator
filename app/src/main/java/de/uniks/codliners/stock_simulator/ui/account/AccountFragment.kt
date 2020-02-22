@@ -15,7 +15,6 @@ import de.uniks.codliners.stock_simulator.ui.OnClickListener
 import de.uniks.codliners.stock_simulator.updateLineChart
 import timber.log.Timber
 
-
 class AccountFragment : BaseFragment() {
 
     private val viewModel: AccountViewModel by viewModels {
@@ -34,7 +33,10 @@ class AccountFragment : BaseFragment() {
         binding.depotRecyclerView.adapter =
             DepotQuoteRecyclerViewAdapter(OnClickListener { symbol ->
                 val action =
-                    AccountFragmentDirections.actionNavigationAccountToShareFragment(symbol.id, symbol.type)
+                    AccountFragmentDirections.actionNavigationAccountToShareFragment(
+                        symbol.id,
+                        symbol.type
+                    )
                 findNavController().navigate(action)
             })
         binding.lifecycleOwner = this
@@ -52,7 +54,16 @@ class AccountFragment : BaseFragment() {
                         balance.value.toFloat()
                     )
                 }
-                updateLineChart(binding.accountChart, entries, "Account Balance", resources.configuration.locale, referenceTimestamp)
+
+                // resources.configuration.locales[0] requires API level 24
+                @Suppress("DEPRECATION")
+                updateLineChart(
+                    binding.accountChart,
+                    entries,
+                    "Account Balance",
+                    resources.configuration.locale,
+                    referenceTimestamp
+                )
             }
         })
 
@@ -69,7 +80,16 @@ class AccountFragment : BaseFragment() {
                         depotValue.value.toFloat()
                     )
                 }
-                updateLineChart(binding.depotChart, entries, "Depot Balance", resources.configuration.locale, referenceTimestamp)
+
+                // resources.configuration.locales[0] requires API level 24
+                @Suppress("DEPRECATION")
+                updateLineChart(
+                    binding.depotChart,
+                    entries,
+                    "Depot Balance",
+                    resources.configuration.locale,
+                    referenceTimestamp
+                )
             }
         })
 
