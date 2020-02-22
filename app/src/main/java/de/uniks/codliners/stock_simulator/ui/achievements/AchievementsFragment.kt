@@ -30,10 +30,4 @@ class AchievementsFragment : BaseFragment() {
         binding.lifecycleOwner = this
         return binding.root
     }
-
-    fun showAchivement(achievement: Achievement) {
-        Snackbar
-            .make(this.view!!, achievement.name, Snackbar.LENGTH_SHORT)
-            .show()
-    }
 }
