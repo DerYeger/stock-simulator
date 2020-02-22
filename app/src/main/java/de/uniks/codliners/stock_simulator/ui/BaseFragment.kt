@@ -4,11 +4,11 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.snackbar.Snackbar
 import de.uniks.codliners.stock_simulator.R
 import timber.log.Timber
 
@@ -26,8 +26,8 @@ abstract class BaseFragment : Fragment() {
             for (achievement in achievements) {
                 if (achievement.reached && achievement.timestamp != null && !achievement.displayed) {
                     println("achievement $achievement reached - " + getString(achievement.name))
-                    Snackbar
-                        .make(this.view!!, getString(achievement.name), Snackbar.LENGTH_SHORT)
+                    Toast
+                        .makeText(activity!!.application, getString(achievement.name), Toast.LENGTH_SHORT)
                         .show()
                     viewModel.markAchievementAsDisplayed(achievement)
                 }
