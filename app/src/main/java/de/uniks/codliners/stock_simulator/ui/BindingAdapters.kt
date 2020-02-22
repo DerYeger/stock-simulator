@@ -253,8 +253,8 @@ fun TextView.bindStockbrotQuote(stockbrotQuote: StockbrotQuote) {
     }
 }
 
-@BindingAdapter("enabledCardView")
-fun CardView.bindEnabledCardView(enabled: Boolean) {
+@BindingAdapter("enableCardView")
+fun CardView.bindEnableCardView(enabled: Boolean) {
     if (!enabled) {
         setCardBackgroundColor(solidColor)
     }

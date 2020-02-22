@@ -161,7 +161,7 @@ interface AchievementsDao {
     @Insert(onConflict = REPLACE)
     fun insert(achievement: Achievement)
 
-    @Query("SELECT * FROM achievement")
+    @Query("SELECT * FROM achievement ORDER BY timestamp DESC")
     fun getAchievements(): LiveData<List<Achievement>>
 
     @Query("select * from achievement where name = :name")
