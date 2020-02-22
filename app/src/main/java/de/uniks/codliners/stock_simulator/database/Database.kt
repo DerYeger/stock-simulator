@@ -92,7 +92,6 @@ interface AccountDao {
     @Query("SELECT id, symbol, type, SUM(amount) as amount, AVG(buyingPrice) as buyingPrice FROM depotquotepurchase GROUP BY id, symbol, type")
     fun getDepotQuotes(): LiveData<List<DepotQuote>>
 
-    // @Query("SELECT * from depotquotepurchase WHERE id = :id")
     @Query("SELECT id, symbol, type, SUM(amount) as amount, AVG(buyingPrice) as buyingPrice FROM depotquotepurchase WHERE id = :id GROUP BY id, symbol, type")
     fun getDepotQuoteWitId(id: String): LiveData<DepotQuote>
 
@@ -183,8 +182,8 @@ interface AchievementsDao {
 }
 
 @Database(
-    entities = [Symbol::class, DepotQuote::class, News::class, Transaction::class, Quote::class, Balance::class, HistoricalPrice::class, StockbrotQuote::class, DepotValue::class, Achievement::class],
-    version = 25,
+    entities = [Symbol::class, DepotQuotePurchase::class, News::class, Transaction::class, Quote::class, Balance::class, HistoricalPrice::class, StockbrotQuote::class, DepotValue::class, Achievement::class],
+    version = 26,
     exportSchema = false
 )
 @TypeConverters(Converters::class)

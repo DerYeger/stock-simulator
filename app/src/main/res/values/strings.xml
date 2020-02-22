@@ -96,7 +96,6 @@
     <string name="transaction_type_image_description">Image of the transaction type</string>
     <string name="title_achievements">Achievements</string>
     <string name="transaction_costs_format">Transaction costs: %s$</string>
-    <string name="transaction_type_image_description">Image of the transaction type</string>
     <string name="trend_image_description">Trend image</string>
     <string-array name="type_filter_array">
         <item>Any</item>
