@@ -14,7 +14,6 @@ import kotlinx.coroutines.launch
 class AccountViewModel(application: Application) : ViewModel() {
 
     private val accountRepository = AccountRepository(application)
-    private val achievementsRepository = AchievementsRepository(application)
 
     val balance = accountRepository.latestBalance
     val balancesLimited = accountRepository.balancesLimited
@@ -22,54 +21,9 @@ class AccountViewModel(application: Application) : ViewModel() {
     val depotValue = accountRepository.currentDepotValue
     val depotValuesLimited = accountRepository.depotValuesLimited
 
-    private val _balanceChanged = MediatorLiveData<Boolean>()
-    val balanceChanged: LiveData<Boolean> = _balanceChanged
-
-    private fun insertAchievement(achievement: Achievement) {
-        viewModelScope.launch {
-            achievementsRepository.insertAchievement(achievement)
-        }
-    }
-
     init {
         viewModelScope.launch {
             accountRepository.fetchCurrentDepotValue()
-        }
-
-        _balanceChanged.apply {
-            addSource(balance) { balance: Balance? ->
-                if (balance === null) return@addSource
-
-                viewModelScope.launch {
-                    if (balance.value <= BuildConfig.NEW_ACCOUNT_BALANCE - 5) {
-                        val achievement =
-                            achievementsRepository.getAchievementsByName(R.string.achievement_5dollarlost_name)
-                        val newAchievement = achievement!!.copy(
-                            reached = true,
-                            timestamp = System.currentTimeMillis()
-                        )
-                        insertAchievement(newAchievement)
-                    }
-                    if (balance.value >= BuildConfig.NEW_ACCOUNT_BALANCE + 10) {
-                        val achievement =
-                            achievementsRepository.getAchievementsByName(R.string.achievement_10dollarwon_name)
-                        val newAchievement = achievement!!.copy(
-                            reached = true,
-                            timestamp = System.currentTimeMillis()
-                        )
-                        insertAchievement(newAchievement)
-                    }
-                    if (balance.value >= BuildConfig.NEW_ACCOUNT_BALANCE + 10000) {
-                        val achievement =
-                            achievementsRepository.getAchievementsByName(R.string.achievement_10000dollarwon_name)
-                        val newAchievement = achievement!!.copy(
-                            reached = true,
-                            timestamp = System.currentTimeMillis()
-                        )
-                        insertAchievement(newAchievement)
-                    }
-                }
-            }
         }
     }
 

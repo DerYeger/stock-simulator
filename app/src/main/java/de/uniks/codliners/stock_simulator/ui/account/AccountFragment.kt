@@ -41,10 +41,6 @@ class AccountFragment : BaseFragment() {
 
         initLineChart(binding.accountChart, context!!)
 
-        viewModel.balanceChanged.observe(viewLifecycleOwner, Observer {
-            Timber.i(it.toString())
-        })
-
         viewModel.balancesLimited.observe(viewLifecycleOwner, Observer { balanceList ->
             run {
                 if (balanceList.isEmpty()) return@run

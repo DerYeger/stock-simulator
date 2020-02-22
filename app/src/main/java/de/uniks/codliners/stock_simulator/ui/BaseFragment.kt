@@ -10,10 +10,11 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import de.uniks.codliners.stock_simulator.R
+import timber.log.Timber
 
 abstract class BaseFragment : Fragment() {
 
-    private val baseViewModel: BaseViewModel by viewModels {
+    private val viewModel: BaseViewModel by viewModels {
         BaseViewModel.Factory(activity!!.application)
     }
 
@@ -21,15 +22,19 @@ abstract class BaseFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         setHasOptionsMenu(true)
 
-        baseViewModel.latestAchievement.observe(this, Observer { achievement ->
+        viewModel.latestAchievement.observe(this, Observer { achievement ->
             println("latest achievement $achievement - " + getString(achievement.name))
             if (achievement?.reached == true && !achievement.displayed) {
                 println("achievement $achievement reached")
                 Snackbar
                     .make(this.view!!, getString(achievement.name), Snackbar.LENGTH_SHORT)
                     .show()
-                baseViewModel.markAchievementAsDisplayed(achievement)
+                viewModel.markAchievementAsDisplayed(achievement)
             }
+        })
+
+        viewModel.balanceChanged.observe(viewLifecycleOwner, Observer {
+            Timber.i(it.toString())
         })
     }
 
