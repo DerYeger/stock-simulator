@@ -121,7 +121,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/default_spacing"
                     android:enabled="@{viewModel.canBuy}"
-                    android:onClick="@{() -> viewModel.buy()}"
+                    android:onClick="@{() -> viewModel.confirmBuy()}"
                     android:text="@string/buy"
                     app:layout_constraintBaseline_toBaselineOf="@+id/buy_number"
                     app:layout_constraintEnd_toEndOf="parent" />
@@ -132,7 +132,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
-                    android:text="@string/buy_hint"
+                    android:text="@string/sell_hint"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/buy_number" />
 
@@ -158,7 +158,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/default_spacing"
                     android:enabled="@{viewModel.canSell}"
-                    android:onClick="@{() -> viewModel.sell()}"
+                    android:onClick="@{() -> viewModel.confirmSell()}"
                     android:text="@string/sell"
                     app:layout_constraintBaseline_toBaselineOf="@+id/sell_number"
                     app:layout_constraintEnd_toEndOf="parent" />

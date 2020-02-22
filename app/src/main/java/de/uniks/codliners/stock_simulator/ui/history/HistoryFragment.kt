@@ -25,9 +25,15 @@ class HistoryFragment : BaseFragment() {
     ): View {
         binding = FragmentHistoryBinding.inflate(inflater)
         binding.viewModel = viewModel
+
+        // resources.configuration.locales[0] requires API level 24
+        @Suppress("DEPRECATION")
         binding.historyRecyclerView.adapter = HistoryRecyclerViewAdapter(
             onClickListener = OnClickListener { transaction ->
-                val action = HistoryFragmentDirections.actionNavigationHistoryToShareFragment(transaction.id, transaction.type)
+                val action = HistoryFragmentDirections.actionNavigationHistoryToShareFragment(
+                    transaction.id,
+                    transaction.type
+                )
                 findNavController().navigate(action)
             },
             locale = resources.configuration.locale

@@ -6,33 +6,26 @@
 
         <variable
             name="viewModel"
-            type="de.uniks.codliners.stock_simulator.ui.history.HistoryViewModel" />
+            type="de.uniks.codliners.stock_simulator.ui.achievements.AchievementsViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/test"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <TextView
-            visible="@{viewModel.transactions.size() == 0}"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/empty_hint"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/history_recycler_view"
+            android:id="@+id/achievements_recycler_view"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:transactions="@{viewModel.transactions}" />
-
+            app:achievements="@{viewModel.achievements}"
+            app:visible="@{viewModel.achievements.size() > 0}" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

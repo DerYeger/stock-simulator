@@ -60,6 +60,12 @@ class QuoteViewModel(
     private val _canSell = MediatorLiveData<Boolean>()
     val canSell: LiveData<Boolean> = _canSell
 
+    private val _buyAction = MutableLiveData<Boolean>()
+    val buyAction: LiveData<Boolean> = _buyAction
+
+    private val _sellAction = MutableLiveData<Boolean>()
+    val sellAction: LiveData<Boolean> = _sellAction
+
     val thresholdBuy = MutableLiveData("0.0")
     val thresholdSell = MutableLiveData("0.0")
     val autoBuyAmount = MutableLiveData<String>().apply {
@@ -219,6 +225,14 @@ class QuoteViewModel(
         timer.cancel()
     }
 
+    fun confirmBuy() {
+        _buyAction.value = true
+    }
+
+    fun confirmSell() {
+        _sellAction.value = true
+    }
+
     fun buy() {
         viewModelScope.launch {
             accountRepository.buy(quote.value!!, buyAmount.value!!.toDouble())
@@ -243,7 +257,7 @@ class QuoteViewModel(
             val autoBuyAmount = autoBuyAmount.value.toSafeDouble() ?: 0.0
             val thresholdBuyDouble = thresholdBuy.value.toSafeDouble() ?: 0.0
             val thresholdSellDouble = thresholdSell.value.toSafeDouble() ?: 0.0
-            val newStockbrotQuote = StockbrotQuote(id, type, autoBuyAmount, thresholdBuyDouble, thresholdSellDouble)
+            val newStockbrotQuote = StockbrotQuote(id, quote.value!!.symbol, type, autoBuyAmount, thresholdBuyDouble, thresholdSellDouble)
             stockbrotWorkRequest.addQuote(newStockbrotQuote)
             stockbrotRepository.addStockbrotQuote(newStockbrotQuote)
         }
@@ -268,6 +282,18 @@ class QuoteViewModel(
     fun onErrorActionCompleted() {
         viewModelScope.launch {
             _errorAction.value = null
+        }
+    }
+
+    fun onBuyActionCompleted() {
+        viewModelScope.launch {
+            _buyAction.value = null
+        }
+    }
+
+    fun onSellActionCompleted() {
+        viewModelScope.launch {
+            _sellAction.value = null
         }
     }
 

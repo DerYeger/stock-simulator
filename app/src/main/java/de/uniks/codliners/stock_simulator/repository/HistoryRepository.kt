@@ -14,10 +14,6 @@ class HistoryRepository(private val database: StockAppDatabase) {
 
     val transactions: LiveData<List<Transaction>> = database.transactionDao.getTransactions()
 
-    fun transactionsLimited(limit: Int): LiveData<List<Transaction>> = database.transactionDao.getTransactionsLimited(limit)
-
-    fun transactionBySymbol(symbol: String): LiveData<List<Transaction>> = database.transactionDao.getTransactionsById(symbol)
-
     suspend fun resetHistory() {
         withContext(Dispatchers.IO) {
             database.transactionDao.apply {

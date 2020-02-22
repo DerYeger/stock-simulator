@@ -27,7 +27,7 @@ class StockbrotWorker(context: Context, params: WorkerParameters) : Worker(conte
 
     override fun doWork(): Result {
         scope.launch {
-            // fetch current quote infos
+            // fetch current quote
             val stockbrotQuote = stockbrotRepository.stockbrotQuoteById(id) ?: return@launch
 
             when (stockbrotQuote.type) {

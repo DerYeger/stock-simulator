@@ -50,7 +50,7 @@ class AccountRepository(private val database: StockAppDatabase) {
         withContext(Dispatchers.IO) {
             val oldBalance = database.accountDao.getLatestBalanceValue()
             val cashflow = -(quote.latestPrice * amount) - BuildConfig.TRANSACTION_COSTS
-            if (-cashflow >= oldBalance.value) {
+            if (-cashflow > oldBalance.value) {
                 return@withContext
             }
             val newBalance = Balance(oldBalance.value + cashflow)
@@ -88,7 +88,7 @@ class AccountRepository(private val database: StockAppDatabase) {
         if (amount <= 0.0) return
         withContext(Dispatchers.IO) {
             val oldBalance = database.accountDao.getLatestBalanceValue()
-            if (BuildConfig.TRANSACTION_COSTS >= oldBalance.value) {
+            if (BuildConfig.TRANSACTION_COSTS > oldBalance.value) {
                 return@withContext
             }
             val cashflow = quote.latestPrice * amount - BuildConfig.TRANSACTION_COSTS
@@ -179,7 +179,9 @@ class AccountRepository(private val database: StockAppDatabase) {
 
     private fun AccountDao.setStartBalance() {
         val starterBalance = Balance(value = BuildConfig.NEW_ACCOUNT_BALANCE)
+        val secondStarterBalance = starterBalance.copy(timestamp = starterBalance.timestamp - 60 * 1000)
         insertBalance(starterBalance)
+        insertBalance(secondStarterBalance)
     }
 
     private fun AccountDao.setInitialDepotValue() {

@@ -5,14 +5,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import de.uniks.codliners.stock_simulator.databinding.StockbrotQuoteViewBinding
+import de.uniks.codliners.stock_simulator.databinding.StockbrotQuoteCardBinding
 import de.uniks.codliners.stock_simulator.domain.StockbrotQuote
 import de.uniks.codliners.stock_simulator.ui.OnClickListener
 
 class StockbrotQuoteRecyclerViewAdapter(private val onClickListener: OnClickListener<StockbrotQuote>):
     ListAdapter<StockbrotQuote, StockbrotQuoteRecyclerViewAdapter.ViewHolder>(DiffCallback) {
 
-    inner class ViewHolder(private val binding: StockbrotQuoteViewBinding) :
+    inner class ViewHolder(private val binding: StockbrotQuoteCardBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(StockbrotQuote: StockbrotQuote) {
@@ -32,7 +32,7 @@ class StockbrotQuoteRecyclerViewAdapter(private val onClickListener: OnClickList
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
-            StockbrotQuoteViewBinding.inflate(
+            StockbrotQuoteCardBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
@@ -41,7 +41,7 @@ class StockbrotQuoteRecyclerViewAdapter(private val onClickListener: OnClickList
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val StockbrotQuote: StockbrotQuote = getItem(position)
-        holder.bind(StockbrotQuote)
+        val stockbrotQuote: StockbrotQuote = getItem(position)
+        holder.bind(stockbrotQuote)
     }
 }

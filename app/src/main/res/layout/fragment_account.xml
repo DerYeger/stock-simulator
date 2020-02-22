@@ -95,6 +95,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
+                android:contentDescription="@string/trend_image_description"
                 app:layout_constraintBottom_toBottomOf="@+id/performance_value"
                 app:layout_constraintStart_toEndOf="@+id/performance_value"
                 app:layout_constraintTop_toTopOf="@+id/performance_value"

@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import de.uniks.codliners.stock_simulator.databinding.FragmentNewsBinding
-import de.uniks.codliners.stock_simulator.ui.OnClickListener
 
 
 class NewsFragment : Fragment() {
@@ -27,6 +26,9 @@ class NewsFragment : Fragment() {
     ): View {
         binding = FragmentNewsBinding.inflate(inflater)
         binding.viewModel = viewModel
+
+        // resources.configuration.locales[0] requires API level 24
+        @Suppress("DEPRECATION")
         binding.newsRecyclerView.adapter = NewsAdapter(resources.configuration.locale)
         binding.lifecycleOwner = this
 

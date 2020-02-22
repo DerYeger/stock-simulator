@@ -1,14 +1,19 @@
 package de.uniks.codliners.stock_simulator.ui.news
 
+import android.content.Intent
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 import de.uniks.codliners.stock_simulator.databinding.NewsCardBinding
 import de.uniks.codliners.stock_simulator.domain.News
 import java.text.SimpleDateFormat
 import java.util.*
+
 
 class NewsAdapter(
     locale: Locale
@@ -23,7 +28,17 @@ class NewsAdapter(
             val calendar = Calendar.getInstance()
             calendar.timeInMillis = news.datetime
             binding.news = news
+            Picasso.get().load(news.image).into(binding.newsImage)
             binding.dateString = dateFormatter.format(calendar.time)
+            binding.newsOpenArticle.setOnClickListener { view ->
+                kotlin.run {
+                    startActivity(
+                        view.context,
+                        Intent(Intent.ACTION_VIEW, Uri.parse(news.url)),
+                        null
+                    )
+                }
+            }
             binding.executePendingBindings()
         }
     }

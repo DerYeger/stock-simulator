@@ -1,6 +1,7 @@
 package de.uniks.codliners.stock_simulator.domain
 
 import android.os.Parcelable
+import androidx.annotation.StringRes
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.squareup.moshi.JsonClass
@@ -74,6 +75,7 @@ data class Quote(
 data class StockbrotQuote(
     @PrimaryKey
     val id: String,
+    val symbol: String,
     val type: Symbol.Type,
     val buyAmount: Double,
     val thresholdBuy: Double,
@@ -113,4 +115,16 @@ data class HistoricalPrice(
     val id: String,
     val date: Long,
     val price: Double
+)
+
+@Entity
+data class Achievement(
+    @PrimaryKey
+    @StringRes
+    val name: Int,
+    @StringRes
+    val description: Int,
+    val reached: Boolean = false,
+    val timestamp: Long? = null,  // null if achievement not reached otherwise the reached timestamp
+    val displayed: Boolean = false
 )

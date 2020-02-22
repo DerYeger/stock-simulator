@@ -22,7 +22,7 @@ class NewsRepository(private val database: StockAppDatabase) {
     }
 
     private val _state = MutableLiveData<State>().apply {
-        value = State.Empty
+        postValue(State.Empty)
     }
     val state: LiveData<State> = _state
 
