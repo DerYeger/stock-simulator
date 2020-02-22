@@ -2,6 +2,7 @@ package de.uniks.codliners.stock_simulator.ui
 
 import android.view.View
 import android.widget.*
+import androidx.cardview.widget.CardView
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
@@ -249,5 +250,12 @@ fun TextView.bindStockbrotQuote(stockbrotQuote: StockbrotQuote) {
             }
 
         }
+    }
+}
+
+@BindingAdapter("enabledCardView")
+fun CardView.bindEnabledCardView(enabled: Boolean) {
+    if (!enabled) {
+        setCardBackgroundColor(solidColor)
     }
 }
