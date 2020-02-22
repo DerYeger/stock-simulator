@@ -32,16 +32,36 @@ class BaseViewModel(application: Application): ViewModel() {
                 if (balance === null) return@addSource
 
                 viewModelScope.launch {
-                    if (balance.value <= BuildConfig.NEW_ACCOUNT_BALANCE - 5) {
-                        val achievement = achievementsRepository.getAchievementsByName(R.string.achievement_5dollarlost_name)
+                    if (balance.value <= 200) {
+                        val achievement = achievementsRepository.getAchievementsByName(R.string.achievement_200dollarleft_name)
+                        insertReachedAchievement(achievement)
+                    }
+                    if (balance.value <= BuildConfig.NEW_ACCOUNT_BALANCE - 1000) {
+                        val achievement = achievementsRepository.getAchievementsByName(R.string.achievement_1000dollarlost_name)
                         insertReachedAchievement(achievement)
                     }
                     if (balance.value >= BuildConfig.NEW_ACCOUNT_BALANCE + 10) {
                         val achievement = achievementsRepository.getAchievementsByName(R.string.achievement_10dollarwon_name)
                         insertReachedAchievement(achievement)
                     }
+                    if (balance.value >= BuildConfig.NEW_ACCOUNT_BALANCE + 100) {
+                        val achievement = achievementsRepository.getAchievementsByName(R.string.achievement_100dollarwon_name)
+                        insertReachedAchievement(achievement)
+                    }
+                    if (balance.value >= BuildConfig.NEW_ACCOUNT_BALANCE + 500) {
+                        val achievement = achievementsRepository.getAchievementsByName(R.string.achievement_500dollarwon_name)
+                        insertReachedAchievement(achievement)
+                    }
                     if (balance.value >= BuildConfig.NEW_ACCOUNT_BALANCE + 10000) {
                         val achievement = achievementsRepository.getAchievementsByName(R.string.achievement_10000dollarwon_name)
+                        insertReachedAchievement(achievement)
+                    }
+                    if (balance.value >= BuildConfig.NEW_ACCOUNT_BALANCE + 20000) {
+                        val achievement = achievementsRepository.getAchievementsByName(R.string.achievement_20000dollarwon_name)
+                        insertReachedAchievement(achievement)
+                    }
+                    if (balance.value >= BuildConfig.NEW_ACCOUNT_BALANCE + 40000) {
+                        val achievement = achievementsRepository.getAchievementsByName(R.string.achievement_40000dollarwon_name)
                         insertReachedAchievement(achievement)
                     }
                 }

@@ -20,16 +20,36 @@ class AchievementsRepository(private val database: StockAppDatabase) {
     suspend fun initAchievements() {
         val achievements = listOf(
             Achievement(
-                R.string.achievement_5dollarlost_name,
-                R.string.achievement_5dollarlost_description
+                R.string.achievement_200dollarleft_name,
+                R.string.achievement_200dollarleft_description
+            ),
+            Achievement(
+                R.string.achievement_1000dollarlost_name,
+                R.string.achievement_1000dollarlost_description
             ),
             Achievement(
                 R.string.achievement_10dollarwon_name,
                 R.string.achievement_10dollarwon_description
             ),
             Achievement(
+                R.string.achievement_100dollarwon_name,
+                R.string.achievement_100dollarwon_description
+            ),
+            Achievement(
+                R.string.achievement_500dollarwon_name,
+                R.string.achievement_500dollarwon_description
+            ),
+            Achievement(
                 R.string.achievement_10000dollarwon_name,
                 R.string.achievement_10000dollarwon_description
+            ),
+            Achievement(
+                R.string.achievement_20000dollarwon_name,
+                R.string.achievement_20000dollarwon_description
+            ),
+            Achievement(
+                R.string.achievement_40000dollarwon_name,
+                R.string.achievement_40000dollarwon_description
             ),
             Achievement(
                 R.string.achievement_1shareindepot_name,
@@ -42,6 +62,14 @@ class AchievementsRepository(private val database: StockAppDatabase) {
             Achievement(
                 R.string.achievement_10sharesindepot_name,
                 R.string.achievement_10sharesindepot_description
+            ),
+            Achievement(
+                R.string.achievement_5differentsharesindepot_name,
+                R.string.achievement_5differentsharesindepot_description
+            ),
+            Achievement(
+                R.string.achievement_10differentsharesindepot_name,
+                R.string.achievement_10differentsharesindepot_description
             )
         )
         for (achievement in achievements) {

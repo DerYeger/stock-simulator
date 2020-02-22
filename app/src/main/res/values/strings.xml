@@ -70,13 +70,23 @@
         <item>Shares</item>
         <item>Crypto</item>
     </string-array>
-    <string name="achievement_5dollarlost_name">5$ lost</string>
-    <string name="achievement_5dollarlost_description">You lost 5$</string>
+    <string name="achievement_image_description">Image of the achievement</string>
+    <string name="achievement_200dollarleft_name">200$ left</string>
+    <string name="achievement_200dollarleft_description">You only have $200 left</string>
+    <string name="achievement_1000dollarlost_name">1000$ lost</string>
+    <string name="achievement_1000dollarlost_description">You lost 1000$</string>
     <string name="achievement_10dollarwon_name">10$ won</string>
     <string name="achievement_10dollarwon_description">You won 10$</string>
+    <string name="achievement_100dollarwon_name">100$ won</string>
+    <string name="achievement_100dollarwon_description">You won 100$</string>
+    <string name="achievement_500dollarwon_name">500$ won</string>
+    <string name="achievement_500dollarwon_description">You won 500$</string>
     <string name="achievement_10000dollarwon_name">10000$ won</string>
     <string name="achievement_10000dollarwon_description">You won 10000$</string>
-    <string name="achievement_image_description">Image of the achievement</string>
+    <string name="achievement_20000dollarwon_name">20000$ won</string>
+    <string name="achievement_20000dollarwon_description">You won 20000$</string>
+    <string name="achievement_40000dollarwon_name">40000$ won</string>
+    <string name="achievement_40000dollarwon_description">You won 40000$</string>
     <string name="achievement_1shareindepot_name">One share in depot</string>
     <string name="achievement_1shareindepot_description">You have one share in your depot</string>
     <string name="achievement_5sharesindepot_name">Five shares in depot</string>
