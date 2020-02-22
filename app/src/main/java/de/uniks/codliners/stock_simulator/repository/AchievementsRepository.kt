@@ -22,29 +22,24 @@ class AchievementsRepository(private val database: StockAppDatabase) {
     }
 
     suspend fun initAchievements() {
-        if (getAchievementsByName(R.string.achievement_5dollarlost_name) == null) {
-            insertAchievement(
-                Achievement(
-                    R.string.achievement_5dollarlost_name,
-                    R.string.achievement_5dollarlost_description
-                )
+        val achievements = listOf(
+            Achievement(
+                R.string.achievement_5dollarlost_name,
+                R.string.achievement_5dollarlost_description
+            ),
+            Achievement(
+                R.string.achievement_10dollarwon_name,
+                R.string.achievement_10dollarwon_description
+            ),
+            Achievement(
+                R.string.achievement_10000dollarwon_name,
+                R.string.achievement_10000dollarwon_description
             )
-        }
-        if (getAchievementsByName(R.string.achievement_10dollarwon_name) == null) {
-            insertAchievement(
-                Achievement(
-                    R.string.achievement_10dollarwon_name,
-                    R.string.achievement_10dollarwon_description
-                )
-            )
-        }
-        if (getAchievementsByName(R.string.achievement_10000dollarwon_name) == null) {
-            insertAchievement(
-                Achievement(
-                    R.string.achievement_10000dollarwon_name,
-                    R.string.achievement_10000dollarwon_description
-                )
-            )
+        )
+        for (achievement in achievements) {
+            if (getAchievementsByName(achievement.name) == null) {
+                insertAchievement(Achievement(achievement.name, achievement.description))
+            }
         }
     }
 
