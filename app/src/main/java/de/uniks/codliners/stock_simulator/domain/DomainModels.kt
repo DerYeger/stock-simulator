@@ -44,7 +44,8 @@ data class Transaction(
     val transactionCosts: Double,
     val cashflow: Double,
     val transactionType: TransactionType,
-    val date: Long
+    val date: Long,
+    val result: Double?
 )
 
 @Entity
@@ -82,12 +83,22 @@ data class StockbrotQuote(
 )
 
 @Entity
-data class DepotQuote(
-    @PrimaryKey
+data class DepotQuotePurchase(
+    @PrimaryKey(autoGenerate = true)
+    val primaryKey: Long = 0,
     val id: String,
     val symbol: String,
     val type: Symbol.Type,
-    val amount: Double
+    val amount: Double,
+    val buyingPrice: Double
+)
+
+data class DepotQuote(
+    val id: String,
+    val symbol: String,
+    val type: Symbol.Type,
+    val amount: Double,
+    val buyingPrice: Double
 )
 
 @Entity

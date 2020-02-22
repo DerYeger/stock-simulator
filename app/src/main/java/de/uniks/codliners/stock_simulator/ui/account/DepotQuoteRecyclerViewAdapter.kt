@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import de.uniks.codliners.stock_simulator.databinding.DepotQuoteCardBinding
 import de.uniks.codliners.stock_simulator.domain.DepotQuote
+import de.uniks.codliners.stock_simulator.domain.DepotQuotePurchase
 import de.uniks.codliners.stock_simulator.ui.OnClickListener
 
 class DepotQuoteRecyclerViewAdapter(private val onClickListener: OnClickListener<DepotQuote>):
@@ -41,7 +42,7 @@ class DepotQuoteRecyclerViewAdapter(private val onClickListener: OnClickListener
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val quote: DepotQuote = getItem(position)
-        holder.bind(quote)
+        val quotePurchase: DepotQuote = getItem(position)
+        holder.bind(quotePurchase)
     }
 }

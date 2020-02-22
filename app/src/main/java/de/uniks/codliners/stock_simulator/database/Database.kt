@@ -87,24 +87,27 @@ interface AccountDao {
     fun deleteBalances()
 
     @Insert(onConflict = REPLACE)
-    fun insertDepotQuote(depot: DepotQuote)
+    fun insertDepotQuote(depotPurchase: DepotQuotePurchase)
 
-    @Query("SELECT * FROM depotquote")
+    @Query("SELECT id, symbol, type, SUM(amount) as amount, AVG(buyingPrice) as buyingPrice FROM depotquotepurchase GROUP BY id, symbol, type")
     fun getDepotQuotes(): LiveData<List<DepotQuote>>
 
-    @Query("SELECT * FROM depotquote WHERE id == :id LIMIT 1")
+    @Query("SELECT id, symbol, type, SUM(amount) as amount, AVG(buyingPrice) as buyingPrice FROM depotquotepurchase WHERE id = :id GROUP BY id, symbol, type")
     fun getDepotQuoteWitId(id: String): LiveData<DepotQuote>
 
-    @Query("SELECT * FROM depotquote")
-    fun getDepotQuotesValues(): List<DepotQuote>
+    @Query("SELECT * FROM depotquotepurchase ORDER BY depotquotepurchase.buyingPrice ASC")
+    fun getDepotQuotePurchasesValuesOrderedByPrice(): List<DepotQuotePurchase>
 
-    @Query("SELECT * FROM depotquote WHERE id == :id LIMIT 1")
-    fun getDepotQuoteById(id: String): DepotQuote?
+    @Query("SELECT * FROM depotquotepurchase WHERE id == :id LIMIT 1")
+    fun getDepotQuoteById(id: String): DepotQuotePurchase?
 
-    @Query("DELETE FROM depotquote WHERE id == :id")
+    @Query("DELETE FROM depotquotepurchase WHERE id == :id")
     fun deleteDepotQuoteById(id: String)
 
-    @Query("DELETE FROM depotquote")
+    @Delete
+    fun deleteDepotQuotes(vararg depotPurchase: DepotQuotePurchase)
+
+    @Query("DELETE FROM depotquotepurchase")
     fun deleteDepot()
 
     @Insert(onConflict = REPLACE)
@@ -179,8 +182,8 @@ interface AchievementsDao {
 }
 
 @Database(
-    entities = [Symbol::class, DepotQuote::class, News::class, Transaction::class, Quote::class, Balance::class, HistoricalPrice::class, StockbrotQuote::class, DepotValue::class, Achievement::class],
-    version = 25,
+    entities = [Symbol::class, DepotQuotePurchase::class, News::class, Transaction::class, Quote::class, Balance::class, HistoricalPrice::class, StockbrotQuote::class, DepotValue::class, Achievement::class],
+    version = 26,
     exportSchema = false
 )
 @TypeConverters(Converters::class)
