@@ -24,20 +24,20 @@ class AchievementsRepository(private val database: StockAppDatabase) {
     suspend fun initAchievements() {
         insertAchievement(
             Achievement(
-                R.string.achievement_99995reached_name,
-                R.string.achievement_99995reached_description
+                R.string.achievement_5dollarlost_name,
+                R.string.achievement_5dollarlost_description
             )
         )
         insertAchievement(
             Achievement(
-                R.string.achievement_10010reached_name,
-                R.string.achievement_10010reached_description
+                R.string.achievement_10dollarwon_name,
+                R.string.achievement_10dollarwon_description
             )
         )
         insertAchievement(
             Achievement(
-                R.string.achievement_20000reached_name,
-                R.string.achievement_20000reached_description
+                R.string.achievement_10000dollarwon_name,
+                R.string.achievement_10000dollarwon_description
             )
         )
     }

@@ -2,6 +2,7 @@ package de.uniks.codliners.stock_simulator.ui.account
 
 import android.app.Application
 import androidx.lifecycle.*
+import de.uniks.codliners.stock_simulator.BuildConfig
 import de.uniks.codliners.stock_simulator.R
 import de.uniks.codliners.stock_simulator.domain.Achievement
 import de.uniks.codliners.stock_simulator.domain.Balance
@@ -37,33 +38,30 @@ class AccountViewModel(application: Application) : ViewModel() {
 
         _balanceChanged.apply {
             addSource(balance) { balance: Balance? ->
-
                 if (balance === null) return@addSource
 
-                value = true
-
                 viewModelScope.launch {
-                    if (balance.value <= 99995) {
+                    if (balance.value <= BuildConfig.NEW_ACCOUNT_BALANCE - 5) {
                         val achievement =
-                            achievementsRepository.getAchievementsByName(R.string.achievement_99995reached_name)
+                            achievementsRepository.getAchievementsByName(R.string.achievement_5dollarlost_name)
                         val newAchievement = achievement!!.copy(
                             reached = true,
                             timestamp = System.currentTimeMillis()
                         )
                         insertAchievement(newAchievement)
                     }
-                    if (balance.value >= 10010) {
+                    if (balance.value >= BuildConfig.NEW_ACCOUNT_BALANCE + 10) {
                         val achievement =
-                            achievementsRepository.getAchievementsByName(R.string.achievement_10010reached_name)
+                            achievementsRepository.getAchievementsByName(R.string.achievement_10dollarwon_name)
                         val newAchievement = achievement!!.copy(
                             reached = true,
                             timestamp = System.currentTimeMillis()
                         )
                         insertAchievement(newAchievement)
                     }
-                    if (balance.value >= 20000) {
+                    if (balance.value >= BuildConfig.NEW_ACCOUNT_BALANCE + 10000) {
                         val achievement =
-                            achievementsRepository.getAchievementsByName(R.string.achievement_20000reached_name)
+                            achievementsRepository.getAchievementsByName(R.string.achievement_10000dollarwon_name)
                         val newAchievement = achievement!!.copy(
                             reached = true,
                             timestamp = System.currentTimeMillis()
