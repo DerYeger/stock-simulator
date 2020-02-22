@@ -17,10 +17,6 @@ class AchievementsRepository(private val database: StockAppDatabase) {
         database.achievementDao.getAchievements()
     }
 
-    val latestAchievement by lazy {
-        database.achievementDao.getLatestAchievement()
-    }
-
     suspend fun initAchievements() {
         val achievements = listOf(
             Achievement(

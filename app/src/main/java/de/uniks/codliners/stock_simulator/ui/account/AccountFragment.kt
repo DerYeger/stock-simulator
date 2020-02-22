@@ -13,7 +13,6 @@ import de.uniks.codliners.stock_simulator.initLineChart
 import de.uniks.codliners.stock_simulator.ui.BaseFragment
 import de.uniks.codliners.stock_simulator.ui.OnClickListener
 import de.uniks.codliners.stock_simulator.updateLineChart
-import timber.log.Timber
 
 class AccountFragment : BaseFragment() {
 

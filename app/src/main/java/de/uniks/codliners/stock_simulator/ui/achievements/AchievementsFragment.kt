@@ -5,9 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import com.google.android.material.snackbar.Snackbar
 import de.uniks.codliners.stock_simulator.databinding.FragmentAchievementsBinding
-import de.uniks.codliners.stock_simulator.domain.Achievement
 import de.uniks.codliners.stock_simulator.ui.BaseFragment
 
 

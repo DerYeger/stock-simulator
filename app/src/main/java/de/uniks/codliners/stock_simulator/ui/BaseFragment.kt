@@ -22,14 +22,15 @@ abstract class BaseFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         setHasOptionsMenu(true)
 
-        viewModel.latestAchievement.observe(this, Observer { achievement ->
-            println("latest achievement $achievement - " + getString(achievement.name))
-            if (achievement?.reached == true && !achievement.displayed) {
-                println("achievement $achievement reached")
-                Snackbar
-                    .make(this.view!!, getString(achievement.name), Snackbar.LENGTH_SHORT)
-                    .show()
-                viewModel.markAchievementAsDisplayed(achievement)
+        viewModel.achievements.observe(this, Observer { achievements ->
+            for (achievement in achievements) {
+                if (achievement.reached && achievement.timestamp != null && !achievement.displayed) {
+                    println("achievement $achievement reached - " + getString(achievement.name))
+                    Snackbar
+                        .make(this.view!!, getString(achievement.name), Snackbar.LENGTH_SHORT)
+                        .show()
+                    viewModel.markAchievementAsDisplayed(achievement)
+                }
             }
         })
 

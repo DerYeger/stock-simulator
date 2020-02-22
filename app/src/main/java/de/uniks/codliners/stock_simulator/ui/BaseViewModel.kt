@@ -16,7 +16,7 @@ class BaseViewModel(application: Application): ViewModel() {
     private val achievementsRepository = AchievementsRepository(application)
     private val accountRepository = AccountRepository(application)
 
-    val latestAchievement = achievementsRepository.latestAchievement
+    val achievements = achievementsRepository.achievements
     private val balance = accountRepository.latestBalance
     private val depot = accountRepository.depot
 
