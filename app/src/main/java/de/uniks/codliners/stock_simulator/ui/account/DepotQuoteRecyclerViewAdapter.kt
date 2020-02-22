@@ -6,27 +6,28 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import de.uniks.codliners.stock_simulator.databinding.DepotQuoteCardBinding
+import de.uniks.codliners.stock_simulator.domain.DepotQuote
 import de.uniks.codliners.stock_simulator.domain.DepotQuotePurchase
 import de.uniks.codliners.stock_simulator.ui.OnClickListener
 
-class DepotQuoteRecyclerViewAdapter(private val onClickListener: OnClickListener<DepotQuotePurchase>):
-    ListAdapter<DepotQuotePurchase, DepotQuoteRecyclerViewAdapter.ViewHolder>(DiffCallback) {
+class DepotQuoteRecyclerViewAdapter(private val onClickListener: OnClickListener<DepotQuote>):
+    ListAdapter<DepotQuote, DepotQuoteRecyclerViewAdapter.ViewHolder>(DiffCallback) {
 
     inner class ViewHolder(private val binding: DepotQuoteCardBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(quotePurchase: DepotQuotePurchase) {
+        fun bind(quote: DepotQuote) {
             binding.onClickListener = onClickListener
-            binding.quote = quotePurchase
+            binding.quote = quote
             binding.executePendingBindings()
         }
     }
 
-    companion object DiffCallback : DiffUtil.ItemCallback<DepotQuotePurchase>() {
-        override fun areItemsTheSame(oldItem: DepotQuotePurchase, newItem: DepotQuotePurchase) =
+    companion object DiffCallback : DiffUtil.ItemCallback<DepotQuote>() {
+        override fun areItemsTheSame(oldItem: DepotQuote, newItem: DepotQuote) =
             oldItem.id == newItem.id
 
-        override fun areContentsTheSame(oldItem: DepotQuotePurchase, newItem: DepotQuotePurchase) =
+        override fun areContentsTheSame(oldItem: DepotQuote, newItem: DepotQuote) =
             oldItem == newItem
     }
 
@@ -41,7 +42,7 @@ class DepotQuoteRecyclerViewAdapter(private val onClickListener: OnClickListener
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val quotePurchase: DepotQuotePurchase = getItem(position)
+        val quotePurchase: DepotQuote = getItem(position)
         holder.bind(quotePurchase)
     }
 }

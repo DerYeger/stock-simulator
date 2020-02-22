@@ -91,6 +91,14 @@ data class DepotQuotePurchase(
     val buyingPrice: Double
 )
 
+data class DepotQuote(
+    val id: String,
+    val symbol: String,
+    val type: Symbol.Type,
+    val amount: Double,
+    val buyingPrice: Double
+)
+
 @Entity
 data class DepotValue(
     val value: Double,

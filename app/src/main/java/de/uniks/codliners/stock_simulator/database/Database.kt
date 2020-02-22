@@ -116,20 +116,18 @@ interface AccountDao {
     @Insert(onConflict = REPLACE)
     fun insertDepotQuote(depotPurchase: DepotQuotePurchase)
 
-    @Query("SELECT * FROM depotquotepurchase")
-    fun getDepotQuotes(): LiveData<List<DepotQuotePurchase>>
+    @Query("SELECT id, symbol, type, SUM(amount) as amount, AVG(buyingPrice) as buyingPrice FROM depotquotepurchase GROUP BY id, symbol, type")
+    fun getDepotQuotes(): LiveData<List<DepotQuote>>
 
-    @Query("SELECT * FROM depotquotepurchase WHERE id == :id LIMIT 1")
-    fun getDepotQuoteWitId(id: String): LiveData<DepotQuotePurchase>
+    // @Query("SELECT * from depotquotepurchase WHERE id = :id")
+    @Query("SELECT id, symbol, type, SUM(amount) as amount, AVG(buyingPrice) as buyingPrice FROM depotquotepurchase WHERE id = :id GROUP BY id, symbol, type")
+    fun getDepotQuoteWitId(id: String): LiveData<DepotQuote>
 
     @Query("SELECT * FROM depotquotepurchase ORDER BY depotquotepurchase.buyingPrice ASC")
     fun getDepotQuotePurchasesValuesOrderedByPrice(): List<DepotQuotePurchase>
 
     @Query("SELECT * FROM depotquotepurchase WHERE id == :id LIMIT 1")
     fun getDepotQuoteById(id: String): DepotQuotePurchase?
-
-//    @Query("SELECT * FROM depotquote WHERE id = :id ORDER BY depotquote.buyingPrice ASC LIMIT :amount")
-//    fun getLeastWorthDepotQuotesByIdAndAmount(id: String, amount: Double): List<DepotQuote>?
 
     @Query("DELETE FROM depotquotepurchase WHERE id == :id")
     fun deleteDepotQuoteById(id: String)

@@ -42,13 +42,13 @@ fun RecyclerView.bindNews(news: List<News>?) {
 }
 
 @BindingAdapter("depotQuotes")
-fun RecyclerView.bindDepotQuotes(quotePurchases: List<DepotQuotePurchase>?) {
+fun RecyclerView.bindDepotQuotes(quotePurchases: List<DepotQuote>?) {
     val adapter = adapter as DepotQuoteRecyclerViewAdapter
     adapter.submitList(quotePurchases)
 }
 
 @BindingAdapter("depotQuoteText")
-fun TextView.bindDepotQuoteText(depotQuotePurchase: DepotQuotePurchase?) {
+fun TextView.bindDepotQuoteText(depotQuotePurchase: DepotQuote?) {
     depotQuotePurchase?.let {
         text = when (depotQuotePurchase.amount.isWholeNumber()) {
             true ->
@@ -66,7 +66,7 @@ fun TextView.bindDepotQuoteText(depotQuotePurchase: DepotQuotePurchase?) {
 }
 
 @BindingAdapter("depotQuote")
-fun TextView.bindDepotQuote(depotQuotePurchase: DepotQuotePurchase?) {
+fun TextView.bindDepotQuote(depotQuotePurchase: DepotQuote?) {
     depotQuotePurchase?.let {
         text = when (depotQuotePurchase.amount.isWholeNumber()) {
             true ->
@@ -119,23 +119,27 @@ fun ImageView.bindPerformanceIcon(performance: Double) {
     }
 }
 
-@BindingAdapter("transactionResultIcon")
-fun ImageView.bindTransactionResultIcon(performance: Double?) {
-    if (performance == null) {
-        this.visibility = View.INVISIBLE
-        return
-    }
-    when {
-        performance > 0.0 -> {
-            setImageDrawable(resources.getDrawable(R.drawable.ic_trending_up_black_24dp, context.theme))
-            this.setColorFilter(resources.getColor(R.color.colorAccent))
-        }
-        else -> {
-            setImageDrawable(resources.getDrawable(R.drawable.ic_trending_down_black_24dp, context.theme))
-            this.setColorFilter(resources.getColor(R.color.trendingDown))
-        }
-    }
-}
+//@BindingAdapter("transactionResultIcon")
+//fun ImageView.bindTransactionResultIcon(performance: Double?) {
+//    if (performance == null) {
+//        this.visibility = View.INVISIBLE
+//        return
+//    }
+//    when {
+//        performance > 0.0 -> {
+//            setImageDrawable(resources.getDrawable(R.drawable.ic_trending_up_black_24dp, context.theme))
+//            this.setColorFilter(resources.getColor(R.color.colorAccent))
+//        }
+//        performance == 0.0 -> {
+//            setImageDrawable(resources.getDrawable(R.drawable.ic_trending_flat_black_24dp, context.theme))
+//            this.setColorFilter(resources.getColor(R.color.trendingFlat))
+//        }
+//        else -> {
+//            setImageDrawable(resources.getDrawable(R.drawable.ic_trending_down_black_24dp, context.theme))
+//            this.setColorFilter(resources.getColor(R.color.trendingDown))
+//        }
+//    }
+//}
 
 @BindingAdapter("transactionResultText")
 fun TextView.bindTransactionResultText(performance: Double?) {
@@ -144,10 +148,13 @@ fun TextView.bindTransactionResultText(performance: Double?) {
         return
     }
     if (performance > 0.0) {
-        text = String.format(resources.getText(R.string.performance_format_win).toString(), performance)
+        text = String.format(resources.getText(R.string.transaction_format_win).toString(), performance)
         this.setTextColor(resources.getColor(R.color.colorAccent))
+    } else if (performance == 0.0) {
+        text = String.format(resources.getText(R.string.transaction_format_neutral).toString(), performance)
+        this.setTextColor(resources.getColor(R.color.trendingFlat))
     } else {
-        text = String.format(resources.getText(R.string.performance_format_loss).toString(), performance)
+        text = String.format(resources.getText(R.string.transaction_format_loss).toString(), performance)
         this.setTextColor(resources.getColor(R.color.trendingDown))
     }
 }

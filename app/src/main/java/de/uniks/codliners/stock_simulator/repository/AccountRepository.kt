@@ -37,7 +37,7 @@ class AccountRepository(private val database: StockAppDatabase) {
         database.accountDao.getLatestDepotValues()
     }
 
-    fun depotQuoteWithSymbol(symbol: String): LiveData<DepotQuotePurchase> =
+    fun depotQuoteWithSymbol(symbol: String): LiveData<DepotQuote> =
         database.accountDao.getDepotQuoteWitId(symbol)
 
     fun depotQuoteBySymbol(symbol: String): DepotQuotePurchase? =
@@ -138,18 +138,18 @@ class AccountRepository(private val database: StockAppDatabase) {
         val allQuotesOPurchases = database.accountDao.getDepotQuotePurchasesValuesOrderedByPrice()
 
         val quotesToSell = mutableListOf<DepotQuotePurchase>()
-        var transactionResult = 0.0
         var amountCount = 0.0
+        var count = 0
+        var transactionResult = cashflow
 
         while (amountCount < amount) {
-            var count = 0
-            val amountOfQuotesMissing = amount - quotesToSell.size
-            val quotePurchases = allQuotesOPurchases[count]
+            val amountOfQuotesMissing = amount - amountCount // x1 = 33
+            val quotePurchases = allQuotesOPurchases[count] // quotePurchases.amount = 11
             if (quotePurchases.amount <= amountOfQuotesMissing) {
-                quotesToSell.add(quotePurchases)
-                amountCount += quotePurchases.amount
+                quotesToSell.add(quotePurchases) // 11 quotes
+                amountCount += quotePurchases.amount // amountCount = 11
                 database.accountDao.deleteDepotQuotes(quotePurchases)
-                transactionResult += cashflow - (quotePurchases.buyingPrice * quotePurchases.amount)
+                transactionResult -= (quotePurchases.buyingPrice * quotePurchases.amount) + BuildConfig.TRANSACTION_COSTS
             } else {
                 val newAmount = quotePurchases.amount - amountOfQuotesMissing
                 val newDepotQuote =
@@ -157,7 +157,7 @@ class AccountRepository(private val database: StockAppDatabase) {
                 quotesToSell.add(newDepotQuote)
                 amountCount += quotePurchases.amount
                 database.accountDao.insertDepotQuote(newDepotQuote)
-                transactionResult += cashflow - (quotePurchases.buyingPrice * amountOfQuotesMissing)
+                transactionResult -= (quotePurchases.buyingPrice * amountOfQuotesMissing) + BuildConfig.TRANSACTION_COSTS
             }
             ++count
         }
