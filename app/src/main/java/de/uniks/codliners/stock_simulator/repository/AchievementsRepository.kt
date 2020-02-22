@@ -34,6 +34,18 @@ class AchievementsRepository(private val database: StockAppDatabase) {
             Achievement(
                 R.string.achievement_10000dollarwon_name,
                 R.string.achievement_10000dollarwon_description
+            ),
+            Achievement(
+                R.string.achievement_1shareindepot_name,
+                R.string.achievement_1shareindepot_description
+            ),
+            Achievement(
+                R.string.achievement_5sharesindepot_name,
+                R.string.achievement_5sharesindepot_description
+            ),
+            Achievement(
+                R.string.achievement_10sharesindepot_name,
+                R.string.achievement_10sharesindepot_description
             )
         )
         for (achievement in achievements) {

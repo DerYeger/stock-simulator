@@ -77,4 +77,14 @@
     <string name="achievement_10000dollarwon_name">10000$ won</string>
     <string name="achievement_10000dollarwon_description">You won 10000$</string>
     <string name="achievement_image_description">Image of the achievement</string>
+    <string name="achievement_1shareindepot_name">One share in depot</string>
+    <string name="achievement_1shareindepot_description">You have one share in your depot</string>
+    <string name="achievement_5sharesindepot_name">Five shares in depot</string>
+    <string name="achievement_5sharesindepot_description">You have five shares in your depot</string>
+    <string name="achievement_10sharesindepot_name">Ten shares in depot</string>
+    <string name="achievement_10sharesindepot_description">You have ten shares in your depot</string>
+    <string name="achievement_5differentsharesindepot_name">Five different shares in depot</string>
+    <string name="achievement_5differentsharesindepot_description">You have five different shares in your depot</string>
+    <string name="achievement_10differentsharesindepot_name">Ten different shares in depot</string>
+    <string name="achievement_10differentsharesindepot_description">You have ten different shares in your depot</string>
 </resources>

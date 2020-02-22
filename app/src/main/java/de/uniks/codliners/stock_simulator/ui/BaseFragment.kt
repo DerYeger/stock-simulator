@@ -36,6 +36,10 @@ abstract class BaseFragment : Fragment() {
         viewModel.balanceChanged.observe(viewLifecycleOwner, Observer {
             Timber.i(it.toString())
         })
+
+        viewModel.depotChanged.observe(viewLifecycleOwner, Observer {
+            Timber.i(it.toString())
+        })
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
