@@ -76,4 +76,5 @@
     <string name="achievement_10dollarwon_description">You won 10$</string>
     <string name="achievement_10000dollarwon_name">10000$ won</string>
     <string name="achievement_10000dollarwon_description">You won 10000$</string>
+    <string name="achievement_image_description">Image of the achievement</string>
 </resources>

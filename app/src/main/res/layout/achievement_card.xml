@@ -6,29 +6,87 @@
     <data>
 
         <variable
+            name="expanded"
+            type="Boolean" />
+
+        <variable
             name="achievement"
             type="de.uniks.codliners.stock_simulator.domain.Achievement" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/default_spacing"
+        app:cardCornerRadius="@dimen/default_corner_radius"
+        app:cardElevation="@dimen/default_elevation"
+        app:contentPadding="@dimen/default_spacing">
 
-        <TextView
-            android:id="@+id/achievement_name"
-            style="@style/TextAppearance.MaterialComponents.Headline5"
-            android:layout_width="0dp"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:text="@{achievement.name}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Headline" />
+            android:animateLayoutChanges="true">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/achievement_name"
+                style="@style/TextAppearance.MaterialComponents.Headline5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/default_spacing"
+                android:layout_marginEnd="@dimen/default_spacing"
+                android:text="@{achievement.name}"
+                app:layout_constraintBaseline_toBaselineOf="@+id/achievement_type_image"
+                app:layout_constraintEnd_toStartOf="@+id/expand_toggle_button"
+                app:layout_constraintStart_toEndOf="@+id/achievement_type_image"
+                tools:text="name" />
+
+            <ImageView
+                android:id="@+id/achievement_type_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:contentDescription="@string/achievement_image_description"
+                app:layout_constraintBottom_toBottomOf="@+id/achievement_name"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/achievement_name"
+                app:srcCompat="@drawable/ic_star_black_24dp" />
+
+            <ToggleButton
+                android:id="@+id/expand_toggle_button"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:background="@drawable/ic_expand_toggle_24dp"
+                android:checked="@={expanded}"
+                android:text=""
+                android:textOff=""
+                android:textOn=""
+                app:layout_constraintBottom_toBottomOf="@+id/achievement_name"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/achievement_name" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/card_body_layout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_spacing"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/achievement_name"
+                app:visible="@{expanded}">
+
+                <TextView
+                    android:id="@+id/achievement_description"
+                    style="@style/TextAppearance.MaterialComponents.Body1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@{achievement.description}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="achievement" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
 </layout>
