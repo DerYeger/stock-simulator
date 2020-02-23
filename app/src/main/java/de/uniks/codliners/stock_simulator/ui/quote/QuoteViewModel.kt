@@ -195,7 +195,8 @@ class QuoteViewModel(
                     amount = it.toSafeDouble(),
                     depotQuote = depotQuote.value,
                     balance = latestBalance.value,
-                    state = state.value
+                    state = state.value,
+                    quote = quote.value
                 )
             }
 
@@ -204,7 +205,8 @@ class QuoteViewModel(
                     amount = sellAmount.value.toSafeDouble(),
                     depotQuote = it,
                     balance = latestBalance.value,
-                    state = state.value
+                    state = state.value,
+                    quote = quote.value
                 )
             }
 
@@ -213,7 +215,8 @@ class QuoteViewModel(
                     amount = sellAmount.value.toSafeDouble(),
                     depotQuote = depotQuote.value,
                     balance = it,
-                    state = state.value
+                    state = state.value,
+                    quote = quote.value
                 )
             }
 
@@ -222,7 +225,18 @@ class QuoteViewModel(
                     amount = sellAmount.value.toSafeDouble(),
                     depotQuote = depotQuote.value,
                     balance = latestBalance.value,
-                    state = it
+                    state = it,
+                    quote = quote.value
+                )
+            }
+
+            addSource(quote) {
+                value = canSell(
+                    amount = sellAmount.value.toSafeDouble(),
+                    depotQuote = depotQuote.value,
+                    balance = latestBalance.value,
+                    state = state.value,
+                    quote = it
                 )
             }
         }
@@ -379,12 +393,14 @@ class QuoteViewModel(
         amount: Double?,
         depotQuote: DepotQuote?,
         balance: Balance?,
-        state: QuoteRepository.State?
-    ) = noNulls(amount, depotQuote, balance, state)
+        state: QuoteRepository.State?,
+        quote: Quote?
+    ) = noNulls(amount, depotQuote, balance, state, quote)
             && state === QuoteRepository.State.Done
             && 0 < amount!!
             && amount <= depotQuote!!.amount
-            && BuildConfig.TRANSACTION_COSTS <= balance!!.value
+            && (BuildConfig.TRANSACTION_COSTS <= balance!!.value ||
+            BuildConfig.TRANSACTION_COSTS <= quote!!.latestPrice * amount)
 
     private fun canAddRemoveQuoteToStockbrot(
         stockbrotQuote: StockbrotQuote?,
