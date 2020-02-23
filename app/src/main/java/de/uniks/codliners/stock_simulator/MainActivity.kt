@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity(), BiometricCallback {
                 R.id.navigation_search,
                 R.id.navigation_history,
                 R.id.navigation_stockbrot,
-                R.id.navigation_settings
+                R.id.navigation_achievements
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
