@@ -154,6 +154,9 @@ interface HistoricalPriceDao {
     @Query("SELECT * FROM historicalprice WHERE id = :id")
     fun getHistoricalPricesById(id: String): LiveData<List<HistoricalPrice>>
 
+    @Query("SELECT * FROM historicalprice WHERE id = :id ORDER BY historicalprice.date DESC LIMIT :limit")
+    fun getHistoricalPricesByIdLimited(id: String, limit: Int): LiveData<List<HistoricalPrice>>
+
     @Query("DELETE FROM historicalprice WHERE id = :id")
     fun deleteHistoricalPricesById(id: String)
 }
@@ -183,7 +186,7 @@ interface AchievementsDao {
 
 @Database(
     entities = [Symbol::class, DepotQuotePurchase::class, News::class, Transaction::class, Quote::class, Balance::class, HistoricalPrice::class, StockbrotQuote::class, DepotValue::class, Achievement::class],
-    version = 26,
+    version = 27,
     exportSchema = false
 )
 @TypeConverters(Converters::class)

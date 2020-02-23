@@ -97,7 +97,7 @@ class QuoteFragment : BaseFragment() {
             }
         })
 
-        viewModel.historicalPrices.observe(viewLifecycleOwner, Observer { priceList ->
+        viewModel.historicalPricesLimited.observe(viewLifecycleOwner, Observer { priceList ->
             run {
                 if (priceList.isEmpty()) return@run
                 val referenceTimestamp = priceList[0].date

@@ -35,6 +35,8 @@ class QuoteViewModel(
     val depotQuote = accountRepository.depotQuoteWithSymbol(id)
     val stockbrotQuote = stockbrotRepository.stockbrotQuoteWithId(id)
     val historicalPrices = quoteRepository.historicalPrices(id)
+    // the last 50 historical prices
+    val historicalPricesLimited = quoteRepository.historicalPricesLimited(id)
 
     val isCrypto = type === Symbol.Type.CRYPTO
     val hasChange = quote.map { quote: Quote? -> quote !== null && !isCrypto }

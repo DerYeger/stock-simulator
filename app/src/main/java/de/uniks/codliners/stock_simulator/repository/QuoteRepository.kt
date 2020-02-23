@@ -14,6 +14,8 @@ import de.uniks.codliners.stock_simulator.network.asHistoricalPrices
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
+private const val HISTORICAL_PRICE_LIMIT: Int = 50
+
 class QuoteRepository(private val database: StockAppDatabase) {
 
     constructor(context: Context) : this(getDatabase(context))
@@ -24,6 +26,7 @@ class QuoteRepository(private val database: StockAppDatabase) {
         object Done : State()
         class Error(val message: String) : State()
     }
+
 
     private val _state = MutableLiveData<State>().apply {
         postValue(State.Empty)
@@ -39,6 +42,9 @@ class QuoteRepository(private val database: StockAppDatabase) {
     fun historicalPrices(symbol: String): LiveData<List<HistoricalPrice>> =
         database.historicalDao.getHistoricalPricesById(symbol)
 
+    fun historicalPricesLimited(symbol: String, limit: Int = HISTORICAL_PRICE_LIMIT): LiveData<List<HistoricalPrice>> =
+        database.historicalDao.getHistoricalPricesByIdLimited(symbol, limit)
+
     suspend fun fetchIEXQuote(symbol: String) {
         withContext(Dispatchers.IO) {
             try {
@@ -48,7 +54,7 @@ class QuoteRepository(private val database: StockAppDatabase) {
                 val historicalPrices = NetworkService.IEX_API
                     .historicalPrices(symbol = symbol, chartCloseOnly = true)
                     .asDomainHistoricalPrices(symbol)
-                database.historicalDao.deleteHistoricalPricesById(symbol)
+                // database.historicalDao.deleteHistoricalPricesById(symbol)
                 database.historicalDao.insertAll(*historicalPrices.toTypedArray())
                 _state.postValue(State.Done)
             } catch (exception: Exception) {
@@ -66,7 +72,7 @@ class QuoteRepository(private val database: StockAppDatabase) {
                 val historicalPrices = NetworkService.COINGECKO_API
                     .historicalPrices(id = id)
                     .asHistoricalPrices(id)
-                database.historicalDao.deleteHistoricalPricesById(id)
+                // database.historicalDao.deleteHistoricalPricesById(id)
                 database.historicalDao.insertAll(*historicalPrices.toTypedArray())
                 _state.postValue(State.Done)
             } catch (exception: Exception) {

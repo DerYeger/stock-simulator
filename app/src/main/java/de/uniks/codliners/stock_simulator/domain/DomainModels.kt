@@ -108,10 +108,8 @@ data class DepotValue(
     val timestamp: Long = System.currentTimeMillis()
 )
 
-@Entity
+@Entity(primaryKeys = ["id", "date"])
 data class HistoricalPrice(
-    @PrimaryKey(autoGenerate = true)
-    val primaryKey: Long = 0,
     val id: String,
     val date: Long,
     val price: Double
