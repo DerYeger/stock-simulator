@@ -64,6 +64,7 @@ class QuoteFragment : BaseFragment() {
 
         viewModel.buyAction.observe(viewLifecycleOwner, Observer { status: Boolean? ->
             status?.let {
+                viewModel.onBuyActionStarted()
                 showTransactionDialog(R.string.dialog_title_confirm_buy_transaction) {
                     viewModel.buy()
                 }
@@ -73,6 +74,7 @@ class QuoteFragment : BaseFragment() {
 
         viewModel.sellAction.observe(viewLifecycleOwner, Observer { status: Boolean? ->
             status?.let {
+                viewModel.onSellActionStarted()
                 showTransactionDialog(R.string.dialog_title_confirm_sell_transaction) {
                     viewModel.sell()
                 }
@@ -84,7 +86,11 @@ class QuoteFragment : BaseFragment() {
             Timber.i(it.toString())
         })
 
-        viewModel.cashflow.observe(viewLifecycleOwner, Observer {
+        viewModel.cashflowBuy.observe(viewLifecycleOwner, Observer {
+            Timber.i(it.toString())
+        })
+
+        viewModel.cashflowSell.observe(viewLifecycleOwner, Observer {
             Timber.i(it.toString())
         })
 

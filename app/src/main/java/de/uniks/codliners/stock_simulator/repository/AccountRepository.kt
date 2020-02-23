@@ -45,16 +45,21 @@ class AccountRepository(private val database: StockAppDatabase) {
 
     suspend fun getLatestBalance() = withContext(Dispatchers.IO) { database.accountDao.getLatestBalanceValue() }
 
-    fun calculateCashflow(quote: Quote?, amount: Double?): Double {
+    fun calculateBuyCashflow(quote: Quote?, amount: Double?): Double {
         if (quote == null || amount == null) return 0.0
         return -(quote.latestPrice * amount) - BuildConfig.TRANSACTION_COSTS
+    }
+
+    fun calculateSellCashflow(quote: Quote?, amount: Double?): Double {
+        if (quote == null || amount == null) return 0.0
+        return quote.latestPrice * amount - BuildConfig.TRANSACTION_COSTS
     }
 
     suspend fun buy(quote: Quote, amount: Double) {
         if (amount <= 0.0) return
         withContext(Dispatchers.IO) {
             val oldBalance = database.accountDao.getLatestBalanceValue()
-            val cashflow = calculateCashflow(quote, amount)
+            val cashflow = calculateBuyCashflow(quote, amount)
             if (-cashflow > oldBalance.value) {
                 return@withContext
             }
@@ -96,7 +101,7 @@ class AccountRepository(private val database: StockAppDatabase) {
             if (BuildConfig.TRANSACTION_COSTS > oldBalance.value) {
                 return@withContext
             }
-            val cashflow = quote.latestPrice * amount - BuildConfig.TRANSACTION_COSTS
+            val cashflow = calculateSellCashflow(quote, amount)
             val newBalance = Balance(oldBalance.value + cashflow)
 
             val transactionResult = calculateResultAndUpdateQuotePurchases(amount, cashflow)
