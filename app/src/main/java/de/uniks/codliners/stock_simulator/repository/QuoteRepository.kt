@@ -42,8 +42,8 @@ class QuoteRepository(private val database: StockAppDatabase) {
     fun historicalPrices(symbol: String): LiveData<List<HistoricalPrice>> =
         database.historicalDao.getHistoricalPricesById(symbol)
 
-    fun historicalPricesLimited(symbol: String, limit: Int = HISTORICAL_PRICE_LIMIT): LiveData<List<HistoricalPrice>> =
-        database.historicalDao.getHistoricalPricesByIdLimited(symbol, limit)
+    fun historicalPricesLimited(symbol: String): LiveData<List<HistoricalPrice>> =
+        database.historicalDao.getHistoricalPricesByIdLimited(symbol)
 
     suspend fun fetchIEXQuote(symbol: String) {
         withContext(Dispatchers.IO) {
