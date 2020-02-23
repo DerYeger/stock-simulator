@@ -104,7 +104,7 @@ class AccountRepository(private val database: StockAppDatabase) {
             val cashflow = calculateSellCashflow(quote, amount)
             val newBalance = Balance(oldBalance.value + cashflow)
 
-            val transactionResult = calculateResultAndUpdateQuotePurchases(amount, cashflow)
+            val transactionResult = calculateResultAndUpdateQuotePurchases(amount, cashflow, quote)
 
             val transaction = Transaction(
                 id = quote.id,
@@ -143,9 +143,10 @@ class AccountRepository(private val database: StockAppDatabase) {
 
     private fun calculateResultAndUpdateQuotePurchases(
         amount: Double,
-        cashflow: Double
+        cashflow: Double,
+        quote: Quote
     ): Double {
-        val allQuotesOPurchases = database.accountDao.getDepotQuotePurchasesValuesOrderedByPrice()
+        val allQuotesOPurchases = database.accountDao.getDepotQuotePurchasesByIdOrderedByPrice(quote.id)
 
         val quotesToSell = mutableListOf<DepotQuotePurchase>()
         var amountCount = 0.0
