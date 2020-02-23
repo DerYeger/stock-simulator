@@ -69,6 +69,12 @@ class QuoteViewModel(
     private val _amount = MediatorLiveData<String>()
     val amount: LiveData<String> = _amount
 
+    private val _cashflowBuy = MediatorLiveData<Double>()
+    val cashflowBuy: LiveData<Double> = _cashflowBuy
+
+    private val _cashflowSell = MediatorLiveData<Double>()
+    val cashflowSell: LiveData<Double> = _cashflowSell
+
     private val _cashflow = MediatorLiveData<Double>()
     val cashflow: LiveData<Double> = _cashflow
 
@@ -109,16 +115,32 @@ class QuoteViewModel(
             }
         }
 
-        _cashflow.apply {
+        _cashflowBuy.apply {
             addSource(amount) {
-                _cashflow.value = accountRepository.calculateCashflow(
+                _cashflowBuy.value = accountRepository.calculateBuyCashflow(
                     quote.value,
                     it.toSafeDouble()
                 )
             }
 
             addSource(quote) {
-                _cashflow.value = accountRepository.calculateCashflow(
+                _cashflowBuy.value = accountRepository.calculateBuyCashflow(
+                    it,
+                    amount.value.toSafeDouble()
+                )
+            }
+        }
+
+        _cashflowSell.apply {
+            addSource(amount) {
+                _cashflowSell.value = accountRepository.calculateSellCashflow(
+                    quote.value,
+                    it.toSafeDouble()
+                )
+            }
+
+            addSource(quote) {
+                _cashflowSell.value = accountRepository.calculateSellCashflow(
                     it,
                     amount.value.toSafeDouble()
                 )
@@ -318,6 +340,18 @@ class QuoteViewModel(
                 Symbol.Type.SHARE -> quoteRepository.fetchIEXQuote(id)
                 Symbol.Type.CRYPTO -> quoteRepository.fetchCoinGeckoQuote(id)
             }
+        }
+    }
+
+    fun onBuyActionStarted() {
+        viewModelScope.launch {
+            _cashflow.value = _cashflowBuy.value
+        }
+    }
+
+    fun onSellActionStarted() {
+        viewModelScope.launch {
+            _cashflow.value = _cashflowSell.value
         }
     }
 
