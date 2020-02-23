@@ -32,26 +32,28 @@
                 android:id="@+id/symbol_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/half_spacing"
                 android:text="@{stockbrotQuote.symbol}"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-                tools:text="SYMBOL"
-                android:paddingBottom="@dimen/half_spacing"/>
+                tools:text="SYMBOL" />
 
             <TextView
                 android:id="@+id/buy_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/half_spacing"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                 app:stockbrotQuote="@{stockbrotQuote}"
-                tools:text="Buying at 42$"
-                android:paddingBottom="@dimen/half_spacing" />
+                app:visible="@{stockbrotQuote.maximumBuyPrice > 0.0}"
+                tools:text="Buying at 42$" />
 
             <TextView
                 android:id="@+id/sell_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{@string/stockbrot_quote_selling_format(stockbrotQuote.thresholdSell)}"
+                android:text="@{@string/stockbrot_quote_selling_format(stockbrotQuote.minimumSellPrice)}"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                app:visible="@{stockbrotQuote.minimumSellPrice > 0.0}"
                 tools:text="Selling at 42$" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>

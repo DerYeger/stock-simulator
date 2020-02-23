@@ -37,11 +37,11 @@ class StockbrotWorker(context: Context, params: WorkerParameters) : Worker(conte
 
             quoteRepository.quoteById(id)?.let {
                 Timber.i("Bot is using quote $it")
-                if (stockbrotQuote.thresholdBuy != 0.0) {
+                if (stockbrotQuote.maximumBuyPrice != 0.0) {
                     // buy is enabled
                     stockbrotQuote.executeBuyOrder(it)
                 }
-                if (stockbrotQuote.thresholdSell != 0.0) {
+                if (stockbrotQuote.minimumSellPrice != 0.0) {
                     // sell is enabled
                     stockbrotQuote.executeSellOrder(it)
                 }
@@ -51,16 +51,16 @@ class StockbrotWorker(context: Context, params: WorkerParameters) : Worker(conte
     }
 
     private suspend fun StockbrotQuote.executeBuyOrder(quote: Quote) {
-        if (quote.latestPrice <= thresholdBuy) {
+        if (quote.latestPrice <= maximumBuyPrice) {
             val balance = accountRepository.getLatestBalance()
             val amount = (balance.value - BuildConfig.TRANSACTION_COSTS) / quote.latestPrice
             val typedAmount = when (quote.type) {
                 Symbol.Type.SHARE -> amount.toLong().toDouble()
                 Symbol.Type.CRYPTO -> amount
             }
-            val actualAmount = if (buyAmount <= 0.0) typedAmount.coerceAtLeast(0.0) else typedAmount.coerceAtMost(buyAmount)
+            val actualAmount = if (buyLimit <= 0.0) typedAmount.coerceAtLeast(0.0) else typedAmount.coerceAtMost(buyLimit)
             Timber.i("Bot is buying $actualAmount ($typedAmount / $amount) for ${quote.latestPrice}")
-            val newStockbrotQuote = this.copy(buyAmount = (buyAmount - actualAmount).coerceAtLeast(0.0))
+            val newStockbrotQuote = this.copy(buyLimit = (buyLimit - actualAmount).coerceAtLeast(0.0))
             stockbrotRepository.addStockbrotQuote(newStockbrotQuote)
             accountRepository.buy(quote, actualAmount)
         }
@@ -68,7 +68,7 @@ class StockbrotWorker(context: Context, params: WorkerParameters) : Worker(conte
 
     private suspend fun StockbrotQuote.executeSellOrder(quote: Quote) {
         val depotQuote = accountRepository.depotQuoteBySymbol(id) ?: return
-        if (quote.latestPrice >= thresholdSell) {
+        if (quote.latestPrice >= minimumSellPrice) {
             val amount = depotQuote.amount
             Timber.i("Bot is selling $amount for ${quote.latestPrice}")
             accountRepository.sell(quote, amount)

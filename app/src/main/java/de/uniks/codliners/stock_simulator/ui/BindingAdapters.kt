@@ -268,27 +268,26 @@ fun Button.bindBotAddRemoveQuote(enabled: Boolean) {
 
 @BindingAdapter("stockbrotQuote")
 fun TextView.bindStockbrotQuote(stockbrotQuote: StockbrotQuote) {
-    text = when (stockbrotQuote.buyAmount == 0.0) {
+    text = when (stockbrotQuote.limitedBuying) {
         true -> {
             String.format(
                 resources.getText(R.string.stockbrot_quote_buying_format).toString(),
-                stockbrotQuote.thresholdBuy
+                stockbrotQuote.maximumBuyPrice
             )
         }
         false -> {
             when (stockbrotQuote.type) {
                 Symbol.Type.SHARE -> String.format(
                     resources.getText(R.string.stockbrot_quote_buying_amount_format_long).toString(),
-                    stockbrotQuote.buyAmount.toLong(),
-                    stockbrotQuote.thresholdBuy
+                    stockbrotQuote.buyLimit.toLong(),
+                    stockbrotQuote.maximumBuyPrice
                 )
                 Symbol.Type.CRYPTO -> String.format(
                     resources.getText(R.string.stockbrot_quote_buying_amount_format_double).toString(),
-                    stockbrotQuote.buyAmount,
-                    stockbrotQuote.thresholdBuy
+                    stockbrotQuote.buyLimit,
+                    stockbrotQuote.maximumBuyPrice
                 )
             }
-
         }
     }
 }

@@ -90,9 +90,9 @@ class QuoteFragment : BaseFragment() {
 
         viewModel.stockbrotQuoteAction.observe(this, Observer { stockbrotQuote: StockbrotQuote? ->
             stockbrotQuote?.let {
-                viewModel.autoBuyAmount.value = stockbrotQuote.buyAmount.toString()
-                viewModel.thresholdBuy.value = stockbrotQuote.thresholdBuy.toString()
-                viewModel.thresholdSell.value = stockbrotQuote.thresholdSell.toString()
+                viewModel.autoBuyAmount.value = stockbrotQuote.buyLimit.toString()
+                viewModel.thresholdBuy.value = stockbrotQuote.maximumBuyPrice.toString()
+                viewModel.thresholdSell.value = stockbrotQuote.minimumSellPrice.toString()
                 viewModel.onThresholdBuyActionCompleted()
             }
         })
