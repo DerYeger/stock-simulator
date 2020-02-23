@@ -11,11 +11,13 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.github.mikephil.charting.data.Entry
 import de.uniks.codliners.stock_simulator.R
+import de.uniks.codliners.stock_simulator.databinding.DialogTransactionBinding
 import de.uniks.codliners.stock_simulator.databinding.FragmentQuoteBinding
 import de.uniks.codliners.stock_simulator.domain.StockbrotQuote
 import de.uniks.codliners.stock_simulator.initLineChart
 import de.uniks.codliners.stock_simulator.ui.BaseFragment
 import de.uniks.codliners.stock_simulator.updateLineChart
+import timber.log.Timber
 
 class QuoteFragment : BaseFragment() {
 
@@ -62,7 +64,7 @@ class QuoteFragment : BaseFragment() {
 
         viewModel.buyAction.observe(viewLifecycleOwner, Observer { status: Boolean? ->
             status?.let {
-                showTransactionDialog {
+                showTransactionDialog(R.string.dialog_title_confirm_buy_transaction) {
                     viewModel.buy()
                 }
                 viewModel.onBuyActionCompleted()
@@ -71,11 +73,19 @@ class QuoteFragment : BaseFragment() {
 
         viewModel.sellAction.observe(viewLifecycleOwner, Observer { status: Boolean? ->
             status?.let {
-                showTransactionDialog {
+                showTransactionDialog(R.string.dialog_title_confirm_sell_transaction) {
                     viewModel.sell()
                 }
                 viewModel.onSellActionCompleted()
             }
+        })
+
+        viewModel.amount.observe(viewLifecycleOwner, Observer {
+            Timber.i(it.toString())
+        })
+
+        viewModel.cashflow.observe(viewLifecycleOwner, Observer {
+            Timber.i(it.toString())
         })
 
         viewModel.stockbrotQuoteAction.observe(this, Observer { stockbrotQuote: StockbrotQuote? ->
@@ -112,9 +122,14 @@ class QuoteFragment : BaseFragment() {
         return binding.root
     }
 
-    private fun showTransactionDialog(onConfirmation: () -> Unit) {
+    private fun showTransactionDialog(message: Int, onConfirmation: () -> Unit) {
+        val view: View = LayoutInflater.from(context).inflate(R.layout.dialog_transaction, null, false)
+        val binding = DialogTransactionBinding.bind(view)
+        binding.viewModel = viewModel
+
         AlertDialog.Builder(context)
-            .setMessage(R.string.dialog_confirm_transaction)
+            .setMessage(message)
+            .setView(view)
             .setPositiveButton(R.string.yes) { dialog, id ->
                 onConfirmation()
             }

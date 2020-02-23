@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="BuildConfig"
+            type="de.uniks.codliners.stock_simulator.BuildConfig" />
+
+        <variable
+            name="viewModel"
+            type="de.uniks.codliners.stock_simulator.ui.quote.QuoteViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/transaction_amount_text"
+            style="@style/TextAppearance.MaterialComponents.Body1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="24dp"
+            android:text="@{@string/amount_format(viewModel.amount)}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Amount: 3" />
+
+        <TextView
+            android:id="@+id/transaction_price_text"
+            style="@style/TextAppearance.MaterialComponents.Body1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@{@string/price_format(viewModel.quote.latestPrice)}"
+            app:layout_constraintEnd_toEndOf="@+id/transaction_amount_text"
+            app:layout_constraintStart_toStartOf="@+id/transaction_amount_text"
+            app:layout_constraintTop_toBottomOf="@+id/transaction_amount_text"
+            tools:text="Price: 100$" />
+
+        <TextView
+            android:id="@+id/transaction_costs_text"
+            style="@style/TextAppearance.MaterialComponents.Body1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/half_spacing"
+            android:text="@{@string/transaction_costs_format(viewModel.transactionCosts)}"
+            app:layout_constraintEnd_toEndOf="@+id/transaction_price_text"
+            app:layout_constraintStart_toStartOf="@+id/transaction_price_text"
+            app:layout_constraintTop_toBottomOf="@+id/transaction_price_text"
+            tools:text="Cost: 5" />
+
+        <TextView
+            android:id="@+id/transaction_cashflow_text"
+            style="@style/TextAppearance.MaterialComponents.Body1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/half_spacing"
+            android:text="@{@string/cashflow_format(viewModel.cashflow)}"
+            app:layout_constraintEnd_toEndOf="@+id/transaction_costs_text"
+            app:layout_constraintStart_toStartOf="@+id/transaction_costs_text"
+            app:layout_constraintTop_toBottomOf="@+id/transaction_costs_text"
+            tools:text="Cashflow: -4205$" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

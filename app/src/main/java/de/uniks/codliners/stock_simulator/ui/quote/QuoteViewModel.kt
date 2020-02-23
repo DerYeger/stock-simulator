@@ -66,6 +66,14 @@ class QuoteViewModel(
     private val _sellAction = MutableLiveData<Boolean>()
     val sellAction: LiveData<Boolean> = _sellAction
 
+    private val _amount = MediatorLiveData<String>()
+    val amount: LiveData<String> = _amount
+
+    private val _cashflow = MediatorLiveData<Double>()
+    val cashflow: LiveData<Double> = _cashflow
+
+    val transactionCosts: Double = BuildConfig.TRANSACTION_COSTS
+
     val thresholdBuy = MutableLiveData("0.0")
     val thresholdSell = MutableLiveData("0.0")
     val autoBuyAmount = MutableLiveData<String>().apply {
@@ -88,6 +96,32 @@ class QuoteViewModel(
                     is QuoteRepository.State.Error -> state.message
                     else -> null
                 }
+            }
+        }
+
+        _amount.apply {
+            addSource(buyAmount) { amount ->
+                _amount.value= amount
+            }
+
+            addSource(sellAmount) { amount ->
+                _amount.value= amount
+            }
+        }
+
+        _cashflow.apply {
+            addSource(amount) {
+                _cashflow.value = accountRepository.calculateCashflow(
+                    quote.value,
+                    it.toSafeDouble()
+                )
+            }
+
+            addSource(quote) {
+                _cashflow.value = accountRepository.calculateCashflow(
+                    it,
+                    amount.value.toSafeDouble()
+                )
             }
         }
 

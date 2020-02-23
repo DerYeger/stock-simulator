@@ -45,11 +45,16 @@ class AccountRepository(private val database: StockAppDatabase) {
 
     suspend fun getLatestBalance() = withContext(Dispatchers.IO) { database.accountDao.getLatestBalanceValue() }
 
+    fun calculateCashflow(quote: Quote?, amount: Double?): Double {
+        if (quote == null || amount == null) return 0.0
+        return -(quote.latestPrice * amount) - BuildConfig.TRANSACTION_COSTS
+    }
+
     suspend fun buy(quote: Quote, amount: Double) {
         if (amount <= 0.0) return
         withContext(Dispatchers.IO) {
             val oldBalance = database.accountDao.getLatestBalanceValue()
-            val cashflow = -(quote.latestPrice * amount) - BuildConfig.TRANSACTION_COSTS
+            val cashflow = calculateCashflow(quote, amount)
             if (-cashflow > oldBalance.value) {
                 return@withContext
             }

@@ -29,6 +29,7 @@
     <string name="achievement_5differentsharesindepot_description">You have five different shares in your depot</string>
     <string name="achievement_10differentsharesindepot_name">Ten different shares in depot</string>
     <string name="achievement_10differentsharesindepot_description">You have ten different shares in your depot</string>
+    <string name="amount_format">Amount: %s</string>
     <string name="article_header_image">Article header image.</string>
     <string name="biometric_cancelled">Fingerprint authentication has been canceled!</string>
     <string name="biometric_error_fingerprint_not_available">Device has no fingerprints registered!</string>
@@ -45,7 +46,8 @@
     <string name="date_format">Date: %s</string>
     <string name="depot_currency_format">Depot: %s$</string>
     <string name="details">Details</string>
-    <string name="dialog_confirm_transaction">Execute transaction?</string>
+    <string name="dialog_title_confirm_buy_transaction">Execute buy transaction?</string>
+    <string name="dialog_title_confirm_sell_transaction">Execute sell transaction?</string>
     <string name="double_buy_amount_format">%f bought</string>
     <string name="double_depot_quote_amount_format">%f in depot</string>
     <string name="double_depot_quote_format">%1$s - %2$f</string>
