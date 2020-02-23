@@ -399,8 +399,7 @@ class QuoteViewModel(
             && state === QuoteRepository.State.Done
             && 0 < amount!!
             && amount <= depotQuote!!.amount
-            && (BuildConfig.TRANSACTION_COSTS <= balance!!.value ||
-            BuildConfig.TRANSACTION_COSTS <= quote!!.latestPrice * amount)
+            && (BuildConfig.TRANSACTION_COSTS <= balance!!.value + quote!!.latestPrice * amount)
 
     private fun canAddRemoveQuoteToStockbrot(
         stockbrotQuote: StockbrotQuote?,

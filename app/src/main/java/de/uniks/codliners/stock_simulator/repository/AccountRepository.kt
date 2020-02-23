@@ -98,7 +98,7 @@ class AccountRepository(private val database: StockAppDatabase) {
         if (amount <= 0.0) return
         withContext(Dispatchers.IO) {
             val oldBalance = database.accountDao.getLatestBalanceValue()
-            if (BuildConfig.TRANSACTION_COSTS > oldBalance.value) {
+            if (BuildConfig.TRANSACTION_COSTS > oldBalance.value + quote.latestPrice * amount ) {
                 return@withContext
             }
             val cashflow = calculateSellCashflow(quote, amount)
