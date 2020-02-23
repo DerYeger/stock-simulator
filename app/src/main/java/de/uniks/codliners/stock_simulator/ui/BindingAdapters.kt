@@ -130,7 +130,12 @@ fun TextView.bindPerformanceText(performance: Double) {
 fun ImageView.bindPerformanceIcon(performance: Double) {
     when {
         performance > 0.0 -> {
-            setImageDrawable(resources.getDrawable(R.drawable.ic_trending_up_black_24dp, context.theme))
+            setImageDrawable(
+                resources.getDrawable(
+                    R.drawable.ic_trending_up_black_24dp,
+                    context.theme
+                )
+            )
             this.setColorFilter(resources.getColor(R.color.colorAccent, context.theme))
         }
         performance == 0.0 -> {
@@ -183,13 +188,22 @@ fun TextView.bindTransactionResultText(performance: Double?) {
         return
     }
     if (performance > 0.0) {
-        text = String.format(resources.getText(R.string.transaction_format_win).toString(), performance)
+        text = String.format(
+            resources.getText(R.string.transaction_format_win).toString(),
+            performance
+        )
         this.setTextColor(resources.getColor(R.color.colorAccent))
     } else if (performance == 0.0) {
-        text = String.format(resources.getText(R.string.transaction_format_neutral).toString(), performance)
+        text = String.format(
+            resources.getText(R.string.transaction_format_neutral).toString(),
+            performance
+        )
         this.setTextColor(resources.getColor(R.color.trendingFlat))
     } else {
-        text = String.format(resources.getText(R.string.transaction_format_loss).toString(), performance)
+        text = String.format(
+            resources.getText(R.string.transaction_format_loss).toString(),
+            performance
+        )
         this.setTextColor(resources.getColor(R.color.trendingDown))
     }
 }
@@ -269,26 +283,23 @@ fun Button.bindBotAddRemoveQuote(enabled: Boolean) {
 @BindingAdapter("stockbrotQuote")
 fun TextView.bindStockbrotQuote(stockbrotQuote: StockbrotQuote) {
     text = when (stockbrotQuote.limitedBuying) {
-        true -> {
+        true -> when (stockbrotQuote.type) {
+            Symbol.Type.SHARE -> String.format(
+                resources.getText(R.string.stockbrot_quote_buying_amount_format_long).toString(),
+                stockbrotQuote.buyLimit.toLong(),
+                stockbrotQuote.maximumBuyPrice
+            )
+            Symbol.Type.CRYPTO -> String.format(
+                resources.getText(R.string.stockbrot_quote_buying_amount_format_double).toString(),
+                stockbrotQuote.buyLimit,
+                stockbrotQuote.maximumBuyPrice
+            )
+        }
+        false ->
             String.format(
                 resources.getText(R.string.stockbrot_quote_buying_format).toString(),
                 stockbrotQuote.maximumBuyPrice
             )
-        }
-        false -> {
-            when (stockbrotQuote.type) {
-                Symbol.Type.SHARE -> String.format(
-                    resources.getText(R.string.stockbrot_quote_buying_amount_format_long).toString(),
-                    stockbrotQuote.buyLimit.toLong(),
-                    stockbrotQuote.maximumBuyPrice
-                )
-                Symbol.Type.CRYPTO -> String.format(
-                    resources.getText(R.string.stockbrot_quote_buying_amount_format_double).toString(),
-                    stockbrotQuote.buyLimit,
-                    stockbrotQuote.maximumBuyPrice
-                )
-            }
-        }
     }
 }
 

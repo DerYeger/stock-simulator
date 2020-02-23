@@ -295,7 +295,7 @@ class QuoteViewModel(
                 id = id,
                 symbol = quote.value!!.symbol,
                 type = type,
-                limitedBuying = autoBuyAmount == 0.0,
+                limitedBuying = autoBuyAmount > 0.0,
                 buyLimit = autoBuyAmount,
                 maximumBuyPrice = thresholdBuyDouble,
                 minimumSellPrice = thresholdSellDouble

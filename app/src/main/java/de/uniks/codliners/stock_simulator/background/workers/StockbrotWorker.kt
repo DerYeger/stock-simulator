@@ -5,6 +5,7 @@ import androidx.work.Worker
 import androidx.work.WorkerParameters
 import de.uniks.codliners.stock_simulator.BuildConfig
 import de.uniks.codliners.stock_simulator.background.ID_KEY
+import de.uniks.codliners.stock_simulator.background.StockbrotWorkRequest
 import de.uniks.codliners.stock_simulator.domain.Quote
 import de.uniks.codliners.stock_simulator.domain.StockbrotQuote
 import de.uniks.codliners.stock_simulator.domain.Symbol
@@ -24,6 +25,8 @@ class StockbrotWorker(context: Context, params: WorkerParameters) : Worker(conte
     private val id = inputData.getString(ID_KEY) ?: ""
 
     private val scope = CoroutineScope(Dispatchers.Unconfined)
+
+    private val stockbrotWorkRequest = StockbrotWorkRequest(context)
 
     override fun doWork(): Result {
         scope.launch {
@@ -51,19 +54,27 @@ class StockbrotWorker(context: Context, params: WorkerParameters) : Worker(conte
     }
 
     private suspend fun StockbrotQuote.executeBuyOrder(quote: Quote) {
-        if (quote.latestPrice <= maximumBuyPrice) {
-            val balance = accountRepository.getLatestBalance()
-            val amount = (balance.value - BuildConfig.TRANSACTION_COSTS) / quote.latestPrice
-            val typedAmount = when (quote.type) {
-                Symbol.Type.SHARE -> amount.toLong().toDouble()
-                Symbol.Type.CRYPTO -> amount
-            }
-            val actualAmount = if (buyLimit <= 0.0) typedAmount.coerceAtLeast(0.0) else typedAmount.coerceAtMost(buyLimit)
-            Timber.i("Bot is buying $actualAmount ($typedAmount / $amount) for ${quote.latestPrice}")
-            val newStockbrotQuote = this.copy(buyLimit = (buyLimit - actualAmount).coerceAtLeast(0.0))
-            stockbrotRepository.addStockbrotQuote(newStockbrotQuote)
-            accountRepository.buy(quote, actualAmount)
+        if (quote.latestPrice > maximumBuyPrice) return
+        val balance = accountRepository.getLatestBalance()
+        val amount = (balance.value - BuildConfig.TRANSACTION_COSTS) / quote.latestPrice
+        val typedAmount = when (quote.type) {
+            Symbol.Type.SHARE -> amount.toLong().toDouble()
+            Symbol.Type.CRYPTO -> amount
         }
+        Timber.i("$limitedBuying with $buyLimit")
+        val actualAmount = if (limitedBuying) typedAmount.coerceAtMost(buyLimit) else typedAmount
+        if (actualAmount <= 0.0) return
+        Timber.i("Bot is buying $actualAmount ($typedAmount / $amount) for ${quote.latestPrice}")
+        val newStockbrotQuote = this.copy(buyLimit = (buyLimit - actualAmount).coerceAtLeast(0.0))
+        if (newStockbrotQuote.limitedBuying && newStockbrotQuote.buyLimit == 0.0) {
+            // Remove StockbrotQuote
+            stockbrotRepository.removeStockbrotQuote(newStockbrotQuote)
+            stockbrotWorkRequest.removeQuote(newStockbrotQuote)
+        } else {
+            // Update StockbrotQuote
+            stockbrotRepository.addStockbrotQuote(newStockbrotQuote)
+        }
+        accountRepository.buy(quote, actualAmount)
     }
 
     private suspend fun StockbrotQuote.executeSellOrder(quote: Quote) {
