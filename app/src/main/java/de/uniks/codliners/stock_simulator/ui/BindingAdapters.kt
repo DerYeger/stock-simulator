@@ -305,7 +305,9 @@ fun TextView.bindStockbrotQuote(stockbrotQuote: StockbrotQuote) {
 
 @BindingAdapter("enableCardView")
 fun CardView.bindEnableCardView(enabled: Boolean) {
-    if (!enabled) {
-        setCardBackgroundColor(solidColor)
+    val color = when(enabled) {
+        true -> R.color.enabledCardBackground
+        false -> R.color.disabledCardBackground
     }
+    setCardBackgroundColor(resources.getColor(color, context.theme))
 }

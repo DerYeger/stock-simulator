@@ -20,7 +20,7 @@
         android:layout_margin="@dimen/default_spacing"
         app:enableCardView="@{achievement.reached}"
         app:cardCornerRadius="@dimen/default_corner_radius"
-        app:cardElevation="@dimen/default_elevation"
+        app:cardElevation="0dp"
         app:contentPadding="@dimen/default_spacing">
 
         <androidx.constraintlayout.widget.ConstraintLayout
