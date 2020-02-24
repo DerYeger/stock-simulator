@@ -19,7 +19,7 @@ class NewsAdapter(
     locale: Locale
 ) : ListAdapter<News, NewsAdapter.ViewHolder>(DiffCallback) {
 
-    private val dateFormatter = SimpleDateFormat("dd.MM.yyyy hh:mm", locale)
+    private val dateFormatter = SimpleDateFormat("dd.MM.yyyy HH:mm", locale)
 
     inner class ViewHolder(private val binding: NewsCardBinding) :
         RecyclerView.ViewHolder(binding.root) {
