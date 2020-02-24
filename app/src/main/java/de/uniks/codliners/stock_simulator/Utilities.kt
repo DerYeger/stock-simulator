@@ -142,7 +142,7 @@ fun updateLineChart(
         referenceTimestamp,
         locale
     ),
-    axisLeftValueFormatter: ValueFormatter = CurrencyValueFormatter("€")
+    axisLeftValueFormatter: ValueFormatter = CurrencyValueFormatter("$")
 ) {
     if (entryList.isEmpty()) {
         return
@@ -174,7 +174,7 @@ fun updateLineChart(
 class TimestampValueFormatter(private val referenceTimestamp: Long, locale: Locale) :
     ValueFormatter() {
     private val dateFormatter =
-        SimpleDateFormat("dd.MM.yyyy hh:mm:ss", locale)
+        SimpleDateFormat("dd.MM.yy", locale)
 
     override fun getFormattedValue(value: Float): String {
         // "toInt()" required to workaround inaccurate results due to unchangeable float usage
