@@ -65,17 +65,12 @@ class SettingsFragment : Fragment() {
         viewModel.symbolRepositoryStateAction.observe(
             viewLifecycleOwner,
             Observer { state: SymbolRepository.State? ->
-                Timber.i("State $state")
                 if (state === null) return@Observer
+                viewModel.onSymbolActionCompleted()
                 when (state) {
                     SymbolRepository.State.Refreshing -> Toast.makeText(
                         this.context,
                         R.string.refreshing_symbols,
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    SymbolRepository.State.Done -> Toast.makeText(
-                        this.context,
-                        R.string.symbols_refresh_success,
                         Toast.LENGTH_SHORT
                     ).show()
                     is SymbolRepository.State.Error -> Toast.makeText(
@@ -84,7 +79,6 @@ class SettingsFragment : Fragment() {
                         Toast.LENGTH_SHORT
                     ).show()
                 }
-                viewModel.onSymbolActionCompleted()
             })
 
         // React to reset button clicks.

@@ -3,9 +3,8 @@ package de.uniks.codliners.stock_simulator.ui.settings
 import android.app.Application
 import androidx.lifecycle.*
 import de.uniks.codliners.stock_simulator.repository.SymbolRepository
-import de.uniks.codliners.stock_simulator.sourcing
+import de.uniks.codliners.stock_simulator.sourcedLiveData
 import kotlinx.coroutines.launch
-
 
 class SettingsViewModel(application: Application) : ViewModel() {
 
@@ -20,15 +19,15 @@ class SettingsViewModel(application: Application) : ViewModel() {
     val toggleFingerprintStatus: LiveData<Boolean> = _toggleFingerprintStatus
 
     private val state = symbolRepository.state
-    private val _symbolRefreshInitiated = MutableLiveData<Boolean>(false)
-    private val _symbolRepositoryStateAction = MediatorLiveData<SymbolRepository.State>()
-    val symbolRepositoryStateAction: LiveData<SymbolRepository.State> = _symbolRepositoryStateAction
-
-    init {
-        _symbolRepositoryStateAction.sourcing(_symbolRefreshInitiated, state) {
-            value = if (_symbolRefreshInitiated.value!!) state.value else null
+    private val symbolRefreshInitiated = MutableLiveData<Boolean>(false)
+    val symbolRepositoryStateAction = sourcedLiveData(symbolRefreshInitiated, state) {
+        when (val state = state.value) {
+            SymbolRepository.State.Refreshing -> if (symbolRefreshInitiated.value == true) state else null
+            else -> state
         }
     }
+
+    val refreshing = state.map { it === SymbolRepository.State.Refreshing }
 
     fun resetGame() {
         _clickResetStatus.value = true
@@ -48,14 +47,14 @@ class SettingsViewModel(application: Application) : ViewModel() {
 
     fun refreshSymbols() {
         viewModelScope.launch {
-            _symbolRefreshInitiated.value = true
+            symbolRefreshInitiated.value = true
             symbolRepository.refreshSymbols()
-            _symbolRefreshInitiated.value = false
+            symbolRefreshInitiated.value = false
         }
     }
 
     fun onSymbolActionCompleted() {
-        _symbolRepositoryStateAction.value = null
+        (symbolRepositoryStateAction as MutableLiveData<SymbolRepository.State>).value = null
     }
 
     class Factory(

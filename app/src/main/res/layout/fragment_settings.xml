@@ -20,6 +20,7 @@
             android:layout_marginStart="50dp"
             android:layout_marginTop="30dp"
             android:layout_marginEnd="50dp"
+            android:enabled="@{!viewModel.refreshing}"
             android:onClick="@{() -> viewModel.refreshSymbols()}"
             android:text="@string/refresh_symbols"
             app:layout_constraintEnd_toEndOf="parent"
