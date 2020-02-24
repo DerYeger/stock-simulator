@@ -40,7 +40,7 @@ class QuoteViewModel(
     val hasChange = quote.map { quote: Quote? -> quote !== null && !isCrypto }
 
     val inputType =
-        if (isCrypto) InputType.TYPE_NUMBER_FLAG_DECIMAL else InputType.TYPE_CLASS_NUMBER
+        if (isCrypto) (InputType.TYPE_NUMBER_FLAG_DECIMAL + InputType.TYPE_CLASS_NUMBER) else InputType.TYPE_CLASS_NUMBER
 
     private val state = quoteRepository.state
     val refreshing = state.map { it === QuoteRepository.State.Refreshing }
@@ -60,20 +60,20 @@ class QuoteViewModel(
     private val _canSell = MediatorLiveData<Boolean>()
     val canSell: LiveData<Boolean> = _canSell
 
+    private val _canSellAll = MediatorLiveData<Boolean>()
+    val canSellAll: LiveData<Boolean> = _canSellAll
+
     private val _buyAction = MutableLiveData<Boolean>()
     val buyAction: LiveData<Boolean> = _buyAction
 
     private val _sellAction = MutableLiveData<Boolean>()
     val sellAction: LiveData<Boolean> = _sellAction
 
+    private val _sellAllAction = MutableLiveData<Boolean>()
+    val sellAllAction: LiveData<Boolean> = _sellAllAction
+
     private val _amount = MediatorLiveData<String>()
     val amount: LiveData<String> = _amount
-
-    private val _cashflowBuy = MediatorLiveData<Double>()
-    val cashflowBuy: LiveData<Double> = _cashflowBuy
-
-    private val _cashflowSell = MediatorLiveData<Double>()
-    val cashflowSell: LiveData<Double> = _cashflowSell
 
     private val _cashflow = MediatorLiveData<Double>()
     val cashflow: LiveData<Double> = _cashflow
@@ -102,48 +102,6 @@ class QuoteViewModel(
                     is QuoteRepository.State.Error -> state.message
                     else -> null
                 }
-            }
-        }
-
-        _amount.apply {
-            addSource(buyAmount) { amount ->
-                _amount.value= amount
-            }
-
-            addSource(sellAmount) { amount ->
-                _amount.value= amount
-            }
-        }
-
-        _cashflowBuy.apply {
-            addSource(amount) {
-                _cashflowBuy.value = accountRepository.calculateBuyCashflow(
-                    quote.value,
-                    it.toSafeDouble()
-                )
-            }
-
-            addSource(quote) {
-                _cashflowBuy.value = accountRepository.calculateBuyCashflow(
-                    it,
-                    amount.value.toSafeDouble()
-                )
-            }
-        }
-
-        _cashflowSell.apply {
-            addSource(amount) {
-                _cashflowSell.value = accountRepository.calculateSellCashflow(
-                    quote.value,
-                    it.toSafeDouble()
-                )
-            }
-
-            addSource(quote) {
-                _cashflowSell.value = accountRepository.calculateSellCashflow(
-                    it,
-                    amount.value.toSafeDouble()
-                )
             }
         }
 
@@ -195,7 +153,8 @@ class QuoteViewModel(
                     amount = it.toSafeDouble(),
                     depotQuote = depotQuote.value,
                     balance = latestBalance.value,
-                    state = state.value
+                    state = state.value,
+                    quote = quote.value
                 )
             }
 
@@ -204,7 +163,8 @@ class QuoteViewModel(
                     amount = sellAmount.value.toSafeDouble(),
                     depotQuote = it,
                     balance = latestBalance.value,
-                    state = state.value
+                    state = state.value,
+                    quote = quote.value
                 )
             }
 
@@ -213,7 +173,8 @@ class QuoteViewModel(
                     amount = sellAmount.value.toSafeDouble(),
                     depotQuote = depotQuote.value,
                     balance = it,
-                    state = state.value
+                    state = state.value,
+                    quote = quote.value
                 )
             }
 
@@ -222,7 +183,56 @@ class QuoteViewModel(
                     amount = sellAmount.value.toSafeDouble(),
                     depotQuote = depotQuote.value,
                     balance = latestBalance.value,
-                    state = it
+                    state = it,
+                    quote = quote.value
+                )
+            }
+
+            addSource(quote) {
+                value = canSell(
+                    amount = sellAmount.value.toSafeDouble(),
+                    depotQuote = depotQuote.value,
+                    balance = latestBalance.value,
+                    state = state.value,
+                    quote = it
+                )
+            }
+        }
+
+        _canSellAll.apply {
+            addSource(depotQuote) {
+                value = canSellAll(
+                    depotQuote = it,
+                    balance = latestBalance.value,
+                    state = state.value,
+                    quote = quote.value
+                )
+            }
+
+            addSource(latestBalance) {
+                value = canSellAll(
+                    depotQuote = depotQuote.value,
+                    balance = it,
+                    state = state.value,
+                    quote = quote.value
+                )
+            }
+
+            addSource(state) {
+                value = canSellAll(
+                    depotQuote = depotQuote.value,
+                    balance = latestBalance.value,
+                    state = it,
+                    quote = quote.value
+                )
+            }
+
+            addSource(quote) {
+                value = canSellAll(
+                    depotQuote = depotQuote.value,
+                    balance = latestBalance.value,
+                    state = state.value,
+                    quote = it
                 )
             }
         }
@@ -289,6 +299,10 @@ class QuoteViewModel(
         _sellAction.value = true
     }
 
+    fun confirmSellAll() {
+        _sellAllAction.value = true
+    }
+
     fun buy() {
         viewModelScope.launch {
             accountRepository.buy(quote.value!!, buyAmount.value!!.toDouble())
@@ -298,6 +312,12 @@ class QuoteViewModel(
     fun sell() {
         viewModelScope.launch {
             accountRepository.sell(quote.value!!, sellAmount.value!!.toDouble())
+        }
+    }
+
+    fun sellAll() {
+        viewModelScope.launch {
+            accountRepository.sell(quote.value!!, depotQuote.value!!.amount)
         }
     }
 
@@ -345,13 +365,31 @@ class QuoteViewModel(
 
     fun onBuyActionStarted() {
         viewModelScope.launch {
-            _cashflow.value = _cashflowBuy.value
+            _amount.value= buyAmount.value
+            _cashflow.value = accountRepository.calculateBuyCashflow(
+                quote.value,
+                amount.value.toSafeDouble()
+            )
         }
     }
 
     fun onSellActionStarted() {
         viewModelScope.launch {
-            _cashflow.value = _cashflowSell.value
+            _amount.value= sellAmount.value
+            _cashflow.value = accountRepository.calculateSellCashflow(
+                quote.value,
+                amount.value.toSafeDouble()
+            )
+        }
+    }
+
+    fun onSellAllActionStarted() {
+        viewModelScope.launch {
+            _amount.value = if (isCrypto) depotQuote.value!!.amount.toString() else depotQuote.value!!.amount.toLong().toString()
+            _cashflow.value =accountRepository.calculateSellCashflow(
+                quote.value,
+                depotQuote.value!!.amount
+            )
         }
     }
 
@@ -376,6 +414,12 @@ class QuoteViewModel(
     fun showNews() {
         clickNewsStatus.value = true
     }
+    
+    fun onSellAllActionCompleted() {
+        viewModelScope.launch {
+            _sellAllAction.value = null
+        }
+    }
 
     private fun canBuy(
         amount: Double?,
@@ -391,12 +435,23 @@ class QuoteViewModel(
         amount: Double?,
         depotQuote: DepotQuote?,
         balance: Balance?,
-        state: QuoteRepository.State?
-    ) = noNulls(amount, depotQuote, balance, state)
+        state: QuoteRepository.State?,
+        quote: Quote?
+    ) = noNulls(amount, depotQuote, balance, state, quote)
             && state === QuoteRepository.State.Done
             && 0 < amount!!
             && amount <= depotQuote!!.amount
-            && BuildConfig.TRANSACTION_COSTS <= balance!!.value
+            && (BuildConfig.TRANSACTION_COSTS <= balance!!.value + quote!!.latestPrice * amount)
+
+    private fun canSellAll(
+        depotQuote: DepotQuote?,
+        balance: Balance?,
+        state: QuoteRepository.State?,
+        quote: Quote?
+    ) = noNulls(depotQuote, state, quote)
+            && state === QuoteRepository.State.Done
+            && 0 < depotQuote!!.amount
+            && (BuildConfig.TRANSACTION_COSTS <= balance!!.value + quote!!.latestPrice * depotQuote.amount)
 
     private fun canAddRemoveQuoteToStockbrot(
         stockbrotQuote: StockbrotQuote?,

@@ -5,4 +5,6 @@
     <color name="colorAccent">#C0ff8C</color>
     <color name="trendingDown">#c23c24</color>
     <color name="trendingFlat">#848383</color>
+    <color name="enabledCardBackground">#424242</color>
+    <color name="disabledCardBackground">#343434</color>
 </resources>

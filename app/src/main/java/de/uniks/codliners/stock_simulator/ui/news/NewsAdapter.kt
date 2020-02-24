@@ -39,6 +39,7 @@ class NewsAdapter(
                     )
                 }
             }
+            binding.expanded = false
             binding.executePendingBindings()
         }
     }

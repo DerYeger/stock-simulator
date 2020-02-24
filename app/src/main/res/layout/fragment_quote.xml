@@ -52,11 +52,13 @@
                 <TextView
                     android:id="@+id/quote_name_text"
                     style="@style/TextAppearance.MaterialComponents.Headline6"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/default_spacing"
                     android:layout_marginTop="@dimen/default_spacing"
+                    android:layout_marginEnd="16dp"
                     android:text="@{viewModel.quote.name}"
+                    app:layout_constraintEnd_toStartOf="@+id/quote_change_text"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/quote_symbol_text"
                     tools:text="Name" />
@@ -163,6 +165,18 @@
                     app:layout_constraintBaseline_toBaselineOf="@+id/sell_number"
                     app:layout_constraintEnd_toEndOf="parent" />
 
+                <Button
+                    android:id="@+id/sell_all_button"
+                    visible="@{viewModel.depotQuote != null}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:enabled="@{viewModel.canSellAll}"
+                    android:onClick="@{() -> viewModel.confirmSellAll()}"
+                    android:text="@string/sell_all"
+                    app:layout_constraintBottom_toBottomOf="@+id/depot_total_value"
+                    app:layout_constraintEnd_toEndOf="@+id/sell_button"
+                    app:layout_constraintTop_toTopOf="@+id/depot_total_value" />
+
                 <TextView
                     android:id="@+id/depot_text"
                     style="@style/TextAppearance.MaterialComponents.Headline6"
@@ -170,13 +184,29 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/default_spacing"
-                    android:layout_marginTop="@dimen/default_spacing"
+                    android:layout_marginTop="16dp"
                     android:layout_marginEnd="@dimen/default_spacing"
                     app:depotQuoteText="@{viewModel.depotQuote}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/sell_number"
+                    app:layout_constraintTop_toBottomOf="@+id/depot_total_value"
                     tools:text="You own 1 share." />
+
+                <TextView
+                    android:id="@+id/depot_total_value"
+                    style="@style/TextAppearance.MaterialComponents.Headline6"
+                    visible="@{viewModel.depotQuote != null}"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/default_spacing"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    app:depotTotalValueDepotQuote="@{viewModel.depotQuote}"
+                    app:depotTotalValueQuote="@{viewModel.quote}"
+                    app:layout_constraintEnd_toStartOf="@+id/sell_all_button"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/sell_number"
+                    tools:text="Total: 4245$" />
 
                 <TextView
                     android:id="@+id/title_auto_buy_sell"
@@ -184,7 +214,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="48dp"
+                    android:layout_marginTop="24dp"
                     android:text="@string/title_auto_buy_sell"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/depot_text" />
@@ -291,14 +321,14 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="24dp"
                     android:layout_marginEnd="16dp"
                     android:onClick="@{() -> viewModel.showNews()}"
                     android:text="@string/title_news"
-                    app:visible="@{!viewModel.isCrypto}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/button_bot_add_remove_quote" />
+                    app:layout_constraintTop_toBottomOf="@+id/button_bot_add_remove_quote"
+                    app:visible="@{!viewModel.isCrypto}" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
