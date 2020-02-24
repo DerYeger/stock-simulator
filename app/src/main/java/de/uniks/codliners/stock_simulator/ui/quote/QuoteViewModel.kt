@@ -373,6 +373,10 @@ class QuoteViewModel(
         }
     }
 
+    fun showNews() {
+        clickNewsStatus.value = true
+    }
+
     private fun canBuy(
         amount: Double?,
         price: Double?,
@@ -421,9 +425,5 @@ class QuoteViewModel(
             }
             throw IllegalArgumentException("Unable to construct viewmodel")
         }
-    }
-
-    fun showNews() {
-        clickNewsStatus.value = true
     }
 }

@@ -72,6 +72,7 @@
     <string name="price_format">Price: %s$</string>
     <string name="query">Symbol</string>
     <string name="read_full_article">Read full article</string>
+    <string name="refresh_symbols">Refresh Symbols</string>
     <string name="remove_fingerprint">Remove fingerprint authentication</string>
     <string name="reset_data">Reset data</string>
     <string name="sell">Sell</string>
