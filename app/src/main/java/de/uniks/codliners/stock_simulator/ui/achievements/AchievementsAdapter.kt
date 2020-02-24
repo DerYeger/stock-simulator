@@ -15,6 +15,7 @@ class AchievementsAdapter : ListAdapter<Achievement, AchievementsAdapter.ViewHol
 
         fun bind(achievement: Achievement) {
             binding.achievement = achievement
+            binding.expanded = false
             binding.executePendingBindings()
         }
     }

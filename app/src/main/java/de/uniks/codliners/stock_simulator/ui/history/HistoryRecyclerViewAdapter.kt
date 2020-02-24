@@ -28,6 +28,7 @@ class HistoryRecyclerViewAdapter(
             binding.transaction = transaction
             binding.dateString = dateFormatter.format(calendar.time)
             binding.onClickListener = onClickListener
+            binding.expanded = false
             binding.executePendingBindings()
         }
     }
