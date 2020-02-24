@@ -11,14 +11,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.an.biometric.BiometricUtils
+import com.google.android.material.snackbar.Snackbar
 import de.uniks.codliners.stock_simulator.*
 import de.uniks.codliners.stock_simulator.databinding.FragmentSettingsBinding
 import de.uniks.codliners.stock_simulator.repository.SymbolRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import timber.log.Timber
-
 
 class SettingsFragment : Fragment() {
 
@@ -68,15 +67,15 @@ class SettingsFragment : Fragment() {
                 if (state === null) return@Observer
                 viewModel.onSymbolActionCompleted()
                 when (state) {
-                    SymbolRepository.State.Refreshing -> Toast.makeText(
-                        this.context,
+                    SymbolRepository.State.Refreshing -> Snackbar.make(
+                        view!!,
                         R.string.refreshing_symbols,
-                        Toast.LENGTH_SHORT
+                        Snackbar.LENGTH_SHORT
                     ).show()
-                    is SymbolRepository.State.Error -> Toast.makeText(
-                        this.context,
+                    is SymbolRepository.State.Error -> Snackbar.make(
+                        view!!,
                         state.message,
-                        Toast.LENGTH_SHORT
+                        Snackbar.LENGTH_SHORT
                     ).show()
                 }
             })
