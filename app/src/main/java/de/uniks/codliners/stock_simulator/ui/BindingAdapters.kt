@@ -73,6 +73,17 @@ fun TextView.bindDepotQuoteText(depotQuotePurchase: DepotQuote?) {
     }
 }
 
+@BindingAdapter(value = ["depotTotalValueDepotQuote", "depotTotalValueQuote"])
+fun TextView.bindDepotQuoteTotalValue(depotQuotePurchase: DepotQuote?, quote: Quote?) {
+    if (depotQuotePurchase != null && quote != null) {
+        val price = depotQuotePurchase.amount * quote.latestPrice
+        text = String.format(
+            resources.getText(R.string.total_price_format).toString(),
+            price
+        )
+    }
+}
+
 @BindingAdapter("depotQuote")
 fun TextView.bindDepotQuote(depotQuotePurchase: DepotQuote?) {
     depotQuotePurchase?.let {
@@ -130,7 +141,12 @@ fun TextView.bindPerformanceText(performance: Double) {
 fun ImageView.bindPerformanceIcon(performance: Double) {
     when {
         performance > 0.0 -> {
-            setImageDrawable(resources.getDrawable(R.drawable.ic_trending_up_black_24dp, context.theme))
+            setImageDrawable(
+                resources.getDrawable(
+                    R.drawable.ic_trending_up_black_24dp,
+                    context.theme
+                )
+            )
             this.setColorFilter(resources.getColor(R.color.colorAccent, context.theme))
         }
         performance == 0.0 -> {
@@ -183,13 +199,22 @@ fun TextView.bindTransactionResultText(performance: Double?) {
         return
     }
     if (performance > 0.0) {
-        text = String.format(resources.getText(R.string.transaction_format_win).toString(), performance)
+        text = String.format(
+            resources.getText(R.string.transaction_format_win).toString(),
+            performance
+        )
         this.setTextColor(resources.getColor(R.color.colorAccent))
     } else if (performance == 0.0) {
-        text = String.format(resources.getText(R.string.transaction_format_neutral).toString(), performance)
+        text = String.format(
+            resources.getText(R.string.transaction_format_neutral).toString(),
+            performance
+        )
         this.setTextColor(resources.getColor(R.color.trendingFlat))
     } else {
-        text = String.format(resources.getText(R.string.transaction_format_loss).toString(), performance)
+        text = String.format(
+            resources.getText(R.string.transaction_format_loss).toString(),
+            performance
+        )
         this.setTextColor(resources.getColor(R.color.trendingDown))
     }
 }
@@ -268,34 +293,32 @@ fun Button.bindBotAddRemoveQuote(enabled: Boolean) {
 
 @BindingAdapter("stockbrotQuote")
 fun TextView.bindStockbrotQuote(stockbrotQuote: StockbrotQuote) {
-    text = when (stockbrotQuote.buyAmount == 0.0) {
-        true -> {
-            String.format(
-                resources.getText(R.string.stockbrot_quote_buying_format).toString(),
-                stockbrotQuote.thresholdBuy
+    text = when (stockbrotQuote.limitedBuying) {
+        true -> when (stockbrotQuote.type) {
+            Symbol.Type.SHARE -> String.format(
+                resources.getText(R.string.stockbrot_quote_buying_amount_format_long).toString(),
+                stockbrotQuote.buyLimit.toLong(),
+                stockbrotQuote.maximumBuyPrice
+            )
+            Symbol.Type.CRYPTO -> String.format(
+                resources.getText(R.string.stockbrot_quote_buying_amount_format_double).toString(),
+                stockbrotQuote.buyLimit,
+                stockbrotQuote.maximumBuyPrice
             )
         }
-        false -> {
-            when (stockbrotQuote.type) {
-                Symbol.Type.SHARE -> String.format(
-                    resources.getText(R.string.stockbrot_quote_buying_amount_format_long).toString(),
-                    stockbrotQuote.buyAmount.toLong(),
-                    stockbrotQuote.thresholdBuy
-                )
-                Symbol.Type.CRYPTO -> String.format(
-                    resources.getText(R.string.stockbrot_quote_buying_amount_format_double).toString(),
-                    stockbrotQuote.buyAmount,
-                    stockbrotQuote.thresholdBuy
-                )
-            }
-
-        }
+        false ->
+            String.format(
+                resources.getText(R.string.stockbrot_quote_buying_format).toString(),
+                stockbrotQuote.maximumBuyPrice
+            )
     }
 }
 
 @BindingAdapter("enableCardView")
 fun CardView.bindEnableCardView(enabled: Boolean) {
-    if (!enabled) {
-        setCardBackgroundColor(solidColor)
+    val color = when(enabled) {
+        true -> R.color.enabledCardBackground
+        false -> R.color.disabledCardBackground
     }
+    setCardBackgroundColor(resources.getColor(color, context.theme))
 }

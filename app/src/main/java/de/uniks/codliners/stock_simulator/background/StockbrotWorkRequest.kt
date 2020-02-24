@@ -46,5 +46,4 @@ class StockbrotWorkRequest(context: Context) {
     private fun buildWorkerTag(symbol: String): String {
         return "WORKER_TAG_$symbol"
     }
-
 }

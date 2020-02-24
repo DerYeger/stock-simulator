@@ -64,6 +64,7 @@ class QuoteFragment : BaseFragment() {
 
         viewModel.buyAction.observe(viewLifecycleOwner, Observer { status: Boolean? ->
             status?.let {
+                viewModel.onBuyActionStarted()
                 showTransactionDialog(R.string.dialog_title_confirm_buy_transaction) {
                     viewModel.buy()
                 }
@@ -73,6 +74,7 @@ class QuoteFragment : BaseFragment() {
 
         viewModel.sellAction.observe(viewLifecycleOwner, Observer { status: Boolean? ->
             status?.let {
+                viewModel.onSellActionStarted()
                 showTransactionDialog(R.string.dialog_title_confirm_sell_transaction) {
                     viewModel.sell()
                 }
@@ -80,19 +82,21 @@ class QuoteFragment : BaseFragment() {
             }
         })
 
-        viewModel.amount.observe(viewLifecycleOwner, Observer {
-            Timber.i(it.toString())
-        })
-
-        viewModel.cashflow.observe(viewLifecycleOwner, Observer {
-            Timber.i(it.toString())
+        viewModel.sellAllAction.observe(viewLifecycleOwner, Observer { status: Boolean? ->
+            status?.let {
+                viewModel.onSellAllActionStarted()
+                showTransactionDialog(R.string.dialog_title_confirm_sell_transaction) {
+                    viewModel.sellAll()
+                }
+                viewModel.onSellAllActionCompleted()
+            }
         })
 
         viewModel.stockbrotQuoteAction.observe(this, Observer { stockbrotQuote: StockbrotQuote? ->
             stockbrotQuote?.let {
-                viewModel.autoBuyAmount.value = stockbrotQuote.buyAmount.toString()
-                viewModel.thresholdBuy.value = stockbrotQuote.thresholdBuy.toString()
-                viewModel.thresholdSell.value = stockbrotQuote.thresholdSell.toString()
+                viewModel.autoBuyAmount.value = stockbrotQuote.buyLimit.toString()
+                viewModel.thresholdBuy.value = stockbrotQuote.maximumBuyPrice.toString()
+                viewModel.thresholdSell.value = stockbrotQuote.minimumSellPrice.toString()
                 viewModel.onThresholdBuyActionCompleted()
             }
         })

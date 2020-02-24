@@ -98,6 +98,9 @@ interface AccountDao {
     @Query("SELECT * FROM depotquotepurchase ORDER BY depotquotepurchase.buyingPrice ASC")
     fun getDepotQuotePurchasesValuesOrderedByPrice(): List<DepotQuotePurchase>
 
+    @Query("SELECT * FROM depotquotepurchase WHERE id = :id ORDER BY depotquotepurchase.buyingPrice ASC")
+    fun getDepotQuotePurchasesByIdOrderedByPrice(id: String): List<DepotQuotePurchase>
+
     @Query("SELECT * FROM depotquotepurchase WHERE id == :id LIMIT 1")
     fun getDepotQuoteById(id: String): DepotQuotePurchase?
 
