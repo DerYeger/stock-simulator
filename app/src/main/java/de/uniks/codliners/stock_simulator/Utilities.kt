@@ -6,6 +6,9 @@ import android.content.ContextWrapper
 import android.content.SharedPreferences
 import android.graphics.Color
 import android.graphics.Typeface
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.switchMap
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.Entry
@@ -22,10 +25,17 @@ import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 
-
 const val SHARED_PREFERENCES_KEY = "de.uniks.codliners.stock_simulator"
 private lateinit var tfLight: Typeface
 private lateinit var tfRegular: Typeface
+
+fun <T> MediatorLiveData<T>.sourcing(vararg sources: LiveData<*>, block: MediatorLiveData<T>.() -> Unit) {
+    sources.forEach { source ->
+        addSource(source) {
+            block()
+        }
+    }
+}
 
 fun ContextWrapper.sharedPreferences(): SharedPreferences =
     getSharedPreferences(SHARED_PREFERENCES_KEY, MODE_PRIVATE)

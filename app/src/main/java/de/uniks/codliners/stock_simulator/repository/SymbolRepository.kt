@@ -20,9 +20,7 @@ class SymbolRepository(private val database: StockAppDatabase) {
         class Error(val message: String) : State()
     }
 
-    private val _state = MutableLiveData<State>().apply {
-        value = State.Done
-    }
+    private val _state = MutableLiveData<State>()
     val state: LiveData<State> = _state
 
     val symbols = database.symbolDao.getAll()
