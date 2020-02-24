@@ -11,70 +11,63 @@
             type="de.uniks.codliners.stock_simulator.ui.search.SearchViewModel" />
     </data>
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:onRefresh="@{() -> viewModel.refreshSymbols()}"
-        app:refreshing="@{viewModel.refreshing}">
+        android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <EditText
+            android:id="@+id/search_query_edit_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/default_spacing"
+            android:layout_marginTop="@dimen/default_spacing"
+            android:layout_marginEnd="@dimen/default_spacing"
+            android:ems="10"
+            android:hint="@string/query"
+            android:importantForAutofill="no"
+            android:inputType="textPersonName"
+            android:text="@={viewModel.searchQuery}"
+            app:layout_constraintEnd_toStartOf="@id/type_filter_spinner"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <EditText
-                android:id="@+id/search_query_edit_text"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/default_spacing"
-                android:layout_marginTop="@dimen/default_spacing"
-                android:layout_marginEnd="@dimen/default_spacing"
-                android:ems="10"
-                android:hint="@string/query"
-                android:importantForAutofill="no"
-                android:inputType="textPersonName"
-                android:text="@={viewModel.searchQuery}"
-                app:layout_constraintEnd_toStartOf="@id/type_filter_spinner"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        <Spinner
+            android:id="@+id/type_filter_spinner"
+            observeSelection="@{viewModel.typeFilter}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/default_spacing"
+            android:entries="@array/type_filter_array"
+            app:layout_constraintBaseline_toBaselineOf="@+id/search_query_edit_text"
+            app:layout_constraintEnd_toEndOf="parent" />
 
-            <Spinner
-                android:id="@+id/type_filter_spinner"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                observeSelection="@{viewModel.typeFilter}"
-                android:layout_marginEnd="@dimen/default_spacing"
-                android:entries="@array/type_filter_array"
-                app:layout_constraintBaseline_toBaselineOf="@+id/search_query_edit_text"
-                app:layout_constraintEnd_toEndOf="parent" />
+        <TextView
+            android:id="@+id/state_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/default_spacing"
+            android:layout_marginTop="@dimen/default_spacing"
+            android:layout_marginEnd="@dimen/default_spacing"
+            android:layout_marginBottom="@dimen/default_spacing"
+            android:text="@string/no_results"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/search_query_edit_text"
+            app:visible="@{viewModel.searchResults.size() == 0}" />
 
-            <TextView
-                android:id="@+id/state_text"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/default_spacing"
-                android:layout_marginTop="@dimen/default_spacing"
-                android:layout_marginEnd="@dimen/default_spacing"
-                android:layout_marginBottom="@dimen/default_spacing"
-                android:text="@string/no_results"
-                android:textAlignment="center"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/search_query_edit_text"
-                app:visible="@{viewModel.searchResults.size() == 0}" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/search_result_recycler_view"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/default_spacing"
-                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/search_query_edit_text"
-                app:searchResults="@{viewModel.searchResults}"
-                app:spanCount="3"
-                app:visible="@{viewModel.searchResults.size() > 0}" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/search_result_recycler_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/default_spacing"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/search_query_edit_text"
+            app:searchResults="@{viewModel.searchResults}"
+            app:spanCount="3"
+            app:visible="@{viewModel.searchResults.size() > 0}" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.*
 import de.uniks.codliners.stock_simulator.domain.Symbol
 import de.uniks.codliners.stock_simulator.repository.SymbolRepository
+import de.uniks.codliners.stock_simulator.sourcing
 import kotlinx.coroutines.launch
 import java.util.*
 
@@ -11,11 +12,6 @@ class SearchViewModel(application: Application) : ViewModel() {
 
     private val symbolRepository = SymbolRepository(application)
     private val symbols = symbolRepository.symbols
-    private val state = symbolRepository.state
-    val refreshing = state.map { it === SymbolRepository.State.Refreshing }
-
-    private val _errorAction = MediatorLiveData<String>()
-    val errorAction: LiveData<String> = _errorAction
 
     private val _searchResults = MediatorLiveData<List<Symbol>>()
     val searchResults: LiveData<List<Symbol>> = _searchResults
@@ -24,48 +20,11 @@ class SearchViewModel(application: Application) : ViewModel() {
     val typeFilter = MutableLiveData<String>()
 
     init {
-        _errorAction.apply {
-            addSource(state) { state ->
-                value = when (state) {
-                    is SymbolRepository.State.Error -> state.message
-                    else -> null
-                }
-            }
-        }
-
-        _searchResults.apply {
-            addSource(symbols) { symbols: List<Symbol>? ->
-                value = symbols?.filtered(
-                    query = searchQuery.value,
-                    typeFilter = typeFilter.value
-                )
-            }
-
-            addSource(searchQuery) { query ->
-                value = symbols.value?.filtered(
-                    query = query,
-                    typeFilter = typeFilter.value
-                )
-            }
-
-            addSource(typeFilter) { typeFilter ->
-                value = symbols.value?.filtered(
-                    query = searchQuery.value,
-                    typeFilter = typeFilter
-                )
-            }
-        }
-    }
-
-    fun refreshSymbols() {
-        viewModelScope.launch {
-            symbolRepository.refreshSymbols()
-        }
-    }
-
-    fun onErrorActionCompleted() {
-        viewModelScope.launch {
-            _errorAction.value = null
+        _searchResults.sourcing(symbols, searchQuery, typeFilter) {
+            value = symbols.value?.filtered(
+                query = searchQuery.value,
+                typeFilter = typeFilter.value
+            )
         }
     }
 
