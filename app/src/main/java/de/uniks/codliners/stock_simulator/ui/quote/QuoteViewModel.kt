@@ -411,6 +411,10 @@ class QuoteViewModel(
         }
     }
 
+    fun showNews() {
+        clickNewsStatus.value = true
+    }
+    
     fun onSellAllActionCompleted() {
         viewModelScope.launch {
             _sellAllAction.value = null
@@ -476,9 +480,5 @@ class QuoteViewModel(
             }
             throw IllegalArgumentException("Unable to construct viewmodel")
         }
-    }
-
-    fun showNews() {
-        clickNewsStatus.value = true
     }
 }

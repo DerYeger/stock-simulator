@@ -35,13 +35,6 @@ class SearchFragment : BaseFragment() {
             })
         binding.lifecycleOwner = this
 
-        viewModel.errorAction.observe(viewLifecycleOwner, Observer { errorMessage: String? ->
-            errorMessage?.let {
-                Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
-                viewModel.onErrorActionCompleted()
-            }
-        })
-
         return binding.root
     }
 }

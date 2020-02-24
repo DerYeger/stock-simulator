@@ -43,6 +43,7 @@
     <string name="cancel">Cancel</string>
     <string name="cashflow_format">Cashflow: %s$</string>
     <string name="currency_format">%s$</string>
+    <string name="data_reset_success">Data reset successfully.</string>
     <string name="date_format">Date: %s</string>
     <string name="depot_currency_format">Depot: %s$</string>
     <string name="details">Details</string>
@@ -72,6 +73,8 @@
     <string name="price_format">Price: %s$</string>
     <string name="query">Symbol</string>
     <string name="read_full_article">Read full article</string>
+    <string name="refresh_symbols">Refresh Symbols</string>
+    <string name="refreshing_symbols">Refreshing Symbols.</string>
     <string name="remove_fingerprint">Remove fingerprint authentication</string>
     <string name="reset_data">Reset data</string>
     <string name="sell">Sell</string>
@@ -85,6 +88,7 @@
     <string name="stockbrot_remove_control_quote">Remove quote from stockbrot</string>
     <string name="stockbrot_threshold_buy">Maximum Buy Price</string>
     <string name="stockbrot_threshold_sell">Minimum Sell Price</string>
+    <string name="symbols_refresh_success">Symbols refreshed successfully.</string>
     <string name="title_account">Account</string>
     <string name="title_auto_buy_sell">Auto buy/sell</string>
     <string name="title_history">History</string>

@@ -11,16 +11,19 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.an.biometric.BiometricUtils
+import com.google.android.material.snackbar.Snackbar
 import de.uniks.codliners.stock_simulator.*
 import de.uniks.codliners.stock_simulator.databinding.FragmentSettingsBinding
+import de.uniks.codliners.stock_simulator.repository.SymbolRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-
 class SettingsFragment : Fragment() {
 
-    private val viewModel: SettingsViewModel by viewModels()
+    private val viewModel: SettingsViewModel by viewModels {
+        SettingsViewModel.Factory(activity!!.application)
+    }
 
     private lateinit var binding: FragmentSettingsBinding
 
@@ -58,6 +61,25 @@ class SettingsFragment : Fragment() {
         // Fire preference changed event to update the (initial) fingerprint button value
         listener.onSharedPreferenceChanged(preferences, "prefs_fingerprint_added")
 
+        viewModel.symbolRepositoryStateAction.observe(
+            viewLifecycleOwner,
+            Observer { state: SymbolRepository.State? ->
+                if (state === null) return@Observer
+                viewModel.onSymbolActionCompleted()
+                when (state) {
+                    SymbolRepository.State.Refreshing -> Snackbar.make(
+                        view!!,
+                        R.string.refreshing_symbols,
+                        Snackbar.LENGTH_SHORT
+                    ).show()
+                    is SymbolRepository.State.Error -> Snackbar.make(
+                        view!!,
+                        state.message,
+                        Snackbar.LENGTH_SHORT
+                    ).show()
+                }
+            })
+
         // React to reset button clicks.
         viewModel.clickResetStatus.observe(viewLifecycleOwner, Observer { status ->
             if (status) {
@@ -71,7 +93,7 @@ class SettingsFragment : Fragment() {
                     context.resetAchievements()
                 }
 
-                Toast.makeText(this.context, "Data reset successfully.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this.context, R.string.data_reset_success, Toast.LENGTH_SHORT).show()
 
                 viewModel.onGameReset()
             }
