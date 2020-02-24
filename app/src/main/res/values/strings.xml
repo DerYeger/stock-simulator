@@ -75,6 +75,7 @@
     <string name="remove_fingerprint">Remove fingerprint authentication</string>
     <string name="reset_data">Reset data</string>
     <string name="sell">Sell</string>
+    <string name="sell_all">Sell all</string>
     <string name="sell_hint">Sell amount</string>
     <string name="stockbrot_add_control_quote">Add to Stockbrot</string>
     <string name="stockbrot_quote_buying_amount_format_double">Buying %1$s at %2$s$</string>
@@ -92,6 +93,7 @@
     <string name="title_search">Search</string>
     <string name="title_settings">Settings</string>
     <string name="title_stockbrot">Stockbrot</string>
+    <string name="total_price_format">Total: %s$</string>
     <string name="transaction_format_win">+%.2f $</string>
     <string name="transaction_format_loss">%.2f $</string>
     <string name="transaction_format_neutral">%.2f $</string>

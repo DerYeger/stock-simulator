@@ -82,16 +82,14 @@ class QuoteFragment : BaseFragment() {
             }
         })
 
-        viewModel.amount.observe(viewLifecycleOwner, Observer {
-            Timber.i(it.toString())
-        })
-
-        viewModel.cashflowBuy.observe(viewLifecycleOwner, Observer {
-            Timber.i(it.toString())
-        })
-
-        viewModel.cashflowSell.observe(viewLifecycleOwner, Observer {
-            Timber.i(it.toString())
+        viewModel.sellAllAction.observe(viewLifecycleOwner, Observer { status: Boolean? ->
+            status?.let {
+                viewModel.onSellAllActionStarted()
+                showTransactionDialog(R.string.dialog_title_confirm_sell_transaction) {
+                    viewModel.sellAll()
+                }
+                viewModel.onSellAllActionCompleted()
+            }
         })
 
         viewModel.stockbrotQuoteAction.observe(this, Observer { stockbrotQuote: StockbrotQuote? ->

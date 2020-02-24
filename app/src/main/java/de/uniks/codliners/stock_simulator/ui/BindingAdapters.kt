@@ -73,6 +73,17 @@ fun TextView.bindDepotQuoteText(depotQuotePurchase: DepotQuote?) {
     }
 }
 
+@BindingAdapter(value = ["depotTotalValueDepotQuote", "depotTotalValueQuote"])
+fun TextView.bindDepotQuoteTotalValue(depotQuotePurchase: DepotQuote?, quote: Quote?) {
+    if (depotQuotePurchase != null && quote != null) {
+        val price = depotQuotePurchase.amount * quote.latestPrice
+        text = String.format(
+            resources.getText(R.string.total_price_format).toString(),
+            price
+        )
+    }
+}
+
 @BindingAdapter("depotQuote")
 fun TextView.bindDepotQuote(depotQuotePurchase: DepotQuote?) {
     depotQuotePurchase?.let {
