@@ -55,7 +55,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/search_query_edit_text"
-            app:visible="@{viewModel.searchResults.size() == 0}" />
+            app:visible="@{viewModel.hasNoResults}" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/search_result_recycler_view"
@@ -68,6 +68,15 @@
             app:layout_constraintTop_toBottomOf="@+id/search_query_edit_text"
             app:searchResults="@{viewModel.searchResults}"
             app:spanCount="3"
-            app:visible="@{viewModel.searchResults.size() > 0}" />
+            app:visible="@{viewModel.hasResults}" />
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/search_query_edit_text"
+            app:visible="@{viewModel.isLoading}" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
