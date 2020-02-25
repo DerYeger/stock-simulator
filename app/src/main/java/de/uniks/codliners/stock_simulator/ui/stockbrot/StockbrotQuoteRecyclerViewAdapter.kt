@@ -5,14 +5,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import de.uniks.codliners.stock_simulator.databinding.StockbrotQuoteCardBinding
+import de.uniks.codliners.stock_simulator.databinding.CardStockbrotQuoteBinding
 import de.uniks.codliners.stock_simulator.domain.StockbrotQuote
 import de.uniks.codliners.stock_simulator.ui.OnClickListener
 
-class StockbrotQuoteRecyclerViewAdapter(private val onClickListener: OnClickListener<StockbrotQuote>):
+class StockbrotQuoteRecyclerViewAdapter(private val onClickListener: OnClickListener<StockbrotQuote>) :
     ListAdapter<StockbrotQuote, StockbrotQuoteRecyclerViewAdapter.ViewHolder>(DiffCallback) {
 
-    inner class ViewHolder(private val binding: StockbrotQuoteCardBinding) :
+    inner class ViewHolder(private val binding: CardStockbrotQuoteBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(StockbrotQuote: StockbrotQuote) {
@@ -32,7 +32,7 @@ class StockbrotQuoteRecyclerViewAdapter(private val onClickListener: OnClickList
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
-            StockbrotQuoteCardBinding.inflate(
+            CardStockbrotQuoteBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
