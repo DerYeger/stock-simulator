@@ -22,7 +22,7 @@ import kotlinx.coroutines.launch
 class SettingsFragment : Fragment() {
 
     private val viewModel: SettingsViewModel by viewModels {
-        SettingsViewModel.Factory(activity!!.application)
+        SettingsViewModel.Factory(requireActivity().application)
     }
 
     private lateinit var binding: FragmentSettingsBinding
@@ -33,7 +33,7 @@ class SettingsFragment : Fragment() {
         SharedPreferences.OnSharedPreferenceChangeListener { _, key ->
             when (key) {
                 "prefs_fingerprint_added" -> {
-                    if (activity!!.getPreferences(Context.MODE_PRIVATE).getBoolean(
+                    if (requireActivity().getPreferences(Context.MODE_PRIVATE).getBoolean(
                             getString(R.string.prefs_fingerprint_added),
                             false
                         )
@@ -56,7 +56,7 @@ class SettingsFragment : Fragment() {
         binding.lifecycleOwner = this
 
         // Initialize preferences.
-        preferences = activity!!.getPreferences(Context.MODE_PRIVATE)
+        preferences = requireActivity().getPreferences(Context.MODE_PRIVATE)
 
         // Fire preference changed event to update the (initial) fingerprint button value
         listener.onSharedPreferenceChanged(preferences, "prefs_fingerprint_added")
@@ -68,12 +68,12 @@ class SettingsFragment : Fragment() {
                 viewModel.onSymbolActionCompleted()
                 when (state) {
                     SymbolRepository.State.Refreshing -> Snackbar.make(
-                        view!!,
+                        requireView(),
                         R.string.refreshing_symbols,
                         Snackbar.LENGTH_SHORT
                     ).show()
                     is SymbolRepository.State.Error -> Snackbar.make(
-                        view!!,
+                        requireView(),
                         state.message,
                         Snackbar.LENGTH_SHORT
                     ).show()
@@ -83,7 +83,7 @@ class SettingsFragment : Fragment() {
         // React to reset button clicks.
         viewModel.clickResetStatus.observe(viewLifecycleOwner, Observer { status ->
             if (status) {
-                val context = context!!
+                val context = requireContext()
                 CoroutineScope(Dispatchers.Unconfined).launch {
                     context.resetAccount()
                     context.resetHistory()
@@ -103,13 +103,13 @@ class SettingsFragment : Fragment() {
         viewModel.toggleFingerprintStatus.observe(viewLifecycleOwner, Observer { status ->
             if (status) {
                 // If fingerprint authentication is enabled...
-                if (activity!!.getPreferences(Context.MODE_PRIVATE).getBoolean(
+                if (requireActivity().getPreferences(Context.MODE_PRIVATE).getBoolean(
                         getString(R.string.prefs_fingerprint_added),
                         false
                     )
                 ) {
                     // ... disable fingerprint authentication.
-                    with(activity!!.getPreferences(Context.MODE_PRIVATE).edit()) {
+                    with(requireActivity().getPreferences(Context.MODE_PRIVATE).edit()) {
                         putBoolean(getString(R.string.prefs_fingerprint_added), false)
                         apply()
                     }

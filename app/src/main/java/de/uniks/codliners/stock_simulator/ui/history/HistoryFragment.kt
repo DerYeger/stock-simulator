@@ -13,7 +13,7 @@ import de.uniks.codliners.stock_simulator.ui.OnClickListener
 class HistoryFragment : BaseFragment() {
 
     private val viewModel: HistoryViewModel by viewModels {
-        HistoryViewModel.Factory(activity!!.application)
+        HistoryViewModel.Factory(requireActivity().application)
     }
 
     private lateinit var binding: FragmentHistoryBinding

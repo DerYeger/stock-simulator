@@ -17,7 +17,7 @@ import de.uniks.codliners.stock_simulator.updateLineChart
 class AccountFragment : BaseFragment() {
 
     private val viewModel: AccountViewModel by viewModels {
-        AccountViewModel.Factory(activity!!.application)
+        AccountViewModel.Factory(requireActivity().application)
     }
 
     private lateinit var binding: FragmentAccountBinding
@@ -40,7 +40,7 @@ class AccountFragment : BaseFragment() {
             })
         binding.lifecycleOwner = this
 
-        initLineChart(binding.accountChart, context!!)
+        initLineChart(binding.accountChart, requireContext())
 
         viewModel.balancesLimited.observe(viewLifecycleOwner, Observer { balanceList ->
             run {
@@ -66,7 +66,7 @@ class AccountFragment : BaseFragment() {
             }
         })
 
-        initLineChart(binding.depotChart, context!!)
+        initLineChart(binding.depotChart, requireContext())
 
         viewModel.depotValuesLimited.observe(viewLifecycleOwner, Observer { depotValues ->
             run {

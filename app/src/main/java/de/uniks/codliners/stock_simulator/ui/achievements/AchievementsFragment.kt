@@ -12,7 +12,7 @@ import de.uniks.codliners.stock_simulator.ui.BaseFragment
 class AchievementsFragment : BaseFragment() {
 
     private val viewModel: AchievementsViewModel by viewModels {
-        AchievementsViewModel.Factory(activity!!.application)
+        AchievementsViewModel.Factory(requireActivity().application)
     }
 
     private lateinit var binding: FragmentAchievementsBinding

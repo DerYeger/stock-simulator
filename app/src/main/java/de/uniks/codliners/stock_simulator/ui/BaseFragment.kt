@@ -15,19 +15,19 @@ import timber.log.Timber
 abstract class BaseFragment : Fragment() {
 
     private val viewModel: BaseViewModel by viewModels {
-        BaseViewModel.Factory(activity!!.application)
+        BaseViewModel.Factory(requireActivity().application)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         setHasOptionsMenu(true)
 
-        viewModel.achievements.observe(this, Observer { achievements ->
+        viewModel.achievements.observe(viewLifecycleOwner, Observer { achievements ->
             for (achievement in achievements) {
                 if (achievement.reached && achievement.timestamp != null && !achievement.displayed) {
                     println("achievement $achievement reached - " + getString(achievement.name))
                     Toast
-                        .makeText(activity!!.application, getString(achievement.name), Toast.LENGTH_SHORT)
+                        .makeText(requireActivity().application, getString(achievement.name), Toast.LENGTH_SHORT)
                         .show()
                     viewModel.markAchievementAsDisplayed(achievement)
                 }
