@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import de.uniks.codliners.stock_simulator.repository.NewsRepository
+import de.uniks.codliners.stock_simulator.sourcedLiveData
 import kotlinx.coroutines.launch
 
 
@@ -16,6 +17,13 @@ class NewsViewModel(application: Application, private val symbol: String) : View
 
     private val state = newsRepository.state
     val refreshing = state.map { it === NewsRepository.State.Refreshing }
+
+    val errorAction = sourcedLiveData(state) {
+        when (val state = state.value) {
+            is NewsRepository.State.Error -> state.message
+            else -> null
+        }
+    }
 
     class Factory(
         private val application: Application,
