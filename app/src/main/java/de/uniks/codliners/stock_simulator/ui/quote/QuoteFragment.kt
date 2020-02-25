@@ -134,10 +134,10 @@ class QuoteFragment : BaseFragment() {
         AlertDialog.Builder(context)
             .setMessage(message)
             .setView(view)
-            .setPositiveButton(R.string.yes) { dialog, id ->
+            .setPositiveButton(R.string.yes) { _, _ ->
                 onConfirmation()
             }
-            .setNegativeButton(R.string.cancel) { dialog, id ->
+            .setNegativeButton(R.string.cancel) { _, _ ->
                 Toast
                     .makeText(context, "Transaction canceled", Toast.LENGTH_SHORT)
                     .show()

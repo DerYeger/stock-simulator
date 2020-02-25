@@ -203,19 +203,19 @@ fun TextView.bindTransactionResultText(performance: Double?) {
             resources.getText(R.string.transaction_format_win).toString(),
             performance
         )
-        this.setTextColor(resources.getColor(R.color.colorAccent))
+        this.setTextColor(resources.getColor(R.color.colorAccent, context.theme))
     } else if (performance == 0.0) {
         text = String.format(
             resources.getText(R.string.transaction_format_neutral).toString(),
             performance
         )
-        this.setTextColor(resources.getColor(R.color.trendingFlat))
+        this.setTextColor(resources.getColor(R.color.trendingFlat, context.theme))
     } else {
         text = String.format(
             resources.getText(R.string.transaction_format_loss).toString(),
             performance
         )
-        this.setTextColor(resources.getColor(R.color.trendingDown))
+        this.setTextColor(resources.getColor(R.color.trendingDown, context.theme))
     }
 }
 
