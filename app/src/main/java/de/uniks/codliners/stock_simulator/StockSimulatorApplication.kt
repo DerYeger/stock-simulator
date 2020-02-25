@@ -12,6 +12,7 @@ import timber.log.Timber
 
 private const val FIRST_RUN_KEY = "first_run"
 
+@Suppress("unused")
 class StockSimulatorApplication : Application() {
 
     override fun onCreate() {

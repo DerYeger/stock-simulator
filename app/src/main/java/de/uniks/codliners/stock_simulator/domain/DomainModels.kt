@@ -2,7 +2,6 @@ package de.uniks.codliners.stock_simulator.domain
 
 import android.os.Parcelable
 import androidx.annotation.StringRes
-import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.squareup.moshi.JsonClass
