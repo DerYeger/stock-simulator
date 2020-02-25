@@ -20,31 +20,31 @@ val moshi: Moshi = Moshi.Builder()
     .add(KotlinJsonAdapterFactory())
     .build()
 
-interface IexApi {
-
-    @GET("stock/{symbol}/news")
-    suspend fun news(@Path("symbol") symbol: String, @Query("token") token: String = IEX_API_TOKEN): List<News>
-
-    @GET("ref-data/symbols")
-    suspend fun symbols(@Query("token") token: String = IEX_API_TOKEN): List<IEXSymbol>
-
-    @GET("stock/{symbol}/quote")
-    suspend fun quote(@Path("symbol") symbol: String, @Query("token") token: String = IEX_API_TOKEN): IEXQuote
-
-    @GET("stock/{symbol}/chart/{range}")
-    suspend fun historicalPrices(@Path("symbol") symbol: String, @Path("range") range: String = "1m", @Query("token") token: String = IEX_API_TOKEN, @Query("chartCloseOnly") chartCloseOnly: Boolean): List<IEXHistoricalPrice>
-}
-
 interface CoinGeckoApi {
 
-    @GET("coins/list")
-    suspend fun symbols(): List<CoinGeckoSymbol>
+    @GET("coins/{id}/market_chart")
+    suspend fun historicalPrices(@Path("id") id: String, @Query("vs_currency") currency: String = "usd", @Query("days") days: String = "max"): CoinGeckoMarketChart
 
     @GET("coins/{id}")
     suspend fun quote(@Path("id") id: String): CoinGeckoQuote
 
-    @GET("coins/{id}/market_chart")
-    suspend fun historicalPrices(@Path("id") id: String, @Query("vs_currency") currency: String = "usd", @Query("days") days: String = "max"): CoinGeckoMarketChart
+    @GET("coins/list")
+    suspend fun symbols(): List<CoinGeckoSymbol>
+}
+
+interface IexApi {
+
+    @GET("stock/{symbol}/chart/{range}")
+    suspend fun historicalPrices(@Path("symbol") symbol: String, @Path("range") range: String = "1m", @Query("token") token: String = IEX_API_TOKEN, @Query("chartCloseOnly") chartCloseOnly: Boolean): List<IEXHistoricalPrice>
+
+    @GET("stock/{symbol}/news")
+    suspend fun news(@Path("symbol") symbol: String, @Query("token") token: String = IEX_API_TOKEN): List<News>
+
+    @GET("stock/{symbol}/quote")
+    suspend fun quote(@Path("symbol") symbol: String, @Query("token") token: String = IEX_API_TOKEN): IEXQuote
+
+    @GET("ref-data/symbols")
+    suspend fun symbols(@Query("token") token: String = IEX_API_TOKEN): List<IEXSymbol>
 }
 
 object NetworkService {
@@ -53,17 +53,17 @@ object NetworkService {
 
     private val converterFactory = MoshiConverterFactory.create(moshi)
 
-    val IEX_API: IexApi = Retrofit.Builder()
-        .baseUrl(IEX_API_BASE_URL)
-        .client(client)
-        .addConverterFactory(converterFactory)
-        .build()
-        .create(IexApi::class.java)
-
     val COINGECKO_API: CoinGeckoApi = Retrofit.Builder()
         .baseUrl(COINGECKO_BASE_URL)
         .client(client)
         .addConverterFactory(converterFactory)
         .build()
         .create(CoinGeckoApi::class.java)
+
+    val IEX_API: IexApi = Retrofit.Builder()
+        .baseUrl(IEX_API_BASE_URL)
+        .client(client)
+        .addConverterFactory(converterFactory)
+        .build()
+        .create(IexApi::class.java)
 }

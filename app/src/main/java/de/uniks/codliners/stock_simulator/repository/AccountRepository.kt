@@ -38,7 +38,7 @@ class AccountRepository(private val database: StockAppDatabase) {
     }
 
     fun depotQuoteWithSymbol(symbol: String): LiveData<DepotQuote> =
-        database.accountDao.getDepotQuoteWitId(symbol)
+        database.accountDao.getDepotQuoteWithId(symbol)
 
     fun depotQuoteBySymbol(symbol: String): DepotQuotePurchase? =
         database.accountDao.getDepotQuoteById(symbol)

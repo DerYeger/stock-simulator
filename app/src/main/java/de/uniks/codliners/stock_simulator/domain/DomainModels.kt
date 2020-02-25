@@ -8,10 +8,57 @@ import com.squareup.moshi.JsonClass
 import kotlinx.android.parcel.Parcelize
 
 @Entity
+data class Achievement(
+    @PrimaryKey
+    @StringRes
+    val name: Int,
+    @StringRes
+    val description: Int,
+    val reached: Boolean = false,
+    val timestamp: Long? = null,  // null if achievement not reached otherwise the reached timestamp
+    val displayed: Boolean = false
+)
+
+@Entity
 data class Balance(
     val value: Double,
     @PrimaryKey
     val timestamp: Long = System.currentTimeMillis()
+)
+
+data class DepotQuote(
+    val id: String,
+    val symbol: String,
+    val type: Symbol.Type,
+    val amount: Double,
+    val buyingPrice: Double
+)
+
+@Entity
+data class DepotQuotePurchase(
+    @PrimaryKey(autoGenerate = true)
+    val primaryKey: Long = 0,
+    val id: String,
+    val symbol: String,
+    val type: Symbol.Type,
+    val amount: Double,
+    val buyingPrice: Double
+)
+
+@Entity
+data class DepotValue(
+    val value: Double,
+    @PrimaryKey
+    val timestamp: Long = System.currentTimeMillis()
+)
+
+@Entity
+data class HistoricalPrice(
+    @PrimaryKey(autoGenerate = true)
+    val primaryKey: Long = 0,
+    val id: String,
+    val date: Long,
+    val price: Double
 )
 
 @Entity
@@ -29,36 +76,6 @@ data class News(
     val lang: String,
     val hasPaywall: Boolean
 )
-
-enum class TransactionType { BUY, SELL }
-
-@Entity
-data class Transaction(
-    @PrimaryKey(autoGenerate = true)
-    val primaryKey: Long = 0,
-    val id: String,
-    val symbol: String,
-    val type: Symbol.Type,
-    val amount: Double,
-    val price: Double,
-    val transactionCosts: Double,
-    val cashflow: Double,
-    val transactionType: TransactionType,
-    val date: Long,
-    val result: Double?
-)
-
-@Entity
-data class Symbol(
-    @PrimaryKey
-    val id: String,
-    val symbol: String,
-    val name: String,
-    val type: Type
-) {
-    @Parcelize
-    enum class Type : Parcelable { SHARE, CRYPTO }
-}
 
 @Entity
 data class Quote(
@@ -84,48 +101,31 @@ data class StockbrotQuote(
 )
 
 @Entity
-data class DepotQuotePurchase(
-    @PrimaryKey(autoGenerate = true)
-    val primaryKey: Long = 0,
-    val id: String,
-    val symbol: String,
-    val type: Symbol.Type,
-    val amount: Double,
-    val buyingPrice: Double
-)
-
-data class DepotQuote(
-    val id: String,
-    val symbol: String,
-    val type: Symbol.Type,
-    val amount: Double,
-    val buyingPrice: Double
-)
-
-@Entity
-data class DepotValue(
-    val value: Double,
+data class Symbol(
     @PrimaryKey
-    val timestamp: Long = System.currentTimeMillis()
-)
+    val id: String,
+    val symbol: String,
+    val name: String,
+    val type: Type
+) {
+    @Parcelize
+    enum class Type : Parcelable { SHARE, CRYPTO }
+}
 
 @Entity
-data class HistoricalPrice(
+data class Transaction(
     @PrimaryKey(autoGenerate = true)
     val primaryKey: Long = 0,
     val id: String,
+    val symbol: String,
+    val type: Symbol.Type,
+    val amount: Double,
+    val price: Double,
+    val transactionCosts: Double,
+    val cashflow: Double,
+    val transactionType: TransactionType,
     val date: Long,
-    val price: Double
+    val result: Double?
 )
 
-@Entity
-data class Achievement(
-    @PrimaryKey
-    @StringRes
-    val name: Int,
-    @StringRes
-    val description: Int,
-    val reached: Boolean = false,
-    val timestamp: Long? = null,  // null if achievement not reached otherwise the reached timestamp
-    val displayed: Boolean = false
-)
+enum class TransactionType { BUY, SELL }
