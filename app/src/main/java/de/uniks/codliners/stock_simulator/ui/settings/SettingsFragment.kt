@@ -65,19 +65,21 @@ class SettingsFragment : Fragment() {
             viewLifecycleOwner,
             Observer { state: SymbolRepository.State? ->
                 if (state === null) return@Observer
-                viewModel.onSymbolActionCompleted()
                 when (state) {
                     SymbolRepository.State.Refreshing -> Snackbar.make(
                         requireView(),
                         R.string.refreshing_symbols,
                         Snackbar.LENGTH_SHORT
                     ).show()
+                    SymbolRepository.State.Done -> Toast.makeText(
+                        this.context, R.string.symbols_refresh_success, Toast.LENGTH_SHORT).show()
                     is SymbolRepository.State.Error -> Snackbar.make(
                         requireView(),
                         state.message,
                         Snackbar.LENGTH_SHORT
                     ).show()
                 }
+                viewModel.onSymbolActionCompleted()
             })
 
         // React to reset button clicks.
