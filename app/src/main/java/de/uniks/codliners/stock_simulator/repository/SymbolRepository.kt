@@ -15,14 +15,13 @@ class SymbolRepository(private val database: StockAppDatabase) {
     constructor(context: Context) : this(getDatabase(context))
 
     sealed class State {
+        object Idle: State()
         object Refreshing : State()
         object Done : State()
         class Error(val message: String) : State()
     }
 
-    private val _state = MutableLiveData<State>().apply {
-        value = State.Done
-    }
+    private val _state = MutableLiveData<State>()
     val state: LiveData<State> = _state
 
     val symbols = database.symbolDao.getAll()
@@ -40,6 +39,7 @@ class SymbolRepository(private val database: StockAppDatabase) {
                     *cryptoSymbols.asDomainSymbols()
                 )
                 _state.postValue(State.Done)
+                _state.postValue(State.Idle)
             } catch (exception: Exception) {
                 _state.postValue(State.Error(exception.message ?: "Oops!"))
             }

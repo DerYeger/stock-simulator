@@ -198,24 +198,28 @@ fun TextView.bindTransactionResultText(performance: Double?) {
         this.visibility = View.INVISIBLE
         return
     }
-    if (performance > 0.0) {
-        text = String.format(
-            resources.getText(R.string.transaction_format_win).toString(),
-            performance
-        )
-        this.setTextColor(resources.getColor(R.color.colorAccent))
-    } else if (performance == 0.0) {
-        text = String.format(
-            resources.getText(R.string.transaction_format_neutral).toString(),
-            performance
-        )
-        this.setTextColor(resources.getColor(R.color.trendingFlat))
-    } else {
-        text = String.format(
-            resources.getText(R.string.transaction_format_loss).toString(),
-            performance
-        )
-        this.setTextColor(resources.getColor(R.color.trendingDown))
+    when {
+        performance > 0.0 -> {
+            text = String.format(
+                resources.getText(R.string.transaction_format_win).toString(),
+                performance
+            )
+            this.setTextColor(resources.getColor(R.color.colorAccent, context.theme))
+        }
+        performance == 0.0 -> {
+            text = String.format(
+                resources.getText(R.string.transaction_format_neutral).toString(),
+                performance
+            )
+            this.setTextColor(resources.getColor(R.color.trendingFlat, context.theme))
+        }
+        else -> {
+            text = String.format(
+                resources.getText(R.string.transaction_format_loss).toString(),
+                performance
+            )
+            this.setTextColor(resources.getColor(R.color.trendingDown, context.theme))
+        }
     }
 }
 

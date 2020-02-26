@@ -12,9 +12,9 @@ import de.uniks.codliners.stock_simulator.databinding.FragmentNewsBinding
 class NewsFragment : Fragment() {
 
     private val viewModel: NewsViewModel by viewModels {
-        val args = NewsFragmentArgs.fromBundle(arguments!!)
+        val args = NewsFragmentArgs.fromBundle(requireArguments())
         val symbol = args.symbol
-        NewsViewModel.Factory(activity!!.application, symbol)
+        NewsViewModel.Factory(requireActivity().application, symbol)
     }
 
     private lateinit var binding: FragmentNewsBinding

@@ -4,9 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import de.uniks.codliners.stock_simulator.databinding.FragmentSearchBinding
 import de.uniks.codliners.stock_simulator.ui.BaseFragment
@@ -15,7 +13,7 @@ import de.uniks.codliners.stock_simulator.ui.OnClickListener
 class SearchFragment : BaseFragment() {
 
     private val viewModel: SearchViewModel by viewModels {
-        SearchViewModel.Factory(activity!!.application)
+        SearchViewModel.Factory(requireActivity().application)
     }
 
     private lateinit var binding: FragmentSearchBinding
@@ -30,17 +28,13 @@ class SearchFragment : BaseFragment() {
         binding.searchResultRecyclerView.adapter =
             SearchResultAdapter(OnClickListener { searchResult ->
                 val action =
-                    SearchFragmentDirections.actionNavigationSearchToShareFragment(searchResult.id, searchResult.type)
+                    SearchFragmentDirections.actionNavigationSearchToShareFragment(
+                        searchResult.id,
+                        searchResult.type
+                    )
                 findNavController().navigate(action)
             })
         binding.lifecycleOwner = this
-
-        viewModel.errorAction.observe(viewLifecycleOwner, Observer { errorMessage: String? ->
-            errorMessage?.let {
-                Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
-                viewModel.onErrorActionCompleted()
-            }
-        })
 
         return binding.root
     }

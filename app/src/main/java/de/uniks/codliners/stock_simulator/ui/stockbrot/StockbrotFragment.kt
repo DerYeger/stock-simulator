@@ -13,7 +13,7 @@ import de.uniks.codliners.stock_simulator.ui.OnClickListener
 class StockbrotFragment : BaseFragment() {
 
     private val viewModel: StockbrotViewModel by viewModels{
-        StockbrotViewModel.Factory(activity!!.application)
+        StockbrotViewModel.Factory(requireActivity().application)
     }
 
     private lateinit var binding: FragmentStockbrotBinding

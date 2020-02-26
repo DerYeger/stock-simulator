@@ -11,16 +11,19 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.an.biometric.BiometricUtils
+import com.google.android.material.snackbar.Snackbar
 import de.uniks.codliners.stock_simulator.*
 import de.uniks.codliners.stock_simulator.databinding.FragmentSettingsBinding
+import de.uniks.codliners.stock_simulator.repository.SymbolRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-
 class SettingsFragment : Fragment() {
 
-    private val viewModel: SettingsViewModel by viewModels()
+    private val viewModel: SettingsViewModel by viewModels {
+        SettingsViewModel.Factory(requireActivity().application)
+    }
 
     private lateinit var binding: FragmentSettingsBinding
 
@@ -30,7 +33,7 @@ class SettingsFragment : Fragment() {
         SharedPreferences.OnSharedPreferenceChangeListener { _, key ->
             when (key) {
                 "prefs_fingerprint_added" -> {
-                    if (activity!!.getPreferences(Context.MODE_PRIVATE).getBoolean(
+                    if (requireActivity().getPreferences(Context.MODE_PRIVATE).getBoolean(
                             getString(R.string.prefs_fingerprint_added),
                             false
                         )
@@ -53,15 +56,36 @@ class SettingsFragment : Fragment() {
         binding.lifecycleOwner = this
 
         // Initialize preferences.
-        preferences = activity!!.getPreferences(Context.MODE_PRIVATE)
+        preferences = requireActivity().getPreferences(Context.MODE_PRIVATE)
 
         // Fire preference changed event to update the (initial) fingerprint button value
         listener.onSharedPreferenceChanged(preferences, "prefs_fingerprint_added")
 
+        viewModel.symbolRepositoryStateAction.observe(
+            viewLifecycleOwner,
+            Observer { state: SymbolRepository.State? ->
+                if (state === null) return@Observer
+                when (state) {
+                    SymbolRepository.State.Refreshing -> Snackbar.make(
+                        requireView(),
+                        R.string.refreshing_symbols,
+                        Snackbar.LENGTH_SHORT
+                    ).show()
+                    SymbolRepository.State.Done -> Toast.makeText(
+                        this.context, R.string.symbols_refresh_success, Toast.LENGTH_SHORT).show()
+                    is SymbolRepository.State.Error -> Snackbar.make(
+                        requireView(),
+                        state.message,
+                        Snackbar.LENGTH_SHORT
+                    ).show()
+                }
+                viewModel.onSymbolActionCompleted()
+            })
+
         // React to reset button clicks.
         viewModel.clickResetStatus.observe(viewLifecycleOwner, Observer { status ->
             if (status) {
-                val context = context!!
+                val context = requireContext()
                 CoroutineScope(Dispatchers.Unconfined).launch {
                     context.resetAccount()
                     context.resetHistory()
@@ -71,7 +95,7 @@ class SettingsFragment : Fragment() {
                     context.resetAchievements()
                 }
 
-                Toast.makeText(this.context, "Data reset successfully.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this.context, R.string.data_reset_success, Toast.LENGTH_SHORT).show()
 
                 viewModel.onGameReset()
             }
@@ -81,13 +105,13 @@ class SettingsFragment : Fragment() {
         viewModel.toggleFingerprintStatus.observe(viewLifecycleOwner, Observer { status ->
             if (status) {
                 // If fingerprint authentication is enabled...
-                if (activity!!.getPreferences(Context.MODE_PRIVATE).getBoolean(
+                if (requireActivity().getPreferences(Context.MODE_PRIVATE).getBoolean(
                         getString(R.string.prefs_fingerprint_added),
                         false
                     )
                 ) {
                     // ... disable fingerprint authentication.
-                    with(activity!!.getPreferences(Context.MODE_PRIVATE).edit()) {
+                    with(requireActivity().getPreferences(Context.MODE_PRIVATE).edit()) {
                         putBoolean(getString(R.string.prefs_fingerprint_added), false)
                         apply()
                     }

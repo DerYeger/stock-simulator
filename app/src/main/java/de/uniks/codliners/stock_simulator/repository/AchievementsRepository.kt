@@ -20,56 +20,56 @@ class AchievementsRepository(private val database: StockAppDatabase) {
     suspend fun initAchievements() {
         val achievements = listOf(
             Achievement(
-                R.string.achievement_200dollarleft_name,
-                R.string.achievement_200dollarleft_description
+                R.string.achievement_200dollarLeft_name,
+                R.string.achievement_200dollarLeft_description
             ),
             Achievement(
-                R.string.achievement_1000dollarlost_name,
-                R.string.achievement_1000dollarlost_description
+                R.string.achievement_1000dollarLost_name,
+                R.string.achievement_1000dollarLost_description
             ),
             Achievement(
-                R.string.achievement_10dollarwon_name,
-                R.string.achievement_10dollarwon_description
+                R.string.achievement_10dollarWon_name,
+                R.string.achievement_10dollarWon_description
             ),
             Achievement(
-                R.string.achievement_100dollarwon_name,
-                R.string.achievement_100dollarwon_description
+                R.string.achievement_100dollarWon_name,
+                R.string.achievement_100dollarWon_description
             ),
             Achievement(
-                R.string.achievement_500dollarwon_name,
-                R.string.achievement_500dollarwon_description
+                R.string.achievement_500dollarWon_name,
+                R.string.achievement_500dollarWon_description
             ),
             Achievement(
-                R.string.achievement_10000dollarwon_name,
-                R.string.achievement_10000dollarwon_description
+                R.string.achievement_10000dollarWon_name,
+                R.string.achievement_10000dollarWon_description
             ),
             Achievement(
-                R.string.achievement_20000dollarwon_name,
-                R.string.achievement_20000dollarwon_description
+                R.string.achievement_20000dollarWon_name,
+                R.string.achievement_20000dollarWon_description
             ),
             Achievement(
-                R.string.achievement_40000dollarwon_name,
-                R.string.achievement_40000dollarwon_description
+                R.string.achievement_40000dollarWon_name,
+                R.string.achievement_40000dollarWon_description
             ),
             Achievement(
-                R.string.achievement_1shareindepot_name,
-                R.string.achievement_1shareindepot_description
+                R.string.achievement_1shareInDepot_name,
+                R.string.achievement_1shareInDepot_description
             ),
             Achievement(
-                R.string.achievement_5sharesindepot_name,
-                R.string.achievement_5sharesindepot_description
+                R.string.achievement_5sharesInDepot_name,
+                R.string.achievement_5sharesInDepot_description
             ),
             Achievement(
-                R.string.achievement_10sharesindepot_name,
-                R.string.achievement_10sharesindepot_description
+                R.string.achievement_10sharesInDepot_name,
+                R.string.achievement_10sharesInDepot_description
             ),
             Achievement(
-                R.string.achievement_5differentsharesindepot_name,
-                R.string.achievement_5differentsharesindepot_description
+                R.string.achievement_5differentSharesInDepot_name,
+                R.string.achievement_5differentSharesInDepot_description
             ),
             Achievement(
-                R.string.achievement_10differentsharesindepot_name,
-                R.string.achievement_10differentsharesindepot_description
+                R.string.achievement_10differentSharesInDepot_name,
+                R.string.achievement_10differentSharesInDepot_description
             )
         )
         for (achievement in achievements) {

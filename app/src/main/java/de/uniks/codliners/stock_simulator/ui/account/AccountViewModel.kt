@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.*
 import de.uniks.codliners.stock_simulator.BuildConfig
 import de.uniks.codliners.stock_simulator.repository.AccountRepository
+import de.uniks.codliners.stock_simulator.sourcedLiveData
 import kotlinx.coroutines.launch
 
 class AccountViewModel(application: Application) : ViewModel() {
@@ -16,8 +17,21 @@ class AccountViewModel(application: Application) : ViewModel() {
     val depotValue = accountRepository.currentDepotValue
     val depotValuesLimited = accountRepository.depotValuesLimited
 
-    private val _performance = MediatorLiveData<Double>()
-    val performance: LiveData<Double> = _performance
+    val performance = sourcedLiveData(balance, depotValue) {
+        calculatePerformance(balance.value?.value, depotValue.value?.value)
+    }
+
+    init {
+        (performance as MutableLiveData).value = 0.0
+        viewModelScope.launch {
+            accountRepository.fetchCurrentDepotValue()
+        }
+    }
+
+    private fun calculatePerformance(balance: Double?, depotValue: Double?): Double? {
+        if (balance == null || depotValue == null) return 0.0
+        return (((balance + depotValue ) / BuildConfig.NEW_ACCOUNT_BALANCE) - 1) * 100
+    }
 
     class Factory(
         private val application: Application
@@ -31,28 +45,4 @@ class AccountViewModel(application: Application) : ViewModel() {
             throw IllegalArgumentException("Unable to construct viewmodel")
         }
     }
-
-    init {
-        _performance.value = 0.0
-        viewModelScope.launch {
-            accountRepository.fetchCurrentDepotValue()
-        }
-        _performance.apply {
-            addSource(balance) {
-                value = calculatePerformance(balance.value?.value, depotValue.value?.value)
-            }
-        }
-        _performance.apply {
-            addSource(depotValue) {
-                value = calculatePerformance(balance.value?.value, depotValue.value?.value)
-            }
-        }
-
-    }
-
-    private fun calculatePerformance(balance: Double?, depotValue: Double?): Double? {
-        if (balance == null || depotValue == null) return 0.0
-        return (((balance + depotValue ) / BuildConfig.NEW_ACCOUNT_BALANCE) - 1) * 100
-    }
-
 }

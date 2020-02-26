@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
-import de.uniks.codliners.stock_simulator.databinding.NewsCardBinding
+import de.uniks.codliners.stock_simulator.databinding.CardNewsBinding
 import de.uniks.codliners.stock_simulator.domain.News
 import java.text.SimpleDateFormat
 import java.util.*
@@ -19,9 +19,9 @@ class NewsAdapter(
     locale: Locale
 ) : ListAdapter<News, NewsAdapter.ViewHolder>(DiffCallback) {
 
-    private val dateFormatter = SimpleDateFormat("dd.MM.yyyy hh:mm", locale)
+    private val dateFormatter = SimpleDateFormat("dd.MM.yyyy HH:mm", locale)
 
-    inner class ViewHolder(private val binding: NewsCardBinding) :
+    inner class ViewHolder(private val binding: CardNewsBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(news: News) {
@@ -54,7 +54,7 @@ class NewsAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
-            NewsCardBinding.inflate(
+            CardNewsBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false

@@ -1,72 +1,50 @@
 package de.uniks.codliners.stock_simulator.ui.search
 
 import android.app.Application
-import androidx.lifecycle.*
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import de.uniks.codliners.stock_simulator.domain.Symbol
 import de.uniks.codliners.stock_simulator.repository.SymbolRepository
-import kotlinx.coroutines.launch
+import de.uniks.codliners.stock_simulator.sourcedLiveData
 import java.util.*
 
 class SearchViewModel(application: Application) : ViewModel() {
 
     private val symbolRepository = SymbolRepository(application)
     private val symbols = symbolRepository.symbols
-    private val state = symbolRepository.state
-    val refreshing = state.map { it === SymbolRepository.State.Refreshing }
-
-    private val _errorAction = MediatorLiveData<String>()
-    val errorAction: LiveData<String> = _errorAction
-
-    private val _searchResults = MediatorLiveData<List<Symbol>>()
-    val searchResults: LiveData<List<Symbol>> = _searchResults
 
     val searchQuery = MutableLiveData<String>()
     val typeFilter = MutableLiveData<String>()
+    private val searching = MutableLiveData<Boolean>(false)
 
-    init {
-        _errorAction.apply {
-            addSource(state) { state ->
-                value = when (state) {
-                    is SymbolRepository.State.Error -> state.message
-                    else -> null
-                }
-            }
-        }
+    // The search implementation should be refactored, as it currently runs on the UI-Thread
+    val searchResults = sourcedLiveData(symbols, searchQuery, typeFilter) {
+        // Manually set isLoading to true, as the UI-Thread is blocked by the search. This should be refactored in the future
+        (isLoading as MutableLiveData<Boolean>).value = true
 
-        _searchResults.apply {
-            addSource(symbols) { symbols: List<Symbol>? ->
-                value = symbols?.filtered(
-                    query = searchQuery.value,
-                    typeFilter = typeFilter.value
-                )
-            }
+        searching.value = true
+        symbols.value?.filtered(
+            query = searchQuery.value,
+            typeFilter = typeFilter.value
+        ).also {
+            searching.value = false
 
-            addSource(searchQuery) { query ->
-                value = symbols.value?.filtered(
-                    query = query,
-                    typeFilter = typeFilter.value
-                )
-            }
-
-            addSource(typeFilter) { typeFilter ->
-                value = symbols.value?.filtered(
-                    query = searchQuery.value,
-                    typeFilter = typeFilter
-                )
-            }
+            // Manually set isLoading to false, as the UI-Thread is blocked by the search. This should be refactored in the future
+            isLoading.value = false
         }
     }
 
-    fun refreshSymbols() {
-        viewModelScope.launch {
-            symbolRepository.refreshSymbols()
-        }
+    val isLoading = sourcedLiveData(symbols, searching) {
+        symbols.value?.size ?: 0 == 0 || searching.value ?: false
     }
 
-    fun onErrorActionCompleted() {
-        viewModelScope.launch {
-            _errorAction.value = null
-        }
+    val hasResults = sourcedLiveData(searchResults, isLoading) {
+        searchResults.value?.size ?: 0 > 0 && !(isLoading.value ?: false)
+    }
+
+    val hasNoResults = sourcedLiveData(searchResults, isLoading) {
+        searchResults.value?.size == 0 && !(isLoading.value ?: false)
     }
 
     private fun List<Symbol>.filtered(query: String?, typeFilter: String?): List<Symbol> {

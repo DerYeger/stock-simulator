@@ -5,15 +5,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import de.uniks.codliners.stock_simulator.databinding.DepotQuoteCardBinding
+import de.uniks.codliners.stock_simulator.databinding.CardDepotQuoteBinding
 import de.uniks.codliners.stock_simulator.domain.DepotQuote
-import de.uniks.codliners.stock_simulator.domain.DepotQuotePurchase
 import de.uniks.codliners.stock_simulator.ui.OnClickListener
 
-class DepotQuoteRecyclerViewAdapter(private val onClickListener: OnClickListener<DepotQuote>):
+class DepotQuoteRecyclerViewAdapter(private val onClickListener: OnClickListener<DepotQuote>) :
     ListAdapter<DepotQuote, DepotQuoteRecyclerViewAdapter.ViewHolder>(DiffCallback) {
 
-    inner class ViewHolder(private val binding: DepotQuoteCardBinding) :
+    inner class ViewHolder(private val binding: CardDepotQuoteBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(quote: DepotQuote) {
@@ -33,7 +32,7 @@ class DepotQuoteRecyclerViewAdapter(private val onClickListener: OnClickListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
-            DepotQuoteCardBinding.inflate(
+            CardDepotQuoteBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false

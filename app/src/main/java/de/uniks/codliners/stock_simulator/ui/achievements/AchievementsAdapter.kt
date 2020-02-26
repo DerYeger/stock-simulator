@@ -5,12 +5,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import de.uniks.codliners.stock_simulator.databinding.AchievementCardBinding
+import de.uniks.codliners.stock_simulator.databinding.CardAchievementBinding
 import de.uniks.codliners.stock_simulator.domain.Achievement
 
 class AchievementsAdapter : ListAdapter<Achievement, AchievementsAdapter.ViewHolder>(DiffCallback) {
 
-    inner class ViewHolder(private val binding: AchievementCardBinding) :
+    inner class ViewHolder(private val binding: CardAchievementBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(achievement: Achievement) {
@@ -30,7 +30,7 @@ class AchievementsAdapter : ListAdapter<Achievement, AchievementsAdapter.ViewHol
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
-            AchievementCardBinding.inflate(
+            CardAchievementBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false

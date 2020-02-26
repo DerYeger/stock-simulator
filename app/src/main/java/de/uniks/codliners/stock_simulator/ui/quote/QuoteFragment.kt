@@ -17,15 +17,14 @@ import de.uniks.codliners.stock_simulator.domain.StockbrotQuote
 import de.uniks.codliners.stock_simulator.initLineChart
 import de.uniks.codliners.stock_simulator.ui.BaseFragment
 import de.uniks.codliners.stock_simulator.updateLineChart
-import timber.log.Timber
 
 class QuoteFragment : BaseFragment() {
 
     private val viewModel: QuoteViewModel by viewModels {
-        val args = QuoteFragmentArgs.fromBundle(arguments!!)
+        val args = QuoteFragmentArgs.fromBundle(requireArguments())
 
         QuoteViewModel.Factory(
-            application = activity!!.application,
+            application = requireActivity().application,
             id = args.id,
             type = args.type
         )
@@ -92,14 +91,16 @@ class QuoteFragment : BaseFragment() {
             }
         })
 
-        viewModel.stockbrotQuoteAction.observe(this, Observer { stockbrotQuote: StockbrotQuote? ->
-            stockbrotQuote?.let {
-                viewModel.autoBuyAmount.value = stockbrotQuote.buyLimit.toString()
-                viewModel.thresholdBuy.value = stockbrotQuote.maximumBuyPrice.toString()
-                viewModel.thresholdSell.value = stockbrotQuote.minimumSellPrice.toString()
-                viewModel.onThresholdBuyActionCompleted()
-            }
-        })
+        viewModel.stockbrotQuoteAction.observe(
+            viewLifecycleOwner,
+            Observer { stockbrotQuote: StockbrotQuote? ->
+                stockbrotQuote?.let {
+                    viewModel.autoBuyAmount.value = stockbrotQuote.buyLimit.toString()
+                    viewModel.thresholdBuy.value = stockbrotQuote.maximumBuyPrice.toString()
+                    viewModel.thresholdSell.value = stockbrotQuote.minimumSellPrice.toString()
+                    viewModel.onThresholdBuyActionCompleted()
+                }
+            })
 
         viewModel.historicalPricesLimited.observe(viewLifecycleOwner, Observer { priceList ->
             run {
@@ -121,23 +122,24 @@ class QuoteFragment : BaseFragment() {
             }
         })
 
-        initLineChart(binding.quoteChart, context!!)
+        initLineChart(binding.quoteChart, requireContext())
 
         return binding.root
     }
 
     private fun showTransactionDialog(message: Int, onConfirmation: () -> Unit) {
-        val view: View = LayoutInflater.from(context).inflate(R.layout.dialog_transaction, null, false)
+        val view: View =
+            LayoutInflater.from(context).inflate(R.layout.dialog_transaction, null, false)
         val binding = DialogTransactionBinding.bind(view)
         binding.viewModel = viewModel
 
         AlertDialog.Builder(context)
             .setMessage(message)
             .setView(view)
-            .setPositiveButton(R.string.yes) { dialog, id ->
+            .setPositiveButton(R.string.yes) { _, _ ->
                 onConfirmation()
             }
-            .setNegativeButton(R.string.cancel) { dialog, id ->
+            .setNegativeButton(R.string.cancel) { _, _ ->
                 Toast
                     .makeText(context, "Transaction canceled", Toast.LENGTH_SHORT)
                     .show()

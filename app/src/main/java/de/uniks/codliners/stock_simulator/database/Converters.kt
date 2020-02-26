@@ -6,9 +6,26 @@ import de.uniks.codliners.stock_simulator.domain.TransactionType
 
 
 class Converters {
+
     @TypeConverter
-    fun fromTransactionTypeToString(type: TransactionType): String {
-        return type.toString()
+    fun fromBooleanToInt(enabled: Boolean): Int {
+        return when(enabled) {
+            true -> 1
+            false -> 0
+        }
+    }
+
+    @TypeConverter
+    fun fromIntToBoolean(booleanInt: Int): Boolean {
+        return when(booleanInt) {
+            0 -> false
+            else -> true
+        }
+    }
+
+    @TypeConverter
+    fun fromStringToSymbolType(typeString: String): Symbol.Type {
+        return Symbol.Type.valueOf(typeString)
     }
 
     @TypeConverter
@@ -25,23 +42,7 @@ class Converters {
     }
 
     @TypeConverter
-    fun fromStringToSymbolType(typeString: String): Symbol.Type {
-        return Symbol.Type.valueOf(typeString)
-    }
-
-    @TypeConverter
-    fun fromBooleanToInt(enabled: Boolean): Int {
-        return when(enabled) {
-            true -> 1
-            false -> 0
-        }
-    }
-
-    @TypeConverter
-    fun fromIntToBoolean(booleanInt: Int): Boolean {
-        return when(booleanInt) {
-            0 -> false
-            else -> true
-        }
+    fun fromTransactionTypeToString(type: TransactionType): String {
+        return type.toString()
     }
 }
