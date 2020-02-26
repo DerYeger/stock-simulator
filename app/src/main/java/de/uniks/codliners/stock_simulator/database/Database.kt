@@ -135,6 +135,9 @@ interface HistoricalPriceDao {
     @Query("SELECT * FROM historicalprice WHERE id = :id")
     fun getHistoricalPricesById(id: String): LiveData<List<HistoricalPrice>>
 
+    @Query("SELECT * FROM (SELECT * FROM historicalprice WHERE id = :id ORDER BY historicalprice.date DESC LIMIT 50) ORDER BY date DESC")
+    fun getHistoricalPricesByIdLimited(id: String): LiveData<List<HistoricalPrice>>
+
     @Insert(onConflict = REPLACE)
     fun insertAll(vararg prices: HistoricalPrice)
 }

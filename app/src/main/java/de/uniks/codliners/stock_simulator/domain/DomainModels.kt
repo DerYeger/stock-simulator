@@ -46,13 +46,6 @@ data class DepotQuotePurchase(
 )
 
 @Entity
-data class DepotValue(
-    val value: Double,
-    @PrimaryKey
-    val timestamp: Long = System.currentTimeMillis()
-)
-
-@Entity
 data class HistoricalPrice(
     @PrimaryKey(autoGenerate = true)
     val primaryKey: Long = 0,
@@ -119,6 +112,7 @@ data class DepotValue(
     val timestamp: Long = System.currentTimeMillis()
 )
 
+@Entity
 data class Transaction(
     @PrimaryKey(autoGenerate = true)
     val primaryKey: Long = 0,
