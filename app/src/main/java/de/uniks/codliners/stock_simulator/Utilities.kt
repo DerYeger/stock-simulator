@@ -32,7 +32,9 @@ fun <T> sourcedLiveData(vararg sources: LiveData<*>, block: () -> T?): LiveData<
     MediatorLiveData<T>().apply {
         sources.forEach { source ->
             addSource(source) {
-                value = block()
+                val oldValue = value
+                val newValue = block()
+                if (oldValue != newValue) value = block()
             }
         }
     }

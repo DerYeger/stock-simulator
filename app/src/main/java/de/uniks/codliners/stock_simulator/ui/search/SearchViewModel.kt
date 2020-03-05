@@ -16,7 +16,7 @@ class SearchViewModel(application: Application) : ViewModel() {
     val typeFilter = MutableLiveData<String>()
 
     val filteredSymbols: LiveData<List<Symbol>> = sourcedLiveData(symbols, searchQuery, typeFilter) {
-        (isLoading as MutableLiveData).value = true
+        _isLoading.value = true
         val query = searchQuery.value ?: ""
         SymbolRepository.SymbolFilter(
             "$query%",
@@ -26,14 +26,12 @@ class SearchViewModel(application: Application) : ViewModel() {
         symbolRepository.filteredSymbols(symbolFilter)
     }
 
-    val isLoading: LiveData<Boolean> = mediatedLiveData {
-        addSource(filteredSymbols) {
-            value = false
-        }
+    private val _isLoading: MutableLiveData<Boolean> = mediatedLiveData {
         addSource(symbols) { symbols: List<Symbol>? ->
             value = symbols?.size ?: 0 == 0 || value ?: false
         }
     }
+    val isLoading: LiveData<Boolean> = _isLoading
 
     val hasResults: LiveData<Boolean> = sourcedLiveData(filteredSymbols) {
         filteredSymbols.value?.size ?: 0 > 0
@@ -42,6 +40,8 @@ class SearchViewModel(application: Application) : ViewModel() {
     val hasNoResults: LiveData<Boolean> = sourcedLiveData(filteredSymbols, isLoading) {
         filteredSymbols.value?.size == 0 && !(isLoading.value ?: false)
     }
+
+    val onSymbolListSubmitted = Runnable { _isLoading.postValue(false) }
 
     private fun String?.asSymbolType() = when (this) {
         "Crypto" -> Symbol.Type.CRYPTO

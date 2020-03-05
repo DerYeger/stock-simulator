@@ -66,8 +66,9 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/search_query_edit_text"
-            app:symbolList="@{viewModel.filteredSymbols}"
             app:spanCount="3"
+            app:symbols="@{viewModel.filteredSymbols}"
+            app:callback="@{viewModel.onSymbolListSubmitted}"
             app:visible="@{viewModel.hasResults}" />
 
         <ProgressBar

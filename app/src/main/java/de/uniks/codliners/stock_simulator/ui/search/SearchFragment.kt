@@ -25,8 +25,8 @@ class SearchFragment : BaseFragment() {
     ): View {
         binding = FragmentSearchBinding.inflate(inflater)
         binding.viewModel = viewModel
-        binding.searchResultRecyclerView.adapter =
-            SymbolListAdapter(OnClickListener { searchResult ->
+        binding.searchResultRecyclerView.apply {
+            adapter = SymbolListAdapter(OnClickListener { searchResult ->
                 val action =
                     SearchFragmentDirections.actionNavigationSearchToShareFragment(
                         searchResult.id,
@@ -34,8 +34,9 @@ class SearchFragment : BaseFragment() {
                     )
                 findNavController().navigate(action)
             })
+            setHasFixedSize(true)
+        }
         binding.lifecycleOwner = this
-
         return binding.root
     }
 }
