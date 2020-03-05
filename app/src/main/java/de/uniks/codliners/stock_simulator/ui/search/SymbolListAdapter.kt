@@ -9,8 +9,8 @@ import de.uniks.codliners.stock_simulator.databinding.CardSymbolBinding
 import de.uniks.codliners.stock_simulator.domain.Symbol
 import de.uniks.codliners.stock_simulator.ui.OnClickListener
 
-class SearchResultAdapter(private val onClickListener: OnClickListener<Symbol>) :
-    ListAdapter<Symbol, SearchResultAdapter.ViewHolder>(DiffCallback) {
+class SymbolListAdapter(private val onClickListener: OnClickListener<Symbol>) :
+    ListAdapter<Symbol, SymbolListAdapter.ViewHolder>(DiffCallback) {
 
     inner class ViewHolder(private val binding: CardSymbolBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -24,7 +24,7 @@ class SearchResultAdapter(private val onClickListener: OnClickListener<Symbol>) 
 
     companion object DiffCallback : DiffUtil.ItemCallback<Symbol>() {
         override fun areItemsTheSame(oldItem: Symbol, newItem: Symbol) =
-            oldItem.symbol == newItem.symbol
+            oldItem.id == newItem.id
 
         override fun areContentsTheSame(oldItem: Symbol, newItem: Symbol) =
             oldItem == newItem

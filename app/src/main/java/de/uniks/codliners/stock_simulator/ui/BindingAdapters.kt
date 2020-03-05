@@ -16,7 +16,7 @@ import de.uniks.codliners.stock_simulator.ui.account.DepotQuoteRecyclerViewAdapt
 import de.uniks.codliners.stock_simulator.ui.achievements.AchievementsAdapter
 import de.uniks.codliners.stock_simulator.ui.history.HistoryRecyclerViewAdapter
 import de.uniks.codliners.stock_simulator.ui.news.NewsAdapter
-import de.uniks.codliners.stock_simulator.ui.search.SearchResultAdapter
+import de.uniks.codliners.stock_simulator.ui.search.SymbolListAdapter
 import de.uniks.codliners.stock_simulator.ui.stockbrot.StockbrotQuoteRecyclerViewAdapter
 
 @BindingAdapter("visible")
@@ -33,7 +33,7 @@ fun SwipeRefreshLayout.bindRefreshListener(listener: Runnable) {
 
 @BindingAdapter("searchResults")
 fun RecyclerView.bindSearchResults(symbols: List<Symbol>?) {
-    val adapter = adapter as SearchResultAdapter
+    val adapter = adapter as SymbolListAdapter
     adapter.submitList(symbols)
 }
 

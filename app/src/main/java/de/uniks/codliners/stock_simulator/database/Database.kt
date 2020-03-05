@@ -196,6 +196,12 @@ interface SymbolDao {
     @Query("SELECT * FROM symbol ORDER BY symbol.symbol ASC")
     fun getAll(): LiveData<List<Symbol>>
 
+    @Query("SELECT * FROM symbol WHERE symbol.type == :type AND symbol.symbol LIKE :symbol ORDER BY symbol.symbol ASC")
+    fun getAllFiltered(symbol: String, type: Symbol.Type): LiveData<List<Symbol>>
+
+    @Query("SELECT * FROM symbol WHERE symbol.symbol LIKE :symbol ORDER BY symbol.symbol ASC")
+    fun getAllFiltered(symbol: String): LiveData<List<Symbol>>
+
     @Insert(onConflict = REPLACE)
     fun insertAll(vararg symbols: Symbol)
 }

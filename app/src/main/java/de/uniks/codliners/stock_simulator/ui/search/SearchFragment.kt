@@ -26,7 +26,7 @@ class SearchFragment : BaseFragment() {
         binding = FragmentSearchBinding.inflate(inflater)
         binding.viewModel = viewModel
         binding.searchResultRecyclerView.adapter =
-            SearchResultAdapter(OnClickListener { searchResult ->
+            SymbolListAdapter(OnClickListener { searchResult ->
                 val action =
                     SearchFragmentDirections.actionNavigationSearchToShareFragment(
                         searchResult.id,
