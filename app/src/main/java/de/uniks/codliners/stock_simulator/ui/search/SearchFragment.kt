@@ -34,7 +34,6 @@ class SearchFragment : BaseFragment() {
                     )
                 findNavController().navigate(action)
             })
-            setHasFixedSize(true)
         }
         binding.lifecycleOwner = this
         return binding.root
