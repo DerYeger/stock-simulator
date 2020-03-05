@@ -10,7 +10,6 @@ import de.uniks.codliners.stock_simulator.network.NetworkService
 import de.uniks.codliners.stock_simulator.network.asDomainSymbols
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import java.util.*
 
 class SymbolRepository(private val database: StockAppDatabase) {
 
@@ -30,10 +29,17 @@ class SymbolRepository(private val database: StockAppDatabase) {
         database.symbolDao.getAll()
     }
 
-    fun filteredSymbols(symbolFilter: SymbolFilter): LiveData<List<Symbol>> {
-        return when (symbolFilter.type) {
-            null -> database.symbolDao.getAllFiltered(symbolFilter.symbol)
-            else -> database.symbolDao.getAllFiltered(symbolFilter.symbol, symbolFilter.type)
+    fun filteredSymbols(filter: Symbol.Filter): LiveData<List<Symbol>> {
+        return when (filter.type) {
+            null -> database.symbolDao.getAllFiltered(
+                symbolQuery = filter.symbolQuery,
+                nameQuery = filter.nameQuery
+            )
+            else -> database.symbolDao.getAllFiltered(
+                symbolQuery = filter.symbolQuery,
+                nameQuery = filter.nameQuery,
+                type = filter.type
+            )
         }
     }
 
@@ -56,9 +62,4 @@ class SymbolRepository(private val database: StockAppDatabase) {
             }
         }
     }
-
-    data class SymbolFilter(
-        val symbol: String,
-        val type: Symbol.Type?
-    )
 }

@@ -15,16 +15,16 @@ class SearchViewModel(application: Application) : ViewModel() {
     val searchQuery = MutableLiveData<String>()
     val typeFilter = MutableLiveData<String>()
 
-    val filteredSymbols: LiveData<List<Symbol>> = sourcedLiveData(symbols, searchQuery, typeFilter) {
-        _isLoading.value = true
-        val query = searchQuery.value ?: ""
-        SymbolRepository.SymbolFilter(
-            "$query%",
-            typeFilter.value.asSymbolType()
-        )
-    }.switchMap { symbolFilter ->
-        symbolRepository.filteredSymbols(symbolFilter)
-    }
+    val filteredSymbols: LiveData<List<Symbol>> =
+        sourcedLiveData(symbols, searchQuery, typeFilter) {
+            _isLoading.value = true
+            Symbol.Filter(
+                query = searchQuery.value ?: "",
+                type = typeFilter.value.asSymbolType()
+            )
+        }.switchMap { symbolFilter ->
+            symbolRepository.filteredSymbols(symbolFilter)
+        }
 
     private val _isLoading: MutableLiveData<Boolean> = mediatedLiveData {
         addSource(symbols) { symbols: List<Symbol>? ->

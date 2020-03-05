@@ -4,7 +4,6 @@ import androidx.room.TypeConverter
 import de.uniks.codliners.stock_simulator.domain.Symbol
 import de.uniks.codliners.stock_simulator.domain.TransactionType
 
-
 class Converters {
 
     @TypeConverter

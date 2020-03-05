@@ -25,6 +25,7 @@ class StockSimulatorApplication : Application() {
         onFirstRun {
             CoroutineScope(Dispatchers.Unconfined).launch {
                 SymbolRepository(this@StockSimulatorApplication).refreshSymbols()
+                AchievementsRepository(this@StockSimulatorApplication).initAchievements()
             }
         }
     }
@@ -33,16 +34,11 @@ class StockSimulatorApplication : Application() {
         sharedPreferences()
             .getBoolean(FIRST_RUN_KEY, true)
             .takeIf { it }
-            .let {
+            ?.let {
                 block()
-                sharedPreferences().edit {
+                sharedPreferences().edit(commit = true) {
                     putBoolean(FIRST_RUN_KEY, false)
                 }
             }
-
-        val achievementsRepository = AchievementsRepository(this@StockSimulatorApplication)
-        CoroutineScope(Dispatchers.Main).launch {
-            achievementsRepository.initAchievements()
-        }
     }
 }

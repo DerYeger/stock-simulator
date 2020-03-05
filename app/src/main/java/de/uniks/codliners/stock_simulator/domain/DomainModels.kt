@@ -110,6 +110,18 @@ data class Symbol(
 ) {
     @Parcelize
     enum class Type : Parcelable { SHARE, CRYPTO }
+
+    data class Filter(
+        val symbolQuery: String,
+        val nameQuery: String,
+        val type: Type?
+    ) {
+        constructor(query: String, type: Type?) : this(
+            symbolQuery = "$query%",
+            nameQuery = "%$query%",
+            type = type
+        )
+    }
 }
 
 @Entity

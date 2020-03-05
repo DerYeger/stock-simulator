@@ -17,7 +17,7 @@ data class CoinGeckoSymbol(
 fun CoinGeckoSymbol.asDomainSymbol() = Symbol(
     id = id,
     symbol = symbol.toUpperCase(Locale.ROOT),
-    name = id,
+    name = name,
     type = Symbol.Type.CRYPTO
 )
 
