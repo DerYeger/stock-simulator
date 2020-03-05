@@ -31,8 +31,8 @@ fun SwipeRefreshLayout.bindRefreshListener(listener: Runnable) {
     }
 }
 
-@BindingAdapter("searchResults")
-fun RecyclerView.bindSearchResults(symbols: List<Symbol>?) {
+@BindingAdapter("symbolList")
+fun RecyclerView.bindSymbolList(symbols: List<Symbol>?) {
     val adapter = adapter as SymbolListAdapter
     adapter.submitList(symbols)
 }

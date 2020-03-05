@@ -37,6 +37,8 @@ fun <T> sourcedLiveData(vararg sources: LiveData<*>, block: () -> T?): LiveData<
         }
     }
 
+inline fun <T> mediatedLiveData(block: MediatorLiveData<T>.() -> Unit) = MediatorLiveData<T>().apply(block)
+
 fun ContextWrapper.sharedPreferences(): SharedPreferences =
     getSharedPreferences(SHARED_PREFERENCES_KEY, MODE_PRIVATE)
 
