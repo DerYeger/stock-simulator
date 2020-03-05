@@ -7,6 +7,13 @@ import de.uniks.codliners.stock_simulator.domain.Quote
 import de.uniks.codliners.stock_simulator.domain.Symbol
 import java.util.*
 
+/**
+ * Symbol information of a CoinGecko cryptocurrency.
+ *
+ * @property id The CoinGecko ID of the cryptocurrency.
+ * @property symbol The symbol of the cryptocurrency.
+ * @property name The name of the cryptocurrency.
+ */
 @JsonClass(generateAdapter = true)
 data class CoinGeckoSymbol(
     val id: String,
