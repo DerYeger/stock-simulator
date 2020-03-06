@@ -190,9 +190,6 @@ interface StockbrotDao {
 @Dao
 interface SymbolDao {
 
-    @Query("SELECT * FROM symbol WHERE symbol.id == :id")
-    fun get(id: String): LiveData<Symbol>
-
     @Query("SELECT * FROM symbol ORDER BY symbol.symbol ASC")
     fun getAll(): LiveData<List<Symbol>>
 

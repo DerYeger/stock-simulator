@@ -11,6 +11,14 @@ import de.uniks.codliners.stock_simulator.network.asDomainSymbols
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
+/**
+ * Repository for refreshing, accessing and filtering [Symbol]s.
+ *
+ * @property database The database used by this repository.
+ * @property state The current [State] of the repository.
+ * @property symbols Lazily initialized [LiveData] containing an ordered [List] of all locally stored [Symbol]s.
+ * @author Jan Müller
+ */
 class SymbolRepository(private val database: StockAppDatabase) {
 
     constructor(context: Context) : this(getDatabase(context))
@@ -29,22 +37,28 @@ class SymbolRepository(private val database: StockAppDatabase) {
         database.symbolDao.getAll()
     }
 
-    fun filteredSymbols(filter: Symbol.Filter): LiveData<List<Symbol>> {
-        return when (filter.type) {
-            null -> database.symbolDao.getAllFiltered(
-                symbolQuery = filter.symbolQuery,
-                nameQuery = filter.nameQuery
-            )
-            else -> database.symbolDao.getAllFiltered(
-                symbolQuery = filter.symbolQuery,
-                nameQuery = filter.nameQuery,
-                type = filter.type
-            )
-        }
+    /**
+     * Returns a [LiveData] containing [Symbol]s that match the specified [Symbol.Filter].
+     *
+     * @param filter The filter to be used.
+     * @return A [LiveData] containing a filtered [List] of [Symbol]s.
+     */
+    fun filteredSymbols(filter: Symbol.Filter) = when (filter.type) {
+        null -> database.symbolDao.getAllFiltered(
+            symbolQuery = filter.symbolQuery,
+            nameQuery = filter.nameQuery
+        )
+        else -> database.symbolDao.getAllFiltered(
+            symbolQuery = filter.symbolQuery,
+            nameQuery = filter.nameQuery,
+            type = filter.type
+        )
     }
 
-    fun symbol(symbol: String) = database.symbolDao.get(symbol)
-
+    /**
+     * Fetches all available symbols from the IEX and CoinGecko APIs, then stores them in the [database].
+     *
+     */
     suspend fun refreshSymbols() {
         withContext(Dispatchers.IO) {
             try {
