@@ -17,12 +17,12 @@ class SearchViewModel(application: Application) : ViewModel() {
 
     val filteredSymbols: LiveData<List<Symbol>> =
         sourcedLiveData(symbols, searchQuery, typeFilter) {
-            _isLoading.value = true
             Symbol.Filter(
                 query = searchQuery.value ?: "",
                 type = typeFilter.value.asSymbolType()
             )
         }.switchMap { symbolFilter ->
+            _isLoading.value = true
             symbolRepository.filteredSymbols(symbolFilter)
         }
 
