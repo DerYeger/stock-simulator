@@ -11,11 +11,23 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 
+/**
+ * The IEX API's base url, to which endpoints are concatenated.
+ * Should be the sandbox endpoint for development and the live data endpoint for production.
+ */
 const val IEX_API_BASE_URL = BuildConfig.IEX_API_BASE_URL
+
+/**
+ * An IEX API token.
+ * Should be the sandbox token for development and the live data token for production.
+ */
 const val IEX_API_TOKEN = BuildConfig.IEX_API_TOKEN
 
 const val COINGECKO_BASE_URL = BuildConfig.COINGECKO_BASE_URL
 
+/**
+ * An instance of the JSON parser [moshi](https://github.com/square/moshi).
+ */
 val moshi: Moshi = Moshi.Builder()
     .add(KotlinJsonAdapterFactory())
     .build()

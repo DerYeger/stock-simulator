@@ -10,8 +10,19 @@ import de.uniks.codliners.stock_simulator.domain.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
+/**
+ * Limits the amount of balance data points returned by corresponding database requests.
+ */
 private const val BALANCE_LIMIT: Int = 50
 
+/**
+ * TODO
+ *
+ * @property database TODO
+ *
+ * @author TODO
+ * @author Jonas Thelemann
+ */
 class AccountRepository(private val database: StockAppDatabase) {
 
     constructor(context: Context) : this(getDatabase(context))
@@ -20,7 +31,9 @@ class AccountRepository(private val database: StockAppDatabase) {
         database.accountDao.getLatestBalance()
     }
 
-    // the last 50 account balance values
+    /**
+     * The last {BALANCE_LIMIT} account balance values.
+     */
     val balancesLimited by lazy {
         database.accountDao.getBalancesLimited(BALANCE_LIMIT)
     }
