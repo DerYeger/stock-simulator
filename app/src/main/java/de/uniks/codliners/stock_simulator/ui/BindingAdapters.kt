@@ -37,6 +37,13 @@ fun RecyclerView.bindSymbolList(symbols: List<Symbol>?, callback: Runnable) {
     adapter.submitList(symbols, callback)
 }
 
+/**
+ * Binds news to the [NewsAdapter].
+ *
+ * @param news The news to display.
+ *
+ * @author Jonas Thelemann
+ */
 @BindingAdapter("news")
 fun RecyclerView.bindNews(news: List<News>?) {
     val adapter = adapter as NewsAdapter
@@ -110,6 +117,14 @@ fun RecyclerView.bindTransactions(transactions: List<Transaction>?) {
     adapter.submitList(transactions)
 }
 
+/**
+ * TODO
+ *
+ * @param performance TODO
+ *
+ * @author TODO
+ * @author Jonas Thelemann
+ */
 @BindingAdapter("lossOrWin")
 fun TextView.bindPerformanceText(performance: Double) {
     when {
@@ -137,6 +152,14 @@ fun TextView.bindPerformanceText(performance: Double) {
     }
 }
 
+/**
+ * TODO
+ *
+ * @param performance TODO
+ *
+ * @author TODO
+ * @author Jonas Thelemann
+ */
 @BindingAdapter("trendingImage")
 fun ImageView.bindPerformanceIcon(performance: Double) {
     when {
@@ -192,6 +215,14 @@ fun ImageView.bindPerformanceIcon(performance: Double) {
 //    }
 //}
 
+/**
+ * TODO
+ *
+ * @param performance TODO
+ *
+ * @author TODO
+ * @author Jonas Thelemann
+ */
 @BindingAdapter("transactionResultText")
 fun TextView.bindTransactionResultText(performance: Double?) {
     if (performance == null) {
@@ -229,6 +260,14 @@ fun RecyclerView.bindStockbrotQuotes(quotes: List<StockbrotQuote>?) {
     adapter.submitList(quotes)
 }
 
+/**
+ * TODO
+ *
+ * @param transactionType TODO
+ *
+ * @author TODO
+ * @author Jonas Thelemann
+ */
 @BindingAdapter("transactionType")
 fun ImageView.bindTransactionType(transactionType: TransactionType?) {
     transactionType?.let {
@@ -240,6 +279,13 @@ fun ImageView.bindTransactionType(transactionType: TransactionType?) {
     }
 }
 
+/**
+ * Binds a paywall indicator to the image view, which displays a money symbol.
+ *
+ * @param paywallType Indicates whether there is a paywall or not.
+ *
+ * @author Jonas Thelemann
+ */
 @BindingAdapter("paywallType")
 fun ImageView.bindPaywallType(paywallType: Boolean?) {
     paywallType?.let {
@@ -318,6 +364,14 @@ fun TextView.bindStockbrotQuote(stockbrotQuote: StockbrotQuote) {
     }
 }
 
+/**
+ * TODO
+ *
+ * @param enabled TODO
+ *
+ * @author TODO
+ * @author Jonas Thelemann
+ */
 @BindingAdapter("enableCardView")
 fun CardView.bindEnableCardView(enabled: Boolean) {
     val color = when(enabled) {

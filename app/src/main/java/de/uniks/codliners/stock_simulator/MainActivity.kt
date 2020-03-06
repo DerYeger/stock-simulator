@@ -14,10 +14,14 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity(), BiometricCallback {
 
-    // Allows fingerprint authentication.
+    /**
+     * Allows fingerprint authentication.
+     */
     lateinit var biometricManager: BiometricManager
 
-    // Flag to decide on how to react to failed or successful fingerprint authentications
+    /**
+     * Flag to decide on how to react to failed or successful fingerprint authentications.
+     */
     private var isApplicationUnlocked = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,6 +67,9 @@ class MainActivity : AppCompatActivity(), BiometricCallback {
         }
     }
 
+    /**
+     * Biometric authentication callback for unsupported SDK versions.
+     */
     override fun onSdkVersionNotSupported() {
         Toast.makeText(
             this,
@@ -76,6 +83,9 @@ class MainActivity : AppCompatActivity(), BiometricCallback {
         }
     }
 
+    /**
+     * Biometric authentication callback for unsupported biometric authentication.
+     */
     override fun onBiometricAuthenticationNotSupported() {
         Toast.makeText(
             this,
@@ -89,6 +99,9 @@ class MainActivity : AppCompatActivity(), BiometricCallback {
         }
     }
 
+    /**
+     * Biometric authentication callback for unavailable biometric authentication.
+     */
     override fun onBiometricAuthenticationNotAvailable() {
         Toast.makeText(
             this,
@@ -102,6 +115,9 @@ class MainActivity : AppCompatActivity(), BiometricCallback {
         }
     }
 
+    /**
+     * Biometric authentication callback for missing permissions.
+     */
     override fun onBiometricAuthenticationPermissionNotGranted() {
         Toast.makeText(
             this,
@@ -115,6 +131,9 @@ class MainActivity : AppCompatActivity(), BiometricCallback {
         }
     }
 
+    /**
+     * Biometric authentication callback for internal biometric authentication errors.
+     */
     override fun onBiometricAuthenticationInternalError(error: String?) {
         Toast.makeText(this, "Biometric authentication internal error: $error", Toast.LENGTH_LONG)
             .show()
@@ -125,6 +144,9 @@ class MainActivity : AppCompatActivity(), BiometricCallback {
         }
     }
 
+    /**
+     * Biometric authentication callback for authentication failures.
+     */
     override fun onAuthenticationFailed() {
         Toast.makeText(this, getString(R.string.biometric_failure), Toast.LENGTH_LONG).show()
 
@@ -134,6 +156,9 @@ class MainActivity : AppCompatActivity(), BiometricCallback {
         }
     }
 
+    /**
+     * Biometric authentication callback for canceled authentication.
+     */
     override fun onAuthenticationCancelled() {
         Toast.makeText(this, getString(R.string.biometric_cancelled), Toast.LENGTH_LONG).show()
 
@@ -147,6 +172,9 @@ class MainActivity : AppCompatActivity(), BiometricCallback {
         // biometricManager.cancelAuthentication()
     }
 
+    /**
+     * Biometric authentication callback for authentication errors.
+     */
     override fun onAuthenticationError(
         errorCode: Int,
         errString: CharSequence?
@@ -159,6 +187,9 @@ class MainActivity : AppCompatActivity(), BiometricCallback {
         }
     }
 
+    /**
+     * Biometric authentication callback for authentication help.
+     */
     override fun onAuthenticationHelp(
         helpCode: Int,
         helpString: CharSequence?
@@ -166,6 +197,9 @@ class MainActivity : AppCompatActivity(), BiometricCallback {
         Toast.makeText(this, "Authentication help: $helpString", Toast.LENGTH_LONG).show()
     }
 
+    /**
+     * Biometric authentication callback for authentication success.
+     */
     override fun onAuthenticationSuccessful() {
         Toast.makeText(this, getString(R.string.biometric_success), Toast.LENGTH_LONG)
             .show()

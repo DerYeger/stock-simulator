@@ -42,6 +42,11 @@ fun <T> sourcedLiveData(vararg sources: LiveData<*>, block: () -> T?): LiveData<
 inline fun <T> mediatedLiveData(block: MediatorLiveData<T>.() -> Unit) =
     MediatorLiveData<T>().apply(block)
 
+/**
+ * Getter for this app's shared preferences.
+ *
+ * @return This app's shared preferences.
+ */
 fun ContextWrapper.sharedPreferences(): SharedPreferences =
     getSharedPreferences(SHARED_PREFERENCES_KEY, MODE_PRIVATE)
 
