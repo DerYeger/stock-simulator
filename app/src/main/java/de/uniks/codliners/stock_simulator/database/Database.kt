@@ -103,6 +103,12 @@ interface AccountDao {
     fun insertDepotValue(depotValue: DepotValue)
 }
 
+/**
+ * [Dao] that manages [Achievement]s in the database
+ *
+ * @author Jan Müller
+ * @author Lucas Held
+ */
 @Dao
 interface AchievementsDao {
 
@@ -165,6 +171,11 @@ interface QuoteDao {
     fun insert(quote: Quote)
 }
 
+/**
+ * [Dao] that manages [StockbrotQuote]s in the database
+ *
+ * @author Lucas Held
+ */
 @Dao
 interface StockbrotDao {
 
