@@ -37,14 +37,13 @@ fun CoinGeckoSymbol.asDomainSymbol() = Symbol(
 )
 
 /**
- * Transforms a [CoinGeckoSymbol] [List] to an equivalent [Symbol] [List].
+ * Transforms a [CoinGeckoSymbol] [List] to an equivalent [Symbol] [Array].
  *
  * @receiver The [CoinGeckoSymbol] [List] that will be transformed.
- * @return The equivalent [Symbol] [List].
+ * @return The equivalent [Symbol] [Array].
  * @author Jan Müller
  */
 fun List<CoinGeckoSymbol>.asDomainSymbols() = map { it.asDomainSymbol() }.toTypedArray()
-
 
 /**
  * Quote information of a CoinGecko cryptocurrency.
@@ -77,7 +76,7 @@ data class CoinGeckoMarketData(
 )
 
 /**
- * Transforms a [CoinGeckoQuote] to the equivalent [Quote].
+ * Transforms a [CoinGeckoQuote] to an equivalent [Quote].
  *
  * @receiver The [CoinGeckoQuote] that will be transformed.
  * @return The equivalent [Quote].
