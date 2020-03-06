@@ -6,6 +6,8 @@ import android.content.ContextWrapper
 import android.content.SharedPreferences
 import android.graphics.Color
 import android.graphics.Typeface
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import com.github.mikephil.charting.charts.LineChart
@@ -183,6 +185,18 @@ fun updateLineChart(
     chart.axisLeft.valueFormatter = axisLeftValueFormatter
     chart.data = ld
     chart.invalidate()
+}
+
+class NetworkUtils(private val context: Context) {
+    fun isConnected(): Boolean {
+        val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val activeNetwork: NetworkInfo? = cm.activeNetworkInfo
+        var result = false
+        if (activeNetwork != null) {
+            result = activeNetwork.isConnectedOrConnecting
+        }
+        return result
+    }
 }
 
 class TimestampValueFormatter(private val referenceTimestamp: Long, locale: Locale) :

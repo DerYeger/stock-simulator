@@ -3,6 +3,7 @@ package de.uniks.codliners.stock_simulator.repository
 import android.content.Context
 import androidx.lifecycle.LiveData
 import de.uniks.codliners.stock_simulator.BuildConfig
+import de.uniks.codliners.stock_simulator.NetworkUtils
 import de.uniks.codliners.stock_simulator.database.AccountDao
 import de.uniks.codliners.stock_simulator.database.StockAppDatabase
 import de.uniks.codliners.stock_simulator.database.getDatabase
@@ -14,7 +15,11 @@ private const val BALANCE_LIMIT: Int = 50
 
 class AccountRepository(private val database: StockAppDatabase) {
 
-    constructor(context: Context) : this(getDatabase(context))
+    constructor(context: Context) : this(getDatabase(context)) {
+        this.networkUtils = NetworkUtils(context)
+    }
+
+    var networkUtils: NetworkUtils? = null
 
     val latestBalance by lazy {
         database.accountDao.getLatestBalance()
@@ -57,6 +62,7 @@ class AccountRepository(private val database: StockAppDatabase) {
 
     suspend fun buy(quote: Quote, amount: Double) {
         if (amount <= 0.0) return
+        if (!networkUtils?.isConnected()!!) return
         withContext(Dispatchers.IO) {
             val oldBalance = database.accountDao.getLatestBalanceValue()
             val cashflow = calculateBuyCashflow(quote, amount)
@@ -96,6 +102,7 @@ class AccountRepository(private val database: StockAppDatabase) {
 
     suspend fun sell(quote: Quote, amount: Double) {
         if (amount <= 0.0) return
+        if (!networkUtils?.isConnected()!!) return
         withContext(Dispatchers.IO) {
             val oldBalance = database.accountDao.getLatestBalanceValue()
             if (BuildConfig.TRANSACTION_COSTS > oldBalance.value + quote.latestPrice * amount ) {

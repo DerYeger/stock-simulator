@@ -2,6 +2,7 @@ package de.uniks.codliners.stock_simulator.repository
 
 import android.content.Context
 import androidx.lifecycle.LiveData
+import de.uniks.codliners.stock_simulator.NetworkUtils
 import de.uniks.codliners.stock_simulator.database.StockAppDatabase
 import de.uniks.codliners.stock_simulator.database.getDatabase
 import de.uniks.codliners.stock_simulator.domain.StockbrotQuote

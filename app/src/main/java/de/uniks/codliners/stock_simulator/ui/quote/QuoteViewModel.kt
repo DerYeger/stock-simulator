@@ -1,17 +1,17 @@
 package de.uniks.codliners.stock_simulator.ui.quote
 
 import android.app.Application
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import android.text.InputType
 import androidx.lifecycle.*
-import de.uniks.codliners.stock_simulator.BuildConfig
+import de.uniks.codliners.stock_simulator.*
 import de.uniks.codliners.stock_simulator.background.StockbrotWorkRequest
 import de.uniks.codliners.stock_simulator.domain.*
-import de.uniks.codliners.stock_simulator.noNulls
 import de.uniks.codliners.stock_simulator.repository.AccountRepository
 import de.uniks.codliners.stock_simulator.repository.QuoteRepository
 import de.uniks.codliners.stock_simulator.repository.StockbrotRepository
-import de.uniks.codliners.stock_simulator.sourcedLiveData
-import de.uniks.codliners.stock_simulator.toSafeDouble
 import kotlinx.coroutines.launch
 import java.util.*
 
@@ -22,6 +22,10 @@ class QuoteViewModel(
 ) : AndroidViewModel(application) {
 
     private lateinit var timer: Timer
+
+    val networkUtils = NetworkUtils(application.applicationContext)
+
+    val isConnected = MutableLiveData<Boolean>(networkUtils.isConnected())
 
     private val quoteRepository = QuoteRepository(application)
     private val accountRepository = AccountRepository(application)
@@ -56,12 +60,13 @@ class QuoteViewModel(
         value = if (isCrypto) "0.0" else "0"
     }
 
-    val canBuy = sourcedLiveData(buyAmount, quote, latestBalance, state) {
+    val canBuy = sourcedLiveData(buyAmount, quote, latestBalance, state, isConnected) {
         canBuy(
             amount = buyAmount.value.toSafeDouble(),
             price = quote.value?.latestPrice,
             balance = latestBalance.value,
-            state = state.value
+            state = state.value,
+            isConnected = isConnected.value
         )
     }
 
@@ -286,11 +291,13 @@ class QuoteViewModel(
         amount: Double?,
         price: Double?,
         balance: Balance?,
-        state: QuoteRepository.State?
-    ) = noNulls(amount, price, depotQuote, state)
+        state: QuoteRepository.State?,
+        isConnected: Boolean?
+    ) = noNulls(amount, price, depotQuote, state, isConnected)
             && state === QuoteRepository.State.Done
             && 0 < amount!!
             && amount * price!! + BuildConfig.TRANSACTION_COSTS <= balance!!.value
+            && isConnected!!
 
     private fun canSell(
         amount: Double?,
