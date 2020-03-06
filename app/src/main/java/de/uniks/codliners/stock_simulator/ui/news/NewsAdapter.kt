@@ -1,5 +1,6 @@
 package de.uniks.codliners.stock_simulator.ui.news
 
+import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
 import android.view.LayoutInflater
@@ -8,7 +9,9 @@ import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
+import de.uniks.codliners.stock_simulator.R
 import de.uniks.codliners.stock_simulator.databinding.CardNewsBinding
 import de.uniks.codliners.stock_simulator.domain.News
 import java.text.SimpleDateFormat
@@ -32,11 +35,19 @@ class NewsAdapter(
             binding.dateString = dateFormatter.format(calendar.time)
             binding.newsOpenArticle.setOnClickListener { view ->
                 kotlin.run {
-                    startActivity(
-                        view.context,
-                        Intent(Intent.ACTION_VIEW, Uri.parse(news.url)),
-                        null
-                    )
+                    try {
+                        startActivity(
+                            view.context,
+                            Intent(Intent.ACTION_VIEW, Uri.parse(news.url)),
+                            null
+                        )
+                    } catch (e: ActivityNotFoundException) {
+                        Snackbar.make(
+                            view,
+                            R.string.invalid_news_url,
+                            Snackbar.LENGTH_SHORT
+                        ).show()
+                    }
                 }
             }
             binding.expanded = false

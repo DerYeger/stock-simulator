@@ -54,11 +54,13 @@
     <string name="double_depot_quote_format">%1$s - %2$f</string>
     <string name="double_sell_amount_format">%f sold</string>
     <string name="empty_hint">It\'s empty in here!</string>
+    <string name="invalid_news_url">News URL is invalid</string>
     <string name="long_buy_amount_format" tools:ignore="PluralsCandidate">%d bought</string>
     <string name="long_depot_quote_amount_format">%d in depot</string>
     <string name="long_depot_quote_format">%1$s - %2$d</string>
     <string name="long_sell_amount_format" tools:ignore="PluralsCandidate">%d sold</string>
     <string name="no_results">No results</string>
+    <string name="not_defined">N/D</string>
     <string name="paywall_indicator">Paywall indicator.</string>
     <string name="performance">Performance: </string>
     <string name="performance_format_loss">%.2f %%</string>
@@ -104,10 +106,10 @@
     <string name="transaction_format_win">+%.2f $</string>
     <string name="transaction_type_image_description">Image of the transaction type</string>
     <string name="trend_image_description">Trend image</string>
-    <string name="yes">Yes</string>
     <string-array name="type_filter_array">
         <item>Any</item>
         <item>Shares</item>
         <item>Crypto</item>
     </string-array>
+    <string name="yes">Yes</string>
 </resources>
