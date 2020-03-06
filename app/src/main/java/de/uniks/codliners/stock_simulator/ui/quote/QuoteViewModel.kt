@@ -23,10 +23,6 @@ class QuoteViewModel(
 
     private lateinit var timer: Timer
 
-    val networkUtils = NetworkUtils(application.applicationContext)
-
-    val isConnected = MutableLiveData<Boolean>(networkUtils.isConnected())
-
     private val quoteRepository = QuoteRepository(application)
     private val accountRepository = AccountRepository(application)
     private val stockbrotRepository = StockbrotRepository(application)
@@ -60,13 +56,12 @@ class QuoteViewModel(
         value = if (isCrypto) "0.0" else "0"
     }
 
-    val canBuy = sourcedLiveData(buyAmount, quote, latestBalance, state, isConnected) {
+    val canBuy = sourcedLiveData(buyAmount, quote, latestBalance, state) {
         canBuy(
             amount = buyAmount.value.toSafeDouble(),
             price = quote.value?.latestPrice,
             balance = latestBalance.value,
-            state = state.value,
-            isConnected = isConnected.value
+            state = state.value
         )
     }
 
@@ -291,13 +286,11 @@ class QuoteViewModel(
         amount: Double?,
         price: Double?,
         balance: Balance?,
-        state: QuoteRepository.State?,
-        isConnected: Boolean?
-    ) = noNulls(amount, price, depotQuote, state, isConnected)
+        state: QuoteRepository.State?
+    ) = noNulls(amount, price, depotQuote, state)
             && state === QuoteRepository.State.Done
             && 0 < amount!!
             && amount * price!! + BuildConfig.TRANSACTION_COSTS <= balance!!.value
-            && isConnected!!
 
     private fun canSell(
         amount: Double?,

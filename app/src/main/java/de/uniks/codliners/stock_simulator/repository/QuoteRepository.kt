@@ -39,7 +39,7 @@ class QuoteRepository(private val database: StockAppDatabase) {
     fun historicalPrices(symbol: String): LiveData<List<HistoricalPrice>> =
         database.historicalDao.getHistoricalPricesById(symbol)
 
-    suspend fun fetchIEXQuote(symbol: String) {
+    suspend fun fetchIEXQuote(symbol: String): Boolean {
         withContext(Dispatchers.IO) {
             try {
                 _state.postValue(State.Refreshing)
@@ -51,13 +51,16 @@ class QuoteRepository(private val database: StockAppDatabase) {
                 database.historicalDao.deleteHistoricalPricesById(symbol)
                 database.historicalDao.insertAll(*historicalPrices.toTypedArray())
                 _state.postValue(State.Done)
+                return@withContext true
             } catch (exception: Exception) {
                 _state.postValue(State.Error(exception.message ?: "Oops!"))
+                return@withContext false
             }
         }
+        return false
     }
 
-    suspend fun fetchCoinGeckoQuote(id: String) {
+    suspend fun fetchCoinGeckoQuote(id: String): Boolean {
         withContext(Dispatchers.IO) {
             try {
                 _state.postValue(State.Refreshing)
@@ -69,10 +72,13 @@ class QuoteRepository(private val database: StockAppDatabase) {
                 database.historicalDao.deleteHistoricalPricesById(id)
                 database.historicalDao.insertAll(*historicalPrices.toTypedArray())
                 _state.postValue(State.Done)
+                return@withContext true
             } catch (exception: Exception) {
                 _state.postValue(State.Error(exception.message ?: "Oops!"))
+                return@withContext false
             }
         }
+        return false
     }
 
     suspend fun resetQuotes() {
