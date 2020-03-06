@@ -14,6 +14,12 @@ import de.uniks.codliners.stock_simulator.ui.BaseFragment
 import de.uniks.codliners.stock_simulator.ui.OnClickListener
 import de.uniks.codliners.stock_simulator.updateLineChart
 
+/**
+ * TODO
+ *
+ * @author TODO
+ * @author Jonas Thelemann
+ */
 class AccountFragment : BaseFragment() {
 
     private val viewModel: AccountViewModel by viewModels {

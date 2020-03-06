@@ -19,6 +19,10 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
+/**
+ * @author TODO
+ * @author Jonas Thelemann
+ */
 class SettingsFragment : Fragment() {
 
     private val viewModel: SettingsViewModel by viewModels {
@@ -159,11 +163,17 @@ class SettingsFragment : Fragment() {
                     && BiometricUtils.isPermissionGranted(this.context)
     }
 
+    /**
+     * Unregisters the preference change listener.
+     */
     override fun onPause() {
         super.onPause()
         preferences.unregisterOnSharedPreferenceChangeListener(listener)
     }
 
+    /**
+     * Registers the preference change listener and triggers the fingerprint button initialization.
+     */
     override fun onResume() {
         super.onResume()
         preferences.registerOnSharedPreferenceChangeListener(listener)

@@ -18,6 +18,12 @@ import de.uniks.codliners.stock_simulator.initLineChart
 import de.uniks.codliners.stock_simulator.ui.BaseFragment
 import de.uniks.codliners.stock_simulator.updateLineChart
 
+/**
+ * TODO
+ *
+ * @author TODO
+ * @author Jonas Thelemann
+ */
 class QuoteFragment : BaseFragment() {
 
     private val viewModel: QuoteViewModel by viewModels {

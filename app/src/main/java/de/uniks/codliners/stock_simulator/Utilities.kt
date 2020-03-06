@@ -6,8 +6,6 @@ import android.content.ContextWrapper
 import android.content.SharedPreferences
 import android.graphics.Color
 import android.graphics.Typeface
-import android.net.ConnectivityManager
-import android.net.NetworkInfo
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import com.github.mikephil.charting.charts.LineChart
@@ -41,8 +39,14 @@ fun <T> sourcedLiveData(vararg sources: LiveData<*>, block: () -> T?): LiveData<
         }
     }
 
-inline fun <T> mediatedLiveData(block: MediatorLiveData<T>.() -> Unit) = MediatorLiveData<T>().apply(block)
+inline fun <T> mediatedLiveData(block: MediatorLiveData<T>.() -> Unit) =
+    MediatorLiveData<T>().apply(block)
 
+/**
+ * Getter for this app's shared preferences.
+ *
+ * @return This app's shared preferences.
+ */
 fun ContextWrapper.sharedPreferences(): SharedPreferences =
     getSharedPreferences(SHARED_PREFERENCES_KEY, MODE_PRIVATE)
 
@@ -53,6 +57,11 @@ fun Context.resetAccount() {
     }
 }
 
+/**
+ * Deletes all transactions from the database.
+ *
+ * @author Jonas Thelemann
+ */
 fun Context.resetHistory() {
     val self = this
     CoroutineScope(Dispatchers.IO).launch {
@@ -60,6 +69,11 @@ fun Context.resetHistory() {
     }
 }
 
+/**
+ * Deletes all quotes from the database.
+ *
+ * @author Jonas Thelemann
+ */
 fun Context.resetQuotes() {
     val self = this
     CoroutineScope(Dispatchers.IO).launch {
@@ -77,6 +91,11 @@ fun Context.resetStockbrot() {
     }
 }
 
+/**
+ * Deletes all news from the database.
+ *
+ * @author Jonas Thelemann
+ */
 fun Context.resetNews() {
     val self = this
     CoroutineScope(Dispatchers.IO).launch {
@@ -91,10 +110,16 @@ fun Context.resetAchievements() {
     }
 }
 
+/**
+ * Resets (/creates) the account if no balance is retrieved from the [AccountRepository].
+ *
+ * @author Jonas Thelemann
+ */
 fun Context.ensureAccountPresence() {
     val self = this
     CoroutineScope(Dispatchers.IO).launch {
         val accountRepository = AccountRepository(self)
+
         if (!accountRepository.hasBalance()) {
             accountRepository.resetAccount()
         }
@@ -117,6 +142,9 @@ fun Double.isWholeNumber() = toLong().toDouble() == this
 
 /**
  * Initializes a line chart and its axis.
+ *
+ * @param chart The chart that is to be set up.
+ * @param context The context from which the typeface assets can be loaded.
  */
 fun initLineChart(chart: LineChart, context: Context) {
     tfLight = Typeface.createFromAsset(context.assets, "OpenSans-Light.ttf")
@@ -148,6 +176,17 @@ fun initLineChart(chart: LineChart, context: Context) {
     chart.invalidate()
 }
 
+/**
+ * Fills a line chart with entries (/data).
+ *
+ * @param chart The chart that is to be filled with data.
+ * @param entryList The entries that are to be shown.
+ * @param label The [LineDataSet](https://javadoc.jitpack.io/com/github/PhilJay/MPAndroidChart/v3.1.0/javadoc/com/github/mikephil/charting/data/LineDataSet.html)'s label.
+ * @param locale The locale to use for [ValueFormatter](https://javadoc.jitpack.io/com/github/PhilJay/MPAndroidChart/v3.1.0/javadoc/com/github/mikephil/charting/formatter/ValueFormatter.html)s.
+ * @param referenceTimestamp The timestamp to subtract as a workaround for the graph library's float usage. Optional.
+ * @param xAxisValueFormatter The x axis value formatter to use. Optional.
+ * @param axisLeftValueFormatter The left axis value formatter to use. Optional.
+ */
 fun updateLineChart(
     chart: LineChart,
     entryList: List<Entry>,
@@ -187,15 +226,29 @@ fun updateLineChart(
     chart.invalidate()
 }
 
+/**
+ * A timestamp value formatter that works around the graph library's float usage issue.
+ *
+ * @property referenceTimestamp The timestamp which has been subtracted.
+ * @param locale The locale to use for the [SimpleDateFormat] date formatter.
+ *
+ * @author Jonas Thelemann
+ */
 class TimestampValueFormatter(private val referenceTimestamp: Long, locale: Locale) :
     ValueFormatter() {
     private val dateFormatter =
         SimpleDateFormat("dd.MM.yy", locale)
 
+    /**
+     * Transforms a float value to a date string.
+     *
+     * @param value The value that is to be formatted.
+     * @return A formatted date.
+     */
     override fun getFormattedValue(value: Float): String {
         // "toInt()" required to workaround inaccurate results due to unchangeable float usage
-        val tmp = value.toInt() + referenceTimestamp
-        return dateFormatter.format(tmp)
+        val recalculatedValue = value.toInt() + referenceTimestamp
+        return dateFormatter.format(recalculatedValue)
     }
 }
 

@@ -14,8 +14,19 @@ import de.uniks.codliners.stock_simulator.network.asHistoricalPrices
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
+/**
+ * TODO
+ *
+ * @property database TODO
+ *
+ * @author TODO
+ * @author Jonas Thelemann
+ */
 class QuoteRepository(private val database: StockAppDatabase) {
 
+    /**
+     * Constructor that allows repository creation from a [Context].
+     */
     constructor(context: Context) : this(getDatabase(context))
 
     sealed class State {
@@ -81,6 +92,11 @@ class QuoteRepository(private val database: StockAppDatabase) {
         return conncetionSucces
     }
 
+    /**
+     * Deletes all quotes from the database.
+     *
+     * @author Jonas Thelemann
+     */
     suspend fun resetQuotes() {
         withContext(Dispatchers.IO) {
             database.quoteDao.apply {

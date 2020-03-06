@@ -6,16 +6,31 @@ import de.uniks.codliners.stock_simulator.repository.SymbolRepository
 import de.uniks.codliners.stock_simulator.sourcedLiveData
 import kotlinx.coroutines.launch
 
+/**
+ * TODO
+ *
+ * @constructor
+ * TODO
+ *
+ * @param application TODO
+ *
+ * @author TODO
+ * @author Jonas Thelemann
+ */
 class SettingsViewModel(application: Application) : ViewModel() {
 
     private val symbolRepository = SymbolRepository(application)
 
-    // Button click indicator for reset button.
     private val _clickResetStatus = MutableLiveData<Boolean>()
+    /**
+     * Button click indicator for reset button.
+     */
     val clickResetStatus: LiveData<Boolean> = _clickResetStatus
 
-    // Button click indicator for fingerprint button.
     private val _toggleFingerprintStatus = MutableLiveData<Boolean>()
+    /**
+     * Button click indicator for fingerprint button.
+     */
     val toggleFingerprintStatus: LiveData<Boolean> = _toggleFingerprintStatus
 
     private val state = symbolRepository.state
@@ -29,6 +44,9 @@ class SettingsViewModel(application: Application) : ViewModel() {
 
     val refreshing = state.map { it === SymbolRepository.State.Refreshing }
 
+    /**
+     * Set the reset game click indicator.
+     */
     fun resetGame() {
         _clickResetStatus.value = true
     }
@@ -37,6 +55,9 @@ class SettingsViewModel(application: Application) : ViewModel() {
         _clickResetStatus.value = false
     }
 
+    /**
+     * Set the fingerprint button click indicator.
+     */
     fun toggleFingerprint() {
         _toggleFingerprintStatus.value = true
     }

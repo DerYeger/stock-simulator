@@ -8,7 +8,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import de.uniks.codliners.stock_simulator.databinding.FragmentNewsBinding
 
-
+/**
+ * The fragment that displays news.
+ *
+ * @author Jonas Thelemann
+ */
 class NewsFragment : Fragment() {
 
     private val viewModel: NewsViewModel by viewModels {
@@ -19,6 +23,14 @@ class NewsFragment : Fragment() {
 
     private lateinit var binding: FragmentNewsBinding
 
+    /**
+     * Sets up the fragment view.
+     *
+     * @param inflater The layout inflater.
+     * @param container The view group.
+     * @param savedInstanceState The saved instance state.
+     * @return The set up fragment view.
+     */
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
