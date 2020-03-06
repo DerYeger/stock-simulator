@@ -83,7 +83,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/default_spacing"
                     android:layout_marginEnd="@dimen/default_spacing"
-                    android:text="@{@string/currency_format(viewModel.quote.change)}"
+                    app:quoteChange="@{viewModel.quote.change}"
                     android:textAlignment="viewEnd"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/quote_price_text"

@@ -326,3 +326,14 @@ fun CardView.bindEnableCardView(enabled: Boolean) {
     }
     setCardBackgroundColor(resources.getColor(color, context.theme))
 }
+
+@BindingAdapter("quoteChange")
+fun TextView.bindQuoteChange(change: Double?) {
+    text = when(change) {
+        null -> resources.getText(R.string.not_defined).toString()
+        else -> String.format(
+            resources.getText(R.string.currency_format).toString(),
+            change
+        )
+    }
+}
