@@ -14,6 +14,7 @@ import java.util.*
  * @property symbol The symbol of the share.
  * @property name The name of the share.
  * @property type The type of the share.
+ *
  * @author Jan Müller
  */
 @JsonClass(generateAdapter = true)
@@ -28,6 +29,7 @@ data class IEXSymbol(
  *
  * @receiver The [IEXSymbol] that will be transformed.
  * @return The equivalent [Symbol].
+ *
  * @author Jan Müller
  */
 fun IEXSymbol.asDomainSymbol() = Symbol(
@@ -42,6 +44,7 @@ fun IEXSymbol.asDomainSymbol() = Symbol(
  *
  * @receiver The [IEXSymbol] [List] that will be transformed.
  * @return The equivalent [Symbol] [Array].
+ *
  * @author Jan Müller
  */
 fun List<IEXSymbol>.asDomainSymbols() = map { it.asDomainSymbol() }.toTypedArray()
@@ -53,6 +56,7 @@ fun List<IEXSymbol>.asDomainSymbols() = map { it.asDomainSymbol() }.toTypedArray
  * @property companyName The name of the company behind the share.
  * @property latestPrice The latest price of the share.
  * @property change The current price change of the share.
+ *
  * @author Jan Müller
  */
 @JsonClass(generateAdapter = true)
@@ -68,6 +72,7 @@ data class IEXQuote(
  *
  * @receiver The [IEXQuote] that will be transformed.
  * @return The equivalent [Quote].
+ *
  * @author Jan Müller
  */
 fun IEXQuote.asDomainQuote() = Quote(
@@ -87,6 +92,7 @@ fun IEXQuote.asDomainQuote() = Quote(
  * @property changeOverTime The change over time of the data point.
  * @property change The price change of the data point.
  * @property changePercent The change percentage of the data point.
+ *
  * @author Juri Lozowoj
  */
 @JsonClass(generateAdapter = true)
@@ -105,6 +111,7 @@ data class IEXHistoricalPrice(
  * @receiver The [CoinGeckoMarketChart] that will be transformed.
  * @param id The id of the related CoinGecko cryptocurrency.
  * @return The equivalent [HistoricalPrice] [List].
+ *
  * @author Juri Lozowoj
  */
 fun IEXHistoricalPrice.asDomainHistoricalPrice(id: String) = HistoricalPrice(
@@ -118,6 +125,7 @@ fun IEXHistoricalPrice.asDomainHistoricalPrice(id: String) = HistoricalPrice(
  *
  * @receiver The [IEXHistoricalPrice] [List] that will be transformed.
  * @return The equivalent [HistoricalPrice] [List].
+ *
  * @author Juri Lozowoj
  */
 fun List<IEXHistoricalPrice>.asDomainHistoricalPrices(id: String) =

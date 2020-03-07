@@ -123,6 +123,7 @@ interface IEXApi {
  *
  * @property COINGECKO_API The [CoinGeckoApi] instance.
  * @property IEX_API The [IEX_API] instance.
+ * 
  * @author Jonas Thelemann
  * @author Jan Müller
  */

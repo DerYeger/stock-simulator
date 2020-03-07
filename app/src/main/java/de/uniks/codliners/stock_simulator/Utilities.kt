@@ -28,6 +28,16 @@ const val SHARED_PREFERENCES_KEY = "de.uniks.codliners.stock_simulator"
 private lateinit var tfLight: Typeface
 private lateinit var tfRegular: Typeface
 
+/**
+ * Creates a [LiveData](https://developer.android.com/reference/android/arch/lifecycle/LiveData) that is updated every time one of the [sources] changes.
+ *
+ * @param T The type of the [LiveData](https://developer.android.com/reference/android/arch/lifecycle/LiveData).
+ * @param sources The sources of the returned [LiveData](https://developer.android.com/reference/android/arch/lifecycle/LiveData).
+ * @param block Called every time a source changes. Its result is only applied if it differs from the current value.
+ * @return The initialized [LiveData](https://developer.android.com/reference/android/arch/lifecycle/LiveData).
+ *
+ * @author Jan Müller
+ */
 fun <T> sourcedLiveData(vararg sources: LiveData<*>, block: () -> T?): LiveData<T> =
     MediatorLiveData<T>().apply {
         sources.forEach { source ->
@@ -39,17 +49,33 @@ fun <T> sourcedLiveData(vararg sources: LiveData<*>, block: () -> T?): LiveData<
         }
     }
 
-inline fun <T> mediatedLiveData(block: MediatorLiveData<T>.() -> Unit) =
+/**
+ * Shortcut function for creating [MediatorLiveData](https://developer.android.com/reference/android/arch/lifecycle/MediatorLiveData).
+ *
+ * @param T The type of the [MediatorLiveData](https://developer.android.com/reference/android/arch/lifecycle/MediatorLiveData).
+ * @param block Applied to the returned [MediatorLiveData](https://developer.android.com/reference/android/arch/lifecycle/MediatorLiveData).
+ * @return The modified [MediatorLiveData](https://developer.android.com/reference/android/arch/lifecycle/MediatorLiveData).
+ *
+ * @author Jan Müller
+ */
+inline fun <T> mediatedLiveData(block: MediatorLiveData<T>.() -> Unit): MediatorLiveData<T> =
     MediatorLiveData<T>().apply(block)
 
 /**
  * Getter for this app's shared preferences.
  *
  * @return This app's shared preferences.
+ *
+ * @author Jan Müller
  */
 fun ContextWrapper.sharedPreferences(): SharedPreferences =
     getSharedPreferences(SHARED_PREFERENCES_KEY, MODE_PRIVATE)
 
+/**
+ * Resets account information.
+ *
+ * @author Jan Müller
+ */
 fun Context.resetAccount() {
     val self = this
     CoroutineScope(Dispatchers.IO).launch {
@@ -126,19 +152,38 @@ fun Context.ensureAccountPresence() {
     }
 }
 
-fun noNulls(vararg args: Any?): Boolean {
-    return listOfNotNull(*args).size == args.size
-}
+/**
+ * Checks if all arguments are non-null.
+ *
+ * @param args The arguments.
+ * @return true if all arguments are non-null or false otherwise.
+ */
+fun noNulls(vararg args: Any?): Boolean = listOfNotNull(*args).size == args.size
 
-fun String?.toSafeDouble(): Double? {
-    return try {
+/**
+ * If possible, extracts a [Double] value from a [String].
+ *
+ * @receiver The source [String].
+ * @return [Double] value of the [String] if it exists or null otherwise.
+ *
+ * @author Jan Müller
+ */
+fun String?.toSafeDouble(): Double? =
+    try {
         this?.toDouble()
     } catch (_: Throwable) {
         null
     }
-}
 
-fun Double.isWholeNumber() = toLong().toDouble() == this
+/**
+ * Checks if a [Double] is a whole number.
+ *
+ * @receiver The [Double] to be checked.
+ * @return true if it is a whole number or false otherwise.
+ *
+ * @author Jan Müller
+ */
+fun Double.isWholeNumber(): Boolean = toLong().toDouble() == this
 
 /**
  * Initializes a line chart and its axis.

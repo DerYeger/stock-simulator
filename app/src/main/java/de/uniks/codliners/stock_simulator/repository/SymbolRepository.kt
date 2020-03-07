@@ -17,6 +17,7 @@ import kotlinx.coroutines.withContext
  * @property database The database used by this repository.
  * @property state The current [State] of the repository.
  * @property symbols Lazily initialized [LiveData](https://developer.android.com/reference/android/arch/lifecycle/LiveData) containing an ordered [List] of all locally stored [Symbol]s.
+ *
  * @author Jan Müller
  */
 class SymbolRepository(private val database: StockAppDatabase) {

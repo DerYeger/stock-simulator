@@ -20,6 +20,7 @@ private const val BALANCE_LIMIT: Int = 50
  *
  * @property database The database used by this repository.
  * @property latestBalance The latest [Balance] of the [StockAppDatabase].
+ *
  * @author Jan Müller
  * @author TODO
  * @author Jonas Thelemann

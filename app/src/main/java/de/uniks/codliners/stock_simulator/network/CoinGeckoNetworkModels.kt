@@ -13,6 +13,7 @@ import java.util.*
  * @property id The CoinGecko ID of the cryptocurrency.
  * @property symbol The symbol of the cryptocurrency.
  * @property name The name of the cryptocurrency.
+ *
  * @author Jan Müller
  */
 @JsonClass(generateAdapter = true)
@@ -27,6 +28,7 @@ data class CoinGeckoSymbol(
  *
  * @receiver The [CoinGeckoSymbol] that will be transformed.
  * @return The equivalent [Symbol].
+ *
  * @author Jan Müller
  */
 fun CoinGeckoSymbol.asDomainSymbol() = Symbol(
@@ -41,6 +43,7 @@ fun CoinGeckoSymbol.asDomainSymbol() = Symbol(
  *
  * @receiver The [CoinGeckoSymbol] [List] that will be transformed.
  * @return The equivalent [Symbol] [Array].
+ *
  * @author Jan Müller
  */
 fun List<CoinGeckoSymbol>.asDomainSymbols() = map { it.asDomainSymbol() }.toTypedArray()
@@ -52,6 +55,7 @@ fun List<CoinGeckoSymbol>.asDomainSymbols() = map { it.asDomainSymbol() }.toType
  * @property symbol The symbol of the cryptocurrency.
  * @property name The name of the cryptocurrency.
  * @property marketData The market data of the cryptocurrency.
+ *
  * @author Jan Müller
  */
 @JsonClass(generateAdapter = true)
@@ -67,6 +71,7 @@ data class CoinGeckoQuote(
  * Market data of a CoinGecko cryptocurrency.
  *
  * @property currentPrices A [Map] containing currency names and their respective value.
+ *
  * @author Jan Müller
  */
 @JsonClass(generateAdapter = true)
@@ -80,6 +85,7 @@ data class CoinGeckoMarketData(
  *
  * @receiver The [CoinGeckoQuote] that will be transformed.
  * @return The equivalent [Quote].
+ *
  * @author Jan Müller
  */
 fun CoinGeckoQuote.asDomainQuote() = Quote(
@@ -95,6 +101,7 @@ fun CoinGeckoQuote.asDomainQuote() = Quote(
  * Timestamp and price data points of a CoinGecko cryptocurrency.
  *
  * @property prices A [List] containing all the data points.
+ *
  * @author Jan Müller
  */
 @JsonClass(generateAdapter = true)
@@ -108,6 +115,7 @@ data class CoinGeckoMarketChart(
  * @receiver The [CoinGeckoMarketChart] that will be transformed.
  * @param id The id of the related CoinGecko cryptocurrency.
  * @return The equivalent [HistoricalPrice] [List].
+ *
  * @author Jan Müller
  */
 fun CoinGeckoMarketChart.asHistoricalPrices(id: String) =
