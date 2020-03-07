@@ -22,6 +22,7 @@ import de.uniks.codliners.stock_simulator.updateLineChart
  * TODO
  *
  * @author TODO
+ * @author Jan Müller
  * @author Jonas Thelemann
  */
 class QuoteFragment : BaseFragment() {
