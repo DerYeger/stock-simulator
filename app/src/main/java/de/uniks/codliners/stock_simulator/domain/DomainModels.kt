@@ -7,6 +7,17 @@ import androidx.room.PrimaryKey
 import com.squareup.moshi.JsonClass
 import kotlinx.android.parcel.Parcelize
 
+/**
+ * Achievement database entity.
+ *
+ * @property name String resource that holds the name of the achievement.
+ * @property description String resource that holds the description of the achievement.
+ * @property reached Boolean that marks if the achievement is reached.
+ * @property timestamp Millisecond epoch of reached time of the achievement.
+ * @property displayed Boolean that marks if the achievement has displayed to the user.
+ *
+ * @author Lucas Held
+ */
 @Entity
 data class Achievement(
     @PrimaryKey
@@ -74,6 +85,8 @@ data class HistoricalPrice(
  * @property image URL to IEX Cloud for associated news image.
  * @property lang Language of the source article.
  * @property hasPaywall Whether the news source has a paywall.
+ *
+ * @author Jonas Thelemann
  */
 @Entity
 @JsonClass(generateAdapter = true)
@@ -102,6 +115,20 @@ data class Quote(
     val change: Double?
 )
 
+/**
+ * StockbrotQuote database entity.
+ *
+ * @property id Primary key, that identifies the stockbrotQuote.
+ * @property symbol Symbol of the stockbrotQuote.
+ * @property type Type [Symbol.Type] of the stockbrotQuote.
+ * @property limitedBuying Boolean that indicates if a buy limit is set to the stockbrotQuote.
+ * @property buyLimit Value of the buy limit.
+ * @property maximumBuyPrice Value of the maximum buy price.
+ * @property minimumSellPrice Value of the minimum sell price.
+ *
+ * @author Lucas Held
+ * @author Jan Müller
+ */
 @Entity
 data class StockbrotQuote(
     @PrimaryKey
