@@ -1,0 +1,33 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>updateLineChart - app</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">app</a>&nbsp;/&nbsp;<a href="index.html">de.uniks.codliners.stock_simulator</a>&nbsp;/&nbsp;<a href="./update-line-chart.html">updateLineChart</a><br/>
+<br/>
+<h1>updateLineChart</h1>
+<a name="de.uniks.codliners.stock_simulator$updateLineChart(com.github.mikephil.charting.charts.LineChart, kotlin.collections.List((com.github.mikephil.charting.data.Entry)), kotlin.String, java.util.Locale, kotlin.Long, com.github.mikephil.charting.formatter.ValueFormatter, com.github.mikephil.charting.formatter.ValueFormatter)"></a>
+<code><span class="keyword">fun </span><span class="identifier">updateLineChart</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator$updateLineChart(com.github.mikephil.charting.charts.LineChart, kotlin.collections.List((com.github.mikephil.charting.data.Entry)), kotlin.String, java.util.Locale, kotlin.Long, com.github.mikephil.charting.formatter.ValueFormatter, com.github.mikephil.charting.formatter.ValueFormatter)/chart">chart</span><span class="symbol">:</span>&nbsp;<span class="identifier">LineChart</span><span class="symbol">, </span><span class="identifier" id="de.uniks.codliners.stock_simulator$updateLineChart(com.github.mikephil.charting.charts.LineChart, kotlin.collections.List((com.github.mikephil.charting.data.Entry)), kotlin.String, java.util.Locale, kotlin.Long, com.github.mikephil.charting.formatter.ValueFormatter, com.github.mikephil.charting.formatter.ValueFormatter)/entryList">entryList</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><span class="identifier">Entry</span><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="de.uniks.codliners.stock_simulator$updateLineChart(com.github.mikephil.charting.charts.LineChart, kotlin.collections.List((com.github.mikephil.charting.data.Entry)), kotlin.String, java.util.Locale, kotlin.Long, com.github.mikephil.charting.formatter.ValueFormatter, com.github.mikephil.charting.formatter.ValueFormatter)/label">label</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="de.uniks.codliners.stock_simulator$updateLineChart(com.github.mikephil.charting.charts.LineChart, kotlin.collections.List((com.github.mikephil.charting.data.Entry)), kotlin.String, java.util.Locale, kotlin.Long, com.github.mikephil.charting.formatter.ValueFormatter, com.github.mikephil.charting.formatter.ValueFormatter)/locale">locale</span><span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/6/docs/api/java/util/Locale.html"><span class="identifier">Locale</span></a><span class="symbol">, </span><span class="identifier" id="de.uniks.codliners.stock_simulator$updateLineChart(com.github.mikephil.charting.charts.LineChart, kotlin.collections.List((com.github.mikephil.charting.data.Entry)), kotlin.String, java.util.Locale, kotlin.Long, com.github.mikephil.charting.formatter.ValueFormatter, com.github.mikephil.charting.formatter.ValueFormatter)/referenceTimestamp">referenceTimestamp</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html"><span class="identifier">Long</span></a>&nbsp;<span class="symbol">=</span>&nbsp;0<span class="symbol">, </span><span class="identifier" id="de.uniks.codliners.stock_simulator$updateLineChart(com.github.mikephil.charting.charts.LineChart, kotlin.collections.List((com.github.mikephil.charting.data.Entry)), kotlin.String, java.util.Locale, kotlin.Long, com.github.mikephil.charting.formatter.ValueFormatter, com.github.mikephil.charting.formatter.ValueFormatter)/xAxisValueFormatter">xAxisValueFormatter</span><span class="symbol">:</span>&nbsp;<span class="identifier">ValueFormatter</span>&nbsp;<span class="symbol">=</span>&nbsp;TimestampValueFormatter(
+        referenceTimestamp,
+        locale
+    )<span class="symbol">, </span><span class="identifier" id="de.uniks.codliners.stock_simulator$updateLineChart(com.github.mikephil.charting.charts.LineChart, kotlin.collections.List((com.github.mikephil.charting.data.Entry)), kotlin.String, java.util.Locale, kotlin.Long, com.github.mikephil.charting.formatter.ValueFormatter, com.github.mikephil.charting.formatter.ValueFormatter)/axisLeftValueFormatter">axisLeftValueFormatter</span><span class="symbol">:</span>&nbsp;<span class="identifier">ValueFormatter</span>&nbsp;<span class="symbol">=</span>&nbsp;CurrencyValueFormatter("$")<span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Fills a line chart with entries (/data).</p>
+<h3>Parameters</h3>
+<p><a name="chart"></a>
+<code>chart</code> - The chart that is to be filled with data.</p>
+<p><a name="entryList"></a>
+<code>entryList</code> - The entries that are to be shown.</p>
+<p><a name="label"></a>
+<code>label</code> - The <a href="https://javadoc.jitpack.io/com/github/PhilJay/MPAndroidChart/v3.1.0/javadoc/com/github/mikephil/charting/data/LineDataSet.html">LineDataSet</a>'s label.</p>
+<p><a name="locale"></a>
+<code>locale</code> - The locale to use for <a href="https://javadoc.jitpack.io/com/github/PhilJay/MPAndroidChart/v3.1.0/javadoc/com/github/mikephil/charting/formatter/ValueFormatter.html">ValueFormatter</a>s.</p>
+<p><a name="referenceTimestamp"></a>
+<code>referenceTimestamp</code> - The timestamp to subtract as a workaround for the graph library's float usage. Optional.</p>
+<p><a name="xAxisValueFormatter"></a>
+<code>xAxisValueFormatter</code> - The x axis value formatter to use. Optional.</p>
+<p><a name="axisLeftValueFormatter"></a>
+<code>axisLeftValueFormatter</code> - The left axis value formatter to use. Optional.</p>
+</BODY>
+</HTML>

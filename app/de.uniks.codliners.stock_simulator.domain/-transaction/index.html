@@ -1,0 +1,107 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Transaction - app</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">app</a>&nbsp;/&nbsp;<a href="../index.html">de.uniks.codliners.stock_simulator.domain</a>&nbsp;/&nbsp;<a href="./index.html">Transaction</a><br/>
+<br/>
+<h1>Transaction</h1>
+<code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">Transaction</span></code>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="-init-.html">&lt;init&gt;</a></h4>
+</td>
+<td>
+<code><span class="identifier">Transaction</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.domain.Transaction$<init>(kotlin.Long, kotlin.String, kotlin.String, de.uniks.codliners.stock_simulator.domain.Symbol.Type, kotlin.Double, kotlin.Double, kotlin.Double, kotlin.Double, de.uniks.codliners.stock_simulator.domain.TransactionType, kotlin.Long, kotlin.Double)/primaryKey">primaryKey</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html"><span class="identifier">Long</span></a>&nbsp;<span class="symbol">=</span>&nbsp;0<span class="symbol">, </span><span class="identifier" id="de.uniks.codliners.stock_simulator.domain.Transaction$<init>(kotlin.Long, kotlin.String, kotlin.String, de.uniks.codliners.stock_simulator.domain.Symbol.Type, kotlin.Double, kotlin.Double, kotlin.Double, kotlin.Double, de.uniks.codliners.stock_simulator.domain.TransactionType, kotlin.Long, kotlin.Double)/id">id</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="de.uniks.codliners.stock_simulator.domain.Transaction$<init>(kotlin.Long, kotlin.String, kotlin.String, de.uniks.codliners.stock_simulator.domain.Symbol.Type, kotlin.Double, kotlin.Double, kotlin.Double, kotlin.Double, de.uniks.codliners.stock_simulator.domain.TransactionType, kotlin.Long, kotlin.Double)/symbol">symbol</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="de.uniks.codliners.stock_simulator.domain.Transaction$<init>(kotlin.Long, kotlin.String, kotlin.String, de.uniks.codliners.stock_simulator.domain.Symbol.Type, kotlin.Double, kotlin.Double, kotlin.Double, kotlin.Double, de.uniks.codliners.stock_simulator.domain.TransactionType, kotlin.Long, kotlin.Double)/type">type</span><span class="symbol">:</span>&nbsp;<span class="identifier">Type</span><span class="symbol">, </span><span class="identifier" id="de.uniks.codliners.stock_simulator.domain.Transaction$<init>(kotlin.Long, kotlin.String, kotlin.String, de.uniks.codliners.stock_simulator.domain.Symbol.Type, kotlin.Double, kotlin.Double, kotlin.Double, kotlin.Double, de.uniks.codliners.stock_simulator.domain.TransactionType, kotlin.Long, kotlin.Double)/amount">amount</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">, </span><span class="identifier" id="de.uniks.codliners.stock_simulator.domain.Transaction$<init>(kotlin.Long, kotlin.String, kotlin.String, de.uniks.codliners.stock_simulator.domain.Symbol.Type, kotlin.Double, kotlin.Double, kotlin.Double, kotlin.Double, de.uniks.codliners.stock_simulator.domain.TransactionType, kotlin.Long, kotlin.Double)/price">price</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">, </span><span class="identifier" id="de.uniks.codliners.stock_simulator.domain.Transaction$<init>(kotlin.Long, kotlin.String, kotlin.String, de.uniks.codliners.stock_simulator.domain.Symbol.Type, kotlin.Double, kotlin.Double, kotlin.Double, kotlin.Double, de.uniks.codliners.stock_simulator.domain.TransactionType, kotlin.Long, kotlin.Double)/transactionCosts">transactionCosts</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">, </span><span class="identifier" id="de.uniks.codliners.stock_simulator.domain.Transaction$<init>(kotlin.Long, kotlin.String, kotlin.String, de.uniks.codliners.stock_simulator.domain.Symbol.Type, kotlin.Double, kotlin.Double, kotlin.Double, kotlin.Double, de.uniks.codliners.stock_simulator.domain.TransactionType, kotlin.Long, kotlin.Double)/cashflow">cashflow</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">, </span><span class="identifier" id="de.uniks.codliners.stock_simulator.domain.Transaction$<init>(kotlin.Long, kotlin.String, kotlin.String, de.uniks.codliners.stock_simulator.domain.Symbol.Type, kotlin.Double, kotlin.Double, kotlin.Double, kotlin.Double, de.uniks.codliners.stock_simulator.domain.TransactionType, kotlin.Long, kotlin.Double)/transactionType">transactionType</span><span class="symbol">:</span>&nbsp;<a href="../-transaction-type/index.html"><span class="identifier">TransactionType</span></a><span class="symbol">, </span><span class="identifier" id="de.uniks.codliners.stock_simulator.domain.Transaction$<init>(kotlin.Long, kotlin.String, kotlin.String, de.uniks.codliners.stock_simulator.domain.Symbol.Type, kotlin.Double, kotlin.Double, kotlin.Double, kotlin.Double, de.uniks.codliners.stock_simulator.domain.TransactionType, kotlin.Long, kotlin.Double)/date">date</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html"><span class="identifier">Long</span></a><span class="symbol">, </span><span class="identifier" id="de.uniks.codliners.stock_simulator.domain.Transaction$<init>(kotlin.Long, kotlin.String, kotlin.String, de.uniks.codliners.stock_simulator.domain.Symbol.Type, kotlin.Double, kotlin.Double, kotlin.Double, kotlin.Double, de.uniks.codliners.stock_simulator.domain.TransactionType, kotlin.Long, kotlin.Double)/result">result</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">?</span><span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="amount.html">amount</a></h4>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">amount</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="cashflow.html">cashflow</a></h4>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">cashflow</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="date.html">date</a></h4>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">date</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html"><span class="identifier">Long</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="id.html">id</a></h4>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">id</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="price.html">price</a></h4>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">price</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="primary-key.html">primaryKey</a></h4>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">primaryKey</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html"><span class="identifier">Long</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="result.html">result</a></h4>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">result</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="symbol.html">symbol</a></h4>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">symbol</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="transaction-costs.html">transactionCosts</a></h4>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">transactionCosts</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="transaction-type.html">transactionType</a></h4>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">transactionType</span><span class="symbol">: </span><a href="../-transaction-type/index.html"><span class="identifier">TransactionType</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="type.html">type</a></h4>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">type</span><span class="symbol">: </span><span class="identifier">Type</span></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

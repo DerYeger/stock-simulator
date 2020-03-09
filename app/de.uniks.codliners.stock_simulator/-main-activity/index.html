@@ -1,0 +1,137 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>MainActivity - app</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">app</a>&nbsp;/&nbsp;<a href="../index.html">de.uniks.codliners.stock_simulator</a>&nbsp;/&nbsp;<a href="./index.html">MainActivity</a><br/>
+<br/>
+<h1>MainActivity</h1>
+<code><span class="keyword">class </span><span class="identifier">MainActivity</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">AppCompatActivity</span><span class="symbol">, </span><span class="identifier">BiometricCallback</span></code>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="-init-.html">&lt;init&gt;</a></h4>
+</td>
+<td>
+<code><span class="identifier">MainActivity</span><span class="symbol">(</span><span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="biometric-manager.html">biometricManager</a></h4>
+</td>
+<td>
+<p>Allows fingerprint authentication.</p>
+<code><span class="keyword">lateinit</span> <span class="keyword">var </span><span class="identifier">biometricManager</span><span class="symbol">: </span><span class="identifier">BiometricManager</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="on-authentication-cancelled.html">onAuthenticationCancelled</a></h4>
+</td>
+<td>
+<p>Biometric authentication callback for canceled authentication.</p>
+<code><span class="keyword">fun </span><span class="identifier">onAuthenticationCancelled</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="on-authentication-error.html">onAuthenticationError</a></h4>
+</td>
+<td>
+<p>Biometric authentication callback for authentication errors.</p>
+<code><span class="keyword">fun </span><span class="identifier">onAuthenticationError</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.MainActivity$onAuthenticationError(kotlin.Int, kotlin.CharSequence)/errorCode">errorCode</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="de.uniks.codliners.stock_simulator.MainActivity$onAuthenticationError(kotlin.Int, kotlin.CharSequence)/errString">errString</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html"><span class="identifier">CharSequence</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="on-authentication-failed.html">onAuthenticationFailed</a></h4>
+</td>
+<td>
+<p>Biometric authentication callback for authentication failures.</p>
+<code><span class="keyword">fun </span><span class="identifier">onAuthenticationFailed</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="on-authentication-help.html">onAuthenticationHelp</a></h4>
+</td>
+<td>
+<p>Biometric authentication callback for authentication help.</p>
+<code><span class="keyword">fun </span><span class="identifier">onAuthenticationHelp</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.MainActivity$onAuthenticationHelp(kotlin.Int, kotlin.CharSequence)/helpCode">helpCode</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="de.uniks.codliners.stock_simulator.MainActivity$onAuthenticationHelp(kotlin.Int, kotlin.CharSequence)/helpString">helpString</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html"><span class="identifier">CharSequence</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="on-authentication-successful.html">onAuthenticationSuccessful</a></h4>
+</td>
+<td>
+<p>Biometric authentication callback for authentication success.</p>
+<code><span class="keyword">fun </span><span class="identifier">onAuthenticationSuccessful</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="on-biometric-authentication-internal-error.html">onBiometricAuthenticationInternalError</a></h4>
+</td>
+<td>
+<p>Biometric authentication callback for internal biometric authentication errors.</p>
+<code><span class="keyword">fun </span><span class="identifier">onBiometricAuthenticationInternalError</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.MainActivity$onBiometricAuthenticationInternalError(kotlin.String)/error">error</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="on-biometric-authentication-not-available.html">onBiometricAuthenticationNotAvailable</a></h4>
+</td>
+<td>
+<p>Biometric authentication callback for unavailable biometric authentication.</p>
+<code><span class="keyword">fun </span><span class="identifier">onBiometricAuthenticationNotAvailable</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="on-biometric-authentication-not-supported.html">onBiometricAuthenticationNotSupported</a></h4>
+</td>
+<td>
+<p>Biometric authentication callback for unsupported biometric authentication.</p>
+<code><span class="keyword">fun </span><span class="identifier">onBiometricAuthenticationNotSupported</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="on-biometric-authentication-permission-not-granted.html">onBiometricAuthenticationPermissionNotGranted</a></h4>
+</td>
+<td>
+<p>Biometric authentication callback for missing permissions.</p>
+<code><span class="keyword">fun </span><span class="identifier">onBiometricAuthenticationPermissionNotGranted</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="on-create.html">onCreate</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">onCreate</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.MainActivity$onCreate(android.os.Bundle)/savedInstanceState">savedInstanceState</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/os/Bundle.html"><span class="identifier">Bundle</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="on-sdk-version-not-supported.html">onSdkVersionNotSupported</a></h4>
+</td>
+<td>
+<p>Biometric authentication callback for unsupported SDK versions.</p>
+<code><span class="keyword">fun </span><span class="identifier">onSdkVersionNotSupported</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="on-support-navigate-up.html">onSupportNavigateUp</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">onSupportNavigateUp</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

@@ -1,0 +1,74 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>NewsViewModel - app</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">app</a>&nbsp;/&nbsp;<a href="../index.html">de.uniks.codliners.stock_simulator.ui.news</a>&nbsp;/&nbsp;<a href="./index.html">NewsViewModel</a><br/>
+<br/>
+<h1>NewsViewModel</h1>
+<code><span class="keyword">class </span><span class="identifier">NewsViewModel</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">ViewModel</span></code>
+<p>The <a href="../-news-fragment/index.html">NewsFragment</a>'s viewmodel.</p>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="-factory/index.html">Factory</a></h4>
+</td>
+<td>
+<p>The <a href="./index.html">NewsViewModel</a>'s factory class.</p>
+<code><span class="keyword">class </span><span class="identifier">Factory</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Factory</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="-init-.html">&lt;init&gt;</a></h4>
+</td>
+<td>
+<p>The <a href="../-news-fragment/index.html">NewsFragment</a>'s viewmodel.</p>
+<code><span class="identifier">NewsViewModel</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.ui.news.NewsViewModel$<init>(android.app.Application, kotlin.String)/application">application</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/app/Application.html"><span class="identifier">Application</span></a><span class="symbol">, </span><span class="identifier" id="de.uniks.codliners.stock_simulator.ui.news.NewsViewModel$<init>(android.app.Application, kotlin.String)/symbol">symbol</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="news.html">news</a></h4>
+</td>
+<td>
+<p>The news to show.</p>
+<code><span class="keyword">val </span><span class="identifier">news</span><span class="symbol">: </span><span class="identifier">LiveData</span><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../de.uniks.codliners.stock_simulator.domain/-news/index.html"><span class="identifier">News</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="refreshing.html">refreshing</a></h4>
+</td>
+<td>
+<p>Indicates whether news are being fetched.</p>
+<code><span class="keyword">val </span><span class="identifier">refreshing</span><span class="symbol">: </span><span class="identifier">LiveData</span><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="refresh.html">refresh</a></h4>
+</td>
+<td>
+<p>Fetch news.</p>
+<code><span class="keyword">fun </span><span class="identifier">refresh</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

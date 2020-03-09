@@ -1,0 +1,83 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>StockbrotRepository - app</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">app</a>&nbsp;/&nbsp;<a href="../index.html">de.uniks.codliners.stock_simulator.repository</a>&nbsp;/&nbsp;<a href="./index.html">StockbrotRepository</a><br/>
+<br/>
+<h1>StockbrotRepository</h1>
+<code><span class="keyword">class </span><span class="identifier">StockbrotRepository</span></code>
+<p>Repository for accessing, inserting and filtering <a href="../../de.uniks.codliners.stock_simulator.domain/-stockbrot-quote/index.html">StockbrotQuote</a>s.</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="-init-.html">&lt;init&gt;</a></h4>
+</td>
+<td>
+<code><span class="identifier">StockbrotRepository</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.repository.StockbrotRepository$<init>(android.content.Context)/context">context</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/content/Context.html"><span class="identifier">Context</span></a><span class="symbol">)</span></code>
+<p>Repository for accessing, inserting and filtering <a href="../../de.uniks.codliners.stock_simulator.domain/-stockbrot-quote/index.html">StockbrotQuote</a>s.</p>
+<code><span class="identifier">StockbrotRepository</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.repository.StockbrotRepository$<init>(de.uniks.codliners.stock_simulator.database.StockAppDatabase)/database">database</span><span class="symbol">:</span>&nbsp;<a href="../../de.uniks.codliners.stock_simulator.database/-stock-app-database/index.html"><span class="identifier">StockAppDatabase</span></a><span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="quotes.html">quotes</a></h4>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">quotes</span><span class="symbol">: </span><span class="identifier">LiveData</span><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../de.uniks.codliners.stock_simulator.domain/-stockbrot-quote/index.html"><span class="identifier">StockbrotQuote</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="add-stockbrot-quote.html">addStockbrotQuote</a></h4>
+</td>
+<td>
+<p>Adds a <a href="../../de.uniks.codliners.stock_simulator.domain/-stockbrot-quote/index.html">StockbrotQuote</a> into the database.</p>
+<code><span class="keyword">suspend</span> <span class="keyword">fun </span><span class="identifier">addStockbrotQuote</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.repository.StockbrotRepository$addStockbrotQuote(de.uniks.codliners.stock_simulator.domain.StockbrotQuote)/stockbrotQuote">stockbrotQuote</span><span class="symbol">:</span>&nbsp;<a href="../../de.uniks.codliners.stock_simulator.domain/-stockbrot-quote/index.html"><span class="identifier">StockbrotQuote</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="remove-stockbrot-quote.html">removeStockbrotQuote</a></h4>
+</td>
+<td>
+<p>Removes a specific <a href="../../de.uniks.codliners.stock_simulator.domain/-stockbrot-quote/index.html">StockbrotQuote</a> from the database.</p>
+<code><span class="keyword">suspend</span> <span class="keyword">fun </span><span class="identifier">removeStockbrotQuote</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.repository.StockbrotRepository$removeStockbrotQuote(de.uniks.codliners.stock_simulator.domain.StockbrotQuote)/stockbrotQuote">stockbrotQuote</span><span class="symbol">:</span>&nbsp;<a href="../../de.uniks.codliners.stock_simulator.domain/-stockbrot-quote/index.html"><span class="identifier">StockbrotQuote</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="reset-stockbrot.html">resetStockbrot</a></h4>
+</td>
+<td>
+<p>Removes all <a href="../../de.uniks.codliners.stock_simulator.domain/-stockbrot-quote/index.html">StockbrotQuote</a>s from the database.</p>
+<code><span class="keyword">suspend</span> <span class="keyword">fun </span><span class="identifier">resetStockbrot</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="stockbrot-quote-by-id.html">stockbrotQuoteById</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">stockbrotQuoteById</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.repository.StockbrotRepository$stockbrotQuoteById(kotlin.String)/id">id</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../de.uniks.codliners.stock_simulator.domain/-stockbrot-quote/index.html"><span class="identifier">StockbrotQuote</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="stockbrot-quote-with-id.html">stockbrotQuoteWithId</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">stockbrotQuoteWithId</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.repository.StockbrotRepository$stockbrotQuoteWithId(kotlin.String)/id">id</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">LiveData</span><span class="symbol">&lt;</span><a href="../../de.uniks.codliners.stock_simulator.domain/-stockbrot-quote/index.html"><span class="identifier">StockbrotQuote</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

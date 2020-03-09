@@ -1,0 +1,140 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>de.uniks.codliners.stock_simulator - app</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">app</a>&nbsp;/&nbsp;<a href="./index.html">de.uniks.codliners.stock_simulator</a><br/>
+<br/>
+<h2>Package de.uniks.codliners.stock_simulator</h2>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="-currency-value-formatter/index.html">CurrencyValueFormatter</a></h4>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">CurrencyValueFormatter</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">ValueFormatter</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-main-activity/index.html">MainActivity</a></h4>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">MainActivity</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">AppCompatActivity</span><span class="symbol">, </span><span class="identifier">BiometricCallback</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-stock-simulator-application/index.html">StockSimulatorApplication</a></h4>
+</td>
+<td>
+<p>This app's application. Enables dark mode and logging and handles data initialization.</p>
+<code><span class="keyword">class </span><span class="identifier">StockSimulatorApplication</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/app/Application.html"><span class="identifier">Application</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-timestamp-value-formatter/index.html">TimestampValueFormatter</a></h4>
+</td>
+<td>
+<p>A timestamp value formatter that works around the graph library's float usage issue.</p>
+<code><span class="keyword">class </span><span class="identifier">TimestampValueFormatter</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">ValueFormatter</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Extensions for External Classes</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="android.content.-context/index.html">android.content.Context</a></h4>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<h4><a href="android.content.-context-wrapper/index.html">android.content.ContextWrapper</a></h4>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<h4><a href="kotlin.-double/index.html">kotlin.Double</a></h4>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<h4><a href="kotlin.-string/index.html">kotlin.String</a></h4>
+</td>
+<td>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="-s-h-a-r-e-d_-p-r-e-f-e-r-e-n-c-e-s_-k-e-y.html">SHARED_PREFERENCES_KEY</a></h4>
+</td>
+<td>
+<code><span class="keyword">const</span> <span class="keyword">val </span><span class="identifier">SHARED_PREFERENCES_KEY</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="init-line-chart.html">initLineChart</a></h4>
+</td>
+<td>
+<p>Initializes a line chart and its axis.</p>
+<code><span class="keyword">fun </span><span class="identifier">initLineChart</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator$initLineChart(com.github.mikephil.charting.charts.LineChart, android.content.Context)/chart">chart</span><span class="symbol">:</span>&nbsp;<span class="identifier">LineChart</span><span class="symbol">, </span><span class="identifier" id="de.uniks.codliners.stock_simulator$initLineChart(com.github.mikephil.charting.charts.LineChart, android.content.Context)/context">context</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/content/Context.html"><span class="identifier">Context</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="mediated-live-data.html">mediatedLiveData</a></h4>
+</td>
+<td>
+<p>Shortcut function for creating <a href="https://developer.android.com/reference/android/arch/lifecycle/MediatorLiveData">MediatorLiveData</a>.</p>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <span class="identifier">mediatedLiveData</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator$mediatedLiveData(kotlin.Function1((androidx.lifecycle.MediatorLiveData((de.uniks.codliners.stock_simulator.mediatedLiveData.T)), kotlin.Unit)))/block">block</span><span class="symbol">:</span>&nbsp;<span class="identifier">MediatorLiveData</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">MediatorLiveData</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="no-nulls.html">noNulls</a></h4>
+</td>
+<td>
+<p>Checks if all arguments are non-null.</p>
+<code><span class="keyword">fun </span><span class="identifier">noNulls</span><span class="symbol">(</span><span class="keyword">vararg</span> <span class="identifier" id="de.uniks.codliners.stock_simulator$noNulls(kotlin.Array((kotlin.Any)))/args">args</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="sourced-live-data.html">sourcedLiveData</a></h4>
+</td>
+<td>
+<p>Creates a <a href="https://developer.android.com/reference/android/arch/lifecycle/LiveData">LiveData</a> that is updated every time one of the <a href="sourced-live-data.html#de.uniks.codliners.stock_simulator$sourcedLiveData(kotlin.Array((androidx.lifecycle.LiveData((kotlin.Any)))), kotlin.Function0((de.uniks.codliners.stock_simulator.sourcedLiveData.T)))/sources">sources</a> changes.</p>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <span class="identifier">sourcedLiveData</span><span class="symbol">(</span><span class="keyword">vararg</span> <span class="identifier" id="de.uniks.codliners.stock_simulator$sourcedLiveData(kotlin.Array((androidx.lifecycle.LiveData((kotlin.Any)))), kotlin.Function0((de.uniks.codliners.stock_simulator.sourcedLiveData.T)))/sources">sources</span><span class="symbol">:</span>&nbsp;<span class="identifier">LiveData</span><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="de.uniks.codliners.stock_simulator$sourcedLiveData(kotlin.Array((androidx.lifecycle.LiveData((kotlin.Any)))), kotlin.Function0((de.uniks.codliners.stock_simulator.sourcedLiveData.T)))/block">block</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">T</span><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">LiveData</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="update-line-chart.html">updateLineChart</a></h4>
+</td>
+<td>
+<p>Fills a line chart with entries (/data).</p>
+<code><span class="keyword">fun </span><span class="identifier">updateLineChart</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator$updateLineChart(com.github.mikephil.charting.charts.LineChart, kotlin.collections.List((com.github.mikephil.charting.data.Entry)), kotlin.String, java.util.Locale, kotlin.Long, com.github.mikephil.charting.formatter.ValueFormatter, com.github.mikephil.charting.formatter.ValueFormatter)/chart">chart</span><span class="symbol">:</span>&nbsp;<span class="identifier">LineChart</span><span class="symbol">, </span><span class="identifier" id="de.uniks.codliners.stock_simulator$updateLineChart(com.github.mikephil.charting.charts.LineChart, kotlin.collections.List((com.github.mikephil.charting.data.Entry)), kotlin.String, java.util.Locale, kotlin.Long, com.github.mikephil.charting.formatter.ValueFormatter, com.github.mikephil.charting.formatter.ValueFormatter)/entryList">entryList</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><span class="identifier">Entry</span><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="de.uniks.codliners.stock_simulator$updateLineChart(com.github.mikephil.charting.charts.LineChart, kotlin.collections.List((com.github.mikephil.charting.data.Entry)), kotlin.String, java.util.Locale, kotlin.Long, com.github.mikephil.charting.formatter.ValueFormatter, com.github.mikephil.charting.formatter.ValueFormatter)/label">label</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="de.uniks.codliners.stock_simulator$updateLineChart(com.github.mikephil.charting.charts.LineChart, kotlin.collections.List((com.github.mikephil.charting.data.Entry)), kotlin.String, java.util.Locale, kotlin.Long, com.github.mikephil.charting.formatter.ValueFormatter, com.github.mikephil.charting.formatter.ValueFormatter)/locale">locale</span><span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/6/docs/api/java/util/Locale.html"><span class="identifier">Locale</span></a><span class="symbol">, </span><span class="identifier" id="de.uniks.codliners.stock_simulator$updateLineChart(com.github.mikephil.charting.charts.LineChart, kotlin.collections.List((com.github.mikephil.charting.data.Entry)), kotlin.String, java.util.Locale, kotlin.Long, com.github.mikephil.charting.formatter.ValueFormatter, com.github.mikephil.charting.formatter.ValueFormatter)/referenceTimestamp">referenceTimestamp</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html"><span class="identifier">Long</span></a>&nbsp;<span class="symbol">=</span>&nbsp;0<span class="symbol">, </span><span class="identifier" id="de.uniks.codliners.stock_simulator$updateLineChart(com.github.mikephil.charting.charts.LineChart, kotlin.collections.List((com.github.mikephil.charting.data.Entry)), kotlin.String, java.util.Locale, kotlin.Long, com.github.mikephil.charting.formatter.ValueFormatter, com.github.mikephil.charting.formatter.ValueFormatter)/xAxisValueFormatter">xAxisValueFormatter</span><span class="symbol">:</span>&nbsp;<span class="identifier">ValueFormatter</span>&nbsp;<span class="symbol">=</span>&nbsp;TimestampValueFormatter(
+        referenceTimestamp,
+        locale
+    )<span class="symbol">, </span><span class="identifier" id="de.uniks.codliners.stock_simulator$updateLineChart(com.github.mikephil.charting.charts.LineChart, kotlin.collections.List((com.github.mikephil.charting.data.Entry)), kotlin.String, java.util.Locale, kotlin.Long, com.github.mikephil.charting.formatter.ValueFormatter, com.github.mikephil.charting.formatter.ValueFormatter)/axisLeftValueFormatter">axisLeftValueFormatter</span><span class="symbol">:</span>&nbsp;<span class="identifier">ValueFormatter</span>&nbsp;<span class="symbol">=</span>&nbsp;CurrencyValueFormatter("$")<span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

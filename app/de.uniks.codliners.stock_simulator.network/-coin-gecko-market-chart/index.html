@@ -1,0 +1,53 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>CoinGeckoMarketChart - app</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">app</a>&nbsp;/&nbsp;<a href="../index.html">de.uniks.codliners.stock_simulator.network</a>&nbsp;/&nbsp;<a href="./index.html">CoinGeckoMarketChart</a><br/>
+<br/>
+<h1>CoinGeckoMarketChart</h1>
+<code><span class="identifier">@JsonClass</span><span class="symbol">(</span>true<span class="symbol">)</span> <span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">CoinGeckoMarketChart</span></code>
+<p>Timestamp and price data points of a CoinGecko cryptocurrency.</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="-init-.html">&lt;init&gt;</a></h4>
+</td>
+<td>
+<p>Timestamp and price data points of a CoinGecko cryptocurrency.</p>
+<code><span class="identifier">CoinGeckoMarketChart</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.network.CoinGeckoMarketChart$<init>(kotlin.collections.List((kotlin.collections.List((kotlin.Any)))))/prices">prices</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span><span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="prices.html">prices</a></h4>
+</td>
+<td>
+<p>A <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a> containing all the data points.</p>
+<code><span class="keyword">val </span><span class="identifier">prices</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Extension Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="../as-historical-prices.html">asHistoricalPrices</a></h4>
+</td>
+<td>
+<p>Transforms a <a href="./index.html">CoinGeckoMarketChart</a> to an equivalent <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a> of <a href="../../de.uniks.codliners.stock_simulator.domain/-historical-price/index.html">HistoricalPrice</a>s.</p>
+<code><span class="keyword">fun </span><a href="./index.html"><span class="identifier">CoinGeckoMarketChart</span></a><span class="symbol">.</span><span class="identifier">asHistoricalPrices</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.network$asHistoricalPrices(de.uniks.codliners.stock_simulator.network.CoinGeckoMarketChart, kotlin.String)/id">id</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../de.uniks.codliners.stock_simulator.domain/-historical-price/index.html"><span class="identifier">HistoricalPrice</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

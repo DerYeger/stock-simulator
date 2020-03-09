@@ -1,0 +1,362 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>QuoteViewModel - app</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">app</a>&nbsp;/&nbsp;<a href="../index.html">de.uniks.codliners.stock_simulator.ui.quote</a>&nbsp;/&nbsp;<a href="./index.html">QuoteViewModel</a><br/>
+<br/>
+<h1>QuoteViewModel</h1>
+<code><span class="keyword">class </span><span class="identifier">QuoteViewModel</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">AndroidViewModel</span></code>
+<p><a href="https://developer.android.com/topic/libraries/architecture/viewmodel">ViewModel</a> for displaying various <a href="../../de.uniks.codliners.stock_simulator.domain/-quote/index.html">Quote</a> information.</p>
+<h3>Parameters</h3>
+<p><a name="application"></a>
+<code>application</code> - TODO</p>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="-factory/index.html">Factory</a></h4>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">Factory</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Factory</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="-init-.html">&lt;init&gt;</a></h4>
+</td>
+<td>
+<p><a href="https://developer.android.com/topic/libraries/architecture/viewmodel">ViewModel</a> for displaying various <a href="../../de.uniks.codliners.stock_simulator.domain/-quote/index.html">Quote</a> information.</p>
+<code><span class="identifier">QuoteViewModel</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.ui.quote.QuoteViewModel$<init>(android.app.Application, kotlin.String, de.uniks.codliners.stock_simulator.domain.Symbol.Type)/application">application</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/app/Application.html"><span class="identifier">Application</span></a><span class="symbol">, </span><span class="identifier" id="de.uniks.codliners.stock_simulator.ui.quote.QuoteViewModel$<init>(android.app.Application, kotlin.String, de.uniks.codliners.stock_simulator.domain.Symbol.Type)/id">id</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="de.uniks.codliners.stock_simulator.ui.quote.QuoteViewModel$<init>(android.app.Application, kotlin.String, de.uniks.codliners.stock_simulator.domain.Symbol.Type)/type">type</span><span class="symbol">:</span>&nbsp;<span class="identifier">Type</span><span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="amount.html">amount</a></h4>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">amount</span><span class="symbol">: </span><span class="identifier">LiveData</span><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="auto-buy-amount.html">autoBuyAmount</a></h4>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">autoBuyAmount</span><span class="symbol">: </span><span class="identifier">MutableLiveData</span><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="buy-action.html">buyAction</a></h4>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">buyAction</span><span class="symbol">: </span><span class="identifier">LiveData</span><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="buy-amount.html">buyAmount</a></h4>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">buyAmount</span><span class="symbol">: </span><span class="identifier">MutableLiveData</span><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="can-add-remove-quote-to-stockbrot.html">canAddRemoveQuoteToStockbrot</a></h4>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">canAddRemoveQuoteToStockbrot</span><span class="symbol">: </span><span class="identifier">LiveData</span><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="can-buy.html">canBuy</a></h4>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">canBuy</span><span class="symbol">: </span><span class="identifier">LiveData</span><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="can-sell.html">canSell</a></h4>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">canSell</span><span class="symbol">: </span><span class="identifier">LiveData</span><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="can-sell-all.html">canSellAll</a></h4>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">canSellAll</span><span class="symbol">: </span><span class="identifier">LiveData</span><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="cashflow.html">cashflow</a></h4>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">cashflow</span><span class="symbol">: </span><span class="identifier">LiveData</span><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="click-news-status.html">clickNewsStatus</a></h4>
+</td>
+<td>
+<p>Button click indicator for reset button.</p>
+<code><span class="keyword">val </span><span class="identifier">clickNewsStatus</span><span class="symbol">: </span><span class="identifier">MutableLiveData</span><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">?</span><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="depot-quote.html">depotQuote</a></h4>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">depotQuote</span><span class="symbol">: </span><span class="identifier">LiveData</span><span class="symbol">&lt;</span><a href="../../de.uniks.codliners.stock_simulator.domain/-depot-quote/index.html"><span class="identifier">DepotQuote</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="error-action.html">errorAction</a></h4>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">errorAction</span><span class="symbol">: </span><span class="identifier">LiveData</span><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="has-change.html">hasChange</a></h4>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">hasChange</span><span class="symbol">: </span><span class="identifier">LiveData</span><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="historical-prices.html">historicalPrices</a></h4>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">historicalPrices</span><span class="symbol">: </span><span class="identifier">LiveData</span><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../de.uniks.codliners.stock_simulator.domain/-historical-price/index.html"><span class="identifier">HistoricalPrice</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="input-type.html">inputType</a></h4>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">inputType</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="is-crypto.html">isCrypto</a></h4>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">isCrypto</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="quote.html">quote</a></h4>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">quote</span><span class="symbol">: </span><span class="identifier">LiveData</span><span class="symbol">&lt;</span><a href="../../de.uniks.codliners.stock_simulator.domain/-quote/index.html"><span class="identifier">Quote</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="refreshing.html">refreshing</a></h4>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">refreshing</span><span class="symbol">: </span><span class="identifier">LiveData</span><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="sell-action.html">sellAction</a></h4>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">sellAction</span><span class="symbol">: </span><span class="identifier">LiveData</span><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="sell-all-action.html">sellAllAction</a></h4>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">sellAllAction</span><span class="symbol">: </span><span class="identifier">LiveData</span><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="sell-amount.html">sellAmount</a></h4>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">sellAmount</span><span class="symbol">: </span><span class="identifier">MutableLiveData</span><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="stockbrot-quote.html">stockbrotQuote</a></h4>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">stockbrotQuote</span><span class="symbol">: </span><span class="identifier">LiveData</span><span class="symbol">&lt;</span><a href="../../de.uniks.codliners.stock_simulator.domain/-stockbrot-quote/index.html"><span class="identifier">StockbrotQuote</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="stockbrot-quote-action.html">stockbrotQuoteAction</a></h4>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">stockbrotQuoteAction</span><span class="symbol">: </span><span class="identifier">LiveData</span><span class="symbol">&lt;</span><a href="../../de.uniks.codliners.stock_simulator.domain/-stockbrot-quote/index.html"><span class="identifier">StockbrotQuote</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="threshold-buy.html">thresholdBuy</a></h4>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">thresholdBuy</span><span class="symbol">: </span><span class="identifier">MutableLiveData</span><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">!</span><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="threshold-sell.html">thresholdSell</a></h4>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">thresholdSell</span><span class="symbol">: </span><span class="identifier">MutableLiveData</span><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">!</span><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="transaction-costs.html">transactionCosts</a></h4>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">transactionCosts</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="add-remove-quote-to-stockbrot.html">addRemoveQuoteToStockbrot</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">addRemoveQuoteToStockbrot</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="buy.html">buy</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">buy</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="confirm-buy.html">confirmBuy</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">confirmBuy</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="confirm-sell.html">confirmSell</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">confirmSell</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="confirm-sell-all.html">confirmSellAll</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">confirmSellAll</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="on-buy-action-completed.html">onBuyActionCompleted</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">onBuyActionCompleted</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="on-buy-action-started.html">onBuyActionStarted</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">onBuyActionStarted</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="on-cleared.html">onCleared</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">onCleared</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="on-error-action-completed.html">onErrorActionCompleted</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">onErrorActionCompleted</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="on-sell-action-completed.html">onSellActionCompleted</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">onSellActionCompleted</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="on-sell-action-started.html">onSellActionStarted</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">onSellActionStarted</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="on-sell-all-action-completed.html">onSellAllActionCompleted</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">onSellAllActionCompleted</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="on-sell-all-action-started.html">onSellAllActionStarted</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">onSellAllActionStarted</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="on-threshold-buy-action-completed.html">onThresholdBuyActionCompleted</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">onThresholdBuyActionCompleted</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="refresh.html">refresh</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">refresh</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="sell.html">sell</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">sell</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="sell-all.html">sellAll</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">sellAll</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="show-news.html">showNews</a></h4>
+</td>
+<td>
+<p>Sets the flag that indicates that news are to be shown.</p>
+<code><span class="keyword">fun </span><span class="identifier">showNews</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

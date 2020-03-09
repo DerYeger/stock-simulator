@@ -1,0 +1,53 @@
+$dokka.format:html
+$dokka.linkExtension:html
+$dokka.location:de.uniks.codliners.stock_simulator$ensureAccountPresence(android.content.Context)de.uniks.codliners.stock_simulator/android.content.-context/ensure-account-presence.html
+$dokka.location:de.uniks.codliners.stock_simulator$isWholeNumber(kotlin.Double)de.uniks.codliners.stock_simulator/kotlin.-double/is-whole-number.html
+$dokka.location:de.uniks.codliners.stock_simulator$resetAccount(android.content.Context)de.uniks.codliners.stock_simulator/android.content.-context/reset-account.html
+$dokka.location:de.uniks.codliners.stock_simulator$resetAchievements(android.content.Context)de.uniks.codliners.stock_simulator/android.content.-context/reset-achievements.html
+$dokka.location:de.uniks.codliners.stock_simulator$resetHistory(android.content.Context)de.uniks.codliners.stock_simulator/android.content.-context/reset-history.html
+$dokka.location:de.uniks.codliners.stock_simulator$resetNews(android.content.Context)de.uniks.codliners.stock_simulator/android.content.-context/reset-news.html
+$dokka.location:de.uniks.codliners.stock_simulator$resetQuotes(android.content.Context)de.uniks.codliners.stock_simulator/android.content.-context/reset-quotes.html
+$dokka.location:de.uniks.codliners.stock_simulator$resetStockbrot(android.content.Context)de.uniks.codliners.stock_simulator/android.content.-context/reset-stockbrot.html
+$dokka.location:de.uniks.codliners.stock_simulator$sharedPreferences(android.content.ContextWrapper)de.uniks.codliners.stock_simulator/android.content.-context-wrapper/shared-preferences.html
+$dokka.location:de.uniks.codliners.stock_simulator$toSafeDouble(kotlin.String)de.uniks.codliners.stock_simulator/kotlin.-string/to-safe-double.html
+$dokka.location:de.uniks.codliners.stock_simulator.network$asDomainHistoricalPrices(kotlin.collections.List((de.uniks.codliners.stock_simulator.network.IEXHistoricalPrice)), kotlin.String)de.uniks.codliners.stock_simulator.network/kotlin.collections.-list/as-domain-historical-prices.html
+$dokka.location:de.uniks.codliners.stock_simulator.network$asDomainSymbols(kotlin.collections.List((de.uniks.codliners.stock_simulator.network.CoinGeckoSymbol)))de.uniks.codliners.stock_simulator.network/kotlin.collections.-list/as-domain-symbols.html
+$dokka.location:de.uniks.codliners.stock_simulator.network$asDomainSymbols(kotlin.collections.List((de.uniks.codliners.stock_simulator.network.IEXSymbol)))de.uniks.codliners.stock_simulator.network/kotlin.collections.-list/as-domain-symbols.html
+$dokka.location:de.uniks.codliners.stock_simulator.ui$bindAchievements(androidx.recyclerview.widget.RecyclerView, kotlin.collections.List((de.uniks.codliners.stock_simulator.domain.Achievement)))de.uniks.codliners.stock_simulator.ui/androidx.recyclerview.widget.-recycler-view/bind-achievements.html
+$dokka.location:de.uniks.codliners.stock_simulator.ui$bindBotAddRemoveQuote(android.widget.Button, kotlin.Boolean)de.uniks.codliners.stock_simulator.ui/android.widget.-button/bind-bot-add-remove-quote.html
+$dokka.location:de.uniks.codliners.stock_simulator.ui$bindDepotQuote(android.widget.TextView, de.uniks.codliners.stock_simulator.domain.DepotQuote)de.uniks.codliners.stock_simulator.ui/android.widget.-text-view/bind-depot-quote.html
+$dokka.location:de.uniks.codliners.stock_simulator.ui$bindDepotQuoteText(android.widget.TextView, de.uniks.codliners.stock_simulator.domain.DepotQuote)de.uniks.codliners.stock_simulator.ui/android.widget.-text-view/bind-depot-quote-text.html
+$dokka.location:de.uniks.codliners.stock_simulator.ui$bindDepotQuoteTotalValue(android.widget.TextView, de.uniks.codliners.stock_simulator.domain.DepotQuote, de.uniks.codliners.stock_simulator.domain.Quote)de.uniks.codliners.stock_simulator.ui/android.widget.-text-view/bind-depot-quote-total-value.html
+$dokka.location:de.uniks.codliners.stock_simulator.ui$bindDepotQuotes(androidx.recyclerview.widget.RecyclerView, kotlin.collections.List((de.uniks.codliners.stock_simulator.domain.DepotQuote)))de.uniks.codliners.stock_simulator.ui/androidx.recyclerview.widget.-recycler-view/bind-depot-quotes.html
+$dokka.location:de.uniks.codliners.stock_simulator.ui$bindEnableCardView(androidx.cardview.widget.CardView, kotlin.Boolean)de.uniks.codliners.stock_simulator.ui/androidx.cardview.widget.-card-view/bind-enable-card-view.html
+$dokka.location:de.uniks.codliners.stock_simulator.ui$bindNews(androidx.recyclerview.widget.RecyclerView, kotlin.collections.List((de.uniks.codliners.stock_simulator.domain.News)))de.uniks.codliners.stock_simulator.ui/androidx.recyclerview.widget.-recycler-view/bind-news.html
+$dokka.location:de.uniks.codliners.stock_simulator.ui$bindPaywallType(android.widget.ImageView, kotlin.Boolean)de.uniks.codliners.stock_simulator.ui/android.widget.-image-view/bind-paywall-type.html
+$dokka.location:de.uniks.codliners.stock_simulator.ui$bindPerformanceIcon(android.widget.ImageView, kotlin.Double)de.uniks.codliners.stock_simulator.ui/android.widget.-image-view/bind-performance-icon.html
+$dokka.location:de.uniks.codliners.stock_simulator.ui$bindPerformanceText(android.widget.TextView, kotlin.Double)de.uniks.codliners.stock_simulator.ui/android.widget.-text-view/bind-performance-text.html
+$dokka.location:de.uniks.codliners.stock_simulator.ui$bindQuoteChange(android.widget.TextView, kotlin.Double)de.uniks.codliners.stock_simulator.ui/android.widget.-text-view/bind-quote-change.html
+$dokka.location:de.uniks.codliners.stock_simulator.ui$bindRefreshListener(androidx.swiperefreshlayout.widget.SwipeRefreshLayout, java.lang.Runnable)de.uniks.codliners.stock_simulator.ui/androidx.swiperefreshlayout.widget.-swipe-refresh-layout/bind-refresh-listener.html
+$dokka.location:de.uniks.codliners.stock_simulator.ui$bindSelection(android.widget.Spinner, androidx.lifecycle.MutableLiveData((kotlin.String)))de.uniks.codliners.stock_simulator.ui/android.widget.-spinner/bind-selection.html
+$dokka.location:de.uniks.codliners.stock_simulator.ui$bindStockbrotQuote(android.widget.TextView, de.uniks.codliners.stock_simulator.domain.StockbrotQuote)de.uniks.codliners.stock_simulator.ui/android.widget.-text-view/bind-stockbrot-quote.html
+$dokka.location:de.uniks.codliners.stock_simulator.ui$bindStockbrotQuotes(androidx.recyclerview.widget.RecyclerView, kotlin.collections.List((de.uniks.codliners.stock_simulator.domain.StockbrotQuote)))de.uniks.codliners.stock_simulator.ui/androidx.recyclerview.widget.-recycler-view/bind-stockbrot-quotes.html
+$dokka.location:de.uniks.codliners.stock_simulator.ui$bindSymbolList(androidx.recyclerview.widget.RecyclerView, kotlin.collections.List((de.uniks.codliners.stock_simulator.domain.Symbol)), java.lang.Runnable)de.uniks.codliners.stock_simulator.ui/androidx.recyclerview.widget.-recycler-view/bind-symbol-list.html
+$dokka.location:de.uniks.codliners.stock_simulator.ui$bindTransaction(android.widget.TextView, de.uniks.codliners.stock_simulator.domain.Transaction)de.uniks.codliners.stock_simulator.ui/android.widget.-text-view/bind-transaction.html
+$dokka.location:de.uniks.codliners.stock_simulator.ui$bindTransactionResultText(android.widget.TextView, kotlin.Double)de.uniks.codliners.stock_simulator.ui/android.widget.-text-view/bind-transaction-result-text.html
+$dokka.location:de.uniks.codliners.stock_simulator.ui$bindTransactionType(android.widget.ImageView, de.uniks.codliners.stock_simulator.domain.TransactionType)de.uniks.codliners.stock_simulator.ui/android.widget.-image-view/bind-transaction-type.html
+$dokka.location:de.uniks.codliners.stock_simulator.ui$bindTransactions(androidx.recyclerview.widget.RecyclerView, kotlin.collections.List((de.uniks.codliners.stock_simulator.domain.Transaction)))de.uniks.codliners.stock_simulator.ui/androidx.recyclerview.widget.-recycler-view/bind-transactions.html
+$dokka.location:de.uniks.codliners.stock_simulator.ui$bindVisibility(android.view.View, kotlin.Boolean)de.uniks.codliners.stock_simulator.ui/android.view.-view/bind-visibility.html
+de.uniks.codliners.stock_simulator
+de.uniks.codliners.stock_simulator.background
+de.uniks.codliners.stock_simulator.background.workers
+de.uniks.codliners.stock_simulator.database
+de.uniks.codliners.stock_simulator.domain
+de.uniks.codliners.stock_simulator.network
+de.uniks.codliners.stock_simulator.repository
+de.uniks.codliners.stock_simulator.ui
+de.uniks.codliners.stock_simulator.ui.account
+de.uniks.codliners.stock_simulator.ui.achievements
+de.uniks.codliners.stock_simulator.ui.history
+de.uniks.codliners.stock_simulator.ui.news
+de.uniks.codliners.stock_simulator.ui.quote
+de.uniks.codliners.stock_simulator.ui.search
+de.uniks.codliners.stock_simulator.ui.settings
+de.uniks.codliners.stock_simulator.ui.stockbrot

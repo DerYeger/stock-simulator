@@ -1,0 +1,104 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>de.uniks.codliners.stock_simulator.database - app</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">app</a>&nbsp;/&nbsp;<a href="./index.html">de.uniks.codliners.stock_simulator.database</a><br/>
+<br/>
+<h2>Package de.uniks.codliners.stock_simulator.database</h2>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="-account-dao/index.html">AccountDao</a></h4>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">AccountDao</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-achievements-dao/index.html">AchievementsDao</a></h4>
+</td>
+<td>
+<p><a href="#">Dao</a> that manages <a href="../de.uniks.codliners.stock_simulator.domain/-achievement/index.html">Achievement</a>s in the database</p>
+<code><span class="keyword">interface </span><span class="identifier">AchievementsDao</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-converters/index.html">Converters</a></h4>
+</td>
+<td>
+<p>Converter functions for object types that are not natively supported by SQLite</p>
+<code><span class="keyword">class </span><span class="identifier">Converters</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-historical-price-dao/index.html">HistoricalPriceDao</a></h4>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">HistoricalPriceDao</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-news-dao/index.html">NewsDao</a></h4>
+</td>
+<td>
+<p><a href="https://developer.android.com/reference/androidx/room/Dao">Dao</a> that manages <a href="../de.uniks.codliners.stock_simulator.domain/-news/index.html">News</a> in the database.</p>
+<code><span class="keyword">interface </span><span class="identifier">NewsDao</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-quote-dao/index.html">QuoteDao</a></h4>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">QuoteDao</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-stock-app-database/index.html">StockAppDatabase</a></h4>
+</td>
+<td>
+<p>The <a href="https://developer.android.com/jetpack/androidx/releases/room">Room</a> database with all its <a href="https://developer.android.com/reference/androidx/room/Dao">Dao</a>s.</p>
+<code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">StockAppDatabase</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">RoomDatabase</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-stockbrot-dao/index.html">StockbrotDao</a></h4>
+</td>
+<td>
+<p><a href="#">Dao</a> that manages <a href="../de.uniks.codliners.stock_simulator.domain/-stockbrot-quote/index.html">StockbrotQuote</a>s in the database</p>
+<code><span class="keyword">interface </span><span class="identifier">StockbrotDao</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-symbol-dao/index.html">SymbolDao</a></h4>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">SymbolDao</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-transaction-dao/index.html">TransactionDao</a></h4>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">TransactionDao</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="get-database.html">getDatabase</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">getDatabase</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.database$getDatabase(android.content.Context)/context">context</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/content/Context.html"><span class="identifier">Context</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="-stock-app-database/index.html"><span class="identifier">StockAppDatabase</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

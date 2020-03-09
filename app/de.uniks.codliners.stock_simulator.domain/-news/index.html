@@ -1,0 +1,112 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>News - app</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">app</a>&nbsp;/&nbsp;<a href="../index.html">de.uniks.codliners.stock_simulator.domain</a>&nbsp;/&nbsp;<a href="./index.html">News</a><br/>
+<br/>
+<h1>News</h1>
+<code><span class="identifier">@JsonClass</span><span class="symbol">(</span>true<span class="symbol">)</span> <span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">News</span></code>
+<p>News database entity and JSON adapter source.</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="-init-.html">&lt;init&gt;</a></h4>
+</td>
+<td>
+<p>News database entity and JSON adapter source.</p>
+<code><span class="identifier">News</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.domain.News$<init>(kotlin.Long, kotlin.Long, kotlin.String, kotlin.String, kotlin.String, kotlin.String, kotlin.String, kotlin.String, kotlin.String, kotlin.Boolean)/primaryKey">primaryKey</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html"><span class="identifier">Long</span></a>&nbsp;<span class="symbol">=</span>&nbsp;0<span class="symbol">, </span><span class="identifier" id="de.uniks.codliners.stock_simulator.domain.News$<init>(kotlin.Long, kotlin.Long, kotlin.String, kotlin.String, kotlin.String, kotlin.String, kotlin.String, kotlin.String, kotlin.String, kotlin.Boolean)/datetime">datetime</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html"><span class="identifier">Long</span></a><span class="symbol">, </span><span class="identifier" id="de.uniks.codliners.stock_simulator.domain.News$<init>(kotlin.Long, kotlin.Long, kotlin.String, kotlin.String, kotlin.String, kotlin.String, kotlin.String, kotlin.String, kotlin.String, kotlin.Boolean)/headline">headline</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="de.uniks.codliners.stock_simulator.domain.News$<init>(kotlin.Long, kotlin.Long, kotlin.String, kotlin.String, kotlin.String, kotlin.String, kotlin.String, kotlin.String, kotlin.String, kotlin.Boolean)/source">source</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="de.uniks.codliners.stock_simulator.domain.News$<init>(kotlin.Long, kotlin.Long, kotlin.String, kotlin.String, kotlin.String, kotlin.String, kotlin.String, kotlin.String, kotlin.String, kotlin.Boolean)/url">url</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="de.uniks.codliners.stock_simulator.domain.News$<init>(kotlin.Long, kotlin.Long, kotlin.String, kotlin.String, kotlin.String, kotlin.String, kotlin.String, kotlin.String, kotlin.String, kotlin.Boolean)/summary">summary</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="de.uniks.codliners.stock_simulator.domain.News$<init>(kotlin.Long, kotlin.Long, kotlin.String, kotlin.String, kotlin.String, kotlin.String, kotlin.String, kotlin.String, kotlin.String, kotlin.Boolean)/related">related</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="de.uniks.codliners.stock_simulator.domain.News$<init>(kotlin.Long, kotlin.Long, kotlin.String, kotlin.String, kotlin.String, kotlin.String, kotlin.String, kotlin.String, kotlin.String, kotlin.Boolean)/image">image</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="de.uniks.codliners.stock_simulator.domain.News$<init>(kotlin.Long, kotlin.Long, kotlin.String, kotlin.String, kotlin.String, kotlin.String, kotlin.String, kotlin.String, kotlin.String, kotlin.Boolean)/lang">lang</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="de.uniks.codliners.stock_simulator.domain.News$<init>(kotlin.Long, kotlin.Long, kotlin.String, kotlin.String, kotlin.String, kotlin.String, kotlin.String, kotlin.String, kotlin.String, kotlin.Boolean)/hasPaywall">hasPaywall</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="datetime.html">datetime</a></h4>
+</td>
+<td>
+<p>Millisecond epoch of time of article.</p>
+<code><span class="keyword">val </span><span class="identifier">datetime</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html"><span class="identifier">Long</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="has-paywall.html">hasPaywall</a></h4>
+</td>
+<td>
+<p>Whether the news source has a paywall.</p>
+<code><span class="keyword">val </span><span class="identifier">hasPaywall</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="headline.html">headline</a></h4>
+</td>
+<td>
+<p>The article's headline.</p>
+<code><span class="keyword">val </span><span class="identifier">headline</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="image.html">image</a></h4>
+</td>
+<td>
+<p>URL to IEX Cloud for associated news image.</p>
+<code><span class="keyword">val </span><span class="identifier">image</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="lang.html">lang</a></h4>
+</td>
+<td>
+<p>Language of the source article.</p>
+<code><span class="keyword">val </span><span class="identifier">lang</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="primary-key.html">primaryKey</a></h4>
+</td>
+<td>
+<p>An automatically generated primary key.</p>
+<code><span class="keyword">val </span><span class="identifier">primaryKey</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html"><span class="identifier">Long</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="related.html">related</a></h4>
+</td>
+<td>
+<p>Comma-delimited list of tickers associated with this news article. Not all tickers are available on the API. Make sure to check against available <a href="https://iexcloud.io/docs/api/#symbols">ref-data</a>.</p>
+<code><span class="keyword">val </span><span class="identifier">related</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="source.html">source</a></h4>
+</td>
+<td>
+<p>Source of the news article. Make sure to always attribute the source.</p>
+<code><span class="keyword">val </span><span class="identifier">source</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="summary.html">summary</a></h4>
+</td>
+<td>
+<p>The requested news article in short.</p>
+<code><span class="keyword">val </span><span class="identifier">summary</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="url.html">url</a></h4>
+</td>
+<td>
+<p>URL to IEX Cloud for associated news image.</p>
+<code><span class="keyword">val </span><span class="identifier">url</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

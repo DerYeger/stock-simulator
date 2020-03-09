@@ -1,0 +1,26 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>sourcedLiveData - app</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">app</a>&nbsp;/&nbsp;<a href="index.html">de.uniks.codliners.stock_simulator</a>&nbsp;/&nbsp;<a href="./sourced-live-data.html">sourcedLiveData</a><br/>
+<br/>
+<h1>sourcedLiveData</h1>
+<a name="de.uniks.codliners.stock_simulator$sourcedLiveData(kotlin.Array((androidx.lifecycle.LiveData((kotlin.Any)))), kotlin.Function0((de.uniks.codliners.stock_simulator.sourcedLiveData.T)))"></a>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <span class="identifier">sourcedLiveData</span><span class="symbol">(</span><span class="keyword">vararg</span> <span class="identifier" id="de.uniks.codliners.stock_simulator$sourcedLiveData(kotlin.Array((androidx.lifecycle.LiveData((kotlin.Any)))), kotlin.Function0((de.uniks.codliners.stock_simulator.sourcedLiveData.T)))/sources">sources</span><span class="symbol">:</span>&nbsp;<span class="identifier">LiveData</span><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="de.uniks.codliners.stock_simulator$sourcedLiveData(kotlin.Array((androidx.lifecycle.LiveData((kotlin.Any)))), kotlin.Function0((de.uniks.codliners.stock_simulator.sourcedLiveData.T)))/block">block</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">T</span><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">LiveData</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code>
+<p>Creates a <a href="https://developer.android.com/reference/android/arch/lifecycle/LiveData">LiveData</a> that is updated every time one of the <a href="sourced-live-data.html#de.uniks.codliners.stock_simulator$sourcedLiveData(kotlin.Array((androidx.lifecycle.LiveData((kotlin.Any)))), kotlin.Function0((de.uniks.codliners.stock_simulator.sourcedLiveData.T)))/sources">sources</a> changes.</p>
+<h3>Parameters</h3>
+<p><a name="T"></a>
+<code>T</code> - The type of the <a href="https://developer.android.com/reference/android/arch/lifecycle/LiveData">LiveData</a>.</p>
+<p><a name="sources"></a>
+<code>sources</code> - The sources of the returned <a href="https://developer.android.com/reference/android/arch/lifecycle/LiveData">LiveData</a>.</p>
+<p><a name="block"></a>
+<code>block</code> - Called every time a source changes. Its result is only applied if it differs from the current value.</p>
+<p><strong>Return</strong><br/>
+The initialized <a href="https://developer.android.com/reference/android/arch/lifecycle/LiveData">LiveData</a>.</p>
+<p><strong>Author</strong><br/>
+Jan Müller</p>
+</BODY>
+</HTML>

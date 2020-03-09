@@ -1,0 +1,188 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>de.uniks.codliners.stock_simulator.network - app</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">app</a>&nbsp;/&nbsp;<a href="./index.html">de.uniks.codliners.stock_simulator.network</a><br/>
+<br/>
+<h2>Package de.uniks.codliners.stock_simulator.network</h2>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="-coin-gecko-api/index.html">CoinGeckoApi</a></h4>
+</td>
+<td>
+<p>The CoinGecko API interface.</p>
+<code><span class="keyword">interface </span><span class="identifier">CoinGeckoApi</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-coin-gecko-market-chart/index.html">CoinGeckoMarketChart</a></h4>
+</td>
+<td>
+<p>Timestamp and price data points of a CoinGecko cryptocurrency.</p>
+<code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">CoinGeckoMarketChart</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-coin-gecko-market-data/index.html">CoinGeckoMarketData</a></h4>
+</td>
+<td>
+<p>Market data of a CoinGecko cryptocurrency.</p>
+<code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">CoinGeckoMarketData</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-coin-gecko-quote/index.html">CoinGeckoQuote</a></h4>
+</td>
+<td>
+<p>Quote information of a CoinGecko cryptocurrency.</p>
+<code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">CoinGeckoQuote</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-coin-gecko-symbol/index.html">CoinGeckoSymbol</a></h4>
+</td>
+<td>
+<p>Symbol information of a CoinGecko cryptocurrency.</p>
+<code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">CoinGeckoSymbol</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-i-e-x-api/index.html">IEXApi</a></h4>
+</td>
+<td>
+<p>The IEX API interface.</p>
+<code><span class="keyword">interface </span><span class="identifier">IEXApi</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-i-e-x-historical-price/index.html">IEXHistoricalPrice</a></h4>
+</td>
+<td>
+<p>Price data point for an IEX share.</p>
+<code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">IEXHistoricalPrice</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-i-e-x-quote/index.html">IEXQuote</a></h4>
+</td>
+<td>
+<p>Quote information of an IEX share.</p>
+<code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">IEXQuote</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-i-e-x-symbol/index.html">IEXSymbol</a></h4>
+</td>
+<td>
+<p>Symbol information of an IEX share.</p>
+<code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">IEXSymbol</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-network-service/index.html">NetworkService</a></h4>
+</td>
+<td>
+<p>Provides instances for various APIs.</p>
+<code><span class="keyword">object </span><span class="identifier">NetworkService</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Extensions for External Classes</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="kotlin.collections.-list/index.html">kotlin.collections.List</a></h4>
+</td>
+<td>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="-c-o-i-n-g-e-c-k-o_-b-a-s-e_-u-r-l.html">COINGECKO_BASE_URL</a></h4>
+</td>
+<td>
+<code><span class="keyword">const</span> <span class="keyword">val </span><span class="identifier">COINGECKO_BASE_URL</span><span class="symbol">: </span><span class="identifier">&lt;ERROR CLASS&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-i-e-x_-a-p-i_-b-a-s-e_-u-r-l.html">IEX_API_BASE_URL</a></h4>
+</td>
+<td>
+<p>The IEX API's base url, to which endpoints are concatenated.
+Should be the sandbox endpoint for development and the live data endpoint for production.</p>
+<code><span class="keyword">const</span> <span class="keyword">val </span><span class="identifier">IEX_API_BASE_URL</span><span class="symbol">: </span><span class="identifier">&lt;ERROR CLASS&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-i-e-x_-a-p-i_-t-o-k-e-n.html">IEX_API_TOKEN</a></h4>
+</td>
+<td>
+<p>An IEX API token.
+Should be the sandbox token for development and the live data token for production.</p>
+<code><span class="keyword">const</span> <span class="keyword">val </span><span class="identifier">IEX_API_TOKEN</span><span class="symbol">: </span><span class="identifier">&lt;ERROR CLASS&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="moshi.html">moshi</a></h4>
+</td>
+<td>
+<p>An instance of the JSON parser <a href="https://github.com/square/moshi">moshi</a>.</p>
+<code><span class="keyword">val </span><span class="identifier">moshi</span><span class="symbol">: </span><span class="identifier">Moshi</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="as-domain-historical-price.html">asDomainHistoricalPrice</a></h4>
+</td>
+<td>
+<p>Transforms an <a href="-i-e-x-historical-price/index.html">IEXHistoricalPrice</a> to an equivalent <a href="../de.uniks.codliners.stock_simulator.domain/-historical-price/index.html">HistoricalPrice</a>.</p>
+<code><span class="keyword">fun </span><a href="-i-e-x-historical-price/index.html"><span class="identifier">IEXHistoricalPrice</span></a><span class="symbol">.</span><span class="identifier">asDomainHistoricalPrice</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.network$asDomainHistoricalPrice(de.uniks.codliners.stock_simulator.network.IEXHistoricalPrice, kotlin.String)/id">id</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../de.uniks.codliners.stock_simulator.domain/-historical-price/index.html"><span class="identifier">HistoricalPrice</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="as-domain-quote.html">asDomainQuote</a></h4>
+</td>
+<td>
+<p>Transforms a <a href="-coin-gecko-quote/index.html">CoinGeckoQuote</a> to an equivalent <a href="../de.uniks.codliners.stock_simulator.domain/-quote/index.html">Quote</a>.</p>
+<code><span class="keyword">fun </span><a href="-coin-gecko-quote/index.html"><span class="identifier">CoinGeckoQuote</span></a><span class="symbol">.</span><span class="identifier">asDomainQuote</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../de.uniks.codliners.stock_simulator.domain/-quote/index.html"><span class="identifier">Quote</span></a></code>
+<p>Transforms an <a href="-i-e-x-quote/index.html">IEXQuote</a> to an equivalent <a href="../de.uniks.codliners.stock_simulator.domain/-quote/index.html">Quote</a>.</p>
+<code><span class="keyword">fun </span><a href="-i-e-x-quote/index.html"><span class="identifier">IEXQuote</span></a><span class="symbol">.</span><span class="identifier">asDomainQuote</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../de.uniks.codliners.stock_simulator.domain/-quote/index.html"><span class="identifier">Quote</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="as-domain-symbol.html">asDomainSymbol</a></h4>
+</td>
+<td>
+<p>Transforms a <a href="-coin-gecko-symbol/index.html">CoinGeckoSymbol</a> to an equivalent <a href="../de.uniks.codliners.stock_simulator.domain/-symbol/index.html">Symbol</a>.</p>
+<code><span class="keyword">fun </span><a href="-coin-gecko-symbol/index.html"><span class="identifier">CoinGeckoSymbol</span></a><span class="symbol">.</span><span class="identifier">asDomainSymbol</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../de.uniks.codliners.stock_simulator.domain/-symbol/index.html"><span class="identifier">Symbol</span></a></code>
+<p>Transforms an <a href="-i-e-x-symbol/index.html">IEXSymbol</a> to an equivalent <a href="../de.uniks.codliners.stock_simulator.domain/-symbol/index.html">Symbol</a>.</p>
+<code><span class="keyword">fun </span><a href="-i-e-x-symbol/index.html"><span class="identifier">IEXSymbol</span></a><span class="symbol">.</span><span class="identifier">asDomainSymbol</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../de.uniks.codliners.stock_simulator.domain/-symbol/index.html"><span class="identifier">Symbol</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="as-historical-prices.html">asHistoricalPrices</a></h4>
+</td>
+<td>
+<p>Transforms a <a href="-coin-gecko-market-chart/index.html">CoinGeckoMarketChart</a> to an equivalent <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a> of <a href="../de.uniks.codliners.stock_simulator.domain/-historical-price/index.html">HistoricalPrice</a>s.</p>
+<code><span class="keyword">fun </span><a href="-coin-gecko-market-chart/index.html"><span class="identifier">CoinGeckoMarketChart</span></a><span class="symbol">.</span><span class="identifier">asHistoricalPrices</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.network$asHistoricalPrices(de.uniks.codliners.stock_simulator.network.CoinGeckoMarketChart, kotlin.String)/id">id</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../de.uniks.codliners.stock_simulator.domain/-historical-price/index.html"><span class="identifier">HistoricalPrice</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

@@ -1,0 +1,55 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>IEXApi - app</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">app</a>&nbsp;/&nbsp;<a href="../index.html">de.uniks.codliners.stock_simulator.network</a>&nbsp;/&nbsp;<a href="./index.html">IEXApi</a><br/>
+<br/>
+<h1>IEXApi</h1>
+<code><span class="keyword">interface </span><span class="identifier">IEXApi</span></code>
+<p>The IEX API interface.</p>
+<p><strong>Author</strong><br/>
+Jonas Thelemann</p>
+<p><strong>Author</strong><br/>
+Jan Müller</p>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="historical-prices.html">historicalPrices</a></h4>
+</td>
+<td>
+<p>Requests a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a> of <a href="../-i-e-x-historical-price/index.html">IEXHistoricalPrice</a>s for an IEX share.</p>
+<code><span class="keyword">abstract</span> <span class="keyword">suspend</span> <span class="keyword">fun </span><span class="identifier">historicalPrices</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.network.IEXApi$historicalPrices(kotlin.String, kotlin.String, kotlin.Boolean, kotlin.String)/symbol">symbol</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="de.uniks.codliners.stock_simulator.network.IEXApi$historicalPrices(kotlin.String, kotlin.String, kotlin.Boolean, kotlin.String)/range">range</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a>&nbsp;<span class="symbol">=</span>&nbsp;"1m"<span class="symbol">, </span><span class="identifier" id="de.uniks.codliners.stock_simulator.network.IEXApi$historicalPrices(kotlin.String, kotlin.String, kotlin.Boolean, kotlin.String)/chartCloseOnly">chartCloseOnly</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">, </span><span class="identifier" id="de.uniks.codliners.stock_simulator.network.IEXApi$historicalPrices(kotlin.String, kotlin.String, kotlin.Boolean, kotlin.String)/token">token</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a>&nbsp;<span class="symbol">=</span>&nbsp;IEX_API_TOKEN<span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../-i-e-x-historical-price/index.html"><span class="identifier">IEXHistoricalPrice</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="news.html">news</a></h4>
+</td>
+<td>
+<p>Requests <a href="../../de.uniks.codliners.stock_simulator.domain/-news/index.html">News</a> for an IEX share.</p>
+<code><span class="keyword">abstract</span> <span class="keyword">suspend</span> <span class="keyword">fun </span><span class="identifier">news</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.network.IEXApi$news(kotlin.String, kotlin.String)/symbol">symbol</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="de.uniks.codliners.stock_simulator.network.IEXApi$news(kotlin.String, kotlin.String)/token">token</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a>&nbsp;<span class="symbol">=</span>&nbsp;IEX_API_TOKEN<span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../de.uniks.codliners.stock_simulator.domain/-news/index.html"><span class="identifier">News</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="quote.html">quote</a></h4>
+</td>
+<td>
+<p>Requests an <a href="../-i-e-x-quote/index.html">IEXQuote</a> for an IEX share.</p>
+<code><span class="keyword">abstract</span> <span class="keyword">suspend</span> <span class="keyword">fun </span><span class="identifier">quote</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.network.IEXApi$quote(kotlin.String, kotlin.String)/symbol">symbol</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="de.uniks.codliners.stock_simulator.network.IEXApi$quote(kotlin.String, kotlin.String)/token">token</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a>&nbsp;<span class="symbol">=</span>&nbsp;IEX_API_TOKEN<span class="symbol">)</span><span class="symbol">: </span><a href="../-i-e-x-quote/index.html"><span class="identifier">IEXQuote</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="symbols.html">symbols</a></h4>
+</td>
+<td>
+<p>Requests all <a href="../-i-e-x-symbol/index.html">IEXSymbol</a>s.</p>
+<code><span class="keyword">abstract</span> <span class="keyword">suspend</span> <span class="keyword">fun </span><span class="identifier">symbols</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.network.IEXApi$symbols(kotlin.String)/token">token</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a>&nbsp;<span class="symbol">=</span>&nbsp;IEX_API_TOKEN<span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../-i-e-x-symbol/index.html"><span class="identifier">IEXSymbol</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

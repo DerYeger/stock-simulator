@@ -1,0 +1,82 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>SymbolRepository - app</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">app</a>&nbsp;/&nbsp;<a href="../index.html">de.uniks.codliners.stock_simulator.repository</a>&nbsp;/&nbsp;<a href="./index.html">SymbolRepository</a><br/>
+<br/>
+<h1>SymbolRepository</h1>
+<code><span class="keyword">class </span><span class="identifier">SymbolRepository</span></code>
+<p>Repository for refreshing, accessing and filtering <a href="../../de.uniks.codliners.stock_simulator.domain/-symbol/index.html">Symbol</a>s.</p>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="-state/index.html">State</a></h4>
+</td>
+<td>
+<code><span class="keyword">sealed</span> <span class="keyword">class </span><span class="identifier">State</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="-init-.html">&lt;init&gt;</a></h4>
+</td>
+<td>
+<code><span class="identifier">SymbolRepository</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.repository.SymbolRepository$<init>(android.content.Context)/context">context</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/content/Context.html"><span class="identifier">Context</span></a><span class="symbol">)</span></code>
+<p>Repository for refreshing, accessing and filtering <a href="../../de.uniks.codliners.stock_simulator.domain/-symbol/index.html">Symbol</a>s.</p>
+<code><span class="identifier">SymbolRepository</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.repository.SymbolRepository$<init>(de.uniks.codliners.stock_simulator.database.StockAppDatabase)/database">database</span><span class="symbol">:</span>&nbsp;<a href="../../de.uniks.codliners.stock_simulator.database/-stock-app-database/index.html"><span class="identifier">StockAppDatabase</span></a><span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="state.html">state</a></h4>
+</td>
+<td>
+<p>The current <a href="-state/index.html">State</a> of the repository.</p>
+<code><span class="keyword">val </span><span class="identifier">state</span><span class="symbol">: </span><span class="identifier">LiveData</span><span class="symbol">&lt;</span><span class="identifier">State</span><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="symbols.html">symbols</a></h4>
+</td>
+<td>
+<p>Lazily initialized <a href="https://developer.android.com/reference/android/arch/lifecycle/LiveData">LiveData</a> containing an ordered <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a> of all locally stored <a href="../../de.uniks.codliners.stock_simulator.domain/-symbol/index.html">Symbol</a>s.</p>
+<code><span class="keyword">val </span><span class="identifier">symbols</span><span class="symbol">: </span><span class="identifier">LiveData</span><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../de.uniks.codliners.stock_simulator.domain/-symbol/index.html"><span class="identifier">Symbol</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="filtered-symbols.html">filteredSymbols</a></h4>
+</td>
+<td>
+<p>Returns a <a href="https://developer.android.com/reference/android/arch/lifecycle/LiveData">LiveData</a> containing <a href="../../de.uniks.codliners.stock_simulator.domain/-symbol/index.html">Symbol</a>s that match the specified <a href="../../de.uniks.codliners.stock_simulator.domain/-symbol/-filter/index.html">Symbol.Filter</a>.</p>
+<code><span class="keyword">fun </span><span class="identifier">filteredSymbols</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.repository.SymbolRepository$filteredSymbols(de.uniks.codliners.stock_simulator.domain.Symbol.Filter)/filter">filter</span><span class="symbol">:</span>&nbsp;<span class="identifier">Filter</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">LiveData</span><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../de.uniks.codliners.stock_simulator.domain/-symbol/index.html"><span class="identifier">Symbol</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="refresh-symbols.html">refreshSymbols</a></h4>
+</td>
+<td>
+<p>Fetches all available symbols from the IEX and CoinGecko APIs, then stores them in the <a href="../../de.uniks.codliners.stock_simulator.database/-stock-app-database/index.html">StockAppDatabase</a>.</p>
+<code><span class="keyword">suspend</span> <span class="keyword">fun </span><span class="identifier">refreshSymbols</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

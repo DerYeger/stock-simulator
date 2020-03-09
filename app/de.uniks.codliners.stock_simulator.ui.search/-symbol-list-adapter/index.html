@@ -1,0 +1,90 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>SymbolListAdapter - app</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">app</a>&nbsp;/&nbsp;<a href="../index.html">de.uniks.codliners.stock_simulator.ui.search</a>&nbsp;/&nbsp;<a href="./index.html">SymbolListAdapter</a><br/>
+<br/>
+<h1>SymbolListAdapter</h1>
+<code><span class="keyword">class </span><span class="identifier">SymbolListAdapter</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">ListAdapter</span><span class="symbol">&lt;</span><a href="../../de.uniks.codliners.stock_simulator.domain/-symbol/index.html"><span class="identifier">Symbol</span></a><span class="symbol">,</span>&nbsp;<span class="identifier">ViewHolder</span><span class="symbol">&gt;</span></code>
+<p><a href="https://developer.android.com/reference/android/support/v7/recyclerview/extensions/ListAdapter">ListAdapter</a> for <a href="../../de.uniks.codliners.stock_simulator.domain/-symbol/index.html">Symbol</a>s.</p>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="-diff-callback/index.html">DiffCallback</a></h4>
+</td>
+<td>
+<p><a href="https://developer.android.com/reference/android/support/v7/util/DiffUtil.ItemCallback">DiffUtil.ItemCallback</a> for <a href="../../de.uniks.codliners.stock_simulator.domain/-symbol/index.html">Symbol</a>s.</p>
+<code><span class="keyword">companion</span> <span class="keyword">object </span><span class="identifier">DiffCallback</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">ItemCallback</span><span class="symbol">&lt;</span><a href="../../de.uniks.codliners.stock_simulator.domain/-symbol/index.html"><span class="identifier">Symbol</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-view-holder/index.html">ViewHolder</a></h4>
+</td>
+<td>
+<p><a href="https://developer.android.com/reference/android/support/v7/widget/RecyclerView.ViewHolder">RecyclerView.ViewHolder</a> for CardSymbolBindings.</p>
+<code><span class="keyword">inner</span> <span class="keyword">class </span><span class="identifier">ViewHolder</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">ViewHolder</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="-init-.html">&lt;init&gt;</a></h4>
+</td>
+<td>
+<p><a href="https://developer.android.com/reference/android/support/v7/recyclerview/extensions/ListAdapter">ListAdapter</a> for <a href="../../de.uniks.codliners.stock_simulator.domain/-symbol/index.html">Symbol</a>s.</p>
+<code><span class="identifier">SymbolListAdapter</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.ui.search.SymbolListAdapter$<init>(de.uniks.codliners.stock_simulator.ui.OnClickListener((de.uniks.codliners.stock_simulator.domain.Symbol)))/onClickListener">onClickListener</span><span class="symbol">:</span>&nbsp;<a href="../../de.uniks.codliners.stock_simulator.ui/-on-click-listener/index.html"><span class="identifier">OnClickListener</span></a><span class="symbol">&lt;</span><a href="../../de.uniks.codliners.stock_simulator.domain/-symbol/index.html"><span class="identifier">Symbol</span></a><span class="symbol">&gt;</span><span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="on-bind-view-holder.html">onBindViewHolder</a></h4>
+</td>
+<td>
+<p>Binds a <a href="../../de.uniks.codliners.stock_simulator.domain/-symbol/index.html">Symbol</a> to a <a href="-view-holder/index.html">ViewHolder</a>.</p>
+<code><span class="keyword">fun </span><span class="identifier">onBindViewHolder</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.ui.search.SymbolListAdapter$onBindViewHolder(de.uniks.codliners.stock_simulator.ui.search.SymbolListAdapter.ViewHolder, kotlin.Int)/holder">holder</span><span class="symbol">:</span>&nbsp;<span class="identifier">ViewHolder</span><span class="symbol">, </span><span class="identifier" id="de.uniks.codliners.stock_simulator.ui.search.SymbolListAdapter$onBindViewHolder(de.uniks.codliners.stock_simulator.ui.search.SymbolListAdapter.ViewHolder, kotlin.Int)/position">position</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="on-create-view-holder.html">onCreateViewHolder</a></h4>
+</td>
+<td>
+<p>Creates a <a href="-view-holder/index.html">ViewHolder</a> by inflating a CardSymbolBinding.</p>
+<code><span class="keyword">fun </span><span class="identifier">onCreateViewHolder</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.ui.search.SymbolListAdapter$onCreateViewHolder(android.view.ViewGroup, kotlin.Int)/parent">parent</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/view/ViewGroup.html"><span class="identifier">ViewGroup</span></a><span class="symbol">, </span><span class="identifier" id="de.uniks.codliners.stock_simulator.ui.search.SymbolListAdapter$onCreateViewHolder(android.view.ViewGroup, kotlin.Int)/viewType">viewType</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">ViewHolder</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Companion Object Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="are-contents-the-same.html">areContentsTheSame</a></h4>
+</td>
+<td>
+<p>Checks if two <a href="../../de.uniks.codliners.stock_simulator.domain/-symbol/index.html">Symbol</a>s are equal.</p>
+<code><span class="keyword">fun </span><span class="identifier">areContentsTheSame</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.ui.search.SymbolListAdapter.DiffCallback$areContentsTheSame(de.uniks.codliners.stock_simulator.domain.Symbol, de.uniks.codliners.stock_simulator.domain.Symbol)/oldItem">oldItem</span><span class="symbol">:</span>&nbsp;<a href="../../de.uniks.codliners.stock_simulator.domain/-symbol/index.html"><span class="identifier">Symbol</span></a><span class="symbol">, </span><span class="identifier" id="de.uniks.codliners.stock_simulator.ui.search.SymbolListAdapter.DiffCallback$areContentsTheSame(de.uniks.codliners.stock_simulator.domain.Symbol, de.uniks.codliners.stock_simulator.domain.Symbol)/newItem">newItem</span><span class="symbol">:</span>&nbsp;<a href="../../de.uniks.codliners.stock_simulator.domain/-symbol/index.html"><span class="identifier">Symbol</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="are-items-the-same.html">areItemsTheSame</a></h4>
+</td>
+<td>
+<p>Checks if two <a href="../../de.uniks.codliners.stock_simulator.domain/-symbol/index.html">Symbol</a>s have the same id.</p>
+<code><span class="keyword">fun </span><span class="identifier">areItemsTheSame</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.ui.search.SymbolListAdapter.DiffCallback$areItemsTheSame(de.uniks.codliners.stock_simulator.domain.Symbol, de.uniks.codliners.stock_simulator.domain.Symbol)/oldItem">oldItem</span><span class="symbol">:</span>&nbsp;<a href="../../de.uniks.codliners.stock_simulator.domain/-symbol/index.html"><span class="identifier">Symbol</span></a><span class="symbol">, </span><span class="identifier" id="de.uniks.codliners.stock_simulator.ui.search.SymbolListAdapter.DiffCallback$areItemsTheSame(de.uniks.codliners.stock_simulator.domain.Symbol, de.uniks.codliners.stock_simulator.domain.Symbol)/newItem">newItem</span><span class="symbol">:</span>&nbsp;<a href="../../de.uniks.codliners.stock_simulator.domain/-symbol/index.html"><span class="identifier">Symbol</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

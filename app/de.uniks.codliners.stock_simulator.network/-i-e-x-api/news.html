@@ -1,0 +1,22 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>IEXApi.news - app</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">app</a>&nbsp;/&nbsp;<a href="../index.html">de.uniks.codliners.stock_simulator.network</a>&nbsp;/&nbsp;<a href="index.html">IEXApi</a>&nbsp;/&nbsp;<a href="./news.html">news</a><br/>
+<br/>
+<h1>news</h1>
+<a name="de.uniks.codliners.stock_simulator.network.IEXApi$news(kotlin.String, kotlin.String)"></a>
+<code><span class="identifier">@GET</span><span class="symbol">(</span>"stock/{symbol}/news"<span class="symbol">)</span> <span class="keyword">abstract</span> <span class="keyword">suspend</span> <span class="keyword">fun </span><span class="identifier">news</span><span class="symbol">(</span><span class="identifier">@Path</span><span class="symbol">(</span>"symbol"<span class="symbol">)</span> <span class="identifier" id="de.uniks.codliners.stock_simulator.network.IEXApi$news(kotlin.String, kotlin.String)/symbol">symbol</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier">@Query</span><span class="symbol">(</span>"token"<span class="symbol">)</span> <span class="identifier" id="de.uniks.codliners.stock_simulator.network.IEXApi$news(kotlin.String, kotlin.String)/token">token</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a>&nbsp;<span class="symbol">=</span>&nbsp;IEX_API_TOKEN<span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../de.uniks.codliners.stock_simulator.domain/-news/index.html"><span class="identifier">News</span></a><span class="symbol">&gt;</span></code>
+<p>Requests <a href="../../de.uniks.codliners.stock_simulator.domain/-news/index.html">News</a> for an IEX share.</p>
+<h3>Parameters</h3>
+<p><a name="symbol"></a>
+<code>symbol</code> - The symbol of the IEX share.</p>
+<p><a name="token"></a>
+<code>token</code> - The IEX API token. Defaults to <a href="../-i-e-x_-a-p-i_-t-o-k-e-n.html">IEX_API_TOKEN</a>.</p>
+<p><strong>Return</strong><br/>
+The requested <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a> of <a href="../../de.uniks.codliners.stock_simulator.domain/-news/index.html">News</a>.</p>
+</BODY>
+</HTML>

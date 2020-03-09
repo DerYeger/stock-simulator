@@ -1,0 +1,63 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>StockbrotDao - app</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">app</a>&nbsp;/&nbsp;<a href="../index.html">de.uniks.codliners.stock_simulator.database</a>&nbsp;/&nbsp;<a href="./index.html">StockbrotDao</a><br/>
+<br/>
+<h1>StockbrotDao</h1>
+<code><span class="keyword">interface </span><span class="identifier">StockbrotDao</span></code>
+<p><a href="#">Dao</a> that manages <a href="../../de.uniks.codliners.stock_simulator.domain/-stockbrot-quote/index.html">StockbrotQuote</a>s in the database</p>
+<p><strong>Author</strong><br/>
+Lucas Held</p>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="delete-stockbrot-quote-by-id.html">deleteStockbrotQuoteById</a></h4>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">deleteStockbrotQuoteById</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.database.StockbrotDao$deleteStockbrotQuoteById(kotlin.String)/id">id</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="delete-stockbrot-quotes.html">deleteStockbrotQuotes</a></h4>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">deleteStockbrotQuotes</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="get-stockbrot-quote-by-id.html">getStockbrotQuoteById</a></h4>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">getStockbrotQuoteById</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.database.StockbrotDao$getStockbrotQuoteById(kotlin.String)/id">id</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../de.uniks.codliners.stock_simulator.domain/-stockbrot-quote/index.html"><span class="identifier">StockbrotQuote</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="get-stockbrot-quotes.html">getStockbrotQuotes</a></h4>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">getStockbrotQuotes</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">LiveData</span><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../de.uniks.codliners.stock_simulator.domain/-stockbrot-quote/index.html"><span class="identifier">StockbrotQuote</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="get-stockbrot-quote-with-id.html">getStockbrotQuoteWithId</a></h4>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">getStockbrotQuoteWithId</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.database.StockbrotDao$getStockbrotQuoteWithId(kotlin.String)/id">id</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">LiveData</span><span class="symbol">&lt;</span><a href="../../de.uniks.codliners.stock_simulator.domain/-stockbrot-quote/index.html"><span class="identifier">StockbrotQuote</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="insert-stockbrot-quote.html">insertStockbrotQuote</a></h4>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">insertStockbrotQuote</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.database.StockbrotDao$insertStockbrotQuote(de.uniks.codliners.stock_simulator.domain.StockbrotQuote)/stockbrotQuote">stockbrotQuote</span><span class="symbol">:</span>&nbsp;<a href="../../de.uniks.codliners.stock_simulator.domain/-stockbrot-quote/index.html"><span class="identifier">StockbrotQuote</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

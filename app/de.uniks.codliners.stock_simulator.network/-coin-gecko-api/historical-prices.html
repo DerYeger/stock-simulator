@@ -1,0 +1,24 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>CoinGeckoApi.historicalPrices - app</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">app</a>&nbsp;/&nbsp;<a href="../index.html">de.uniks.codliners.stock_simulator.network</a>&nbsp;/&nbsp;<a href="index.html">CoinGeckoApi</a>&nbsp;/&nbsp;<a href="./historical-prices.html">historicalPrices</a><br/>
+<br/>
+<h1>historicalPrices</h1>
+<a name="de.uniks.codliners.stock_simulator.network.CoinGeckoApi$historicalPrices(kotlin.String, kotlin.String, kotlin.String)"></a>
+<code><span class="identifier">@GET</span><span class="symbol">(</span>"coins/{id}/market_chart"<span class="symbol">)</span> <span class="keyword">abstract</span> <span class="keyword">suspend</span> <span class="keyword">fun </span><span class="identifier">historicalPrices</span><span class="symbol">(</span><span class="identifier">@Path</span><span class="symbol">(</span>"id"<span class="symbol">)</span> <span class="identifier" id="de.uniks.codliners.stock_simulator.network.CoinGeckoApi$historicalPrices(kotlin.String, kotlin.String, kotlin.String)/id">id</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier">@Query</span><span class="symbol">(</span>"vs_currency"<span class="symbol">)</span> <span class="identifier" id="de.uniks.codliners.stock_simulator.network.CoinGeckoApi$historicalPrices(kotlin.String, kotlin.String, kotlin.String)/currency">currency</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a>&nbsp;<span class="symbol">=</span>&nbsp;"usd"<span class="symbol">, </span><span class="identifier">@Query</span><span class="symbol">(</span>"days"<span class="symbol">)</span> <span class="identifier" id="de.uniks.codliners.stock_simulator.network.CoinGeckoApi$historicalPrices(kotlin.String, kotlin.String, kotlin.String)/days">days</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a>&nbsp;<span class="symbol">=</span>&nbsp;"max"<span class="symbol">)</span><span class="symbol">: </span><a href="../-coin-gecko-market-chart/index.html"><span class="identifier">CoinGeckoMarketChart</span></a></code>
+<p>Requests a <a href="../-coin-gecko-market-chart/index.html">CoinGeckoMarketChart</a> for a CoinGecko cryptocurrency.</p>
+<h3>Parameters</h3>
+<p><a name="id"></a>
+<code>id</code> - The CoinGecko id of the cryptocurrency.</p>
+<p><a name="currency"></a>
+<code>currency</code> - The target currency of the <a href="../-coin-gecko-market-chart/index.html">CoinGeckoMarketChart</a>. Defaults to usd.</p>
+<p><a name="days"></a>
+<code>days</code> - The maximum amount of days. Defaults to unlimited.</p>
+<p><strong>Return</strong><br/>
+The requested <a href="../-coin-gecko-market-chart/index.html">CoinGeckoMarketChart</a>.</p>
+</BODY>
+</HTML>

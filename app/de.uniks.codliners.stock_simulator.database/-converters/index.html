@@ -1,0 +1,82 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Converters - app</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">app</a>&nbsp;/&nbsp;<a href="../index.html">de.uniks.codliners.stock_simulator.database</a>&nbsp;/&nbsp;<a href="./index.html">Converters</a><br/>
+<br/>
+<h1>Converters</h1>
+<code><span class="keyword">class </span><span class="identifier">Converters</span></code>
+<p>Converter functions for object types that are not natively supported by SQLite</p>
+<p><strong>Author</strong><br/>
+Jan Müller</p>
+<p><strong>Author</strong><br/>
+Juri Lozowoj</p>
+<p><strong>Author</strong><br/>
+Lucas Held</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="-init-.html">&lt;init&gt;</a></h4>
+</td>
+<td>
+<p>Converter functions for object types that are not natively supported by SQLite</p>
+<code><span class="identifier">Converters</span><span class="symbol">(</span><span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="from-boolean-to-int.html">fromBooleanToInt</a></h4>
+</td>
+<td>
+<p>Converts a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a> value into an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a> value</p>
+<code><span class="keyword">fun </span><span class="identifier">fromBooleanToInt</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.database.Converters$fromBooleanToInt(kotlin.Boolean)/enabled">enabled</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="from-int-to-boolean.html">fromIntToBoolean</a></h4>
+</td>
+<td>
+<p>Converts a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a> value into an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a> value</p>
+<code><span class="keyword">fun </span><span class="identifier">fromIntToBoolean</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.database.Converters$fromIntToBoolean(kotlin.Int)/booleanInt">booleanInt</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="from-string-to-symbol-type.html">fromStringToSymbolType</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">fromStringToSymbolType</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.database.Converters$fromStringToSymbolType(kotlin.String)/typeString">typeString</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Type</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="from-string-to-transaction-type.html">fromStringToTransactionType</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">fromStringToTransactionType</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.database.Converters$fromStringToTransactionType(kotlin.String)/typeString">typeString</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../de.uniks.codliners.stock_simulator.domain/-transaction-type/index.html"><span class="identifier">TransactionType</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="from-symbol-type-to-string.html">fromSymbolTypeToString</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">fromSymbolTypeToString</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.database.Converters$fromSymbolTypeToString(de.uniks.codliners.stock_simulator.domain.Symbol.Type)/type">type</span><span class="symbol">:</span>&nbsp;<span class="identifier">Type</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="from-transaction-type-to-string.html">fromTransactionTypeToString</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">fromTransactionTypeToString</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.database.Converters$fromTransactionTypeToString(de.uniks.codliners.stock_simulator.domain.TransactionType)/type">type</span><span class="symbol">:</span>&nbsp;<a href="../../de.uniks.codliners.stock_simulator.domain/-transaction-type/index.html"><span class="identifier">TransactionType</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

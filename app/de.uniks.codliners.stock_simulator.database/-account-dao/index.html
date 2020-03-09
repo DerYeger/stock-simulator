@@ -1,0 +1,151 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>AccountDao - app</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">app</a>&nbsp;/&nbsp;<a href="../index.html">de.uniks.codliners.stock_simulator.database</a>&nbsp;/&nbsp;<a href="./index.html">AccountDao</a><br/>
+<br/>
+<h1>AccountDao</h1>
+<code><span class="keyword">interface </span><span class="identifier">AccountDao</span></code>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="delete-balances.html">deleteBalances</a></h4>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">deleteBalances</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="delete-depot.html">deleteDepot</a></h4>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">deleteDepot</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="delete-depot-quote-by-id.html">deleteDepotQuoteById</a></h4>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">deleteDepotQuoteById</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.database.AccountDao$deleteDepotQuoteById(kotlin.String)/id">id</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="delete-depot-quotes.html">deleteDepotQuotes</a></h4>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">deleteDepotQuotes</span><span class="symbol">(</span><span class="keyword">vararg</span> <span class="identifier" id="de.uniks.codliners.stock_simulator.database.AccountDao$deleteDepotQuotes(kotlin.Array((de.uniks.codliners.stock_simulator.domain.DepotQuotePurchase)))/depotPurchase">depotPurchase</span><span class="symbol">:</span>&nbsp;<a href="../../de.uniks.codliners.stock_simulator.domain/-depot-quote-purchase/index.html"><span class="identifier">DepotQuotePurchase</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="delete-depot-values.html">deleteDepotValues</a></h4>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">deleteDepotValues</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="get-balance-count.html">getBalanceCount</a></h4>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">getBalanceCount</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html"><span class="identifier">Long</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="get-balances-limited.html">getBalancesLimited</a></h4>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">getBalancesLimited</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.database.AccountDao$getBalancesLimited(kotlin.Int)/limit">limit</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">LiveData</span><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../de.uniks.codliners.stock_simulator.domain/-balance/index.html"><span class="identifier">Balance</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="get-depot-quote-by-id.html">getDepotQuoteById</a></h4>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">getDepotQuoteById</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.database.AccountDao$getDepotQuoteById(kotlin.String)/id">id</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../de.uniks.codliners.stock_simulator.domain/-depot-quote-purchase/index.html"><span class="identifier">DepotQuotePurchase</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="get-depot-quote-purchases-by-id-ordered-by-price.html">getDepotQuotePurchasesByIdOrderedByPrice</a></h4>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">getDepotQuotePurchasesByIdOrderedByPrice</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.database.AccountDao$getDepotQuotePurchasesByIdOrderedByPrice(kotlin.String)/id">id</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../de.uniks.codliners.stock_simulator.domain/-depot-quote-purchase/index.html"><span class="identifier">DepotQuotePurchase</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="get-depot-quote-purchases-values-ordered-by-price.html">getDepotQuotePurchasesValuesOrderedByPrice</a></h4>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">getDepotQuotePurchasesValuesOrderedByPrice</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../de.uniks.codliners.stock_simulator.domain/-depot-quote-purchase/index.html"><span class="identifier">DepotQuotePurchase</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="get-depot-quotes.html">getDepotQuotes</a></h4>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">getDepotQuotes</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">LiveData</span><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../de.uniks.codliners.stock_simulator.domain/-depot-quote/index.html"><span class="identifier">DepotQuote</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="get-depot-quote-with-id.html">getDepotQuoteWithId</a></h4>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">getDepotQuoteWithId</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.database.AccountDao$getDepotQuoteWithId(kotlin.String)/id">id</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">LiveData</span><span class="symbol">&lt;</span><a href="../../de.uniks.codliners.stock_simulator.domain/-depot-quote/index.html"><span class="identifier">DepotQuote</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="get-depot-values-limited.html">getDepotValuesLimited</a></h4>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">getDepotValuesLimited</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.database.AccountDao$getDepotValuesLimited(kotlin.Int)/limit">limit</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">LiveData</span><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../de.uniks.codliners.stock_simulator.domain/-depot-value/index.html"><span class="identifier">DepotValue</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="get-latest-balance.html">getLatestBalance</a></h4>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">getLatestBalance</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">LiveData</span><span class="symbol">&lt;</span><a href="../../de.uniks.codliners.stock_simulator.domain/-balance/index.html"><span class="identifier">Balance</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="get-latest-balance-value.html">getLatestBalanceValue</a></h4>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">getLatestBalanceValue</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../de.uniks.codliners.stock_simulator.domain/-balance/index.html"><span class="identifier">Balance</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="get-latest-depot-values.html">getLatestDepotValues</a></h4>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">getLatestDepotValues</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">LiveData</span><span class="symbol">&lt;</span><a href="../../de.uniks.codliners.stock_simulator.domain/-depot-value/index.html"><span class="identifier">DepotValue</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="insert-balance.html">insertBalance</a></h4>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">insertBalance</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.database.AccountDao$insertBalance(de.uniks.codliners.stock_simulator.domain.Balance)/balance">balance</span><span class="symbol">:</span>&nbsp;<a href="../../de.uniks.codliners.stock_simulator.domain/-balance/index.html"><span class="identifier">Balance</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="insert-depot-quote.html">insertDepotQuote</a></h4>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">insertDepotQuote</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.database.AccountDao$insertDepotQuote(de.uniks.codliners.stock_simulator.domain.DepotQuotePurchase)/depotPurchase">depotPurchase</span><span class="symbol">:</span>&nbsp;<a href="../../de.uniks.codliners.stock_simulator.domain/-depot-quote-purchase/index.html"><span class="identifier">DepotQuotePurchase</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="insert-depot-value.html">insertDepotValue</a></h4>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">insertDepotValue</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.database.AccountDao$insertDepotValue(de.uniks.codliners.stock_simulator.domain.DepotValue)/depotValue">depotValue</span><span class="symbol">:</span>&nbsp;<a href="../../de.uniks.codliners.stock_simulator.domain/-depot-value/index.html"><span class="identifier">DepotValue</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

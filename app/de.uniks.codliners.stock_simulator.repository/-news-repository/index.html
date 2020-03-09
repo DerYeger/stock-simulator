@@ -1,0 +1,84 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>NewsRepository - app</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">app</a>&nbsp;/&nbsp;<a href="../index.html">de.uniks.codliners.stock_simulator.repository</a>&nbsp;/&nbsp;<a href="./index.html">NewsRepository</a><br/>
+<br/>
+<h1>NewsRepository</h1>
+<code><span class="keyword">class </span><span class="identifier">NewsRepository</span></code>
+<p>Interface for fetching and resetting <a href="../../de.uniks.codliners.stock_simulator.domain/-news/index.html">News</a>.</p>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="-state/index.html">State</a></h4>
+</td>
+<td>
+<p>The different states of news fetching.</p>
+<code><span class="keyword">sealed</span> <span class="keyword">class </span><span class="identifier">State</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="-init-.html">&lt;init&gt;</a></h4>
+</td>
+<td>
+<p>Constructor that allows repository creation from a <a href="https://developer.android.com/reference/android/content/Context.html">Context</a>.</p>
+<code><span class="identifier">NewsRepository</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.repository.NewsRepository$<init>(android.content.Context)/context">context</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/content/Context.html"><span class="identifier">Context</span></a><span class="symbol">)</span></code>
+<p>Interface for fetching and resetting <a href="../../de.uniks.codliners.stock_simulator.domain/-news/index.html">News</a>.</p>
+<code><span class="identifier">NewsRepository</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.repository.NewsRepository$<init>(de.uniks.codliners.stock_simulator.database.StockAppDatabase)/database">database</span><span class="symbol">:</span>&nbsp;<a href="../../de.uniks.codliners.stock_simulator.database/-stock-app-database/index.html"><span class="identifier">StockAppDatabase</span></a><span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="news.html">news</a></h4>
+</td>
+<td>
+<p>Lazily initialized <a href="https://developer.android.com/reference/android/arch/lifecycle/LiveData">LiveData</a> containing an ordered <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a> of all locally stored <a href="../../de.uniks.codliners.stock_simulator.domain/-news/index.html">News</a>.</p>
+<code><span class="keyword">val </span><span class="identifier">news</span><span class="symbol">: </span><span class="identifier">LiveData</span><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../de.uniks.codliners.stock_simulator.domain/-news/index.html"><span class="identifier">News</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="state.html">state</a></h4>
+</td>
+<td>
+<p>The current <a href="-state/index.html">State</a> of the repository.</p>
+<code><span class="keyword">val </span><span class="identifier">state</span><span class="symbol">: </span><span class="identifier">LiveData</span><span class="symbol">&lt;</span><span class="identifier">State</span><span class="symbol">&gt;</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="fetch-news.html">fetchNews</a></h4>
+</td>
+<td>
+<p>Fetches all available news from the IEX API, then stores them in the <a href="../../de.uniks.codliners.stock_simulator.database/-stock-app-database/index.html">StockAppDatabase</a>.</p>
+<code><span class="keyword">suspend</span> <span class="keyword">fun </span><span class="identifier">fetchNews</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.repository.NewsRepository$fetchNews(kotlin.String)/symbol">symbol</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="reset-news.html">resetNews</a></h4>
+</td>
+<td>
+<p>Deletes all news from the database.</p>
+<code><span class="keyword">suspend</span> <span class="keyword">fun </span><span class="identifier">resetNews</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

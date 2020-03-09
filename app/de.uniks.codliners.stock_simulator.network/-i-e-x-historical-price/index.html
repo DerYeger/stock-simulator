@@ -1,0 +1,85 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>IEXHistoricalPrice - app</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">app</a>&nbsp;/&nbsp;<a href="../index.html">de.uniks.codliners.stock_simulator.network</a>&nbsp;/&nbsp;<a href="./index.html">IEXHistoricalPrice</a><br/>
+<br/>
+<h1>IEXHistoricalPrice</h1>
+<code><span class="identifier">@JsonClass</span><span class="symbol">(</span>true<span class="symbol">)</span> <span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">IEXHistoricalPrice</span></code>
+<p>Price data point for an IEX share.</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="-init-.html">&lt;init&gt;</a></h4>
+</td>
+<td>
+<p>Price data point for an IEX share.</p>
+<code><span class="identifier">IEXHistoricalPrice</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.network.IEXHistoricalPrice$<init>(kotlin.String, kotlin.Double, kotlin.Double, kotlin.Double, kotlin.Double)/date">date</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="de.uniks.codliners.stock_simulator.network.IEXHistoricalPrice$<init>(kotlin.String, kotlin.Double, kotlin.Double, kotlin.Double, kotlin.Double)/close">close</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">, </span><span class="identifier" id="de.uniks.codliners.stock_simulator.network.IEXHistoricalPrice$<init>(kotlin.String, kotlin.Double, kotlin.Double, kotlin.Double, kotlin.Double)/changeOverTime">changeOverTime</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">, </span><span class="identifier" id="de.uniks.codliners.stock_simulator.network.IEXHistoricalPrice$<init>(kotlin.String, kotlin.Double, kotlin.Double, kotlin.Double, kotlin.Double)/change">change</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">, </span><span class="identifier" id="de.uniks.codliners.stock_simulator.network.IEXHistoricalPrice$<init>(kotlin.String, kotlin.Double, kotlin.Double, kotlin.Double, kotlin.Double)/changePercent">changePercent</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="change.html">change</a></h4>
+</td>
+<td>
+<p>The price change of the data point.</p>
+<code><span class="keyword">val </span><span class="identifier">change</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="change-over-time.html">changeOverTime</a></h4>
+</td>
+<td>
+<p>The change over time of the data point.</p>
+<code><span class="keyword">val </span><span class="identifier">changeOverTime</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="change-percent.html">changePercent</a></h4>
+</td>
+<td>
+<p>The change percentage of the data point.</p>
+<code><span class="keyword">val </span><span class="identifier">changePercent</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="close.html">close</a></h4>
+</td>
+<td>
+<p>The close value of the data point.</p>
+<code><span class="keyword">val </span><span class="identifier">close</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="date.html">date</a></h4>
+</td>
+<td>
+<p>The timestamp of the data point.</p>
+<code><span class="keyword">val </span><span class="identifier">date</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Extension Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="../as-domain-historical-price.html">asDomainHistoricalPrice</a></h4>
+</td>
+<td>
+<p>Transforms an <a href="./index.html">IEXHistoricalPrice</a> to an equivalent <a href="../../de.uniks.codliners.stock_simulator.domain/-historical-price/index.html">HistoricalPrice</a>.</p>
+<code><span class="keyword">fun </span><a href="./index.html"><span class="identifier">IEXHistoricalPrice</span></a><span class="symbol">.</span><span class="identifier">asDomainHistoricalPrice</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.network$asDomainHistoricalPrice(de.uniks.codliners.stock_simulator.network.IEXHistoricalPrice, kotlin.String)/id">id</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../de.uniks.codliners.stock_simulator.domain/-historical-price/index.html"><span class="identifier">HistoricalPrice</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

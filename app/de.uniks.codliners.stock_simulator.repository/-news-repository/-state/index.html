@@ -1,0 +1,51 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>NewsRepository.State - app</title>
+<link rel="stylesheet" href="../../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../../index.html">app</a>&nbsp;/&nbsp;<a href="../../index.html">de.uniks.codliners.stock_simulator.repository</a>&nbsp;/&nbsp;<a href="../index.html">NewsRepository</a>&nbsp;/&nbsp;<a href="./index.html">State</a><br/>
+<br/>
+<h1>State</h1>
+<code><span class="keyword">sealed</span> <span class="keyword">class </span><span class="identifier">State</span></code>
+<p>The different states of news fetching.</p>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="-done.html">Done</a></h4>
+</td>
+<td>
+<p>Fetched data.</p>
+<code><span class="keyword">object </span><span class="identifier">Done</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">State</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-empty.html">Empty</a></h4>
+</td>
+<td>
+<p>Nothing fetched.</p>
+<code><span class="keyword">object </span><span class="identifier">Empty</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">State</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-error/index.html">Error</a></h4>
+</td>
+<td>
+<p>An error occurred.</p>
+<code><span class="keyword">class </span><span class="identifier">Error</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">State</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-refreshing.html">Refreshing</a></h4>
+</td>
+<td>
+<p>Fetching.</p>
+<code><span class="keyword">object </span><span class="identifier">Refreshing</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">State</span></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

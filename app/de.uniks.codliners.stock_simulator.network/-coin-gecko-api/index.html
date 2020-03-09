@@ -1,0 +1,45 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>CoinGeckoApi - app</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">app</a>&nbsp;/&nbsp;<a href="../index.html">de.uniks.codliners.stock_simulator.network</a>&nbsp;/&nbsp;<a href="./index.html">CoinGeckoApi</a><br/>
+<br/>
+<h1>CoinGeckoApi</h1>
+<code><span class="keyword">interface </span><span class="identifier">CoinGeckoApi</span></code>
+<p>The CoinGecko API interface.</p>
+<p><strong>Author</strong><br/>
+Jan Müller</p>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="historical-prices.html">historicalPrices</a></h4>
+</td>
+<td>
+<p>Requests a <a href="../-coin-gecko-market-chart/index.html">CoinGeckoMarketChart</a> for a CoinGecko cryptocurrency.</p>
+<code><span class="keyword">abstract</span> <span class="keyword">suspend</span> <span class="keyword">fun </span><span class="identifier">historicalPrices</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.network.CoinGeckoApi$historicalPrices(kotlin.String, kotlin.String, kotlin.String)/id">id</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="de.uniks.codliners.stock_simulator.network.CoinGeckoApi$historicalPrices(kotlin.String, kotlin.String, kotlin.String)/currency">currency</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a>&nbsp;<span class="symbol">=</span>&nbsp;"usd"<span class="symbol">, </span><span class="identifier" id="de.uniks.codliners.stock_simulator.network.CoinGeckoApi$historicalPrices(kotlin.String, kotlin.String, kotlin.String)/days">days</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a>&nbsp;<span class="symbol">=</span>&nbsp;"max"<span class="symbol">)</span><span class="symbol">: </span><a href="../-coin-gecko-market-chart/index.html"><span class="identifier">CoinGeckoMarketChart</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="quote.html">quote</a></h4>
+</td>
+<td>
+<p>Requests a <a href="../-coin-gecko-quote/index.html">CoinGeckoQuote</a> for a CoinGecko cryptocurrency.</p>
+<code><span class="keyword">abstract</span> <span class="keyword">suspend</span> <span class="keyword">fun </span><span class="identifier">quote</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.network.CoinGeckoApi$quote(kotlin.String)/id">id</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../-coin-gecko-quote/index.html"><span class="identifier">CoinGeckoQuote</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="symbols.html">symbols</a></h4>
+</td>
+<td>
+<p>Requests all <a href="../-coin-gecko-symbol/index.html">CoinGeckoSymbol</a>s.</p>
+<code><span class="keyword">abstract</span> <span class="keyword">suspend</span> <span class="keyword">fun </span><span class="identifier">symbols</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../-coin-gecko-symbol/index.html"><span class="identifier">CoinGeckoSymbol</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>
