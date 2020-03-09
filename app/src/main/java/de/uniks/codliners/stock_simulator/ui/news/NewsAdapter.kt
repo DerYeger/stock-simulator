@@ -17,16 +17,35 @@ import de.uniks.codliners.stock_simulator.domain.News
 import java.text.SimpleDateFormat
 import java.util.*
 
-
+/**
+ *
+ *
+ * @constructor
+ * TODO
+ *
+ * @param locale
+ *
+ * @author Jonas Thelemann
+ */
 class NewsAdapter(
     locale: Locale
 ) : ListAdapter<News, NewsAdapter.ViewHolder>(DiffCallback) {
 
     private val dateFormatter = SimpleDateFormat("dd.MM.yyyy HH:mm", locale)
 
+    /**
+     * The [RecyclerView](https://developer.android.com/reference/androidx/recyclerview/widget/RecyclerView)'s ViewHolder.
+     *
+     * @property binding The card's binding.
+     */
     inner class ViewHolder(private val binding: CardNewsBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
+        /**
+         * Bind a news object to the card.
+         *
+         * @param news The news object to bind.
+         */
         fun bind(news: News) {
             val calendar = Calendar.getInstance()
             calendar.timeInMillis = news.datetime
@@ -55,14 +74,37 @@ class NewsAdapter(
         }
     }
 
+    /**
+     * Companion object that allows comparison of news objects.
+     */
     companion object DiffCallback : DiffUtil.ItemCallback<News>() {
+
+        /**
+         * Compares two news objects for equality by checking their "url" property.
+         *
+         * @param oldItem The comparisons left operand.
+         * @param newItem The comparisons right operand.
+         */
         override fun areItemsTheSame(oldItem: News, newItem: News) =
             oldItem.url == newItem.url
 
+        /**
+         * Compares two news objects for equality.
+         *
+         * @param oldItem The comparisons left operand.
+         * @param newItem The comparisons right operand.
+         */
         override fun areContentsTheSame(oldItem: News, newItem: News) =
             oldItem == newItem
     }
 
+    /**
+     * The "onCreate" callback.
+     *
+     * @param parent The ViewHolder's parent.
+     * @param viewType The ViewHolder's view type.
+     * @return The ViewHolder with inflated CardNewsBinding.
+     */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
             CardNewsBinding.inflate(
@@ -73,6 +115,12 @@ class NewsAdapter(
         )
     }
 
+    /**
+     * The "onBind" callback.
+     *
+     * @param holder The ViewHolder.
+     * @param position The news object's position.
+     */
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val news: News = getItem(position)
         holder.bind(news)

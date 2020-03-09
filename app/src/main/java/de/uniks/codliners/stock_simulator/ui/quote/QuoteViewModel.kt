@@ -15,6 +15,18 @@ import de.uniks.codliners.stock_simulator.toSafeDouble
 import kotlinx.coroutines.launch
 import java.util.*
 
+/**
+ * [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel) for displaying various [Quote] information.
+ *
+ * @param application TODO
+ *
+ * @property id The id of the [Quote].
+ * @property type The [Symbol.Type] of the [Quote].
+ *
+ * @author TODO
+ * @author Jan Müller
+ * @author Jonas Thelemann
+ */
 class QuoteViewModel(
     application: Application,
     private val id: String,
@@ -123,7 +135,11 @@ class QuoteViewModel(
         )
     }
 
-    // Button click indicator for reset button.
+    /**
+     * Button click indicator for reset button.
+     *
+     * @author Jonas Thelemann
+     */
     val clickNewsStatus = MutableLiveData<Boolean?>()
 
     init {
@@ -237,6 +253,11 @@ class QuoteViewModel(
         }
     }
 
+    /**
+     * Sets the flag that indicates that news are to be shown.
+     *
+     * @author Jonas Thelemann
+     */
     fun showNews() {
         clickNewsStatus.value = true
     }

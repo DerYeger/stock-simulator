@@ -7,6 +7,9 @@ import androidx.room.OnConflictStrategy.REPLACE
 import de.uniks.codliners.stock_simulator.domain.*
 import de.uniks.codliners.stock_simulator.domain.Transaction
 
+/**
+ * The [Room](https://developer.android.com/jetpack/androidx/releases/room) database with all its [Dao](https://developer.android.com/reference/androidx/room/Dao)s.
+ */
 @Database(
     entities = [Symbol::class, DepotQuotePurchase::class, News::class, Transaction::class, Quote::class, Balance::class, HistoricalPrice::class, StockbrotQuote::class, DepotValue::class, Achievement::class],
     version = 27,
@@ -14,13 +17,38 @@ import de.uniks.codliners.stock_simulator.domain.Transaction
 )
 @TypeConverters(Converters::class)
 abstract class StockAppDatabase : RoomDatabase() {
+    /**
+     * The database's [Symbol] [Dao](https://developer.android.com/reference/androidx/room/Dao).
+     */
     abstract val symbolDao: SymbolDao
+
+    /**
+     * The database's [Quote] [Dao](https://developer.android.com/reference/androidx/room/Dao).
+     */
     abstract val quoteDao: QuoteDao
+
+    /**
+     * The database's [News] [Dao](https://developer.android.com/reference/androidx/room/Dao).
+     */
     abstract val newsDao: NewsDao
+
+    /**
+     * The database's [TransactionDao] [Dao](https://developer.android.com/reference/androidx/room/Dao).
+     */
     abstract val transactionDao: TransactionDao
+
     abstract val accountDao: AccountDao
+
     abstract val stockbrotDao: StockbrotDao
+
+    /**
+     * The database's [HistoricalPrice] [Dao](https://developer.android.com/reference/androidx/room/Dao).
+     */
     abstract val historicalDao: HistoricalPriceDao
+
+    /**
+     * The database's [Achievement] [Dao](https://developer.android.com/reference/androidx/room/Dao).
+     */
     abstract val achievementDao: AchievementsDao
 }
 
@@ -145,12 +173,23 @@ interface HistoricalPriceDao {
     fun insertAll(vararg prices: HistoricalPrice)
 }
 
+/**
+ * [Dao](https://developer.android.com/reference/androidx/room/Dao) that manages [News] in the database.
+ *
+ * @author Jonas Thelemann
+ */
 @Dao
 interface NewsDao {
 
+    /**
+     * Deletes everything from the "news" table.
+     */
     @Query("DELETE FROM news")
     fun deleteNews()
 
+    /**
+     * Inserts all given news articles into the "news" table.
+     */
     @Insert(onConflict = REPLACE)
     fun insertAll(vararg news: News)
 }
@@ -200,9 +239,6 @@ interface StockbrotDao {
 
 @Dao
 interface SymbolDao {
-
-    @Query("SELECT * FROM symbol WHERE symbol.id == :id")
-    fun get(id: String): LiveData<Symbol>
 
     @Query("SELECT * FROM symbol ORDER BY symbol.symbol ASC")
     fun getAll(): LiveData<List<Symbol>>

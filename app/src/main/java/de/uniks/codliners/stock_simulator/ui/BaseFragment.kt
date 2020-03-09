@@ -12,6 +12,12 @@ import androidx.navigation.fragment.findNavController
 import de.uniks.codliners.stock_simulator.R
 import timber.log.Timber
 
+/**
+ * BaseFragment for most other fragments. Adds the main menu and manages achievements.
+ *
+ * @author Lucas Held
+ * @author Jan Müller
+ */
 abstract class BaseFragment : Fragment() {
 
     private val viewModel: BaseViewModel by viewModels {

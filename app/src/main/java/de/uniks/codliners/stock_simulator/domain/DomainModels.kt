@@ -61,6 +61,20 @@ data class HistoricalPrice(
     val price: Double
 )
 
+/**
+ * News database entity and JSON adapter source.
+ *
+ * @property primaryKey An automatically generated primary key.
+ * @property datetime Millisecond epoch of time of article.
+ * @property headline The article's headline.
+ * @property source Source of the news article. Make sure to always attribute the source.
+ * @property url URL to IEX Cloud for associated news image.
+ * @property summary The requested news article in short.
+ * @property related Comma-delimited list of tickers associated with this news article. Not all tickers are available on the API. Make sure to check against available [ref-data](https://iexcloud.io/docs/api/#symbols).
+ * @property image URL to IEX Cloud for associated news image.
+ * @property lang Language of the source article.
+ * @property hasPaywall Whether the news source has a paywall.
+ */
 @Entity
 @JsonClass(generateAdapter = true)
 data class News(

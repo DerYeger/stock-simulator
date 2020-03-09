@@ -12,6 +12,10 @@ import timber.log.Timber
 
 private const val FIRST_RUN_KEY = "first_run"
 
+/**
+ * This app's application. Enables dark mode and logging and handles data initialization.
+ *
+ */
 @Suppress("unused")
 class StockSimulatorApplication : Application() {
 
@@ -30,6 +34,13 @@ class StockSimulatorApplication : Application() {
         }
     }
 
+    /**
+     * Runs the passed block exactly once when the application is first launched.
+     *
+     * @param block The block that will be run during the app's first launch.
+     *
+     * @author Jan Müller
+     */
     private inline fun onFirstRun(block: () -> Unit) {
         sharedPreferences()
             .getBoolean(FIRST_RUN_KEY, true)

@@ -14,6 +14,11 @@ class HistoryRepository(private val database: StockAppDatabase) {
 
     val transactions: LiveData<List<Transaction>> = database.transactionDao.getTransactions()
 
+    /**
+     * Deletes all transactions from the database.
+     *
+     * @author Jonas Thelemann
+     */
     suspend fun resetHistory() {
         withContext(Dispatchers.IO) {
             database.transactionDao.apply {

@@ -10,8 +10,21 @@ import de.uniks.codliners.stock_simulator.domain.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
+/**
+ * Limits the amount of balance data points returned by corresponding database requests.
+ */
 private const val BALANCE_LIMIT: Int = 50
 
+/**
+ * Repository for accessing and updating account information.
+ *
+ * @property database The database used by this repository.
+ * @property latestBalance The latest [Balance] of the [StockAppDatabase].
+ *
+ * @author Jan Müller
+ * @author TODO
+ * @author Jonas Thelemann
+ */
 class AccountRepository(private val database: StockAppDatabase) {
 
     constructor(context: Context) : this(getDatabase(context))
@@ -20,7 +33,9 @@ class AccountRepository(private val database: StockAppDatabase) {
         database.accountDao.getLatestBalance()
     }
 
-    // the last 50 account balance values
+    /**
+     * The last {BALANCE_LIMIT} account balance values.
+     */
     val balancesLimited by lazy {
         database.accountDao.getBalancesLimited(BALANCE_LIMIT)
     }
@@ -28,6 +43,7 @@ class AccountRepository(private val database: StockAppDatabase) {
     val depot by lazy {
         database.accountDao.getDepotQuotes()
     }
+
     // the last 50 account depot values
     val depotValuesLimited by lazy {
         database.accountDao.getDepotValuesLimited(BALANCE_LIMIT)
@@ -43,7 +59,13 @@ class AccountRepository(private val database: StockAppDatabase) {
     fun depotQuoteBySymbol(symbol: String): DepotQuotePurchase? =
         database.accountDao.getDepotQuoteById(symbol)
 
-    suspend fun getLatestBalance() = withContext(Dispatchers.IO) { database.accountDao.getLatestBalanceValue() }
+    /**
+     * Returns the latest [Balance] of the [StockAppDatabase].
+     *
+     * @return The latest [Balance] of the [StockAppDatabase].
+     */
+    suspend fun getLatestBalance() =
+        withContext(Dispatchers.IO) { database.accountDao.getLatestBalanceValue() }
 
     fun calculateBuyCashflow(quote: Quote?, amount: Double?): Double {
         if (quote == null || amount == null) return 0.0
@@ -55,6 +77,12 @@ class AccountRepository(private val database: StockAppDatabase) {
         return quote.latestPrice * amount - BuildConfig.TRANSACTION_COSTS
     }
 
+    /**
+     * Buys an asset if possible and stores the related data in the [StockAppDatabase].
+     *
+     * @param quote Quote information of the asset.
+     * @param amount The amount to buy.
+     */
     suspend fun buy(quote: Quote, amount: Double) {
         if (amount <= 0.0) return
         withContext(Dispatchers.IO) {
@@ -94,11 +122,17 @@ class AccountRepository(private val database: StockAppDatabase) {
         }
     }
 
+    /**
+     * Sells an asset if possible and stores the related data in the [StockAppDatabase].
+     *
+     * @param quote Quote information of the asset.
+     * @param amount The amount to sell.
+     */
     suspend fun sell(quote: Quote, amount: Double) {
         if (amount <= 0.0) return
         withContext(Dispatchers.IO) {
             val oldBalance = database.accountDao.getLatestBalanceValue()
-            if (BuildConfig.TRANSACTION_COSTS > oldBalance.value + quote.latestPrice * amount ) {
+            if (BuildConfig.TRANSACTION_COSTS > oldBalance.value + quote.latestPrice * amount) {
                 return@withContext
             }
             val cashflow = calculateSellCashflow(quote, amount)
@@ -119,10 +153,7 @@ class AccountRepository(private val database: StockAppDatabase) {
                 result = transactionResult
             )
 
-            database.accountDao.apply {
-                insertBalance(newBalance)
-                // deleteDepotQuotes(*depotQuotesToSell.toTypedArray())
-            }
+            database.accountDao.insertBalance(newBalance)
             database.transactionDao.insert(transaction)
         }
     }
@@ -146,7 +177,8 @@ class AccountRepository(private val database: StockAppDatabase) {
         cashflow: Double,
         quote: Quote
     ): Double {
-        val allQuotesOPurchases = database.accountDao.getDepotQuotePurchasesByIdOrderedByPrice(quote.id)
+        val allQuotesOPurchases =
+            database.accountDao.getDepotQuotePurchasesByIdOrderedByPrice(quote.id)
 
         val quotesToSell = mutableListOf<DepotQuotePurchase>()
         var amountCount = 0.0
@@ -175,9 +207,18 @@ class AccountRepository(private val database: StockAppDatabase) {
         return transactionResult
     }
 
+    /**
+     * Checks if the [StockAppDatabase] has any [Balance].
+     *
+     * @return true if the [StockAppDatabase] has any [Balance] and false otherwise.
+     */
     suspend fun hasBalance() =
         withContext(Dispatchers.IO) { database.accountDao.getBalanceCount() > 0 }
 
+    /**
+     * Resets account information by deleting existing data from the [StockAppDatabase] and inserting default [Balance]s and a [DepotValue].
+     *
+     */
     suspend fun resetAccount() {
         withContext(Dispatchers.IO) {
             database.accountDao.apply {
@@ -188,9 +229,14 @@ class AccountRepository(private val database: StockAppDatabase) {
         }
     }
 
+    /**
+     * Inserts two [Balance]s with a value of [BuildConfig.NEW_ACCOUNT_BALANCE] and a time offset of 1 minute to enable graph plotting.
+     *
+     */
     private fun AccountDao.setStartBalance() {
         val starterBalance = Balance(value = BuildConfig.NEW_ACCOUNT_BALANCE)
-        val secondStarterBalance = starterBalance.copy(timestamp = starterBalance.timestamp - 60 * 1000)
+        val secondStarterBalance =
+            starterBalance.copy(timestamp = starterBalance.timestamp - 60 * 1000)
         insertBalance(starterBalance)
         insertBalance(secondStarterBalance)
     }
@@ -200,6 +246,10 @@ class AccountRepository(private val database: StockAppDatabase) {
         insertDepotValue(starterDepotValue)
     }
 
+    /**
+     * Deletes all account-related information from the [StockAppDatabase].
+     *
+     */
     private fun AccountDao.deleteAccount() {
         deleteDepot()
         deleteBalances()
