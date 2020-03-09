@@ -5,6 +5,16 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import de.uniks.codliners.stock_simulator.repository.StockbrotRepository
 
+/**
+ * ViewModel for the stockbrot ui.
+ *
+ * @constructor
+ * TODO
+ *
+ * @param application The application to create a [StockbrotRepository] for.
+ *
+ * @author Lucas Held
+ */
 class StockbrotViewModel(application: Application) : ViewModel() {
 
     private val stockbrotRepository = StockbrotRepository(application)

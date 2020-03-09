@@ -17,6 +17,17 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
+/**
+ * This Worker is started by [StockbrotWorkRequest].
+ * It's used to buy and sell quotes automatically in the background.
+ *
+ * @param context
+ * @param params Params for the [StockbrotWorker]
+ *
+ * @author Lucas Held
+ * @author Jan Müller
+ * @author Juri Lozowoj
+ */
 class StockbrotWorker(context: Context, params: WorkerParameters) : Worker(context, params) {
 
     private val quoteRepository = QuoteRepository(context)
@@ -28,6 +39,15 @@ class StockbrotWorker(context: Context, params: WorkerParameters) : Worker(conte
 
     private val stockbrotWorkRequest = StockbrotWorkRequest(context)
 
+    /**
+     * This function is called if the worker is started
+     *
+     * @return [Result] of the work process
+     *
+     * @author Lucas Held
+     * @author Jan Müller
+     * @author Juri Lozowoj
+     */
     override fun doWork(): Result {
         scope.launch {
             // fetch current quote
@@ -55,6 +75,14 @@ class StockbrotWorker(context: Context, params: WorkerParameters) : Worker(conte
         return Result.success()
     }
 
+    /**
+     * Executes the buy order for the given quote
+     *
+     * @param quote
+     *
+     * @author Jan Müller
+     * @author Lucas Held
+     */
     private suspend fun StockbrotQuote.executeBuyOrder(quote: Quote) {
         if (quote.latestPrice > maximumBuyPrice) return
         val balance = accountRepository.getLatestBalance()
@@ -79,6 +107,14 @@ class StockbrotWorker(context: Context, params: WorkerParameters) : Worker(conte
         accountRepository.buy(quote, actualAmount)
     }
 
+    /**
+     * Executes the sell order for the given quote
+     *
+     * @param quote
+     *
+     * @author Jan Müller
+     * @author Lucas Held
+     */
     private suspend fun StockbrotQuote.executeSellOrder(quote: Quote) {
         val depotQuote = accountRepository.depotQuoteBySymbol(id) ?: return
         if (quote.latestPrice >= minimumSellPrice) {

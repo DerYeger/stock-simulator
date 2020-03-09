@@ -10,6 +10,11 @@ import de.uniks.codliners.stock_simulator.databinding.FragmentStockbrotBinding
 import de.uniks.codliners.stock_simulator.ui.BaseFragment
 import de.uniks.codliners.stock_simulator.ui.OnClickListener
 
+/**
+ * Fragment for the stockbrot ui.
+ *
+ * @author Lucas Held
+ */
 class StockbrotFragment : BaseFragment() {
 
     private val viewModel: StockbrotViewModel by viewModels{

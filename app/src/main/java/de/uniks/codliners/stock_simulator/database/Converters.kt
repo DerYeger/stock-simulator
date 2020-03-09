@@ -4,8 +4,24 @@ import androidx.room.TypeConverter
 import de.uniks.codliners.stock_simulator.domain.Symbol
 import de.uniks.codliners.stock_simulator.domain.TransactionType
 
+/**
+ * Converter functions for object types that are not natively supported by SQLite
+ *
+ * @author Jan Müller
+ * @author Juri Lozowoj
+ * @author Lucas Held
+ *
+ */
 class Converters {
 
+    /**
+     * Converts a [Boolean] value into an [Int] value
+     *
+     * @param enabled input [Boolean] value
+     * @return output [Int] value
+     *
+     * @author Lucas Held
+     */
     @TypeConverter
     fun fromBooleanToInt(enabled: Boolean): Int {
         return when(enabled) {
@@ -14,6 +30,14 @@ class Converters {
         }
     }
 
+    /**
+     * Converts a [Int] value into an [Boolean] value
+     *
+     * @param booleanInt input [Int] value
+     * @return output [Boolean] value
+     *
+     * @author Lucas Held
+     */
     @TypeConverter
     fun fromIntToBoolean(booleanInt: Int): Boolean {
         return when(booleanInt) {

@@ -11,6 +11,16 @@ import de.uniks.codliners.stock_simulator.repository.AccountRepository
 import de.uniks.codliners.stock_simulator.repository.AchievementsRepository
 import kotlinx.coroutines.launch
 
+/**
+ * BaseViewModel for the [BaseFragment]. Handles events that can unlock achievements.
+ *
+ * @constructor
+ * Adds sources to [MediatorLiveData] values
+ *
+ * @param application
+ *
+ * @author Lucas Held
+ */
 class BaseViewModel(application: Application): ViewModel() {
 
     private val achievementsRepository = AchievementsRepository(application)
@@ -104,6 +114,13 @@ class BaseViewModel(application: Application): ViewModel() {
         }
     }
 
+    /**
+     * Marks an achievement as reached, sets the current timestamp and inserts it into the [AchievementsRepository].
+     *
+     * @param achievement Achievement that will be modified and inserted
+     *
+     * @author Lucas Held
+     */
     private fun insertReachedAchievement(achievement: Achievement?) {
         val newAchievement = achievement!!.copy(
             reached = true,
@@ -112,12 +129,26 @@ class BaseViewModel(application: Application): ViewModel() {
         insertAchievement(newAchievement)
     }
 
+    /**
+     * Inserts it into the [AchievementsRepository].
+     *
+     * @param achievement Achievement that will be inserted
+     *
+     * @author Lucas Held
+     */
     private fun insertAchievement(achievement: Achievement) {
         viewModelScope.launch {
             achievementsRepository.insertAchievement(achievement)
         }
     }
 
+    /**
+     * Marks an achievement in the [AchievementsRepository] as displayed.
+     *
+     * @param achievement Achievement that will be modified.
+     *
+     * @author Lucas Held
+     */
     fun markAchievementAsDisplayed(achievement: Achievement) {
         viewModelScope.launch {
             val newAchievement = achievement.copy(displayed = true)
@@ -125,6 +156,11 @@ class BaseViewModel(application: Application): ViewModel() {
         }
     }
 
+    /**
+     * Factory for the BaseViewModel.
+     *
+     * @property application
+     */
     class Factory(
         private val application: Application
     ) : ViewModelProvider.Factory {

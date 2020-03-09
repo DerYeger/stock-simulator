@@ -129,6 +129,11 @@ fun Context.resetNews() {
     }
 }
 
+/**
+ * Resets all achievements in the database.
+ *
+ * @author Lucas Held
+ */
 fun Context.resetAchievements() {
     val self = this
     CoroutineScope(Dispatchers.Main).launch {

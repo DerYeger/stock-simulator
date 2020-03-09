@@ -8,6 +8,11 @@ import androidx.recyclerview.widget.RecyclerView
 import de.uniks.codliners.stock_simulator.databinding.CardAchievementBinding
 import de.uniks.codliners.stock_simulator.domain.Achievement
 
+/**
+ * The adapter that inserts [Achievement]s into a [RecyclerView].
+ *
+ * @author Lucas Held
+ */
 class AchievementsAdapter : ListAdapter<Achievement, AchievementsAdapter.ViewHolder>(DiffCallback) {
 
     inner class ViewHolder(private val binding: CardAchievementBinding) :

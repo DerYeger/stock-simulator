@@ -22,7 +22,8 @@ private const val BALANCE_LIMIT: Int = 50
  * @property latestBalance The latest [Balance] of the [StockAppDatabase].
  *
  * @author Jan Müller
- * @author TODO
+ * @author Juri Lozowoj
+ * @author Lucas Held
  * @author Jonas Thelemann
  */
 class AccountRepository(private val database: StockAppDatabase) {
@@ -67,11 +68,29 @@ class AccountRepository(private val database: StockAppDatabase) {
     suspend fun getLatestBalance() =
         withContext(Dispatchers.IO) { database.accountDao.getLatestBalanceValue() }
 
+    /**
+     * Calculates the cashflow of a buy transaction.
+     *
+     * @param quote The [Quote] to buy.
+     * @param amount The buy amount of the [Quote].
+     * @return The calculated cashflow.
+     *
+     * @author Lucas Held
+     */
     fun calculateBuyCashflow(quote: Quote?, amount: Double?): Double {
         if (quote == null || amount == null) return 0.0
         return -(quote.latestPrice * amount) - BuildConfig.TRANSACTION_COSTS
     }
 
+    /**
+     * Calculates the cashflow of a sell transaction.
+     *
+     * @param quote The [Quote] to sell.
+     * @param amount The sell amount of the [Quote].
+     * @return The calculated cashflow.
+     *
+     * @author Lucas Held
+     */
     fun calculateSellCashflow(quote: Quote?, amount: Double?): Double {
         if (quote == null || amount == null) return 0.0
         return quote.latestPrice * amount - BuildConfig.TRANSACTION_COSTS

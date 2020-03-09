@@ -9,6 +9,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 
+/**
+ * Repository for accessing, inserting and filtering [Achievement]s.
+ *
+ * @property database The database used by this repository.
+ *
+ * @author Lucas Held
+ */
 class AchievementsRepository(private val database: StockAppDatabase) {
 
     constructor(context: Context) : this(getDatabase(context))
@@ -17,6 +24,11 @@ class AchievementsRepository(private val database: StockAppDatabase) {
         database.achievementDao.getAchievements()
     }
 
+    /**
+     * Inserts [Achievement]s that are not yet available in the database.
+     *
+     * @author Lucas Held
+     */
     suspend fun initAchievements() {
         val achievements = listOf(
             Achievement(
@@ -79,18 +91,39 @@ class AchievementsRepository(private val database: StockAppDatabase) {
         }
     }
 
+
+    /**
+     * Returns an [Achievement] by its name.
+     *
+     * @param name The name of the [Achievement].
+     * @return The corresponding [Achievement].
+     *
+     * @author Lucas Held
+     */
     suspend fun getAchievementsByName(name: Int): Achievement? {
         return withContext(Dispatchers.IO) {
             database.achievementDao.getAchievementByName(name)
         }
     }
 
+    /**
+     * Inserts an [Achievement] into the database
+     *
+     * @param achievement The [Achievement] to be inserted.
+     *
+     * @author Lucas Held
+     */
     suspend fun insertAchievement(achievement: Achievement) {
         withContext(Dispatchers.IO) {
             database.achievementDao.insert(achievement)
         }
     }
 
+    /**
+     * Resets all [Achievement]s to the default values.
+     *
+     * @author Lucas Held
+     */
     suspend fun resetAchievements() {
         withContext(Dispatchers.IO) {
             database.achievementDao.apply {

@@ -50,6 +50,13 @@ fun RecyclerView.bindNews(news: List<News>?) {
     adapter.submitList(news)
 }
 
+/**
+ * Bind achievements to the [AchievementsAdapter]
+ *
+ * @param achievements The achievements to display.
+ *
+ * @author Lucas Held
+ */
 @BindingAdapter("achievements")
 fun RecyclerView.bindAchievements(achievements: List<Achievement>?) {
     val adapter = adapter as AchievementsAdapter
@@ -80,6 +87,14 @@ fun TextView.bindDepotQuoteText(depotQuotePurchase: DepotQuote?) {
     }
 }
 
+/**
+ * Sets text of a [TextView] to the total depot value if quote available in depot.
+ *
+ * @param depotQuotePurchase [DepotQuote] that can be null
+ * @param quote [Quote] that can be null
+ *
+ * @author Lucas Held
+ */
 @BindingAdapter(value = ["depotTotalValueDepotQuote", "depotTotalValueQuote"])
 fun TextView.bindDepotQuoteTotalValue(depotQuotePurchase: DepotQuote?, quote: Quote?) {
     if (depotQuotePurchase != null && quote != null) {
@@ -254,6 +269,13 @@ fun TextView.bindTransactionResultText(performance: Double?) {
     }
 }
 
+/**
+ * Bind [StockbrotQuote]s to the [StockbrotQuoteRecyclerViewAdapter]
+ *
+ * @param quotes The [StockbrotQuote]s to display.
+ *
+ * @author Lucas Held
+ */
 @BindingAdapter("stockbrotQuotes")
 fun RecyclerView.bindStockbrotQuotes(quotes: List<StockbrotQuote>?) {
     val adapter = adapter as StockbrotQuoteRecyclerViewAdapter
@@ -332,6 +354,13 @@ fun Spinner.bindSelection(selection: MutableLiveData<String>) {
     }
 }
 
+/**
+ * Sets the text of a [Button] depending on a state.
+ *
+ * @param enabled The state that indicates if a [StockbrotQuote] exists or not
+ *
+ * @author Lucas Held
+ */
 @BindingAdapter("botAddRemoveQuote")
 fun Button.bindBotAddRemoveQuote(enabled: Boolean) {
     text = if (enabled) {
@@ -365,12 +394,11 @@ fun TextView.bindStockbrotQuote(stockbrotQuote: StockbrotQuote) {
 }
 
 /**
- * TODO
+ * Changes the [CardView] background color to create an enable/disable effect.
  *
- * @param enabled TODO
+ * @param enabled If set to true, the [CardView] will be enabled. If set to false, the [CardView] will be disabled.
  *
- * @author TODO
- * @author Jonas Thelemann
+ * @author Lucas Held
  */
 @BindingAdapter("enableCardView")
 fun CardView.bindEnableCardView(enabled: Boolean) {
@@ -381,6 +409,13 @@ fun CardView.bindEnableCardView(enabled: Boolean) {
     setCardBackgroundColor(resources.getColor(color, context.theme))
 }
 
+/**
+ * Sets the text of a [TextView] and handles null values.
+ *
+ * @param change The quote change or null if the change is not defined
+ *
+ * @author Lucas Held
+ */
 @BindingAdapter("quoteChange")
 fun TextView.bindQuoteChange(change: Double?) {
     text = when(change) {

@@ -8,11 +8,25 @@ import java.util.concurrent.TimeUnit
 
 const val ID_KEY = "ID_KEY"
 
+/**
+ * Manages the [StockbrotWorker]
+ *
+ * @param context
+ */
 class StockbrotWorkRequest(context: Context) {
 
     private val workManager: WorkManager = WorkManager.getInstance(context)
+
+    /**
+     * Specifies the Worker interval
+     */
     private val intervalMinutes: Long = 15
 
+    /**
+     * Adds a periodic [StockbrotWorker] to the WorkManager
+     *
+     * @param stockbrotQuote The [StockbrotQuote] to add
+     */
     fun addQuote(stockbrotQuote: StockbrotQuote) {
         val id = stockbrotQuote.id
 
@@ -34,16 +48,36 @@ class StockbrotWorkRequest(context: Context) {
         workManager.enqueue(workRequest)
     }
 
+    /**
+     * Removes a [StockbrotWorker] from the WorkManager
+     *
+     * @param stockbrotQuote The [StockbrotQuote] to remove
+     *
+     * @author Lucas Held
+     */
     fun removeQuote(stockbrotQuote: StockbrotQuote) {
         val buildWorkerTag = buildWorkerTag(stockbrotQuote.id)
         workManager.cancelAllWorkByTag(buildWorkerTag)
     }
 
+    /**
+     * Removes all [StockbrotWorker]s from the WorkManager
+     *
+     * @author Lucas Held
+     */
     fun cancelAll() {
         workManager.cancelAllWork()
     }
 
-    private fun buildWorkerTag(symbol: String): String {
-        return "WORKER_TAG_$symbol"
+    /**
+     * Builds a unique tag for the Worker
+     *
+     * @param id The [StockbrotQuote] ID
+     * @return unique tag [String]
+     *
+     * @author Lucas Held
+     */
+    private fun buildWorkerTag(id: String): String {
+        return "WORKER_TAG_$id"
     }
 }
