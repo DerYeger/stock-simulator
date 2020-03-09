@@ -9,6 +9,11 @@ import de.uniks.codliners.stock_simulator.databinding.FragmentAchievementsBindin
 import de.uniks.codliners.stock_simulator.ui.BaseFragment
 
 
+/**
+ * Fragment for the achievement ui.
+ *
+ * @author Lucas Held
+ */
 class AchievementsFragment : BaseFragment() {
 
     private val viewModel: AchievementsViewModel by viewModels {

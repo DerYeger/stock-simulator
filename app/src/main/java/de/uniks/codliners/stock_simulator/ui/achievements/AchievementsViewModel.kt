@@ -6,6 +6,16 @@ import androidx.lifecycle.ViewModelProvider
 import de.uniks.codliners.stock_simulator.repository.AchievementsRepository
 
 
+/**
+ * ViewModel for the achievement ui.
+ *
+ * @constructor
+ * TODO
+ *
+ * @param application The application to create a [AchievementsRepository] for.
+ *
+ * @author Lucas Held
+ */
 class AchievementsViewModel(application: Application) : ViewModel() {
 
     private val achievementsRepository = AchievementsRepository(application)
