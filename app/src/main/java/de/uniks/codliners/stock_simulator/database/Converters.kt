@@ -24,7 +24,7 @@ class Converters {
      */
     @TypeConverter
     fun fromBooleanToInt(enabled: Boolean): Int {
-        return when(enabled) {
+        return when (enabled) {
             true -> 1
             false -> 0
         }
@@ -40,28 +40,41 @@ class Converters {
      */
     @TypeConverter
     fun fromIntToBoolean(booleanInt: Int): Boolean {
-        return when(booleanInt) {
+        return when (booleanInt) {
             0 -> false
             else -> true
         }
     }
 
+    /**
+     * Converts [String] to [Symbol.Type].
+     *
+     * @param typeString The input [String].
+     * @return The resulting [Symbol.Type].
+     *
+     * @author Jan Müller
+     */
     @TypeConverter
-    fun fromStringToSymbolType(typeString: String): Symbol.Type {
-        return Symbol.Type.valueOf(typeString)
-    }
+    fun fromStringToSymbolType(typeString: String): Symbol.Type = Symbol.Type.valueOf(typeString)
+
+    /**
+     * Converts [Symbol.Type] to [String].
+     *
+     * @param type The input [Symbol.Type].
+     * @return The resulting [String].
+     *
+     * @author Jan Müller
+     */
+    @TypeConverter
+    fun fromSymbolTypeToString(type: Symbol.Type): String = type.toString()
+
 
     @TypeConverter
     fun fromStringToTransactionType(typeString: String): TransactionType {
-        return when(typeString) {
+        return when (typeString) {
             "BUY" -> TransactionType.BUY
             else -> TransactionType.SELL
         }
-    }
-
-    @TypeConverter
-    fun fromSymbolTypeToString(type: Symbol.Type): String {
-        return type.toString()
     }
 
     @TypeConverter
