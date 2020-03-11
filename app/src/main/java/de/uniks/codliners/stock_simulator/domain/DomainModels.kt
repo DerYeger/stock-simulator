@@ -30,6 +30,14 @@ data class Achievement(
     val displayed: Boolean = false
 )
 
+/**
+ * Balance database entity.
+ *
+ * @property value The value of the balance.
+ * @property timestamp The timestamp of the balance.
+ *
+ * @author Jan Müller
+ */
 @Entity
 data class Balance(
     val value: Double,
@@ -104,6 +112,18 @@ data class News(
     val hasPaywall: Boolean
 )
 
+/**
+ * Quote database entity.
+ *
+ * @property id The id of the asset.
+ * @property symbol The symbol of the asset.
+ * @property type The asset's type.
+ * @property name The name of the asset.
+ * @property latestPrice The latest price of the asset.
+ * @property change The price change of the asset.
+ *
+ * @author Jan Müller
+ */
 @Entity
 data class Quote(
     @PrimaryKey
@@ -141,6 +161,16 @@ data class StockbrotQuote(
     val minimumSellPrice: Double
 )
 
+/**
+ * Symbol database entity.
+ *
+ * @property id The id of the asset.
+ * @property symbol The symbol of the asset.
+ * @property name The name of the asset.
+ * @property type The asset's type.
+ *
+ * @author Jan Müller
+ */
 @Entity
 data class Symbol(
     @PrimaryKey
@@ -152,6 +182,15 @@ data class Symbol(
     @Parcelize
     enum class Type : Parcelable { SHARE, CRYPTO }
 
+    /**
+     * Utility class used for filtering [Symbol]s.
+     *
+     * @property symbolQuery The query for asset symbols.
+     * @property nameQuery The query for asset names.
+     * @property type The type of assets.
+     *
+     * @author Jan Müller
+     */
     data class Filter(
         val symbolQuery: String,
         val nameQuery: String,
