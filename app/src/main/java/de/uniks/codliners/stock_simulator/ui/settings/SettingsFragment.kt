@@ -20,7 +20,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 /**
+ * [Fragment](https://developer.android.com/jetpack/androidx/releases/fragment) for changing various options, resetting user data and refreshing available symbols.
+ *
  * @author TODO
+ * @author Jan Müller
  * @author Jonas Thelemann
  */
 class SettingsFragment : Fragment() {

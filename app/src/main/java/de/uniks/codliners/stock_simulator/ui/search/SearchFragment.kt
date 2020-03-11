@@ -10,6 +10,11 @@ import de.uniks.codliners.stock_simulator.databinding.FragmentSearchBinding
 import de.uniks.codliners.stock_simulator.ui.BaseFragment
 import de.uniks.codliners.stock_simulator.ui.OnClickListener
 
+/**
+ * [Fragment](https://developer.android.com/jetpack/androidx/releases/fragment) for searching assets.
+ *
+ * @author Jan Müller
+ */
 class SearchFragment : BaseFragment() {
 
     private val viewModel: SearchViewModel by viewModels {
@@ -25,8 +30,8 @@ class SearchFragment : BaseFragment() {
     ): View {
         binding = FragmentSearchBinding.inflate(inflater)
         binding.viewModel = viewModel
-        binding.searchResultRecyclerView.apply {
-            adapter = SymbolListAdapter(OnClickListener { searchResult ->
+        binding.searchResultRecyclerView.adapter =
+            SymbolListAdapter(OnClickListener { searchResult ->
                 val action =
                     SearchFragmentDirections.actionNavigationSearchToShareFragment(
                         searchResult.id,
@@ -34,7 +39,6 @@ class SearchFragment : BaseFragment() {
                     )
                 findNavController().navigate(action)
             })
-        }
         binding.lifecycleOwner = this
         return binding.root
     }

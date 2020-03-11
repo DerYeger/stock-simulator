@@ -19,7 +19,7 @@ import de.uniks.codliners.stock_simulator.ui.BaseFragment
 import de.uniks.codliners.stock_simulator.updateLineChart
 
 /**
- * TODO
+ * [Fragment](https://developer.android.com/jetpack/androidx/releases/fragment) for viewing, buying and selling assets.
  *
  * @author TODO
  * @author Jan Müller
