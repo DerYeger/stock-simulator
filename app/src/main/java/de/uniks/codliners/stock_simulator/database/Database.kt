@@ -54,6 +54,14 @@ abstract class StockAppDatabase : RoomDatabase() {
 
 private lateinit var INSTANCE: StockAppDatabase
 
+/**
+ * Creates or returns this app's [StockAppDatabase].
+ *
+ * @param context The context of the app.
+ * @return The [StockAppDatabase].
+ *
+ * @author Jan Müller
+ */
 fun getDatabase(context: Context): StockAppDatabase {
     synchronized(StockAppDatabase::class.java) {
         if (!::INSTANCE.isInitialized) {
@@ -70,9 +78,19 @@ fun getDatabase(context: Context): StockAppDatabase {
     return INSTANCE
 }
 
+/**
+ * [Dao] that manages account entities in the database.
+ *
+ * @author TODO
+ * @author Jan Müller
+ */
 @Dao
 interface AccountDao {
 
+    /**
+     * Deletes all [Balance]s from the database.
+     *
+     */
     @Query("DELETE FROM balance")
     fun deleteBalances()
 
@@ -112,15 +130,30 @@ interface AccountDao {
     @Query("SELECT * FROM (SELECT * FROM depotvalue ORDER BY depotvalue.timestamp DESC LIMIT :limit) ORDER BY timestamp ASC")
     fun getDepotValuesLimited(limit: Int): LiveData<List<DepotValue>>
 
+    /**
+     * Returns the latest [Balance], wrapped in [LiveData](https://developer.android.com/reference/android/arch/lifecycle/LiveData).
+     *
+     * @return [LiveData](https://developer.android.com/reference/android/arch/lifecycle/LiveData) containing the latest [Balance].
+     */
     @Query("SELECT * FROM balance ORDER BY balance.timestamp DESC LIMIT 1")
     fun getLatestBalance(): LiveData<Balance>
 
+    /**
+     * Returns the latest [Balance].
+     *
+     * @return The latest [Balance].
+     */
     @Query("SELECT * FROM balance ORDER BY balance.timestamp DESC LIMIT 1")
     fun getLatestBalanceValue(): Balance
 
     @Query("SELECT * FROM depotvalue ORDER BY depotvalue.timestamp DESC LIMIT 1")
     fun getLatestDepotValues(): LiveData<DepotValue>
 
+    /**
+     * Inserts a [Balance] into the database.
+     *
+     * @param balance The [Balance] to be inserted.
+     */
     @Insert(onConflict = REPLACE)
     fun insertBalance(balance: Balance)
 
@@ -194,18 +227,44 @@ interface NewsDao {
     fun insertAll(vararg news: News)
 }
 
+/**
+ * [Dao](https://developer.android.com/reference/androidx/room/Dao) that manages [Symbol]s in the database.
+ *
+ * @author Jan Müller
+ */
 @Dao
 interface QuoteDao {
 
+    /**
+     * Deletes all [Quote]s from the database.
+     *
+     */
     @Query("DELETE FROM quote")
     fun deleteQuotes()
 
+    /**
+     * Returns the [Quote] with the matching id.
+     *
+     * @param id The [Quote] id used in this query.
+     * @return The [Quote] with this id or null if no such quote exists.
+     */
     @Query("SELECT * FROM quote WHERE quote.id == :id")
-    fun getQuoteValueById(id: String): Quote
+    fun getQuoteValueById(id: String): Quote?
 
+    /**
+     * Returns the [Quote] with the matching id, wrapped in [LiveData](https://developer.android.com/reference/android/arch/lifecycle/LiveData).
+     *
+     * @param id The [Quote] id used in this query.
+     * @return [LiveData](https://developer.android.com/reference/android/arch/lifecycle/LiveData) containing the [Quote] that matches the query parameters.
+     */
     @Query("SELECT * FROM quote WHERE quote.id == :id")
     fun getQuoteWithId(id: String): LiveData<Quote>
 
+    /**
+     * Inserts a [Quote] into the database.
+     *
+     * @param quote The quote to be inserted into the database.
+     */
     @Insert(onConflict = REPLACE)
     fun insert(quote: Quote)
 }
@@ -237,18 +296,48 @@ interface StockbrotDao {
     fun insertStockbrotQuote(stockbrotQuote: StockbrotQuote)
 }
 
+/**
+ * [Dao](https://developer.android.com/reference/androidx/room/Dao) that manages [Symbol]s in the database.
+ *
+ * @author Jan Müller
+ */
 @Dao
 interface SymbolDao {
 
+    /**
+     * Returns all [Symbol]s, wrapped in [LiveData](https://developer.android.com/reference/android/arch/lifecycle/LiveData).
+     *
+     * @return [LiveData](https://developer.android.com/reference/android/arch/lifecycle/LiveData) containing a [List] of all [Symbol]s.
+     */
     @Query("SELECT * FROM symbol ORDER BY symbol.symbol ASC")
     fun getAll(): LiveData<List<Symbol>>
 
+    /**
+     * Returns all [Symbol]s matching the query parameters, wrapped in [LiveData](https://developer.android.com/reference/android/arch/lifecycle/LiveData).
+     *
+     * @param symbolQuery The symbol fragment used in this query.
+     * @param nameQuery The name fragment used in this query.
+     * @param type The [Symbol.Type] used in this query.
+     * @return [LiveData](https://developer.android.com/reference/android/arch/lifecycle/LiveData) containing a [List] of all [Symbol]s matching the query parameters.
+     */
     @Query("SELECT * FROM symbol WHERE symbol.type == :type AND (symbol.symbol LIKE :symbolQuery OR symbol.name LIKE :nameQuery) ORDER BY symbol.symbol ASC")
     fun getAllFiltered(symbolQuery: String, nameQuery: String, type: Symbol.Type): LiveData<List<Symbol>>
 
+    /**
+     * Returns all [Symbol]s matching the query parameters, wrapped in [LiveData](https://developer.android.com/reference/android/arch/lifecycle/LiveData).
+     *
+     * @param symbolQuery The symbol fragment used in this query.
+     * @param nameQuery The name fragment used in this query.
+     * @return [LiveData](https://developer.android.com/reference/android/arch/lifecycle/LiveData) containing a [List] of all [Symbol]s matching the query parameters.
+     */
     @Query("SELECT * FROM symbol WHERE symbol.symbol LIKE :symbolQuery OR symbol.name LIKE :nameQuery ORDER BY symbol.symbol ASC")
     fun getAllFiltered(symbolQuery: String, nameQuery: String): LiveData<List<Symbol>>
 
+    /**
+     * Inserts all [Symbol]s into the [StockAppDatabase].
+     *
+     * @param symbols The [Symbol]s to be inserted.
+     */
     @Insert(onConflict = REPLACE)
     fun insertAll(vararg symbols: Symbol)
 }
