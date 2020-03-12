@@ -68,7 +68,14 @@ class Converters {
     @TypeConverter
     fun fromSymbolTypeToString(type: Symbol.Type): String = type.toString()
 
-
+    /**
+     * Converts [String] to [TransactionType].
+     *
+     * @param typeString The input [String].
+     * @return The resulting [TransactionType].
+     *
+     * @author Juri Lozowoj
+     */
     @TypeConverter
     fun fromStringToTransactionType(typeString: String): TransactionType {
         return when (typeString) {
@@ -77,6 +84,14 @@ class Converters {
         }
     }
 
+    /**
+     * Converts [TransactionType] to [String].
+     *
+     * @param type The input [TransactionType].
+     * @return The resulting [String].
+     *
+     * @author Juri Lozowoj
+     */
     @TypeConverter
     fun fromTransactionTypeToString(type: TransactionType): String {
         return type.toString()
