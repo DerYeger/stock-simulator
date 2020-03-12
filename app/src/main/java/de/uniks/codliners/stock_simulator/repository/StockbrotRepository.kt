@@ -17,15 +17,32 @@ import kotlinx.coroutines.withContext
  */
 class StockbrotRepository(private val database: StockAppDatabase) {
 
+    /**
+     * Constructor that allows repository creation from a [Context].
+     */
     constructor(context: Context) : this(getDatabase(context))
 
+    /**
+     * List of all [StockbrotQuote]s.
+     */
     val quotes by lazy {
         database.stockbrotDao.getStockbrotQuotes()
     }
 
+    /**
+     * Returns a [StockbrotQuote] with the matching id, wrapped in [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData).
+     *
+     * @param id The [StockbrotQuote] id used in this query.
+     * @return [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData) containing a [StockbrotQuote] with the matching id.
+     */
     fun stockbrotQuoteWithId(id: String): LiveData<StockbrotQuote> =
         database.stockbrotDao.getStockbrotQuoteWithId(id)
 
+    /**
+     * Returns a [StockbrotQuote] with the matching id.
+     *
+     * @param id The [StockbrotQuote] id used in this query.
+     */
     fun stockbrotQuoteById(id: String) = database.stockbrotDao.getStockbrotQuoteById(id)
 
     /**

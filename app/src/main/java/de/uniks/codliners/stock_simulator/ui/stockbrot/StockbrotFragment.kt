@@ -23,6 +23,14 @@ class StockbrotFragment : BaseFragment() {
 
     private lateinit var binding: FragmentStockbrotBinding
 
+    /**
+     * Sets up the fragment view.
+     *
+     * The layout inflater.
+     * @param container The view group.
+     * @param savedInstanceState The saved instance state.
+     * @return The set up fragment view.
+     */
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

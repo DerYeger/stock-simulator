@@ -363,21 +363,52 @@ interface QuoteDao {
 @Dao
 interface StockbrotDao {
 
+    /**
+     * Deletes a [StockbrotQuote] with the matching id from the database.
+     *
+     * @param id The [StockbrotQuote] id used in this query.
+     */
     @Query("DELETE FROM stockbrotquote WHERE id == :id")
     fun deleteStockbrotQuoteById(id: String)
 
+    /**
+     * Deletes all [StockbrotQuote]s from the database.
+     *
+     */
     @Query("DELETE FROM stockbrotquote")
     fun deleteStockbrotQuotes()
 
+    /**
+     * Returns the [StockbrotQuote] with the matching id.
+     *
+     * @param id The [StockbrotQuote] id used in this query.
+     * @return The [StockbrotQuote] with this id or null if no such quote exists.
+     */
     @Query("SELECT * FROM stockbrotquote WHERE id == :id LIMIT 1")
     fun getStockbrotQuoteById(id: String): StockbrotQuote?
 
+    /**
+     * Returns a [List] of all [StockbrotQuote], wrapped in [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData).
+     *
+     * @return [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData) containing a [List] of all [StockbrotQuote]s.
+     */
     @Query("SELECT * FROM stockbrotquote")
     fun getStockbrotQuotes(): LiveData<List<StockbrotQuote>>
 
+    /**
+     * Returns the [StockbrotQuote] with the matching id, wrapped in [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData).
+     *
+     * @param id The [StockbrotQuote] id used in this query.
+     * @return [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData) containing the [StockbrotQuote] that matches the query parameters.
+     */
     @Query("SELECT * FROM stockbrotquote WHERE id == :id LIMIT 1")
     fun getStockbrotQuoteWithId(id: String): LiveData<StockbrotQuote>
 
+    /**
+     * Inserts a [StockbrotQuote] into the database.
+     *
+     * @param stockbrotQuote The [StockbrotQuote] to be inserted.
+     */
     @Insert(onConflict = REPLACE)
     fun insertStockbrotQuote(stockbrotQuote: StockbrotQuote)
 }

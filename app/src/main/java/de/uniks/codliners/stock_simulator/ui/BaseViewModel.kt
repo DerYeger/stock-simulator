@@ -172,7 +172,7 @@ class BaseViewModel(application: Application) : ViewModel() {
     /**
      * Factory for the BaseViewModel.
      *
-     * @property application
+     * @property application The context used for creating the repositories.
      */
     class Factory(
         private val application: Application
