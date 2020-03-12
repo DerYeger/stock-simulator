@@ -10,7 +10,7 @@ import de.uniks.codliners.stock_simulator.repository.StockbrotRepository
  * ViewModel for the stockbrot ui.
  *
  * @constructor
- * @property stockbrotQuotes List of all [StockbrotQuote]s from the repository
+ * @property stockbrotQuotes List of all [StockbrotQuote]s from the repository.
  *
  * @param application The application to create a [StockbrotRepository] for.
  *

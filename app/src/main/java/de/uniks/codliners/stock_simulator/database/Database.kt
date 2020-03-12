@@ -243,21 +243,52 @@ interface AccountDao {
 @Dao
 interface AchievementsDao {
 
+    /**
+     * Deletes a [Achievement] with the matching id from the database.
+     *
+     * @param name The [Achievement] name used in this query.
+     */
     @Query("delete from achievement where name = :name")
     fun deleteAchievementById(name: Int)
 
+    /**
+     * Deletes all [Achievement]s from the database.
+     *
+     */
     @Query("delete from achievement")
     fun deleteAchievements()
 
+    /**
+     * Returns the [Achievement] with the matching name.
+     *
+     * @param name The [Achievement] name used in this query.
+     * @return The [Achievement] with this id or null if no such quote exists.
+     */
     @Query("select * from achievement where name = :name")
     fun getAchievementByName(name: Int): Achievement?
 
+    /**
+     * Returns a [List] of all [Achievement], wrapped in [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData).
+     *
+     * @return [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData) containing a [List] of all [Achievement]s.
+     */
     @Query("SELECT * FROM achievement ORDER BY timestamp DESC")
     fun getAchievements(): LiveData<List<Achievement>>
 
+    /**
+     * Returns the [Achievement] with the matching name, wrapped in [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData).
+     *
+     * @param name The [Achievement] name used in this query.
+     * @return [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData) containing the [Achievement] that matches the query parameters.
+     */
     @Query("select * from achievement where name = :name")
     fun getAchievementWithName(name: Int): LiveData<Achievement>
 
+    /**
+     * Inserts a [Achievement] into the database.
+     *
+     * @param achievement The [Achievement] to be inserted.
+     */
     @Insert(onConflict = REPLACE)
     fun insert(achievement: Achievement)
 

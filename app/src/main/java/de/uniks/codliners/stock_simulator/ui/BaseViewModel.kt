@@ -14,10 +14,10 @@ import kotlinx.coroutines.launch
 /**
  * BaseViewModel for the [BaseFragment]. Handles events that can unlock achievements.
  *
- * @constructor
- * Adds sources to [MediatorLiveData](https://developer.android.com/reference/androidx/lifecycle/MediatorLiveData) values.
+ * @constructor Adds sources to [MediatorLiveData](https://developer.android.com/reference/androidx/lifecycle/MediatorLiveData) values.
+ * @property achievements List of all [Achievement]s from the repository.
  *
- * @param application
+ * @param application The context used for creating repositories.
  *
  * @author Lucas Held
  */

@@ -18,8 +18,14 @@ import kotlinx.coroutines.withContext
  */
 class AchievementsRepository(private val database: StockAppDatabase) {
 
+    /**
+     * Constructor that allows repository creation from a [Context].
+     */
     constructor(context: Context) : this(getDatabase(context))
 
+    /**
+     * List of all [Achievement]s.
+     */
     val achievements by lazy {
         database.achievementDao.getAchievements()
     }
