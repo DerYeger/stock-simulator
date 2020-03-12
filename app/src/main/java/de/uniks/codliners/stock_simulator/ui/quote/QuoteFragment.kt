@@ -5,11 +5,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.github.mikephil.charting.data.Entry
+import com.google.android.material.snackbar.Snackbar
 import de.uniks.codliners.stock_simulator.R
 import de.uniks.codliners.stock_simulator.databinding.DialogTransactionBinding
 import de.uniks.codliners.stock_simulator.databinding.FragmentQuoteBinding
@@ -63,7 +63,7 @@ class QuoteFragment : BaseFragment() {
 
         viewModel.errorAction.observe(viewLifecycleOwner, Observer { errorMessage: String? ->
             errorMessage?.let {
-                showErrorToast(errorMessage)
+                showErrorAndNavigateUp(errorMessage)
                 viewModel.onErrorActionCompleted()
             }
         })
@@ -147,16 +147,16 @@ class QuoteFragment : BaseFragment() {
                 onConfirmation()
             }
             .setNegativeButton(R.string.cancel) { _, _ ->
-                Toast
-                    .makeText(context, "Transaction canceled", Toast.LENGTH_SHORT)
+                Snackbar
+                    .make(requireView(), "Transaction canceled", Snackbar.LENGTH_SHORT)
                     .show()
             }
             .create()
             .show()
     }
 
-    private fun showErrorToast(errorMessage: String?) {
-        Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
+    private fun showErrorAndNavigateUp(errorMessage: String?) {
+        Snackbar.make(requireView(), errorMessage ?: "Something went wron!", Snackbar.LENGTH_SHORT).show()
         findNavController().navigateUp()
     }
 }
