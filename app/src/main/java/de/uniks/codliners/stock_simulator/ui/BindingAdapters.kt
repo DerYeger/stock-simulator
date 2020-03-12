@@ -12,12 +12,12 @@ import de.uniks.codliners.stock_simulator.domain.*
 import de.uniks.codliners.stock_simulator.domain.TransactionType.BUY
 import de.uniks.codliners.stock_simulator.domain.TransactionType.SELL
 import de.uniks.codliners.stock_simulator.isWholeNumber
-import de.uniks.codliners.stock_simulator.ui.account.DepotQuoteRecyclerViewAdapter
+import de.uniks.codliners.stock_simulator.ui.account.DepotQuoteListAdapter
 import de.uniks.codliners.stock_simulator.ui.achievements.AchievementsAdapter
-import de.uniks.codliners.stock_simulator.ui.history.HistoryRecyclerViewAdapter
-import de.uniks.codliners.stock_simulator.ui.news.NewsAdapter
+import de.uniks.codliners.stock_simulator.ui.history.TransactionListAdapter
+import de.uniks.codliners.stock_simulator.ui.news.NewsListAdapter
 import de.uniks.codliners.stock_simulator.ui.search.SymbolListAdapter
-import de.uniks.codliners.stock_simulator.ui.stockbrot.StockbrotQuoteRecyclerViewAdapter
+import de.uniks.codliners.stock_simulator.ui.stockbrot.StockbrotQuoteListAdapter
 
 /**
  * Sets the visibility of a [View](https://developer.android.com/reference/android/view/View).
@@ -63,7 +63,7 @@ fun RecyclerView.bindSymbolList(symbols: List<Symbol>?, callback: Runnable) {
 }
 
 /**
- * Binds news to the [NewsAdapter].
+ * Binds news to the [NewsListAdapter].
  *
  * @param news The news to display.
  *
@@ -71,7 +71,7 @@ fun RecyclerView.bindSymbolList(symbols: List<Symbol>?, callback: Runnable) {
  */
 @BindingAdapter("news")
 fun RecyclerView.bindNews(news: List<News>?) {
-    val adapter = adapter as NewsAdapter
+    val adapter = adapter as NewsListAdapter
     adapter.submitList(news)
 }
 
@@ -89,7 +89,7 @@ fun RecyclerView.bindAchievements(achievements: List<Achievement>?) {
 }
 
 /**
- * Submits a [DepotQuote] [List] to the [DepotQuoteRecyclerViewAdapter] of a [RecyclerView](https://developer.android.com/jetpack/androidx/releases/recyclerview).
+ * Submits a [DepotQuote] [List] to the [DepotQuoteListAdapter] of a [RecyclerView](https://developer.android.com/jetpack/androidx/releases/recyclerview).
  *
  * @receiver The target [RecyclerView](https://developer.android.com/jetpack/androidx/releases/recyclerview).
  * @param quotePurchases The [List] of [DepotQuote]s that will be submitted.
@@ -98,7 +98,7 @@ fun RecyclerView.bindAchievements(achievements: List<Achievement>?) {
  */
 @BindingAdapter("depotQuotes")
 fun RecyclerView.bindDepotQuotes(quotePurchases: List<DepotQuote>?) {
-    val adapter = adapter as DepotQuoteRecyclerViewAdapter
+    val adapter = adapter as DepotQuoteListAdapter
     adapter.submitList(quotePurchases)
 }
 
@@ -177,7 +177,7 @@ fun TextView.bindDepotQuote(depotQuote: DepotQuote?) {
 
 @BindingAdapter("transactions")
 fun RecyclerView.bindTransactions(transactions: List<Transaction>?) {
-    val adapter = adapter as HistoryRecyclerViewAdapter
+    val adapter = adapter as TransactionListAdapter
     adapter.submitList(transactions)
 }
 
@@ -297,7 +297,7 @@ fun TextView.bindTransactionResultText(performance: Double?) {
 }
 
 /**
- * Bind [StockbrotQuote]s to the [StockbrotQuoteRecyclerViewAdapter]
+ * Bind [StockbrotQuote]s to the [StockbrotQuoteListAdapter]
  *
  * @param quotes The [StockbrotQuote]s to display.
  *
@@ -305,7 +305,7 @@ fun TextView.bindTransactionResultText(performance: Double?) {
  */
 @BindingAdapter("stockbrotQuotes")
 fun RecyclerView.bindStockbrotQuotes(quotes: List<StockbrotQuote>?) {
-    val adapter = adapter as StockbrotQuoteRecyclerViewAdapter
+    val adapter = adapter as StockbrotQuoteListAdapter
     adapter.submitList(quotes)
 }
 

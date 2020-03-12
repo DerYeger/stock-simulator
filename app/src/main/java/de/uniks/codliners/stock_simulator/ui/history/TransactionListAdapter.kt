@@ -11,11 +11,10 @@ import de.uniks.codliners.stock_simulator.ui.OnClickListener
 import java.text.SimpleDateFormat
 import java.util.*
 
-class HistoryRecyclerViewAdapter(
+class TransactionListAdapter(
     private val onClickListener: OnClickListener<Transaction>,
     locale: Locale
-) : ListAdapter<Transaction,
-        HistoryRecyclerViewAdapter.ViewHolder>(DiffCallback) {
+) : ListAdapter<Transaction, TransactionListAdapter.ViewHolder>(DiffCallback) {
 
     private val dateFormatter = SimpleDateFormat("dd.MM.yyyy HH:mm", locale)
 

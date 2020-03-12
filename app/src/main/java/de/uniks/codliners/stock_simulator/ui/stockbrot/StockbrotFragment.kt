@@ -31,7 +31,7 @@ class StockbrotFragment : BaseFragment() {
         binding = FragmentStockbrotBinding.inflate(inflater)
         binding.viewModel = viewModel
         binding.stockbrotRecyclerView.adapter =
-            StockbrotQuoteRecyclerViewAdapter(OnClickListener { stockbrotQuote ->
+            StockbrotQuoteListAdapter(OnClickListener { stockbrotQuote ->
                 val action = StockbrotFragmentDirections.actionNavigationStockbrotToNavigationQuote(
                     stockbrotQuote.id,
                     stockbrotQuote.type

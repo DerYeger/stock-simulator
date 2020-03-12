@@ -57,7 +57,7 @@ class NewsFragment : Fragment() {
 
         // resources.configuration.locales[0] requires API level 24
         @Suppress("DEPRECATION")
-        binding.newsRecyclerView.adapter = NewsAdapter(resources.configuration.locale)
+        binding.newsRecyclerView.adapter = NewsListAdapter(resources.configuration.locale)
         binding.lifecycleOwner = this
 
         viewModel.refresh()
