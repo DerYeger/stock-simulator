@@ -346,6 +346,14 @@ fun ImageView.bindPaywallType(paywallType: Boolean?) {
     }
 }
 
+/**
+ * Sets the text of a [TextView](https://developer.android.com/reference/android/widget/TextView) depending on a [Transaction] amount.
+ *
+ * @receiver The target [TextView](https://developer.android.com/reference/android/widget/TextView).
+ * @param transaction The [Transaction] source.
+ *
+ * @author Jan Müller
+ */
 @BindingAdapter("transaction")
 fun TextView.bindTransaction(transaction: Transaction?) {
     transaction?.let {
@@ -365,6 +373,12 @@ fun TextView.bindTransaction(transaction: Transaction?) {
     }
 }
 
+/**
+ * Creates and binds a listener that posts a [Spinner](https://developer.android.com/guide/topics/ui/controls/spinner)'s value to a [MutableLiveData](https://developer.android.com/reference/android/arch/lifecycle/MutableLiveData).
+ *
+ * @receiver The source [Spinner](https://developer.android.com/guide/topics/ui/controls/spinner).
+ * @param selection The target [MutableLiveData](https://developer.android.com/reference/android/arch/lifecycle/MutableLiveData).
+ */
 @BindingAdapter("observeSelection")
 fun Spinner.bindSelection(selection: MutableLiveData<String>) {
     val self = this
@@ -397,6 +411,14 @@ fun Button.bindBotAddRemoveQuote(enabled: Boolean) {
     }
 }
 
+/**
+ * Sets the text of a [TextView](https://developer.android.com/reference/android/widget/TextView) depending on a [StockbrotQuote].
+ *
+ * @receiver The target [TextView](https://developer.android.com/reference/android/widget/TextView).
+ * @param stockbrotQuote The [StockbrotQuote] source.
+ *
+ * @author Jan Müller
+ */
 @BindingAdapter("stockbrotQuote")
 fun TextView.bindStockbrotQuote(stockbrotQuote: StockbrotQuote) {
     text = when (stockbrotQuote.limitedBuying) {
