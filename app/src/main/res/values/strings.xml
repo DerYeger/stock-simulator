@@ -31,6 +31,8 @@
     <string name="amount_format">Amount: %s</string>
     <string name="app_name">Stock Simulator</string>
     <string name="article_header_image">Article header image.</string>
+    <string name="attribution_coingecko"><a href="https://www.coingecko.com/en">Data provided by CoinGecko</a></string>
+    <string name="attribution_iex"><a href="https://iexcloud.io">Data provided by IEX Cloud</a></string>
     <string name="biometric_cancelled">Fingerprint authentication has been canceled!</string>
     <string name="biometric_error_fingerprint_not_available">Device has no fingerprints registered!</string>
     <string name="biometric_error_hardware_not_supported">Device does not contain any fingerprint sensors!</string>
