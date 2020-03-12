@@ -14,9 +14,11 @@ import de.uniks.codliners.stock_simulator.R
 import de.uniks.codliners.stock_simulator.databinding.DialogTransactionBinding
 import de.uniks.codliners.stock_simulator.databinding.FragmentQuoteBinding
 import de.uniks.codliners.stock_simulator.domain.StockbrotQuote
+import de.uniks.codliners.stock_simulator.extractErrorMessage
 import de.uniks.codliners.stock_simulator.initLineChart
 import de.uniks.codliners.stock_simulator.ui.BaseFragment
 import de.uniks.codliners.stock_simulator.updateLineChart
+import java.net.UnknownHostException
 
 /**
  * [Fragment](https://developer.android.com/jetpack/androidx/releases/fragment) for viewing, buying and selling assets.
@@ -61,9 +63,9 @@ class QuoteFragment : BaseFragment() {
             }
         })
 
-        viewModel.errorAction.observe(viewLifecycleOwner, Observer { errorMessage: String? ->
-            errorMessage?.let {
-                showErrorAndNavigateUp(errorMessage)
+        viewModel.errorAction.observe(viewLifecycleOwner, Observer { exception: Exception? ->
+            exception?.let {
+                showErrorAndNavigateUp(exception)
                 viewModel.onErrorActionCompleted()
             }
         })
@@ -155,8 +157,14 @@ class QuoteFragment : BaseFragment() {
             .show()
     }
 
-    private fun showErrorAndNavigateUp(errorMessage: String?) {
-        Snackbar.make(requireView(), errorMessage ?: "Something went wron!", Snackbar.LENGTH_SHORT).show()
+    private fun showErrorAndNavigateUp(exception: Exception) {
+        Snackbar.make(
+            requireView(),
+            exception.extractErrorMessage<UnknownHostException>(R.string.no_connection) {
+                R.string.unable_to_fetch_quote_information
+            },
+            Snackbar.LENGTH_SHORT
+        ).show()
         findNavController().navigateUp()
     }
 }

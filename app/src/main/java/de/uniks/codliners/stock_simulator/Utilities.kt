@@ -6,6 +6,7 @@ import android.content.ContextWrapper
 import android.content.SharedPreferences
 import android.graphics.Color
 import android.graphics.Typeface
+import androidx.annotation.StringRes
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import com.github.mikephil.charting.charts.LineChart
@@ -16,6 +17,7 @@ import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.ValueFormatter
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import com.github.mikephil.charting.utils.ColorTemplate
+import com.google.android.material.snackbar.Snackbar
 import de.uniks.codliners.stock_simulator.background.StockbrotWorkRequest
 import de.uniks.codliners.stock_simulator.repository.*
 import kotlinx.coroutines.CoroutineScope
@@ -307,3 +309,10 @@ class CurrencyValueFormatter(private val currencySymbol: String) : ValueFormatte
         return "%s$currencySymbol".format(value)
     }
 }
+
+inline fun <reified T> Exception.extractErrorMessage(default: Int, provider: () -> Int): Int =
+    if (this is T) {
+        default
+    } else {
+        provider()
+    }

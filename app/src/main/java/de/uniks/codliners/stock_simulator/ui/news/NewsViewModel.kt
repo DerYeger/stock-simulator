@@ -5,6 +5,7 @@ import androidx.lifecycle.*
 import de.uniks.codliners.stock_simulator.repository.NewsRepository
 import de.uniks.codliners.stock_simulator.sourcedLiveData
 import kotlinx.coroutines.launch
+import java.lang.Exception
 
 /**
  * The [NewsFragment]'s viewmodel.
@@ -25,13 +26,13 @@ class NewsViewModel(application: Application, private val symbol: String) : View
     private val state = newsRepository.state
     val refreshing = state.map { it === NewsRepository.State.Refreshing }
 
-    private val _errorAction: MutableLiveData<String> = sourcedLiveData(state) {
+    private val _errorAction: MutableLiveData<Exception> = sourcedLiveData(state) {
         when (val newState = state.value) {
-            is NewsRepository.State.Error -> newState.message
+            is NewsRepository.State.Error -> newState.exception
             else -> null
         }
     } as MutableLiveData
-    val errorAction: LiveData<String> = _errorAction
+    val errorAction: LiveData<Exception> = _errorAction
 
     /**
      * Fetch news.

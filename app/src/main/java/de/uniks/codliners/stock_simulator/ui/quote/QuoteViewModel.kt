@@ -59,7 +59,7 @@ class QuoteViewModel(
 
     val errorAction = sourcedLiveData(state) {
         when (val state = state.value) {
-            is QuoteRepository.State.Error -> state.message
+            is QuoteRepository.State.Error -> state.exception
             else -> null
         }
     }

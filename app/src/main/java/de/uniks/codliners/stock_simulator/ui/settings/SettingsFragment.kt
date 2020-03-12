@@ -17,6 +17,7 @@ import de.uniks.codliners.stock_simulator.repository.SymbolRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.net.UnknownHostException
 
 /**
  * [Fragment](https://developer.android.com/jetpack/androidx/releases/fragment) for changing various options, resetting user data and refreshing available symbols.
@@ -84,7 +85,9 @@ class SettingsFragment : Fragment() {
                     ).show()
                     is SymbolRepository.State.Error -> Snackbar.make(
                         requireView(),
-                        state.message,
+                        state.exception.extractErrorMessage<UnknownHostException>(R.string.no_connection) {
+                            R.string.unable_to_fetch_symbols
+                        },
                         Snackbar.LENGTH_SHORT
                     ).show()
                 }

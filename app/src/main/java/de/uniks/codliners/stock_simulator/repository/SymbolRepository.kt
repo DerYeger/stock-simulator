@@ -29,7 +29,7 @@ class SymbolRepository(private val database: StockAppDatabase) {
         object Idle : State()
         object Refreshing : State()
         object Done : State()
-        class Error(val message: String) : State()
+        class Error(val exception: Exception) : State()
     }
 
     private val _state = MutableLiveData<State>()
@@ -73,7 +73,7 @@ class SymbolRepository(private val database: StockAppDatabase) {
                 _state.postValue(State.Done)
                 _state.postValue(State.Idle)
             } catch (exception: Exception) {
-                _state.postValue(State.Error(exception.message ?: "Oops!"))
+                _state.postValue(State.Error(exception))
             }
         }
     }

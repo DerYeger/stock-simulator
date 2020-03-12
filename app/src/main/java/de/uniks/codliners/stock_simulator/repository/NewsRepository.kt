@@ -49,9 +49,9 @@ class NewsRepository(private val database: StockAppDatabase) {
         /**
          * An error occurred.
          *
-         * @property message The error message.
+         * @property exception The exception.
          */
-        class Error(val message: String) : State()
+        class Error(val exception: Exception) : State()
     }
 
     private val _state = MutableLiveData<State>().apply {
@@ -79,7 +79,7 @@ class NewsRepository(private val database: StockAppDatabase) {
                     _state.postValue(State.Empty)
                 }
             } catch (exception: Exception) {
-                _state.postValue(State.Error(exception.message ?: "Oops!"))
+                _state.postValue(State.Error(exception))
             }
         }
     }
