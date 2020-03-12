@@ -16,7 +16,7 @@ import kotlinx.coroutines.withContext
  *
  * @property database The database used by this repository.
  * @property state The current [State] of the repository.
- * @property symbols Lazily initialized [LiveData](https://developer.android.com/reference/android/arch/lifecycle/LiveData) containing an ordered [List] of all locally stored [Symbol]s.
+ * @property symbols Lazily initialized [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData) containing an ordered [List] of all locally stored [Symbol]s.
  *
  * @author Jan Müller
  */
@@ -39,10 +39,10 @@ class SymbolRepository(private val database: StockAppDatabase) {
     }
 
     /**
-     * Returns a [LiveData](https://developer.android.com/reference/android/arch/lifecycle/LiveData) containing [Symbol]s that match the specified [Symbol.Filter].
+     * Returns a [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData) containing [Symbol]s that match the specified [Symbol.Filter].
      *
      * @param filter The filter to be used.
-     * @return A [LiveData](https://developer.android.com/reference/android/arch/lifecycle/LiveData) containing a filtered [List] of [Symbol]s.
+     * @return A [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData) containing a filtered [List] of [Symbol]s.
      */
     fun filteredSymbols(filter: Symbol.Filter) = when (filter.type) {
         null -> database.symbolDao.getAllFiltered(

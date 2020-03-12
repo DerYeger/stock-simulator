@@ -10,7 +10,7 @@ import de.uniks.codliners.stock_simulator.domain.StockbrotQuote
 import de.uniks.codliners.stock_simulator.ui.OnClickListener
 
 /**
- * The adapter that inserts [StockbrotQuote]s into a [RecyclerView].
+ * The adapter that inserts [StockbrotQuote]s into a [RecyclerView](https://developer.android.com/jetpack/androidx/releases/recyclerview).
  *
  * @author Lucas Held
  */

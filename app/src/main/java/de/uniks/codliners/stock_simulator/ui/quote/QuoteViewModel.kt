@@ -16,7 +16,7 @@ import kotlinx.coroutines.launch
 import java.util.*
 
 /**
- * [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel) for displaying [Quote] information.
+ * [ViewModel](https://developer.android.com/reference/androidx/lifecycle/ViewModel) for displaying [Quote] information.
  *
  * @param application The context used for creating repositories.
  *

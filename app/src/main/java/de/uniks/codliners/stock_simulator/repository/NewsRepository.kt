@@ -15,7 +15,7 @@ import kotlinx.coroutines.withContext
  *
  * @property database The database to store news in.
  * @property state The current [State] of the repository.
- * @property news Lazily initialized [LiveData](https://developer.android.com/reference/android/arch/lifecycle/LiveData) containing an ordered [List] of all locally stored [News].
+ * @property news Lazily initialized [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData) containing an ordered [List] of all locally stored [News].
  *
  * @author Jonas Thelemann
  */

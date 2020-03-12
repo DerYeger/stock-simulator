@@ -33,9 +33,9 @@ fun View.bindVisibility(visible: Boolean) {
 }
 
 /**
- * Sets the refresh listener of a [SwipeRefreshLayout](https://developer.android.com/reference/android/support/v4/widget/SwipeRefreshLayout).
+ * Sets the refresh listener of a [SwipeRefreshLayout](https://developer.android.com/jetpack/androidx/releases/swiperefreshlayout).
  *
- * @receiver The target [SwipeRefreshLayout](https://developer.android.com/reference/android/support/v4/widget/SwipeRefreshLayout).
+ * @receiver The target [SwipeRefreshLayout](https://developer.android.com/jetpack/androidx/releases/swiperefreshlayout).
  * @param listener The [Runnable] to be run inside the listener.
  *
  * @author Jan Müller
@@ -48,9 +48,9 @@ fun SwipeRefreshLayout.bindRefreshListener(listener: Runnable) {
 }
 
 /**
- * Submits a [Symbol] [List] to the [SymbolListAdapter] of a [RecyclerView](https://developer.android.com/reference/android/support/v7/widget/RecyclerView).
+ * Submits a [Symbol] [List] to the [SymbolListAdapter] of a [RecyclerView](https://developer.android.com/jetpack/androidx/releases/recyclerview).
  *
- * @receiver The target [RecyclerView](https://developer.android.com/reference/android/support/v7/widget/RecyclerView).
+ * @receiver The target [RecyclerView](https://developer.android.com/jetpack/androidx/releases/recyclerview).
  * @param symbols The [List] of [Symbol]s that will be submitted.
  * @param callback Callback, which is executed after the [symbols] have been submitted.
  *
@@ -89,9 +89,9 @@ fun RecyclerView.bindAchievements(achievements: List<Achievement>?) {
 }
 
 /**
- * Submits a [DepotQuote] [List] to the [DepotQuoteRecyclerViewAdapter] of a [RecyclerView](https://developer.android.com/reference/android/support/v7/widget/RecyclerView).
+ * Submits a [DepotQuote] [List] to the [DepotQuoteRecyclerViewAdapter] of a [RecyclerView](https://developer.android.com/jetpack/androidx/releases/recyclerview).
  *
- * @receiver The target [RecyclerView](https://developer.android.com/reference/android/support/v7/widget/RecyclerView).
+ * @receiver The target [RecyclerView](https://developer.android.com/jetpack/androidx/releases/recyclerview).
  * @param quotePurchases The [List] of [DepotQuote]s that will be submitted.
  *
  * @author Jan Müller
@@ -103,7 +103,7 @@ fun RecyclerView.bindDepotQuotes(quotePurchases: List<DepotQuote>?) {
 }
 
 /**
- * Sets the text of a [TextView](https://developer.android.com/reference/android/widget/TextView) depending on a [DepotQuote] amount.
+ * Sets the text of a [TextView](https://developer.android.com/reference/android/widget/TextView) depending on a [DepotQuote]'s amount.
  *
  * @receiver The target [TextView](https://developer.android.com/reference/android/widget/TextView).
  * @param depotQuote The [DepotQuote] source.
@@ -148,7 +148,7 @@ fun TextView.bindDepotQuoteTotalValue(depotQuotePurchase: DepotQuote?, quote: Qu
 }
 
 /**
- * Sets the text of a [TextView](https://developer.android.com/reference/android/widget/TextView) depending on a [DepotQuote] symbol and amount.
+ * Sets the text of a [TextView](https://developer.android.com/reference/android/widget/TextView) depending on a [DepotQuote]'s symbol and amount.
  *
  * @receiver The target [TextView](https://developer.android.com/reference/android/widget/TextView).
  * @param depotQuote The [DepotQuote] source.
@@ -347,7 +347,7 @@ fun ImageView.bindPaywallType(paywallType: Boolean?) {
 }
 
 /**
- * Sets the text of a [TextView](https://developer.android.com/reference/android/widget/TextView) depending on a [Transaction] amount.
+ * Sets the text of a [TextView](https://developer.android.com/reference/android/widget/TextView) depending on a [Transaction]'s amount.
  *
  * @receiver The target [TextView](https://developer.android.com/reference/android/widget/TextView).
  * @param transaction The [Transaction] source.
@@ -374,10 +374,10 @@ fun TextView.bindTransaction(transaction: Transaction?) {
 }
 
 /**
- * Creates and binds a listener that posts a [Spinner](https://developer.android.com/guide/topics/ui/controls/spinner)'s value to a [MutableLiveData](https://developer.android.com/reference/android/arch/lifecycle/MutableLiveData).
+ * Creates and binds a listener that posts a [Spinner](https://developer.android.com/guide/topics/ui/controls/spinner)'s value to a [MutableLiveData](https://developer.android.com/reference/androidx/lifecycle/MutableLiveData).
  *
  * @receiver The source [Spinner](https://developer.android.com/guide/topics/ui/controls/spinner).
- * @param selection The target [MutableLiveData](https://developer.android.com/reference/android/arch/lifecycle/MutableLiveData).
+ * @param selection The target [MutableLiveData](https://developer.android.com/reference/androidx/lifecycle/MutableLiveData).
  */
 @BindingAdapter("observeSelection")
 fun Spinner.bindSelection(selection: MutableLiveData<String>) {
@@ -443,9 +443,9 @@ fun TextView.bindStockbrotQuote(stockbrotQuote: StockbrotQuote) {
 }
 
 /**
- * Changes the [CardView] background color to create an enable/disable effect.
+ * Changes the [CardView](https://developer.android.com/jetpack/androidx/releases/cardview) background color to create an enable/disable effect.
  *
- * @param enabled If set to true, the [CardView] will be enabled. If set to false, the [CardView] will be disabled.
+ * @param enabled If set to true, the [CardView](https://developer.android.com/jetpack/androidx/releases/cardview) will be enabled. If set to false, the [CardView](https://developer.android.com/jetpack/androidx/releases/cardview) will be disabled.
  *
  * @author Lucas Held
  */

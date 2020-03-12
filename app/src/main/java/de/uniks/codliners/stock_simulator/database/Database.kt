@@ -79,7 +79,7 @@ fun getDatabase(context: Context): StockAppDatabase {
 }
 
 /**
- * [Dao] that manages account entities in the database.
+ * [Dao](https://developer.android.com/reference/androidx/room/Dao) that manages account entities in the database.
  *
  * @author TODO
  * @author Jan Müller
@@ -131,9 +131,9 @@ interface AccountDao {
     fun getDepotValuesLimited(limit: Int): LiveData<List<DepotValue>>
 
     /**
-     * Returns the latest [Balance], wrapped in [LiveData](https://developer.android.com/reference/android/arch/lifecycle/LiveData).
+     * Returns the latest [Balance], wrapped in [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData).
      *
-     * @return [LiveData](https://developer.android.com/reference/android/arch/lifecycle/LiveData) containing the latest [Balance].
+     * @return [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData) containing the latest [Balance].
      */
     @Query("SELECT * FROM balance ORDER BY balance.timestamp DESC LIMIT 1")
     fun getLatestBalance(): LiveData<Balance>
@@ -165,7 +165,7 @@ interface AccountDao {
 }
 
 /**
- * [Dao] that manages [Achievement]s in the database
+ * [Dao](https://developer.android.com/reference/androidx/room/Dao) that manages [Achievement]s in the database
  *
  * @author Jan Müller
  * @author Lucas Held
@@ -252,10 +252,10 @@ interface QuoteDao {
     fun getQuoteValueById(id: String): Quote?
 
     /**
-     * Returns the [Quote] with the matching id, wrapped in [LiveData](https://developer.android.com/reference/android/arch/lifecycle/LiveData).
+     * Returns the [Quote] with the matching id, wrapped in [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData).
      *
      * @param id The [Quote] id used in this query.
-     * @return [LiveData](https://developer.android.com/reference/android/arch/lifecycle/LiveData) containing the [Quote] that matches the query parameters.
+     * @return [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData) containing the [Quote] that matches the query parameters.
      */
     @Query("SELECT * FROM quote WHERE quote.id == :id")
     fun getQuoteWithId(id: String): LiveData<Quote>
@@ -270,7 +270,7 @@ interface QuoteDao {
 }
 
 /**
- * [Dao] that manages [StockbrotQuote]s in the database
+ * [Dao](https://developer.android.com/reference/androidx/room/Dao) that manages [StockbrotQuote]s in the database
  *
  * @author Lucas Held
  */
@@ -305,30 +305,30 @@ interface StockbrotDao {
 interface SymbolDao {
 
     /**
-     * Returns all [Symbol]s, wrapped in [LiveData](https://developer.android.com/reference/android/arch/lifecycle/LiveData).
+     * Returns all [Symbol]s, wrapped in [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData).
      *
-     * @return [LiveData](https://developer.android.com/reference/android/arch/lifecycle/LiveData) containing a [List] of all [Symbol]s.
+     * @return [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData) containing a [List] of all [Symbol]s.
      */
     @Query("SELECT * FROM symbol ORDER BY symbol.symbol ASC")
     fun getAll(): LiveData<List<Symbol>>
 
     /**
-     * Returns all [Symbol]s matching the query parameters, wrapped in [LiveData](https://developer.android.com/reference/android/arch/lifecycle/LiveData).
+     * Returns all [Symbol]s matching the query parameters, wrapped in [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData).
      *
      * @param symbolQuery The symbol fragment used in this query.
      * @param nameQuery The name fragment used in this query.
      * @param type The [Symbol.Type] used in this query.
-     * @return [LiveData](https://developer.android.com/reference/android/arch/lifecycle/LiveData) containing a [List] of all [Symbol]s matching the query parameters.
+     * @return [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData) containing a [List] of all [Symbol]s matching the query parameters.
      */
     @Query("SELECT * FROM symbol WHERE symbol.type == :type AND (symbol.symbol LIKE :symbolQuery OR symbol.name LIKE :nameQuery) ORDER BY symbol.symbol ASC")
     fun getAllFiltered(symbolQuery: String, nameQuery: String, type: Symbol.Type): LiveData<List<Symbol>>
 
     /**
-     * Returns all [Symbol]s matching the query parameters, wrapped in [LiveData](https://developer.android.com/reference/android/arch/lifecycle/LiveData).
+     * Returns all [Symbol]s matching the query parameters, wrapped in [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData).
      *
      * @param symbolQuery The symbol fragment used in this query.
      * @param nameQuery The name fragment used in this query.
-     * @return [LiveData](https://developer.android.com/reference/android/arch/lifecycle/LiveData) containing a [List] of all [Symbol]s matching the query parameters.
+     * @return [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData) containing a [List] of all [Symbol]s matching the query parameters.
      */
     @Query("SELECT * FROM symbol WHERE symbol.symbol LIKE :symbolQuery OR symbol.name LIKE :nameQuery ORDER BY symbol.symbol ASC")
     fun getAllFiltered(symbolQuery: String, nameQuery: String): LiveData<List<Symbol>>

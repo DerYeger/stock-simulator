@@ -7,7 +7,7 @@ import de.uniks.codliners.stock_simulator.sourcedLiveData
 import kotlinx.coroutines.launch
 
 /**
- * The [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel) of [SettingsFragment].
+ * The [ViewModel](https://developer.android.com/reference/androidx/lifecycle/ViewModel) of [SettingsFragment].
  *
  * @param application The context used for creating the [SymbolRepository].
  *

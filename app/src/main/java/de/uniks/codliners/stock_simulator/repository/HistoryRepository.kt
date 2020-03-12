@@ -12,7 +12,7 @@ import kotlinx.coroutines.withContext
  * Repository for accessing [Transaction]s.
  *
  * @property database The database used by this repository.
- * @property transactions [LiveData](https://developer.android.com/reference/android/arch/lifecycle/LiveData) containing a [List] of all [Transaction]s from the [StockAppDatabase].
+ * @property transactions [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData) containing a [List] of all [Transaction]s from the [StockAppDatabase].
  *
  * @author Juri Lozowoj
  */

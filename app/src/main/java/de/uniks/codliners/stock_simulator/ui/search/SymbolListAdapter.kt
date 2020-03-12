@@ -11,7 +11,7 @@ import de.uniks.codliners.stock_simulator.ui.OnClickListener
 import de.uniks.codliners.stock_simulator.ui.search.SymbolListAdapter.ViewHolder
 
 /**
- * [ListAdapter](https://developer.android.com/reference/android/support/v7/recyclerview/extensions/ListAdapter) for [Symbol]s.
+ * [ListAdapter](https://developer.android.com/reference/androidx/recyclerview/widget/ListAdapter) for [Symbol]s.
  *
  * @property onClickListener The [OnClickListener] for [ViewHolder]s.
  *
@@ -21,7 +21,7 @@ class SymbolListAdapter(private val onClickListener: OnClickListener<Symbol>) :
     ListAdapter<Symbol, SymbolListAdapter.ViewHolder>(DiffCallback) {
 
     /**
-     * [RecyclerView.ViewHolder](https://developer.android.com/reference/android/support/v7/widget/RecyclerView.ViewHolder) for CardSymbolBindings.
+     * [RecyclerView.ViewHolder](https://developer.android.com/reference/androidx/recyclerview/widget/RecyclerView.ViewHolder) for CardSymbolBindings.
      *
      * @property binding The CardSymbolBinding.
      *
@@ -43,7 +43,7 @@ class SymbolListAdapter(private val onClickListener: OnClickListener<Symbol>) :
     }
 
     /**
-     * [DiffUtil.ItemCallback](https://developer.android.com/reference/android/support/v7/util/DiffUtil.ItemCallback) for [Symbol]s.
+     * [DiffUtil.ItemCallback](https://developer.android.com/reference/androidx/recyclerview/widget/DiffUtil.ItemCallback) for [Symbol]s.
      *
      * @author Jan Müller
      */
