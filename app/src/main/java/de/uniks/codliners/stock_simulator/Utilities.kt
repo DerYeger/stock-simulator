@@ -107,6 +107,11 @@ fun Context.resetQuotes() {
     }
 }
 
+/**
+ * Deletes all stockbrotQuotes from the database and cancel all stockbrot workers.
+ *
+ * @author Lucas Held
+ */
 fun Context.resetStockbrot() {
     val self = this
     CoroutineScope(Dispatchers.IO).launch {

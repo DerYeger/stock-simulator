@@ -22,6 +22,10 @@ import java.util.*
  *
  * @property id The id of the [Quote].
  * @property type The [Symbol.Type] of the [Quote].
+ * @property stockbrotQuote The [StockbrotQuote] of the [Quote].
+ * @property autoBuyAmount The default buy amount used for [StockbrotQuote].
+ * @property stockbrotQuoteAction Gets triggered if the [stockbrotQuote] has changed.
+ * @property canAddRemoveQuoteToStockbrot Indicates if the [stockbrotQuote] can be added or removed.
  *
  * @author TODO
  * @author Jan Müller
@@ -196,6 +200,11 @@ class QuoteViewModel(
         }
     }
 
+    /**
+     * Decides depending on the [stockbrotQuote] value if a quote can be added to or removed from the stockbrot.
+     *
+     * @author Lucas Held
+     */
     fun addRemoveQuoteToStockbrot() {
         when (stockbrotQuote.value) {
             null -> addQuoteToStockbrot()

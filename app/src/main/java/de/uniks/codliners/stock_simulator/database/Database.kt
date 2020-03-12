@@ -244,21 +244,52 @@ interface AccountDao {
 @Dao
 interface AchievementsDao {
 
+    /**
+     * Deletes a [Achievement] with the matching id from the database.
+     *
+     * @param name The [Achievement] name used in this query.
+     */
     @Query("delete from achievement where name = :name")
     fun deleteAchievementById(name: Int)
 
+    /**
+     * Deletes all [Achievement]s from the database.
+     *
+     */
     @Query("delete from achievement")
     fun deleteAchievements()
 
+    /**
+     * Returns the [Achievement] with the matching name.
+     *
+     * @param name The [Achievement] name used in this query.
+     * @return The [Achievement] with this id or null if no such quote exists.
+     */
     @Query("select * from achievement where name = :name")
     fun getAchievementByName(name: Int): Achievement?
 
+    /**
+     * Returns a [List] of all [Achievement], wrapped in [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData).
+     *
+     * @return [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData) containing a [List] of all [Achievement]s.
+     */
     @Query("SELECT * FROM achievement ORDER BY timestamp DESC")
     fun getAchievements(): LiveData<List<Achievement>>
 
+    /**
+     * Returns the [Achievement] with the matching name, wrapped in [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData).
+     *
+     * @param name The [Achievement] name used in this query.
+     * @return [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData) containing the [Achievement] that matches the query parameters.
+     */
     @Query("select * from achievement where name = :name")
     fun getAchievementWithName(name: Int): LiveData<Achievement>
 
+    /**
+     * Inserts a [Achievement] into the database.
+     *
+     * @param achievement The [Achievement] to be inserted.
+     */
     @Insert(onConflict = REPLACE)
     fun insert(achievement: Achievement)
 
@@ -364,21 +395,52 @@ interface QuoteDao {
 @Dao
 interface StockbrotDao {
 
+    /**
+     * Deletes a [StockbrotQuote] with the matching id from the database.
+     *
+     * @param id The [StockbrotQuote] id used in this query.
+     */
     @Query("DELETE FROM stockbrotquote WHERE id == :id")
     fun deleteStockbrotQuoteById(id: String)
 
+    /**
+     * Deletes all [StockbrotQuote]s from the database.
+     *
+     */
     @Query("DELETE FROM stockbrotquote")
     fun deleteStockbrotQuotes()
 
+    /**
+     * Returns the [StockbrotQuote] with the matching id.
+     *
+     * @param id The [StockbrotQuote] id used in this query.
+     * @return The [StockbrotQuote] with this id or null if no such quote exists.
+     */
     @Query("SELECT * FROM stockbrotquote WHERE id == :id LIMIT 1")
     fun getStockbrotQuoteById(id: String): StockbrotQuote?
 
+    /**
+     * Returns a [List] of all [StockbrotQuote], wrapped in [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData).
+     *
+     * @return [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData) containing a [List] of all [StockbrotQuote]s.
+     */
     @Query("SELECT * FROM stockbrotquote")
     fun getStockbrotQuotes(): LiveData<List<StockbrotQuote>>
 
+    /**
+     * Returns the [StockbrotQuote] with the matching id, wrapped in [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData).
+     *
+     * @param id The [StockbrotQuote] id used in this query.
+     * @return [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData) containing the [StockbrotQuote] that matches the query parameters.
+     */
     @Query("SELECT * FROM stockbrotquote WHERE id == :id LIMIT 1")
     fun getStockbrotQuoteWithId(id: String): LiveData<StockbrotQuote>
 
+    /**
+     * Inserts a [StockbrotQuote] into the database.
+     *
+     * @param stockbrotQuote The [StockbrotQuote] to be inserted.
+     */
     @Insert(onConflict = REPLACE)
     fun insertStockbrotQuote(stockbrotQuote: StockbrotQuote)
 }
