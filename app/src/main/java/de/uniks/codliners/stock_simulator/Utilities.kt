@@ -310,8 +310,19 @@ class CurrencyValueFormatter(private val currencySymbol: String) : ValueFormatte
     }
 }
 
-inline fun <reified T> Exception.extractErrorMessage(default: Int, provider: () -> Int): Int =
-    if (this is T) {
+/**
+ * Utility function for choosing an [Int] (which should be a string resource id) depending on the receiver and parameters.
+ *
+ * @receiver The source [Exception].
+ * @param ExpectedType The expected type of the [Exception].
+ * @param default Chosen if this [Exception] is assignable to the [ExpectedType].
+ * @param provider Executed if this [Exception] is not assignable to the [ExpectedType].
+ * @return The chosen [Int].
+ *
+ * @author Jan Müller
+ */
+inline fun <reified ExpectedType : Exception> Exception.extractErrorMessageResource(default: Int, provider: () -> Int): Int =
+    if (this is ExpectedType) {
         default
     } else {
         provider()

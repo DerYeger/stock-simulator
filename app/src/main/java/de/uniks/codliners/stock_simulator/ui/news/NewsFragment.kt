@@ -11,7 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import de.uniks.codliners.stock_simulator.R
 import de.uniks.codliners.stock_simulator.databinding.FragmentNewsBinding
-import de.uniks.codliners.stock_simulator.extractErrorMessage
+import de.uniks.codliners.stock_simulator.extractErrorMessageResource
 import java.lang.Exception
 import java.net.UnknownHostException
 
@@ -48,7 +48,7 @@ class NewsFragment : Fragment() {
             exception?.let {
                 Snackbar.make(
                     requireView(),
-                    exception.extractErrorMessage<UnknownHostException>(R.string.no_connection) {
+                    exception.extractErrorMessageResource<UnknownHostException>(R.string.no_connection) {
                         R.string.unable_to_fetch_news
                     },
                     Snackbar.LENGTH_SHORT

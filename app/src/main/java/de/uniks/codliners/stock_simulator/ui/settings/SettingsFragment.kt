@@ -85,7 +85,7 @@ class SettingsFragment : Fragment() {
                     ).show()
                     is SymbolRepository.State.Error -> Snackbar.make(
                         requireView(),
-                        state.exception.extractErrorMessage<UnknownHostException>(R.string.no_connection) {
+                        state.exception.extractErrorMessageResource<UnknownHostException>(R.string.no_connection) {
                             R.string.unable_to_fetch_symbols
                         },
                         Snackbar.LENGTH_SHORT

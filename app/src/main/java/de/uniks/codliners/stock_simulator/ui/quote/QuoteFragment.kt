@@ -14,7 +14,7 @@ import de.uniks.codliners.stock_simulator.R
 import de.uniks.codliners.stock_simulator.databinding.DialogTransactionBinding
 import de.uniks.codliners.stock_simulator.databinding.FragmentQuoteBinding
 import de.uniks.codliners.stock_simulator.domain.StockbrotQuote
-import de.uniks.codliners.stock_simulator.extractErrorMessage
+import de.uniks.codliners.stock_simulator.extractErrorMessageResource
 import de.uniks.codliners.stock_simulator.initLineChart
 import de.uniks.codliners.stock_simulator.ui.BaseFragment
 import de.uniks.codliners.stock_simulator.updateLineChart
@@ -160,7 +160,7 @@ class QuoteFragment : BaseFragment() {
     private fun showErrorAndNavigateUp(exception: Exception) {
         Snackbar.make(
             requireView(),
-            exception.extractErrorMessage<UnknownHostException>(R.string.no_connection) {
+            exception.extractErrorMessageResource<UnknownHostException>(R.string.no_connection) {
                 R.string.unable_to_fetch_quote_information
             },
             Snackbar.LENGTH_SHORT
