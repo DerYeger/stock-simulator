@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
     app:startDestination="@+id/navigation_account">
 
     <fragment
         android:id="@+id/navigation_account"
         android:name="de.uniks.codliners.stock_simulator.ui.account.AccountFragment"
-        android:label="@string/title_account">
+        android:label="@string/title_account"
+        tools:layout="@layout/fragment_account">
         <action
             android:id="@+id/action_navigation_account_to_shareFragment"
             app:destination="@id/navigation_quote" />
@@ -15,7 +17,8 @@
     <fragment
         android:id="@+id/navigation_search"
         android:name="de.uniks.codliners.stock_simulator.ui.search.SearchFragment"
-        android:label="@string/title_search">
+        android:label="@string/title_search"
+        tools:layout="@layout/fragment_search">
         <action
             android:id="@+id/action_navigation_search_to_shareFragment"
             app:destination="@id/navigation_quote" />
@@ -23,7 +26,8 @@
     <fragment
         android:id="@+id/navigation_history"
         android:name="de.uniks.codliners.stock_simulator.ui.history.HistoryFragment"
-        android:label="@string/title_history">
+        android:label="@string/title_history"
+        tools:layout="@layout/fragment_history">
         <action
             android:id="@+id/action_navigation_history_to_shareFragment"
             app:destination="@id/navigation_quote" />
@@ -31,7 +35,8 @@
     <fragment
         android:id="@+id/navigation_stockbrot"
         android:name="de.uniks.codliners.stock_simulator.ui.stockbrot.StockbrotFragment"
-        android:label="@string/title_stockbrot">
+        android:label="@string/title_stockbrot"
+        tools:layout="@layout/fragment_stockbrot">
         <action
             android:id="@+id/action_navigation_stockbrot_to_navigation_quote"
             app:destination="@id/navigation_quote" />
@@ -39,11 +44,13 @@
     <fragment
         android:id="@+id/navigation_settings"
         android:name="de.uniks.codliners.stock_simulator.ui.settings.SettingsFragment"
-        android:label="@string/title_settings" />
+        android:label="@string/title_settings"
+        tools:layout="@layout/fragment_settings" />
     <fragment
         android:id="@+id/navigation_quote"
         android:name="de.uniks.codliners.stock_simulator.ui.quote.QuoteFragment"
-        android:label="@string/title_quote">
+        android:label="@string/title_quote"
+        tools:layout="@layout/fragment_quote">
         <argument
             android:name="id"
             app:argType="string" />
@@ -57,21 +64,20 @@
     <fragment
         android:id="@+id/navigation_achievements"
         android:name="de.uniks.codliners.stock_simulator.ui.achievements.AchievementsFragment"
-        android:label="@string/title_achievements">
+        android:label="@string/title_achievements"
+        tools:layout="@layout/fragment_achievements">
         <argument
             android:name="id"
             app:argType="string" />
         <argument
             android:name="type"
             app:argType="de.uniks.codliners.stock_simulator.domain.Symbol$Type" />
-        <action
-            android:id="@+id/action_navigation_quote_to_navigation_news"
-            app:destination="@id/navigation_news" />
     </fragment>
     <fragment
         android:id="@+id/navigation_news"
         android:name="de.uniks.codliners.stock_simulator.ui.news.NewsFragment"
-        android:label="@string/title_news">
+        android:label="@string/title_news"
+        tools:layout="@layout/fragment_news">
         <argument
             android:name="symbol"
             app:argType="string" />
