@@ -8,6 +8,7 @@ import de.uniks.codliners.stock_simulator.database.getDatabase
 import de.uniks.codliners.stock_simulator.domain.Symbol
 import de.uniks.codliners.stock_simulator.network.NetworkService
 import de.uniks.codliners.stock_simulator.network.asDomainSymbols
+import de.uniks.codliners.stock_simulator.repository.SymbolRepository.State
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 

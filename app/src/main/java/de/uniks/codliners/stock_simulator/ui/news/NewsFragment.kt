@@ -6,12 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.Snackbar
 import de.uniks.codliners.stock_simulator.databinding.FragmentNewsBinding
 
 /**
  * The fragment that displays news.
  *
  * @author Jonas Thelemann
+ * @author Jan Müller
  */
 class NewsFragment : Fragment() {
 
@@ -36,6 +40,18 @@ class NewsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        viewModel.errorAction.observe(viewLifecycleOwner, Observer { message: String? ->
+            message?.let {
+                Snackbar.make(
+                    requireView(),
+                    message,
+                    Snackbar.LENGTH_SHORT
+                ).show()
+                findNavController().navigateUp()
+                viewModel.onErrorActionCompleted()
+            }
+        })
+
         binding = FragmentNewsBinding.inflate(inflater)
         binding.viewModel = viewModel
 

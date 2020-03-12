@@ -321,7 +321,11 @@ interface SymbolDao {
      * @return [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData) containing a [List] of all [Symbol]s matching the query parameters.
      */
     @Query("SELECT * FROM symbol WHERE symbol.type == :type AND (symbol.symbol LIKE :symbolQuery OR symbol.name LIKE :nameQuery) ORDER BY symbol.symbol ASC")
-    fun getAllFiltered(symbolQuery: String, nameQuery: String, type: Symbol.Type): LiveData<List<Symbol>>
+    fun getAllFiltered(
+        symbolQuery: String,
+        nameQuery: String,
+        type: Symbol.Type
+    ): LiveData<List<Symbol>>
 
     /**
      * Returns all [Symbol]s matching the query parameters, wrapped in [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData).

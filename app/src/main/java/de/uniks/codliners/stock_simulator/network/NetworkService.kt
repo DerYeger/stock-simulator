@@ -4,6 +4,8 @@ import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import de.uniks.codliners.stock_simulator.BuildConfig
 import de.uniks.codliners.stock_simulator.domain.News
+import de.uniks.codliners.stock_simulator.network.NetworkService.COINGECKO_API
+import de.uniks.codliners.stock_simulator.network.NetworkService.IEX_API
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -48,7 +50,11 @@ interface CoinGeckoApi {
      * @return The requested [CoinGeckoMarketChart].
      */
     @GET("coins/{id}/market_chart")
-    suspend fun historicalPrices(@Path("id") id: String, @Query("vs_currency") currency: String = "usd", @Query("days") days: String = "max"): CoinGeckoMarketChart
+    suspend fun historicalPrices(
+        @Path("id") id: String,
+        @Query("vs_currency") currency: String = "usd",
+        @Query("days") days: String = "max"
+    ): CoinGeckoMarketChart
 
     /**
      * Requests a [CoinGeckoQuote] for a CoinGecko cryptocurrency.
@@ -86,7 +92,12 @@ interface IEXApi {
      * @return The requested [List] of [IEXHistoricalPrice]s.
      */
     @GET("stock/{symbol}/chart/{range}")
-    suspend fun historicalPrices(@Path("symbol") symbol: String, @Path("range") range: String = "1m", @Query("chartCloseOnly") chartCloseOnly: Boolean, @Query("token") token: String = IEX_API_TOKEN): List<IEXHistoricalPrice>
+    suspend fun historicalPrices(
+        @Path("symbol") symbol: String,
+        @Path("range") range: String = "1m",
+        @Query("chartCloseOnly") chartCloseOnly: Boolean,
+        @Query("token") token: String = IEX_API_TOKEN
+    ): List<IEXHistoricalPrice>
 
     /**
      * Requests [News] for an IEX share.
@@ -96,7 +107,10 @@ interface IEXApi {
      * @return The requested [List] of [News].
      */
     @GET("stock/{symbol}/news")
-    suspend fun news(@Path("symbol") symbol: String, @Query("token") token: String = IEX_API_TOKEN): List<News>
+    suspend fun news(
+        @Path("symbol") symbol: String,
+        @Query("token") token: String = IEX_API_TOKEN
+    ): List<News>
 
     /**
      * Requests an [IEXQuote] for an IEX share.
@@ -106,7 +120,10 @@ interface IEXApi {
      * @return The requested [IEXQuote]
      */
     @GET("stock/{symbol}/quote")
-    suspend fun quote(@Path("symbol") symbol: String, @Query("token") token: String = IEX_API_TOKEN): IEXQuote
+    suspend fun quote(
+        @Path("symbol") symbol: String,
+        @Query("token") token: String = IEX_API_TOKEN
+    ): IEXQuote
 
     /**
      * Requests all [IEXSymbol]s.
@@ -123,7 +140,7 @@ interface IEXApi {
  *
  * @property COINGECKO_API The [CoinGeckoApi] instance.
  * @property IEX_API The [IEX_API] instance.
- * 
+ *
  * @author Jonas Thelemann
  * @author Jan Müller
  */

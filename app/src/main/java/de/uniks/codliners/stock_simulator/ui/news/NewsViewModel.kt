@@ -1,10 +1,7 @@
 package de.uniks.codliners.stock_simulator.ui.news
 
 import android.app.Application
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.map
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import de.uniks.codliners.stock_simulator.repository.NewsRepository
 import de.uniks.codliners.stock_simulator.sourcedLiveData
 import kotlinx.coroutines.launch
@@ -18,6 +15,7 @@ import kotlinx.coroutines.launch
  * @property refreshing Indicates whether news are being fetched.
  *
  * @author Jonas Thelemann
+ * @author Jan Müller
  */
 class NewsViewModel(application: Application, private val symbol: String) : ViewModel() {
 
@@ -26,6 +24,27 @@ class NewsViewModel(application: Application, private val symbol: String) : View
 
     private val state = newsRepository.state
     val refreshing = state.map { it === NewsRepository.State.Refreshing }
+
+    private val _errorAction: MutableLiveData<String> = sourcedLiveData(state) {
+        when (val newState = state.value) {
+            is NewsRepository.State.Error -> newState.message
+            else -> null
+        }
+    } as MutableLiveData
+    val errorAction: LiveData<String> = _errorAction
+
+    /**
+     * Fetch news.
+     */
+    fun refresh() {
+        viewModelScope.launch {
+            newsRepository.fetchNews(symbol)
+        }
+    }
+
+    fun onErrorActionCompleted() {
+        _errorAction.postValue(null)
+    }
 
     /**
      * The [NewsViewModel]'s factory class.
@@ -51,15 +70,6 @@ class NewsViewModel(application: Application, private val symbol: String) : View
                 return NewsViewModel(application, symbol) as T
             }
             throw IllegalArgumentException("Unable to construct viewmodel")
-        }
-    }
-
-    /**
-     * Fetch news.
-     */
-    fun refresh() {
-        viewModelScope.launch {
-            newsRepository.fetchNews(symbol)
         }
     }
 }

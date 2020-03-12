@@ -21,7 +21,7 @@ import kotlinx.coroutines.launch
  *
  * @author Lucas Held
  */
-class BaseViewModel(application: Application): ViewModel() {
+class BaseViewModel(application: Application) : ViewModel() {
 
     private val achievementsRepository = AchievementsRepository(application)
     private val accountRepository = AccountRepository(application)
@@ -43,35 +43,43 @@ class BaseViewModel(application: Application): ViewModel() {
 
                 viewModelScope.launch {
                     if (balance.value <= 200) {
-                        val achievement = achievementsRepository.getAchievementsByName(R.string.achievement_200dollarLeft_name)
+                        val achievement =
+                            achievementsRepository.getAchievementsByName(R.string.achievement_200dollarLeft_name)
                         insertReachedAchievement(achievement)
                     }
                     if (balance.value <= BuildConfig.NEW_ACCOUNT_BALANCE - 1000) {
-                        val achievement = achievementsRepository.getAchievementsByName(R.string.achievement_1000dollarLost_name)
+                        val achievement =
+                            achievementsRepository.getAchievementsByName(R.string.achievement_1000dollarLost_name)
                         insertReachedAchievement(achievement)
                     }
                     if (balance.value >= BuildConfig.NEW_ACCOUNT_BALANCE + 10) {
-                        val achievement = achievementsRepository.getAchievementsByName(R.string.achievement_10dollarWon_name)
+                        val achievement =
+                            achievementsRepository.getAchievementsByName(R.string.achievement_10dollarWon_name)
                         insertReachedAchievement(achievement)
                     }
                     if (balance.value >= BuildConfig.NEW_ACCOUNT_BALANCE + 100) {
-                        val achievement = achievementsRepository.getAchievementsByName(R.string.achievement_100dollarWon_name)
+                        val achievement =
+                            achievementsRepository.getAchievementsByName(R.string.achievement_100dollarWon_name)
                         insertReachedAchievement(achievement)
                     }
                     if (balance.value >= BuildConfig.NEW_ACCOUNT_BALANCE + 500) {
-                        val achievement = achievementsRepository.getAchievementsByName(R.string.achievement_500dollarWon_name)
+                        val achievement =
+                            achievementsRepository.getAchievementsByName(R.string.achievement_500dollarWon_name)
                         insertReachedAchievement(achievement)
                     }
                     if (balance.value >= BuildConfig.NEW_ACCOUNT_BALANCE + 10000) {
-                        val achievement = achievementsRepository.getAchievementsByName(R.string.achievement_10000dollarWon_name)
+                        val achievement =
+                            achievementsRepository.getAchievementsByName(R.string.achievement_10000dollarWon_name)
                         insertReachedAchievement(achievement)
                     }
                     if (balance.value >= BuildConfig.NEW_ACCOUNT_BALANCE + 20000) {
-                        val achievement = achievementsRepository.getAchievementsByName(R.string.achievement_20000dollarWon_name)
+                        val achievement =
+                            achievementsRepository.getAchievementsByName(R.string.achievement_20000dollarWon_name)
                         insertReachedAchievement(achievement)
                     }
                     if (balance.value >= BuildConfig.NEW_ACCOUNT_BALANCE + 40000) {
-                        val achievement = achievementsRepository.getAchievementsByName(R.string.achievement_40000dollarWon_name)
+                        val achievement =
+                            achievementsRepository.getAchievementsByName(R.string.achievement_40000dollarWon_name)
                         insertReachedAchievement(achievement)
                     }
                 }
@@ -89,24 +97,29 @@ class BaseViewModel(application: Application): ViewModel() {
 
                 viewModelScope.launch {
                     if (depot.isNotEmpty()) {
-                        val achievement = achievementsRepository.getAchievementsByName(R.string.achievement_1shareInDepot_name)
+                        val achievement =
+                            achievementsRepository.getAchievementsByName(R.string.achievement_1shareInDepot_name)
                         insertReachedAchievement(achievement)
                     }
                     if (depotAmount >= 5) {
-                        val achievement = achievementsRepository.getAchievementsByName(R.string.achievement_5sharesInDepot_name)
+                        val achievement =
+                            achievementsRepository.getAchievementsByName(R.string.achievement_5sharesInDepot_name)
                         insertReachedAchievement(achievement)
                     }
                     if (depotAmount >= 10) {
-                        val achievement = achievementsRepository.getAchievementsByName(R.string.achievement_10sharesInDepot_name)
+                        val achievement =
+                            achievementsRepository.getAchievementsByName(R.string.achievement_10sharesInDepot_name)
                         insertReachedAchievement(achievement)
                     }
 
                     if (depot.size >= 5) {
-                        val achievement = achievementsRepository.getAchievementsByName(R.string.achievement_5differentSharesInDepot_name)
+                        val achievement =
+                            achievementsRepository.getAchievementsByName(R.string.achievement_5differentSharesInDepot_name)
                         insertReachedAchievement(achievement)
                     }
                     if (depot.size >= 10) {
-                        val achievement = achievementsRepository.getAchievementsByName(R.string.achievement_10differentSharesInDepot_name)
+                        val achievement =
+                            achievementsRepository.getAchievementsByName(R.string.achievement_10differentSharesInDepot_name)
                         insertReachedAchievement(achievement)
                     }
                 }

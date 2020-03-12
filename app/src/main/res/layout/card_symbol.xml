@@ -25,9 +25,9 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="@{() -> onClickListener.onClick(symbol)}"
             android:text="@{symbol.symbol}"
             android:textAlignment="center"
-            android:onClick="@{() -> onClickListener.onClick(symbol)}"
             tools:text="SYMBOL" />
     </FrameLayout>
 </layout>

@@ -20,12 +20,14 @@ class SettingsViewModel(application: Application) : ViewModel() {
     private val symbolRepository = SymbolRepository(application)
 
     private val _clickResetStatus = MutableLiveData<Boolean>()
+
     /**
      * Button click indicator for reset button.
      */
     val clickResetStatus: LiveData<Boolean> = _clickResetStatus
 
     private val _toggleFingerprintStatus = MutableLiveData<Boolean>()
+
     /**
      * Button click indicator for fingerprint button.
      */

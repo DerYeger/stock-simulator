@@ -227,7 +227,8 @@ class QuoteViewModel(
     fun onSellAllActionStarted() {
         viewModelScope.launch {
             _amount.value =
-                if (isCrypto) depotQuote.value!!.amount.toString() else depotQuote.value!!.amount.toLong().toString()
+                if (isCrypto) depotQuote.value!!.amount.toString() else depotQuote.value!!.amount.toLong()
+                    .toString()
             _cashflow.value = accountRepository.calculateSellCashflow(
                 quote.value,
                 depotQuote.value!!.amount

@@ -79,7 +79,8 @@ class SettingsFragment : Fragment() {
                         Snackbar.LENGTH_SHORT
                     ).show()
                     SymbolRepository.State.Done -> Toast.makeText(
-                        this.context, R.string.symbols_refresh_success, Toast.LENGTH_SHORT).show()
+                        this.context, R.string.symbols_refresh_success, Toast.LENGTH_SHORT
+                    ).show()
                     is SymbolRepository.State.Error -> Snackbar.make(
                         requireView(),
                         state.message,

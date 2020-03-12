@@ -451,7 +451,7 @@ fun TextView.bindStockbrotQuote(stockbrotQuote: StockbrotQuote) {
  */
 @BindingAdapter("enableCardView")
 fun CardView.bindEnableCardView(enabled: Boolean) {
-    val color = when(enabled) {
+    val color = when (enabled) {
         true -> R.color.enabledCardBackground
         false -> R.color.disabledCardBackground
     }
@@ -467,7 +467,7 @@ fun CardView.bindEnableCardView(enabled: Boolean) {
  */
 @BindingAdapter("quoteChange")
 fun TextView.bindQuoteChange(change: Double?) {
-    text = when(change) {
+    text = when (change) {
         null -> resources.getText(R.string.not_defined).toString()
         else -> String.format(
             resources.getText(R.string.currency_format).toString(),

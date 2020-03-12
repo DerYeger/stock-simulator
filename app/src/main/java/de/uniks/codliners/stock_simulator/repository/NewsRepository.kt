@@ -7,6 +7,7 @@ import de.uniks.codliners.stock_simulator.database.StockAppDatabase
 import de.uniks.codliners.stock_simulator.database.getDatabase
 import de.uniks.codliners.stock_simulator.domain.News
 import de.uniks.codliners.stock_simulator.network.NetworkService
+import de.uniks.codliners.stock_simulator.repository.NewsRepository.State
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
