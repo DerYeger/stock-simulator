@@ -45,6 +45,17 @@ data class Balance(
     val timestamp: Long = System.currentTimeMillis()
 )
 
+/**
+ * Depot quote domain model entity used to aggregate all depot quote purchases of one asset.
+ *
+ * @property id The id of the asset.
+ * @property symbol The symbol of the asset.
+ * @property type The asset's type.
+ * @property amount The amount of the asset in the depot.
+ * @property buyingPrice The average price that was paid for the asset.
+ *
+ * @author Juri Lozowoj
+ */
 data class DepotQuote(
     val id: String,
     val symbol: String,
@@ -53,6 +64,18 @@ data class DepotQuote(
     val buyingPrice: Double
 )
 
+/**
+ * Depot quote purchase database entity.
+ *
+ * @property primaryKey An automatically generated primary key.
+ * @property id The id of the asset.
+ * @property symbol The symbol of the asset.
+ * @property type The asset's type.
+ * @property amount The amount of this purchase.
+ * @property buyingPrice The purchase price that was paid for the asset.
+ *
+ * @author Juri Lozowoj
+ */
 @Entity
 data class DepotQuotePurchase(
     @PrimaryKey(autoGenerate = true)
@@ -64,6 +87,14 @@ data class DepotQuotePurchase(
     val buyingPrice: Double
 )
 
+/**
+ * Depot value database entity.
+ *
+ * @property value The value of the depot.
+ * @property timestamp The timestamp of the depot value.
+ *
+ * @author Juri Lozowoj
+ */
 @Entity
 data class DepotValue(
     val value: Double,
@@ -71,6 +102,16 @@ data class DepotValue(
     val timestamp: Long = System.currentTimeMillis()
 )
 
+/**
+ * The historical price database entity.
+ *
+ * @property primaryKey An automatically generated primary key.
+ * @property id The id of the asset.
+ * @property date The date when this share had this price.
+ * @property price The price the share had on that date.
+ *
+ * @author Juri Lozowoj
+ */
 @Entity
 data class HistoricalPrice(
     @PrimaryKey(autoGenerate = true)
@@ -204,6 +245,24 @@ data class Symbol(
     }
 }
 
+/**
+ * The transaction database entity used to store purchases and sales of assets.
+ *
+ * @property primaryKey An automatically generated primary key.
+ * @property id The id of the asset.
+ * @property symbol The symbol of the asset.
+ * @property type The asset's type.
+ * @property amount The amount of this purchase or sale.
+ * @property date The date when this share had this price.
+ * @property price The price at which the asset was bought or sold.
+ * @property transactionCosts The possibly paid transaction costs for sales.
+ * @property cashflow The total amount of money issued or received.
+ * @property transactionType The type of a transaction.
+ * @property date The date on which the transaction took place.
+ * @property result The profit or loss on a sale.
+ *
+ * @author Juri Lozowoj
+ */
 @Entity
 data class Transaction(
     @PrimaryKey(autoGenerate = true)
@@ -220,4 +279,10 @@ data class Transaction(
     val result: Double?
 )
 
+/**
+ * Enumeration class for the [TransactionType] of a [Transaction].
+ * The possible types of a transaction are BUY and SELL.
+ *
+ * @author Juri Lozowoj
+ */
 enum class TransactionType { BUY, SELL }
