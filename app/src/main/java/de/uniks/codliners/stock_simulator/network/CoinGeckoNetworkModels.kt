@@ -94,7 +94,7 @@ fun CoinGeckoQuote.asDomainQuote() = Quote(
     type = Symbol.Type.CRYPTO,
     name = name,
     latestPrice = marketData.currentPrices["usd"] ?: 0.0,
-    change = 0.0
+    change = null
 )
 
 /**

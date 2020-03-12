@@ -49,7 +49,6 @@ class QuoteViewModel(
     val historicalPrices = quoteRepository.historicalPrices(id)
 
     val isCrypto = type === Symbol.Type.CRYPTO
-    val hasChange = quote.map { quote: Quote? -> quote !== null && !isCrypto }
 
     val inputType =
         if (isCrypto) (InputType.TYPE_NUMBER_FLAG_DECIMAL + InputType.TYPE_CLASS_NUMBER) else InputType.TYPE_CLASS_NUMBER
