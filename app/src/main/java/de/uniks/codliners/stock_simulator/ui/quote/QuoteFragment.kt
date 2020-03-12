@@ -5,21 +5,23 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.github.mikephil.charting.data.Entry
+import com.google.android.material.snackbar.Snackbar
 import de.uniks.codliners.stock_simulator.R
 import de.uniks.codliners.stock_simulator.databinding.DialogTransactionBinding
 import de.uniks.codliners.stock_simulator.databinding.FragmentQuoteBinding
 import de.uniks.codliners.stock_simulator.domain.StockbrotQuote
+import de.uniks.codliners.stock_simulator.extractErrorMessageResource
 import de.uniks.codliners.stock_simulator.initLineChart
 import de.uniks.codliners.stock_simulator.ui.BaseFragment
 import de.uniks.codliners.stock_simulator.updateLineChart
+import java.net.UnknownHostException
 
 /**
- * TODO
+ * [Fragment](https://developer.android.com/jetpack/androidx/releases/fragment) for viewing, buying and selling assets.
  *
  * @author TODO
  * @author Jan Müller
@@ -61,9 +63,9 @@ class QuoteFragment : BaseFragment() {
             }
         })
 
-        viewModel.errorAction.observe(viewLifecycleOwner, Observer { errorMessage: String? ->
-            errorMessage?.let {
-                showErrorToast(errorMessage)
+        viewModel.errorAction.observe(viewLifecycleOwner, Observer { exception: Exception? ->
+            exception?.let {
+                showErrorAndNavigateUp(exception)
                 viewModel.onErrorActionCompleted()
             }
         })
@@ -147,16 +149,22 @@ class QuoteFragment : BaseFragment() {
                 onConfirmation()
             }
             .setNegativeButton(R.string.cancel) { _, _ ->
-                Toast
-                    .makeText(context, "Transaction canceled", Toast.LENGTH_SHORT)
+                Snackbar
+                    .make(requireView(), "Transaction canceled", Snackbar.LENGTH_SHORT)
                     .show()
             }
             .create()
             .show()
     }
 
-    private fun showErrorToast(errorMessage: String?) {
-        Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
+    private fun showErrorAndNavigateUp(exception: Exception) {
+        Snackbar.make(
+            requireView(),
+            exception.extractErrorMessageResource<UnknownHostException>(R.string.no_connection) {
+                R.string.unable_to_fetch_quote_information
+            },
+            Snackbar.LENGTH_SHORT
+        ).show()
         findNavController().navigateUp()
     }
 }

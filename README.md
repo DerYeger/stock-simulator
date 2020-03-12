@@ -6,4 +6,4 @@
 
 An Android app that allows playing around with data provided primarily by [iexcloud.io](https://iexcloud.io/) and [coingecko.com](https://www.coingecko.com/).
 
-The project's Javadoc can be found at [deryeger.github.io/stock-simulator](https://deryeger.github.io/stock-simulator).
+The project's Javadoc can be found at [deryeger.github.io/stock-simulator](https://deryeger.github.io/stock-simulator/app/).

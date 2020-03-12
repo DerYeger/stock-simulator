@@ -8,6 +8,14 @@ import de.uniks.codliners.stock_simulator.domain.Transaction
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
+/**
+ * Repository for accessing [Transaction]s.
+ *
+ * @property database The database used by this repository.
+ * @property transactions [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData) containing a [List] of all [Transaction]s from the [StockAppDatabase].
+ *
+ * @author Juri Lozowoj
+ */
 class HistoryRepository(private val database: StockAppDatabase) {
 
     constructor(context: Context) : this(getDatabase(context))

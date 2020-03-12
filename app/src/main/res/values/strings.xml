@@ -59,6 +59,7 @@
     <string name="long_depot_quote_amount_format">%d in depot</string>
     <string name="long_depot_quote_format">%1$s - %2$d</string>
     <string name="long_sell_amount_format" tools:ignore="PluralsCandidate">%d sold</string>
+    <string name="no_connection">Unable to reach the server. Check your connection.</string>
     <string name="no_results">No results</string>
     <string name="not_defined">N/D</string>
     <string name="paywall_indicator">Paywall indicator.</string>
@@ -111,5 +112,8 @@
         <item>Shares</item>
         <item>Crypto</item>
     </string-array>
+    <string name="unable_to_fetch_news">Unable to fetch news.</string>
+    <string name="unable_to_fetch_quote_information">Unable to fetch quote information.</string>
+    <string name="unable_to_fetch_symbols">Unable to fetch symbols.</string>
     <string name="yes">Yes</string>
 </resources>

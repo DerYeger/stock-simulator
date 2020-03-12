@@ -36,7 +36,7 @@ class QuoteRepository(private val database: StockAppDatabase) {
         object Empty : State()
         object Refreshing : State()
         object Done : State()
-        class Error(val message: String) : State()
+        class Error(val exception: Exception) : State()
     }
 
     private val _state = MutableLiveData<State>().apply {
@@ -45,10 +45,10 @@ class QuoteRepository(private val database: StockAppDatabase) {
     val state: LiveData<State> = _state
 
     /**
-     * Returns a [LiveData](https://developer.android.com/reference/android/arch/lifecycle/LiveData) containing the [Quote] with the requested id or null if no such [Quote] exists.
+     * Returns a [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData) containing the [Quote] with the requested id or null if no such [Quote] exists.
      *
      * @param id The id of the requested [Quote].
-     * @return [LiveData](https://developer.android.com/reference/android/arch/lifecycle/LiveData) containing the [Quote] with the requested id or null if no such [Quote] exists.
+     * @return [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData) containing the [Quote] with the requested id or null if no such [Quote] exists.
      */
     fun quoteWithId(id: String): LiveData<Quote> =
         database.quoteDao.getQuoteWithId(id)
@@ -64,10 +64,10 @@ class QuoteRepository(private val database: StockAppDatabase) {
 
 
     /**
-     * Returns a [LiveData](https://developer.android.com/reference/android/arch/lifecycle/LiveData) containing a [List] of [HistoricalPrice]s for the requested id or null if no such [HistoricalPrice]s exists.
+     * Returns a [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData) containing a [List] of [HistoricalPrice]s for the requested id or null if no such [HistoricalPrice]s exists.
      *
      * @param id The id of the requested [HistoricalPrice]s.
-     * @return [LiveData](https://developer.android.com/reference/android/arch/lifecycle/LiveData) containing a [List] of [HistoricalPrice]s for the requested id or null if no such [HistoricalPrice]s exists.
+     * @return [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData) containing a [List] of [HistoricalPrice]s for the requested id or null if no such [HistoricalPrice]s exists.
      */
     fun historicalPrices(id: String): LiveData<List<HistoricalPrice>> =
         database.historicalDao.getHistoricalPricesById(id)
@@ -91,7 +91,7 @@ class QuoteRepository(private val database: StockAppDatabase) {
             _state.postValue(State.Done)
             true
         } catch (exception: Exception) {
-            _state.postValue(State.Error(exception.message ?: "Oops!"))
+            _state.postValue(State.Error(exception))
             false
         }
     }
@@ -115,7 +115,7 @@ class QuoteRepository(private val database: StockAppDatabase) {
             _state.postValue(State.Done)
             true
         } catch (exception: Exception) {
-            _state.postValue(State.Error(exception.message ?: "Oops!"))
+            _state.postValue(State.Error(exception))
             false
         }
     }

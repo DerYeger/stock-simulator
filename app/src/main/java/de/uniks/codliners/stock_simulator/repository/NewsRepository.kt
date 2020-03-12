@@ -7,6 +7,7 @@ import de.uniks.codliners.stock_simulator.database.StockAppDatabase
 import de.uniks.codliners.stock_simulator.database.getDatabase
 import de.uniks.codliners.stock_simulator.domain.News
 import de.uniks.codliners.stock_simulator.network.NetworkService
+import de.uniks.codliners.stock_simulator.repository.NewsRepository.State
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -15,7 +16,7 @@ import kotlinx.coroutines.withContext
  *
  * @property database The database to store news in.
  * @property state The current [State] of the repository.
- * @property news Lazily initialized [LiveData](https://developer.android.com/reference/android/arch/lifecycle/LiveData) containing an ordered [List] of all locally stored [News].
+ * @property news Lazily initialized [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData) containing an ordered [List] of all locally stored [News].
  *
  * @author Jonas Thelemann
  */
@@ -48,9 +49,9 @@ class NewsRepository(private val database: StockAppDatabase) {
         /**
          * An error occurred.
          *
-         * @property message The error message.
+         * @property exception The exception.
          */
-        class Error(val message: String) : State()
+        class Error(val exception: Exception) : State()
     }
 
     private val _state = MutableLiveData<State>().apply {
@@ -78,7 +79,7 @@ class NewsRepository(private val database: StockAppDatabase) {
                     _state.postValue(State.Empty)
                 }
             } catch (exception: Exception) {
-                _state.postValue(State.Error(exception.message ?: "Oops!"))
+                _state.postValue(State.Error(exception))
             }
         }
     }

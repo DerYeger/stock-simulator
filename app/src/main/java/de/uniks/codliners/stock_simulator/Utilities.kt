@@ -29,12 +29,12 @@ private lateinit var tfLight: Typeface
 private lateinit var tfRegular: Typeface
 
 /**
- * Creates a [LiveData](https://developer.android.com/reference/android/arch/lifecycle/LiveData) that is updated every time one of the [sources] changes.
+ * Creates a [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData) that is updated every time one of the [sources] changes.
  *
- * @param T The type of the [LiveData](https://developer.android.com/reference/android/arch/lifecycle/LiveData).
- * @param sources The sources of the returned [LiveData](https://developer.android.com/reference/android/arch/lifecycle/LiveData).
+ * @param T The type of the [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData).
+ * @param sources The sources of the returned [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData).
  * @param block Called every time a source changes. Its result is only applied if it differs from the current value.
- * @return The initialized [LiveData](https://developer.android.com/reference/android/arch/lifecycle/LiveData).
+ * @return The initialized [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData).
  *
  * @author Jan Müller
  */
@@ -50,11 +50,11 @@ fun <T> sourcedLiveData(vararg sources: LiveData<*>, block: () -> T?): LiveData<
     }
 
 /**
- * Shortcut function for creating [MediatorLiveData](https://developer.android.com/reference/android/arch/lifecycle/MediatorLiveData).
+ * Shortcut function for creating [MediatorLiveData](https://developer.android.com/reference/androidx/lifecycle/MediatorLiveData).
  *
- * @param T The type of the [MediatorLiveData](https://developer.android.com/reference/android/arch/lifecycle/MediatorLiveData).
- * @param block Applied to the returned [MediatorLiveData](https://developer.android.com/reference/android/arch/lifecycle/MediatorLiveData).
- * @return The modified [MediatorLiveData](https://developer.android.com/reference/android/arch/lifecycle/MediatorLiveData).
+ * @param T The type of the [MediatorLiveData](https://developer.android.com/reference/androidx/lifecycle/MediatorLiveData).
+ * @param block Applied to the returned [MediatorLiveData](https://developer.android.com/reference/androidx/lifecycle/MediatorLiveData).
+ * @return The modified [MediatorLiveData](https://developer.android.com/reference/androidx/lifecycle/MediatorLiveData).
  *
  * @author Jan Müller
  */
@@ -307,3 +307,24 @@ class CurrencyValueFormatter(private val currencySymbol: String) : ValueFormatte
         return "%s$currencySymbol".format(value)
     }
 }
+
+/**
+ * Utility function for choosing an [Int] (which should be a string resource id) depending on the receiver and parameters.
+ *
+ * @receiver The source [Exception].
+ * @param ExpectedType The expected type of the [Exception].
+ * @param default Chosen if this [Exception] is assignable to the [ExpectedType].
+ * @param provider Executed if this [Exception] is not assignable to the [ExpectedType].
+ * @return The chosen [Int].
+ *
+ * @author Jan Müller
+ */
+inline fun <reified ExpectedType : Exception> Exception.extractErrorMessageResource(
+    default: Int,
+    provider: () -> Int
+): Int =
+    if (this is ExpectedType) {
+        default
+    } else {
+        provider()
+    }

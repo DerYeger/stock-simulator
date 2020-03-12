@@ -62,13 +62,13 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/default_spacing"
+            app:callback="@{viewModel.onFilteredSymbolsApplied}"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/search_query_edit_text"
             app:spanCount="3"
             app:symbols="@{viewModel.filteredSymbols}"
-            app:callback="@{viewModel.onFilteredSymbolsApplied}"
             app:visible="@{viewModel.hasResults}" />
 
         <ProgressBar

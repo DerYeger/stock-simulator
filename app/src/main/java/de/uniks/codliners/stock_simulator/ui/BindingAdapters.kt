@@ -12,18 +12,34 @@ import de.uniks.codliners.stock_simulator.domain.*
 import de.uniks.codliners.stock_simulator.domain.TransactionType.BUY
 import de.uniks.codliners.stock_simulator.domain.TransactionType.SELL
 import de.uniks.codliners.stock_simulator.isWholeNumber
-import de.uniks.codliners.stock_simulator.ui.account.DepotQuoteRecyclerViewAdapter
+import de.uniks.codliners.stock_simulator.ui.account.DepotQuoteListAdapter
 import de.uniks.codliners.stock_simulator.ui.achievements.AchievementsAdapter
-import de.uniks.codliners.stock_simulator.ui.history.HistoryRecyclerViewAdapter
-import de.uniks.codliners.stock_simulator.ui.news.NewsAdapter
+import de.uniks.codliners.stock_simulator.ui.history.TransactionListAdapter
+import de.uniks.codliners.stock_simulator.ui.news.NewsListAdapter
 import de.uniks.codliners.stock_simulator.ui.search.SymbolListAdapter
-import de.uniks.codliners.stock_simulator.ui.stockbrot.StockbrotQuoteRecyclerViewAdapter
+import de.uniks.codliners.stock_simulator.ui.stockbrot.StockbrotQuoteListAdapter
 
+/**
+ * Sets the visibility of a [View](https://developer.android.com/reference/android/view/View).
+ *
+ * @receiver The target view.
+ * @param visible true for View.VISIBLE and false for View.GONE.
+ *
+ * @author Jan Müller
+ */
 @BindingAdapter("visible")
 fun View.bindVisibility(visible: Boolean) {
     visibility = if (visible) View.VISIBLE else View.GONE
 }
 
+/**
+ * Sets the refresh listener of a [SwipeRefreshLayout](https://developer.android.com/jetpack/androidx/releases/swiperefreshlayout).
+ *
+ * @receiver The target [SwipeRefreshLayout](https://developer.android.com/jetpack/androidx/releases/swiperefreshlayout).
+ * @param listener The [Runnable] to be run inside the listener.
+ *
+ * @author Jan Müller
+ */
 @BindingAdapter("onRefresh")
 fun SwipeRefreshLayout.bindRefreshListener(listener: Runnable) {
     setOnRefreshListener {
@@ -31,6 +47,15 @@ fun SwipeRefreshLayout.bindRefreshListener(listener: Runnable) {
     }
 }
 
+/**
+ * Submits a [Symbol] [List] to the [SymbolListAdapter] of a [RecyclerView](https://developer.android.com/jetpack/androidx/releases/recyclerview).
+ *
+ * @receiver The target [RecyclerView](https://developer.android.com/jetpack/androidx/releases/recyclerview).
+ * @param symbols The [List] of [Symbol]s that will be submitted.
+ * @param callback Callback, which is executed after the [symbols] have been submitted.
+ *
+ * @author Jan Müller
+ */
 @BindingAdapter(value = ["symbols", "callback"], requireAll = true)
 fun RecyclerView.bindSymbolList(symbols: List<Symbol>?, callback: Runnable) {
     val adapter = adapter as SymbolListAdapter
@@ -38,7 +63,7 @@ fun RecyclerView.bindSymbolList(symbols: List<Symbol>?, callback: Runnable) {
 }
 
 /**
- * Binds news to the [NewsAdapter].
+ * Binds news to the [NewsListAdapter].
  *
  * @param news The news to display.
  *
@@ -46,7 +71,7 @@ fun RecyclerView.bindSymbolList(symbols: List<Symbol>?, callback: Runnable) {
  */
 @BindingAdapter("news")
 fun RecyclerView.bindNews(news: List<News>?) {
-    val adapter = adapter as NewsAdapter
+    val adapter = adapter as NewsListAdapter
     adapter.submitList(news)
 }
 
@@ -63,25 +88,41 @@ fun RecyclerView.bindAchievements(achievements: List<Achievement>?) {
     adapter.submitList(achievements)
 }
 
+/**
+ * Submits a [DepotQuote] [List] to the [DepotQuoteListAdapter] of a [RecyclerView](https://developer.android.com/jetpack/androidx/releases/recyclerview).
+ *
+ * @receiver The target [RecyclerView](https://developer.android.com/jetpack/androidx/releases/recyclerview).
+ * @param quotePurchases The [List] of [DepotQuote]s that will be submitted.
+ *
+ * @author Jan Müller
+ */
 @BindingAdapter("depotQuotes")
 fun RecyclerView.bindDepotQuotes(quotePurchases: List<DepotQuote>?) {
-    val adapter = adapter as DepotQuoteRecyclerViewAdapter
+    val adapter = adapter as DepotQuoteListAdapter
     adapter.submitList(quotePurchases)
 }
 
+/**
+ * Sets the text of a [TextView](https://developer.android.com/reference/android/widget/TextView) depending on a [DepotQuote]'s amount.
+ *
+ * @receiver The target [TextView](https://developer.android.com/reference/android/widget/TextView).
+ * @param depotQuote The [DepotQuote] source.
+ *
+ * @author Jan Müller
+ */
 @BindingAdapter("depotQuoteText")
-fun TextView.bindDepotQuoteText(depotQuotePurchase: DepotQuote?) {
-    depotQuotePurchase?.let {
-        text = when (depotQuotePurchase.amount.isWholeNumber()) {
+fun TextView.bindDepotQuoteText(depotQuote: DepotQuote?) {
+    depotQuote?.let {
+        text = when (depotQuote.amount.isWholeNumber()) {
             true ->
                 String.format(
                     resources.getText(R.string.long_depot_quote_amount_format).toString(),
-                    depotQuotePurchase.amount.toLong()
+                    depotQuote.amount.toLong()
                 )
             false ->
                 String.format(
                     resources.getText(R.string.double_depot_quote_amount_format).toString(),
-                    depotQuotePurchase.amount
+                    depotQuote.amount
                 )
         }
     }
@@ -106,21 +147,29 @@ fun TextView.bindDepotQuoteTotalValue(depotQuotePurchase: DepotQuote?, quote: Qu
     }
 }
 
+/**
+ * Sets the text of a [TextView](https://developer.android.com/reference/android/widget/TextView) depending on a [DepotQuote]'s symbol and amount.
+ *
+ * @receiver The target [TextView](https://developer.android.com/reference/android/widget/TextView).
+ * @param depotQuote The [DepotQuote] source.
+ *
+ * @author Jan Müller
+ */
 @BindingAdapter("depotQuote")
-fun TextView.bindDepotQuote(depotQuotePurchase: DepotQuote?) {
-    depotQuotePurchase?.let {
-        text = when (depotQuotePurchase.amount.isWholeNumber()) {
+fun TextView.bindDepotQuote(depotQuote: DepotQuote?) {
+    depotQuote?.let {
+        text = when (depotQuote.amount.isWholeNumber()) {
             true ->
                 String.format(
                     resources.getText(R.string.long_depot_quote_format).toString(),
-                    depotQuotePurchase.symbol,
-                    depotQuotePurchase.amount.toLong()
+                    depotQuote.symbol,
+                    depotQuote.amount.toLong()
                 )
             false ->
                 String.format(
                     resources.getText(R.string.double_depot_quote_format).toString(),
-                    depotQuotePurchase.symbol,
-                    depotQuotePurchase.amount
+                    depotQuote.symbol,
+                    depotQuote.amount
                 )
         }
     }
@@ -128,7 +177,7 @@ fun TextView.bindDepotQuote(depotQuotePurchase: DepotQuote?) {
 
 @BindingAdapter("transactions")
 fun RecyclerView.bindTransactions(transactions: List<Transaction>?) {
-    val adapter = adapter as HistoryRecyclerViewAdapter
+    val adapter = adapter as TransactionListAdapter
     adapter.submitList(transactions)
 }
 
@@ -208,28 +257,6 @@ fun ImageView.bindPerformanceIcon(performance: Double) {
     }
 }
 
-//@BindingAdapter("transactionResultIcon")
-//fun ImageView.bindTransactionResultIcon(performance: Double?) {
-//    if (performance == null) {
-//        this.visibility = View.INVISIBLE
-//        return
-//    }
-//    when {
-//        performance > 0.0 -> {
-//            setImageDrawable(resources.getDrawable(R.drawable.ic_trending_up_black_24dp, context.theme))
-//            this.setColorFilter(resources.getColor(R.color.colorAccent))
-//        }
-//        performance == 0.0 -> {
-//            setImageDrawable(resources.getDrawable(R.drawable.ic_trending_flat_black_24dp, context.theme))
-//            this.setColorFilter(resources.getColor(R.color.trendingFlat))
-//        }
-//        else -> {
-//            setImageDrawable(resources.getDrawable(R.drawable.ic_trending_down_black_24dp, context.theme))
-//            this.setColorFilter(resources.getColor(R.color.trendingDown))
-//        }
-//    }
-//}
-
 /**
  * TODO
  *
@@ -270,7 +297,7 @@ fun TextView.bindTransactionResultText(performance: Double?) {
 }
 
 /**
- * Bind [StockbrotQuote]s to the [StockbrotQuoteRecyclerViewAdapter]
+ * Bind [StockbrotQuote]s to the [StockbrotQuoteListAdapter]
  *
  * @param quotes The [StockbrotQuote]s to display.
  *
@@ -278,16 +305,16 @@ fun TextView.bindTransactionResultText(performance: Double?) {
  */
 @BindingAdapter("stockbrotQuotes")
 fun RecyclerView.bindStockbrotQuotes(quotes: List<StockbrotQuote>?) {
-    val adapter = adapter as StockbrotQuoteRecyclerViewAdapter
+    val adapter = adapter as StockbrotQuoteListAdapter
     adapter.submitList(quotes)
 }
 
 /**
- * TODO
+ * Sets the image of an [ImageView](https://developer.android.com/reference/android/widget/ImageView) depending on a [TransactionType].
  *
- * @param transactionType TODO
+ * @param transactionType The [TransactionType] source.
  *
- * @author TODO
+ * @author Jan Müller
  * @author Jonas Thelemann
  */
 @BindingAdapter("transactionType")
@@ -319,6 +346,14 @@ fun ImageView.bindPaywallType(paywallType: Boolean?) {
     }
 }
 
+/**
+ * Sets the text of a [TextView](https://developer.android.com/reference/android/widget/TextView) depending on a [Transaction]'s amount.
+ *
+ * @receiver The target [TextView](https://developer.android.com/reference/android/widget/TextView).
+ * @param transaction The [Transaction] source.
+ *
+ * @author Jan Müller
+ */
 @BindingAdapter("transaction")
 fun TextView.bindTransaction(transaction: Transaction?) {
     transaction?.let {
@@ -338,6 +373,12 @@ fun TextView.bindTransaction(transaction: Transaction?) {
     }
 }
 
+/**
+ * Creates and binds a listener that posts a [Spinner](https://developer.android.com/guide/topics/ui/controls/spinner)'s value to a [MutableLiveData](https://developer.android.com/reference/androidx/lifecycle/MutableLiveData).
+ *
+ * @receiver The source [Spinner](https://developer.android.com/guide/topics/ui/controls/spinner).
+ * @param selection The target [MutableLiveData](https://developer.android.com/reference/androidx/lifecycle/MutableLiveData).
+ */
 @BindingAdapter("observeSelection")
 fun Spinner.bindSelection(selection: MutableLiveData<String>) {
     val self = this
@@ -370,6 +411,14 @@ fun Button.bindBotAddRemoveQuote(enabled: Boolean) {
     }
 }
 
+/**
+ * Sets the text of a [TextView](https://developer.android.com/reference/android/widget/TextView) depending on a [StockbrotQuote].
+ *
+ * @receiver The target [TextView](https://developer.android.com/reference/android/widget/TextView).
+ * @param stockbrotQuote The [StockbrotQuote] source.
+ *
+ * @author Jan Müller
+ */
 @BindingAdapter("stockbrotQuote")
 fun TextView.bindStockbrotQuote(stockbrotQuote: StockbrotQuote) {
     text = when (stockbrotQuote.limitedBuying) {
@@ -394,15 +443,15 @@ fun TextView.bindStockbrotQuote(stockbrotQuote: StockbrotQuote) {
 }
 
 /**
- * Changes the [CardView] background color to create an enable/disable effect.
+ * Changes the [CardView](https://developer.android.com/jetpack/androidx/releases/cardview) background color to create an enable/disable effect.
  *
- * @param enabled If set to true, the [CardView] will be enabled. If set to false, the [CardView] will be disabled.
+ * @param enabled If set to true, the [CardView](https://developer.android.com/jetpack/androidx/releases/cardview) will be enabled. If set to false, the [CardView](https://developer.android.com/jetpack/androidx/releases/cardview) will be disabled.
  *
  * @author Lucas Held
  */
 @BindingAdapter("enableCardView")
 fun CardView.bindEnableCardView(enabled: Boolean) {
-    val color = when(enabled) {
+    val color = when (enabled) {
         true -> R.color.enabledCardBackground
         false -> R.color.disabledCardBackground
     }
@@ -418,7 +467,7 @@ fun CardView.bindEnableCardView(enabled: Boolean) {
  */
 @BindingAdapter("quoteChange")
 fun TextView.bindQuoteChange(change: Double?) {
-    text = when(change) {
+    text = when (change) {
         null -> resources.getText(R.string.not_defined).toString()
         else -> String.format(
             resources.getText(R.string.currency_format).toString(),

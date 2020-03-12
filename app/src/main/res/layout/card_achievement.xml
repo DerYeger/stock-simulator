@@ -18,10 +18,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/default_spacing"
-        app:enableCardView="@{achievement.reached}"
         app:cardCornerRadius="@dimen/default_corner_radius"
         app:cardElevation="@dimen/default_elevation"
-        app:contentPadding="@dimen/default_spacing">
+        app:contentPadding="@dimen/default_spacing"
+        app:enableCardView="@{achievement.reached}">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -58,10 +58,10 @@
                 android:layout_height="24dp"
                 android:background="@drawable/ic_expand_toggle_24dp"
                 android:checked="@={expanded}"
+                android:enabled="@{achievement.reached}"
                 android:text=""
                 android:textOff=""
                 android:textOn=""
-                android:enabled="@{achievement.reached}"
                 app:layout_constraintBottom_toBottomOf="@+id/achievement_name"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/achievement_name" />

@@ -27,9 +27,9 @@ import java.util.*
  *
  * @author Jonas Thelemann
  */
-class NewsAdapter(
+class NewsListAdapter(
     locale: Locale
-) : ListAdapter<News, NewsAdapter.ViewHolder>(DiffCallback) {
+) : ListAdapter<News, NewsListAdapter.ViewHolder>(DiffCallback) {
 
     private val dateFormatter = SimpleDateFormat("dd.MM.yyyy HH:mm", locale)
 

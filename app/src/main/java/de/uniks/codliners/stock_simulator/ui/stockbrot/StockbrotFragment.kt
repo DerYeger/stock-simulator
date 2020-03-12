@@ -17,7 +17,7 @@ import de.uniks.codliners.stock_simulator.ui.OnClickListener
  */
 class StockbrotFragment : BaseFragment() {
 
-    private val viewModel: StockbrotViewModel by viewModels{
+    private val viewModel: StockbrotViewModel by viewModels {
         StockbrotViewModel.Factory(requireActivity().application)
     }
 
@@ -30,10 +30,14 @@ class StockbrotFragment : BaseFragment() {
     ): View {
         binding = FragmentStockbrotBinding.inflate(inflater)
         binding.viewModel = viewModel
-        binding.stockbrotRecyclerView.adapter = StockbrotQuoteRecyclerViewAdapter(OnClickListener { stockbrotQuote ->
-            val action = StockbrotFragmentDirections.actionNavigationStockbrotToNavigationQuote(stockbrotQuote.id, stockbrotQuote.type)
-            findNavController().navigate(action)
-        })
+        binding.stockbrotRecyclerView.adapter =
+            StockbrotQuoteListAdapter(OnClickListener { stockbrotQuote ->
+                val action = StockbrotFragmentDirections.actionNavigationStockbrotToNavigationQuote(
+                    stockbrotQuote.id,
+                    stockbrotQuote.type
+                )
+                findNavController().navigate(action)
+            })
         binding.lifecycleOwner = this
         return binding.root
     }

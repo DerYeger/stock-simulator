@@ -33,12 +33,18 @@ abstract class StockAppDatabase : RoomDatabase() {
     abstract val newsDao: NewsDao
 
     /**
-     * The database's [TransactionDao] [Dao](https://developer.android.com/reference/androidx/room/Dao).
+     * The database's [Transaction] [Dao](https://developer.android.com/reference/androidx/room/Dao).
      */
     abstract val transactionDao: TransactionDao
 
+    /**
+     * The database's [Balance], [DepotQuotePurchase] and [DepotValue]  [Dao](https://developer.android.com/reference/androidx/room/Dao).
+     */
     abstract val accountDao: AccountDao
 
+    /**
+     * The database's [StockbrotQuote] [Dao](https://developer.android.com/reference/androidx/room/Dao).
+     */
     abstract val stockbrotDao: StockbrotDao
 
     /**
@@ -54,6 +60,14 @@ abstract class StockAppDatabase : RoomDatabase() {
 
 private lateinit var INSTANCE: StockAppDatabase
 
+/**
+ * Creates or returns this app's [StockAppDatabase].
+ *
+ * @param context The context of the app.
+ * @return The [StockAppDatabase].
+ *
+ * @author Jan Müller
+ */
 fun getDatabase(context: Context): StockAppDatabase {
     synchronized(StockAppDatabase::class.java) {
         if (!::INSTANCE.isInitialized) {
@@ -70,36 +84,89 @@ fun getDatabase(context: Context): StockAppDatabase {
     return INSTANCE
 }
 
+/**
+ * [Dao](https://developer.android.com/reference/androidx/room/Dao) that manages account entities in the database.
+ *
+ * @author TODO
+ * @author Jan Müller
+ */
 @Dao
 interface AccountDao {
 
+    /**
+     * Deletes all [Balance]s from the database.
+     *
+     */
     @Query("DELETE FROM balance")
     fun deleteBalances()
 
+    /**
+     * Deletes all [DepotQuotePurchase]s from the database.
+     *
+     */
     @Query("DELETE FROM depotquotepurchase")
     fun deleteDepot()
 
+    /**
+     * Deletes the given [DepotQuotePurchase]s from the database.
+     *
+     * @param depotPurchase The array of [DepotQuotePurchase]s to delete from the database.
+     */
     @Delete
     fun deleteDepotQuotes(vararg depotPurchase: DepotQuotePurchase)
 
+    /**
+     * Deletes the [DepotQuotePurchase] with matching id from the database.
+     *
+     * @param id The [DepotQuotePurchase] id used in this query.
+     */
     @Query("DELETE FROM depotquotepurchase WHERE id == :id")
     fun deleteDepotQuoteById(id: String)
 
+    /**
+     * Deletes all [DepotValue]s from the database.
+     *
+     */
     @Query("DELETE FROM depotvalue")
     fun deleteDepotValues()
 
+    /**
+     * Returns the amount [Long] of stored [Balance]s.
+     *
+     * @return The amount [Long] of stored [Balance]s.
+     */
     @Query("SELECT COUNT(*) FROM balance")
     fun getBalanceCount(): Long
 
     @Query("SELECT * FROM (SELECT * FROM balance ORDER BY balance.timestamp DESC LIMIT :limit) ORDER BY timestamp ASC")
     fun getBalancesLimited(limit: Int): LiveData<List<Balance>>
 
+    /**
+     * Returns all [DepotQuote]s as a [List], wrapped in [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData).
+     * Conflates all [DepotQuotePurchase]s with the same id [String], symbol [String], type [Symbol.Type] and returns them as [DepotQuote]s,
+     * whereby their amount [Double] is added up and the mean buyingPrice [Double] is bid from the buyingPrices [Double].
+     *
+     * @return [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData) containing all [DepotQuote]s as a [List].
+     */
     @Query("SELECT id, symbol, type, SUM(amount) as amount, AVG(buyingPrice) as buyingPrice FROM depotquotepurchase GROUP BY id, symbol, type")
     fun getDepotQuotes(): LiveData<List<DepotQuote>>
 
+    /**
+     * Returns the [DepotQuotePurchase] with the matching id.
+     *
+     * @param id The [DepotQuotePurchase] id used in this query.
+     * @return The [DepotQuotePurchase] with this id or null if no such quote exists.
+     */
     @Query("SELECT * FROM depotquotepurchase WHERE id == :id LIMIT 1")
     fun getDepotQuoteById(id: String): DepotQuotePurchase?
 
+    /**
+     * Returns the [DepotQuote]s with the matching id, wrapped in [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData).
+     * Conflates all [DepotQuotePurchase]s with the matching id and returns them as one [DepotQuote],
+     * whereby the amount [Double] is added up and the mean buyingPrice [Double] is bid from the buyingPrices [Double].
+     *
+     * @return [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData) containing the [DepotQuote].
+     */
     @Query("SELECT id, symbol, type, SUM(amount) as amount, AVG(buyingPrice) as buyingPrice FROM depotquotepurchase WHERE id = :id GROUP BY id, symbol, type")
     fun getDepotQuoteWithId(id: String): LiveData<DepotQuote>
 
@@ -109,30 +176,66 @@ interface AccountDao {
     @Query("SELECT * FROM depotquotepurchase ORDER BY depotquotepurchase.buyingPrice ASC")
     fun getDepotQuotePurchasesValuesOrderedByPrice(): List<DepotQuotePurchase>
 
+    /**
+     * Returns all [DepotValue]s as a [List], wrapped in [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData).
+     *
+     * @param limit The limit [Int] restricts the query to last {limit} [DepotValue]s.
+     * @return The last {limit} [DepotValue]s in ascending order.
+     */
     @Query("SELECT * FROM (SELECT * FROM depotvalue ORDER BY depotvalue.timestamp DESC LIMIT :limit) ORDER BY timestamp ASC")
     fun getDepotValuesLimited(limit: Int): LiveData<List<DepotValue>>
 
+    /**
+     * Returns the latest [Balance], wrapped in [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData).
+     *
+     * @return [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData) containing the latest [Balance].
+     */
     @Query("SELECT * FROM balance ORDER BY balance.timestamp DESC LIMIT 1")
     fun getLatestBalance(): LiveData<Balance>
 
+    /**
+     * Returns the latest [Balance].
+     *
+     * @return The latest [Balance].
+     */
     @Query("SELECT * FROM balance ORDER BY balance.timestamp DESC LIMIT 1")
     fun getLatestBalanceValue(): Balance
 
+    /**
+     * Returns the latest [DepotValue].
+     *
+     * @return [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData) containing the latest [DepotValue].
+     */
     @Query("SELECT * FROM depotvalue ORDER BY depotvalue.timestamp DESC LIMIT 1")
     fun getLatestDepotValues(): LiveData<DepotValue>
 
+    /**
+     * Inserts a [Balance] into the database.
+     *
+     * @param balance The [Balance] to be inserted.
+     */
     @Insert(onConflict = REPLACE)
     fun insertBalance(balance: Balance)
 
+    /**
+     * Inserts a [DepotQuotePurchase] into the database.
+     *
+     * @param depotPurchase The [DepotQuotePurchase] to be inserted.
+     */
     @Insert(onConflict = REPLACE)
     fun insertDepotQuote(depotPurchase: DepotQuotePurchase)
 
+    /**
+     * Inserts a [DepotValue] into the database.
+     *
+     * @param depotValue The [DepotValue] to be inserted.
+     */
     @Insert(onConflict = REPLACE)
     fun insertDepotValue(depotValue: DepotValue)
 }
 
 /**
- * [Dao] that manages [Achievement]s in the database
+ * [Dao](https://developer.android.com/reference/androidx/room/Dao) that manages [Achievement]s in the database
  *
  * @author Jan Müller
  * @author Lucas Held
@@ -163,12 +266,28 @@ interface AchievementsDao {
 @Dao
 interface HistoricalPriceDao {
 
+    /**
+    * Deletes the [HistoricalPrice] with matching id from the database.
+    *
+    * @param id The [HistoricalPrice] id used in this query.
+    */
     @Query("DELETE FROM historicalprice WHERE id = :id")
     fun deleteHistoricalPricesById(id: String)
 
+    /**
+     * Returns the [HistoricalPrice]s with the matching id as a [List], wrapped in [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData).
+     *
+     * @param id The [HistoricalPrice] id used in this query.
+     * @return [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData) containing a [List] of all [HistoricalPrice]s matching the id.
+     */
     @Query("SELECT * FROM historicalprice WHERE id = :id")
     fun getHistoricalPricesById(id: String): LiveData<List<HistoricalPrice>>
 
+    /**
+     * Inserts [HistoricalPrice]s into the database.
+     *
+     * @param prices The [HistoricalPrice]s to be inserted.
+     */
     @Insert(onConflict = REPLACE)
     fun insertAll(vararg prices: HistoricalPrice)
 }
@@ -194,24 +313,50 @@ interface NewsDao {
     fun insertAll(vararg news: News)
 }
 
+/**
+ * [Dao](https://developer.android.com/reference/androidx/room/Dao) that manages [Symbol]s in the database.
+ *
+ * @author Jan Müller
+ */
 @Dao
 interface QuoteDao {
 
+    /**
+     * Deletes all [Quote]s from the database.
+     *
+     */
     @Query("DELETE FROM quote")
     fun deleteQuotes()
 
+    /**
+     * Returns the [Quote] with the matching id.
+     *
+     * @param id The [Quote] id used in this query.
+     * @return The [Quote] with this id or null if no such quote exists.
+     */
     @Query("SELECT * FROM quote WHERE quote.id == :id")
-    fun getQuoteValueById(id: String): Quote
+    fun getQuoteValueById(id: String): Quote?
 
+    /**
+     * Returns the [Quote] with the matching id, wrapped in [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData).
+     *
+     * @param id The [Quote] id used in this query.
+     * @return [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData) containing the [Quote] that matches the query parameters.
+     */
     @Query("SELECT * FROM quote WHERE quote.id == :id")
     fun getQuoteWithId(id: String): LiveData<Quote>
 
+    /**
+     * Inserts a [Quote] into the database.
+     *
+     * @param quote The quote to be inserted into the database.
+     */
     @Insert(onConflict = REPLACE)
     fun insert(quote: Quote)
 }
 
 /**
- * [Dao] that manages [StockbrotQuote]s in the database
+ * [Dao](https://developer.android.com/reference/androidx/room/Dao) that manages [StockbrotQuote]s in the database
  *
  * @author Lucas Held
  */
@@ -237,37 +382,97 @@ interface StockbrotDao {
     fun insertStockbrotQuote(stockbrotQuote: StockbrotQuote)
 }
 
+/**
+ * [Dao](https://developer.android.com/reference/androidx/room/Dao) that manages [Symbol]s in the database.
+ *
+ * @author Jan Müller
+ */
 @Dao
 interface SymbolDao {
 
+    /**
+     * Returns all [Symbol]s, wrapped in [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData).
+     *
+     * @return [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData) containing a [List] of all [Symbol]s.
+     */
     @Query("SELECT * FROM symbol ORDER BY symbol.symbol ASC")
     fun getAll(): LiveData<List<Symbol>>
 
+    /**
+     * Returns all [Symbol]s matching the query parameters, wrapped in [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData).
+     *
+     * @param symbolQuery The symbol fragment used in this query.
+     * @param nameQuery The name fragment used in this query.
+     * @param type The [Symbol.Type] used in this query.
+     * @return [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData) containing a [List] of all [Symbol]s matching the query parameters.
+     */
     @Query("SELECT * FROM symbol WHERE symbol.type == :type AND (symbol.symbol LIKE :symbolQuery OR symbol.name LIKE :nameQuery) ORDER BY symbol.symbol ASC")
-    fun getAllFiltered(symbolQuery: String, nameQuery: String, type: Symbol.Type): LiveData<List<Symbol>>
+    fun getAllFiltered(
+        symbolQuery: String,
+        nameQuery: String,
+        type: Symbol.Type
+    ): LiveData<List<Symbol>>
 
+    /**
+     * Returns all [Symbol]s matching the query parameters, wrapped in [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData).
+     *
+     * @param symbolQuery The symbol fragment used in this query.
+     * @param nameQuery The name fragment used in this query.
+     * @return [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData) containing a [List] of all [Symbol]s matching the query parameters.
+     */
     @Query("SELECT * FROM symbol WHERE symbol.symbol LIKE :symbolQuery OR symbol.name LIKE :nameQuery ORDER BY symbol.symbol ASC")
     fun getAllFiltered(symbolQuery: String, nameQuery: String): LiveData<List<Symbol>>
 
+    /**
+     * Inserts all [Symbol]s into the [StockAppDatabase].
+     *
+     * @param symbols The [Symbol]s to be inserted.
+     */
     @Insert(onConflict = REPLACE)
     fun insertAll(vararg symbols: Symbol)
 }
 
+/**
+ * [Dao](https://developer.android.com/reference/androidx/room/Dao) that manages [Transaction]s in the database.
+ *
+ * @author Juri Lozowoj
+ */
 @Dao
 interface TransactionDao {
 
+    /**
+     * Deletes all [Transaction]s from the database.
+     *
+     */
     @Query("DELETE FROM `transaction`")
     fun deleteTransactions()
 
+    /**
+     * Returns all [Transaction]s as a [List], wrapped in [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData),
+     * ordered be their date [Long], in descending order.
+     *
+     * @return [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData) containing a [List] of all [Transaction]s.
+     */
     @Query("SELECT * FROM `transaction` ORDER BY `transaction`.date DESC")
     fun getTransactions(): LiveData<List<Transaction>>
 
+    /**
+     * Returns all [Transaction]s matching the id as a [List], wrapped in [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData).
+     *
+     * @param id The id of the [Transaction] is used in this query.
+     * @return [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData) containing a [List] of all [Transaction]s matching the id.
+     */
     @Query("SELECT * from `transaction` WHERE `transaction`.id = :id")
     fun getTransactionsById(id: String): LiveData<List<Transaction>>
 
     @Query("SELECT * from `transaction` LIMIT :limit")
     fun getTransactionsLimited(limit: Int): LiveData<List<Transaction>>
 
+    /**
+     * Inserts the given [Transaction] into the database.
+     *
+     * @param transaction The [Transaction] to be inserted.
+     */
     @Insert
     fun insert(transaction: Transaction)
 }

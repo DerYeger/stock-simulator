@@ -8,6 +8,7 @@ import de.uniks.codliners.stock_simulator.database.getDatabase
 import de.uniks.codliners.stock_simulator.domain.Symbol
 import de.uniks.codliners.stock_simulator.network.NetworkService
 import de.uniks.codliners.stock_simulator.network.asDomainSymbols
+import de.uniks.codliners.stock_simulator.repository.SymbolRepository.State
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -16,7 +17,7 @@ import kotlinx.coroutines.withContext
  *
  * @property database The database used by this repository.
  * @property state The current [State] of the repository.
- * @property symbols Lazily initialized [LiveData](https://developer.android.com/reference/android/arch/lifecycle/LiveData) containing an ordered [List] of all locally stored [Symbol]s.
+ * @property symbols Lazily initialized [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData) containing an ordered [List] of all locally stored [Symbol]s.
  *
  * @author Jan Müller
  */
@@ -28,7 +29,7 @@ class SymbolRepository(private val database: StockAppDatabase) {
         object Idle : State()
         object Refreshing : State()
         object Done : State()
-        class Error(val message: String) : State()
+        class Error(val exception: Exception) : State()
     }
 
     private val _state = MutableLiveData<State>()
@@ -39,10 +40,10 @@ class SymbolRepository(private val database: StockAppDatabase) {
     }
 
     /**
-     * Returns a [LiveData](https://developer.android.com/reference/android/arch/lifecycle/LiveData) containing [Symbol]s that match the specified [Symbol.Filter].
+     * Returns a [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData) containing [Symbol]s that match the specified [Symbol.Filter].
      *
      * @param filter The filter to be used.
-     * @return A [LiveData](https://developer.android.com/reference/android/arch/lifecycle/LiveData) containing a filtered [List] of [Symbol]s.
+     * @return A [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData) containing a filtered [List] of [Symbol]s.
      */
     fun filteredSymbols(filter: Symbol.Filter) = when (filter.type) {
         null -> database.symbolDao.getAllFiltered(
@@ -72,7 +73,7 @@ class SymbolRepository(private val database: StockAppDatabase) {
                 _state.postValue(State.Done)
                 _state.postValue(State.Idle)
             } catch (exception: Exception) {
-                _state.postValue(State.Error(exception.message ?: "Oops!"))
+                _state.postValue(State.Error(exception))
             }
         }
     }

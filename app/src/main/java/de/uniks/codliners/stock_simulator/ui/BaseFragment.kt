@@ -33,7 +33,11 @@ abstract class BaseFragment : Fragment() {
                 if (achievement.reached && achievement.timestamp != null && !achievement.displayed) {
                     println("achievement $achievement reached - " + getString(achievement.name))
                     Toast
-                        .makeText(requireActivity().application, getString(achievement.name), Toast.LENGTH_SHORT)
+                        .makeText(
+                            requireActivity().application,
+                            getString(achievement.name),
+                            Toast.LENGTH_SHORT
+                        )
                         .show()
                     viewModel.markAchievementAsDisplayed(achievement)
                 }
@@ -56,7 +60,8 @@ abstract class BaseFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.settings_menu_item -> findNavController().navigate(R.id.navigation_settings).let { true }
+            R.id.settings_menu_item -> findNavController().navigate(R.id.navigation_settings)
+                .let { true }
             else -> false
         }
     }

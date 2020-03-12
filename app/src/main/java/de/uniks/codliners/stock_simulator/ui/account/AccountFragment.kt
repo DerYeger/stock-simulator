@@ -36,7 +36,7 @@ class AccountFragment : BaseFragment() {
         binding = FragmentAccountBinding.inflate(inflater)
         binding.viewModel = viewModel
         binding.depotRecyclerView.adapter =
-            DepotQuoteRecyclerViewAdapter(OnClickListener { symbol ->
+            DepotQuoteListAdapter(OnClickListener { symbol ->
                 val action =
                     AccountFragmentDirections.actionNavigationAccountToShareFragment(
                         symbol.id,

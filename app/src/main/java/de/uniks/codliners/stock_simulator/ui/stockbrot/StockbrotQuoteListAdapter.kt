@@ -10,12 +10,12 @@ import de.uniks.codliners.stock_simulator.domain.StockbrotQuote
 import de.uniks.codliners.stock_simulator.ui.OnClickListener
 
 /**
- * The adapter that inserts [StockbrotQuote]s into a [RecyclerView].
+ * The adapter that inserts [StockbrotQuote]s into a [RecyclerView](https://developer.android.com/jetpack/androidx/releases/recyclerview).
  *
  * @author Lucas Held
  */
-class StockbrotQuoteRecyclerViewAdapter(private val onClickListener: OnClickListener<StockbrotQuote>) :
-    ListAdapter<StockbrotQuote, StockbrotQuoteRecyclerViewAdapter.ViewHolder>(DiffCallback) {
+class StockbrotQuoteListAdapter(private val onClickListener: OnClickListener<StockbrotQuote>) :
+    ListAdapter<StockbrotQuote, StockbrotQuoteListAdapter.ViewHolder>(DiffCallback) {
 
     inner class ViewHolder(private val binding: CardStockbrotQuoteBinding) :
         RecyclerView.ViewHolder(binding.root) {

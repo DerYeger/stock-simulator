@@ -28,7 +28,7 @@ class HistoryFragment : BaseFragment() {
 
         // resources.configuration.locales[0] requires API level 24
         @Suppress("DEPRECATION")
-        binding.historyRecyclerView.adapter = HistoryRecyclerViewAdapter(
+        binding.historyRecyclerView.adapter = TransactionListAdapter(
             onClickListener = OnClickListener { transaction ->
                 val action = HistoryFragmentDirections.actionNavigationHistoryToShareFragment(
                     transaction.id,

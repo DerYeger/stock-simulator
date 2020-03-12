@@ -58,7 +58,7 @@ class StockbrotWorker(context: Context, params: WorkerParameters) : Worker(conte
                 Symbol.Type.CRYPTO -> quoteRepository.fetchCoinGeckoQuote(id)
             }
 
-            if (! connectionSuccess) return@launch
+            if (!connectionSuccess) return@launch
 
             quoteRepository.quoteById(id)?.let {
                 Timber.i("Bot is using quote $it")

@@ -8,7 +8,7 @@ import de.uniks.codliners.stock_simulator.repository.SymbolRepository
 import de.uniks.codliners.stock_simulator.sourcedLiveData
 
 /**
- * The [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel) of [SearchFragment].
+ * The [ViewModel](https://developer.android.com/reference/androidx/lifecycle/ViewModel) of [SearchFragment].
  *
  * @param application The context used for creating the [SymbolRepository].
  *
@@ -76,7 +76,7 @@ class SearchViewModel(application: Application) : ViewModel() {
         /**
          * Attempts to create a [SearchViewModel].
          *
-         * @param T The requested type of [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel).
+         * @param T The requested type of [ViewModel](https://developer.android.com/reference/androidx/lifecycle/ViewModel).
          * @param modelClass The requested class. [SearchViewModel] must be assignable to it.
          *
          * @throws [IllegalArgumentException] if [SearchViewModel] is not assignable to [modelClass].

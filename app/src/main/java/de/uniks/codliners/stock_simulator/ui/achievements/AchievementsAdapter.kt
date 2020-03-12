@@ -9,7 +9,7 @@ import de.uniks.codliners.stock_simulator.databinding.CardAchievementBinding
 import de.uniks.codliners.stock_simulator.domain.Achievement
 
 /**
- * The adapter that inserts [Achievement]s into a [RecyclerView].
+ * The adapter that inserts [Achievement]s into a [RecyclerView](https://developer.android.com/jetpack/androidx/releases/recyclerview).
  *
  * @author Lucas Held
  */

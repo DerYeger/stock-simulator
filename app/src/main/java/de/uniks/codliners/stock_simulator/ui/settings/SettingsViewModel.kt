@@ -7,14 +7,12 @@ import de.uniks.codliners.stock_simulator.sourcedLiveData
 import kotlinx.coroutines.launch
 
 /**
- * TODO
+ * The [ViewModel](https://developer.android.com/reference/androidx/lifecycle/ViewModel) of [SettingsFragment].
  *
- * @constructor
- * TODO
- *
- * @param application TODO
+ * @param application The context used for creating the [SymbolRepository].
  *
  * @author TODO
+ * @author Jan Müller
  * @author Jonas Thelemann
  */
 class SettingsViewModel(application: Application) : ViewModel() {
@@ -22,19 +20,21 @@ class SettingsViewModel(application: Application) : ViewModel() {
     private val symbolRepository = SymbolRepository(application)
 
     private val _clickResetStatus = MutableLiveData<Boolean>()
+
     /**
      * Button click indicator for reset button.
      */
     val clickResetStatus: LiveData<Boolean> = _clickResetStatus
 
     private val _toggleFingerprintStatus = MutableLiveData<Boolean>()
+
     /**
      * Button click indicator for fingerprint button.
      */
     val toggleFingerprintStatus: LiveData<Boolean> = _toggleFingerprintStatus
 
     private val state = symbolRepository.state
-    private val symbolRefreshInitiated = MutableLiveData<Boolean>(false)
+    private val symbolRefreshInitiated = MutableLiveData(false)
     val symbolRepositoryStateAction = sourcedLiveData(symbolRefreshInitiated, state) {
         when (val state = state.value) {
             SymbolRepository.State.Refreshing -> if (symbolRefreshInitiated.value == true) state else null

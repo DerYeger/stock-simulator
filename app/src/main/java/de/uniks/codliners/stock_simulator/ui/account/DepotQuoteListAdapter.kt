@@ -9,8 +9,8 @@ import de.uniks.codliners.stock_simulator.databinding.CardDepotQuoteBinding
 import de.uniks.codliners.stock_simulator.domain.DepotQuote
 import de.uniks.codliners.stock_simulator.ui.OnClickListener
 
-class DepotQuoteRecyclerViewAdapter(private val onClickListener: OnClickListener<DepotQuote>) :
-    ListAdapter<DepotQuote, DepotQuoteRecyclerViewAdapter.ViewHolder>(DiffCallback) {
+class DepotQuoteListAdapter(private val onClickListener: OnClickListener<DepotQuote>) :
+    ListAdapter<DepotQuote, DepotQuoteListAdapter.ViewHolder>(DiffCallback) {
 
     inner class ViewHolder(private val binding: CardDepotQuoteBinding) :
         RecyclerView.ViewHolder(binding.root) {

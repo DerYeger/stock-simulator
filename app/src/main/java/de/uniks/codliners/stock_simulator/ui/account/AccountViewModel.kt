@@ -1,7 +1,10 @@
 package de.uniks.codliners.stock_simulator.ui.account
 
 import android.app.Application
-import androidx.lifecycle.*
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import de.uniks.codliners.stock_simulator.BuildConfig
 import de.uniks.codliners.stock_simulator.repository.AccountRepository
 import de.uniks.codliners.stock_simulator.sourcedLiveData
@@ -30,7 +33,7 @@ class AccountViewModel(application: Application) : ViewModel() {
 
     private fun calculatePerformance(balance: Double?, depotValue: Double?): Double? {
         if (balance == null || depotValue == null) return 0.0
-        return (((balance + depotValue ) / BuildConfig.NEW_ACCOUNT_BALANCE) - 1) * 100
+        return (((balance + depotValue) / BuildConfig.NEW_ACCOUNT_BALANCE) - 1) * 100
     }
 
     class Factory(
