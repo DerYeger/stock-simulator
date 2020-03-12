@@ -12,7 +12,6 @@ import com.google.android.material.snackbar.Snackbar
 import de.uniks.codliners.stock_simulator.R
 import de.uniks.codliners.stock_simulator.databinding.FragmentNewsBinding
 import de.uniks.codliners.stock_simulator.extractErrorMessageResource
-import java.lang.Exception
 import java.net.UnknownHostException
 
 /**

@@ -5,7 +5,6 @@ import androidx.lifecycle.*
 import de.uniks.codliners.stock_simulator.repository.NewsRepository
 import de.uniks.codliners.stock_simulator.sourcedLiveData
 import kotlinx.coroutines.launch
-import java.lang.Exception
 
 /**
  * The [NewsFragment]'s viewmodel.
