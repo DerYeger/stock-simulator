@@ -166,22 +166,35 @@ interface AccountDao {
      * Conflates all [DepotQuotePurchase]s with the matching id and returns them as one [DepotQuote],
      * whereby the amount [Double] is added up and the mean buyingPrice [Double] is bid from the buyingPrices [Double].
      *
+     * @param id The [DepotQuotePurchase] id used in this query.
      * @return [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData) containing the [DepotQuote].
      */
     @Query("SELECT id, symbol, type, SUM(amount) as amount, AVG(buyingPrice) as buyingPrice FROM depotquotepurchase WHERE id = :id GROUP BY id, symbol, type")
     fun getDepotQuoteWithId(id: String): LiveData<DepotQuote>
 
+    /**
+     * Returns the [DepotQuotePurchase]s with the matching id as a [List],
+     * in ascending order of their buying price.
+     *
+     * @param id The [DepotQuotePurchase] id used in this query.
+     * @return A [List] containing the [DepotQuotePurchase]s with the matching id, in ascending order of their buying price.
+     */
     @Query("SELECT * FROM depotquotepurchase WHERE id = :id ORDER BY depotquotepurchase.buyingPrice ASC")
     fun getDepotQuotePurchasesByIdOrderedByPrice(id: String): List<DepotQuotePurchase>
 
+    /**
+     * Returns all [DepotQuotePurchase]s as a [List], in ascending order of their buying price.
+     *
+     * @return A [List] containing all [DepotQuotePurchase]s in ascending order of their buying price
+     */
     @Query("SELECT * FROM depotquotepurchase ORDER BY depotquotepurchase.buyingPrice ASC")
     fun getDepotQuotePurchasesValuesOrderedByPrice(): List<DepotQuotePurchase>
 
     /**
-     * Returns all [DepotValue]s as a [List], wrapped in [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData).
+     * Returns the last {limit} [DepotValue]s as a [List], wrapped in [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData).
      *
      * @param limit The limit [Int] restricts the query to last {limit} [DepotValue]s.
-     * @return The last {limit} [DepotValue]s in ascending order.
+     * @return [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData) containing a [List] of the last {limit} [DepotValue]s in ascending order.
      */
     @Query("SELECT * FROM (SELECT * FROM depotvalue ORDER BY depotvalue.timestamp DESC LIMIT :limit) ORDER BY timestamp ASC")
     fun getDepotValuesLimited(limit: Int): LiveData<List<DepotValue>>
@@ -528,6 +541,11 @@ interface TransactionDao {
     @Query("SELECT * from `transaction` WHERE `transaction`.id = :id")
     fun getTransactionsById(id: String): LiveData<List<Transaction>>
 
+    /**
+     * Returns the last {limit} [Transaction]s as a [List], wrapped in [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData).
+     *
+     * @return [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData) containing a [List] of the last {limit} [Transaction]s.
+     */
     @Query("SELECT * from `transaction` LIMIT :limit")
     fun getTransactionsLimited(limit: Int): LiveData<List<Transaction>>
 
