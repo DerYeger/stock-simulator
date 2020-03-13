@@ -30,6 +30,9 @@ class AccountRepository(private val database: StockAppDatabase) {
 
     constructor(context: Context) : this(getDatabase(context))
 
+    /**
+     * The last account balance value.
+     */
     val latestBalance by lazy {
         database.accountDao.getLatestBalance()
     }
@@ -41,22 +44,44 @@ class AccountRepository(private val database: StockAppDatabase) {
         database.accountDao.getBalancesLimited(BALANCE_LIMIT)
     }
 
+    /**
+     * All [DepotQuotePurchase]s conflated to [DepotQuote]s whereby their amount [Double] is added up and the mean buyingPrice [Double] is bid from the buyingPrices [Double].
+     */
     val depot by lazy {
         database.accountDao.getDepotQuotes()
     }
 
-    // the last 50 account depot values
+    /**
+     * The last {BALANCE_LIMIT} depot values.
+     */
     val depotValuesLimited by lazy {
         database.accountDao.getDepotValuesLimited(BALANCE_LIMIT)
     }
 
+    /**
+     * The last depot value.
+     */
     val currentDepotValue by lazy {
         database.accountDao.getLatestDepotValues()
     }
 
+    /**
+     * Returns the [DepotQuote] with the matching id, wrapped in [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData).
+     * Conflates all [DepotQuotePurchase]s with the matching id and returns them as one [DepotQuote],
+     * whereby the amount [Double] is added up and the mean buyingPrice [Double] is bid from the buyingPrices [Double].
+     *
+     * @param symbol The [DepotQuotePurchase] symbol used for the database query.
+     * @return [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData) containing the [DepotQuote].
+     */
     fun depotQuoteWithSymbol(symbol: String): LiveData<DepotQuote> =
         database.accountDao.getDepotQuoteWithId(symbol)
 
+    /**
+     * Returns the [DepotQuotePurchase] with the matching id.
+     *
+     * @param symbol The [DepotQuotePurchase] symbol used for the database query.
+     * @return The [DepotQuotePurchase] with this symbol or null if no such quote exists.
+     */
     fun depotQuoteBySymbol(symbol: String): DepotQuotePurchase? =
         database.accountDao.getDepotQuoteById(symbol)
 
