@@ -162,7 +162,7 @@ interface AccountDao {
     fun getDepotQuoteById(id: String): DepotQuotePurchase?
 
     /**
-     * Returns the [DepotQuote]s with the matching id, wrapped in [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData).
+     * Returns the [DepotQuote] with the matching id, wrapped in [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData).
      * Conflates all [DepotQuotePurchase]s with the matching id and returns them as one [DepotQuote],
      * whereby the amount [Double] is added up and the mean buyingPrice [Double] is bid from the buyingPrices [Double].
      *
