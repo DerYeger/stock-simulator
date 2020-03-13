@@ -3,6 +3,7 @@ package de.uniks.codliners.stock_simulator.ui.settings
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.text.method.LinkMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -61,6 +62,8 @@ class SettingsFragment : Fragment() {
         binding = FragmentSettingsBinding.inflate(inflater)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
+        binding.coingeckoAttributionText.movementMethod = LinkMovementMethod.getInstance()
+        binding.iexAttributionText.movementMethod = LinkMovementMethod.getInstance()
 
         // Initialize preferences.
         preferences = requireActivity().getPreferences(Context.MODE_PRIVATE)
