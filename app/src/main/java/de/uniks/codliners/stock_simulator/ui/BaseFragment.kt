@@ -31,7 +31,6 @@ abstract class BaseFragment : Fragment() {
         viewModel.achievements.observe(viewLifecycleOwner, Observer { achievements ->
             for (achievement in achievements) {
                 if (achievement.reached && achievement.timestamp != null && !achievement.displayed) {
-                    println("achievement $achievement reached - " + getString(achievement.name))
                     Toast
                         .makeText(
                             requireActivity().application,
@@ -45,11 +44,11 @@ abstract class BaseFragment : Fragment() {
         })
 
         viewModel.balanceChanged.observe(viewLifecycleOwner, Observer {
-            Timber.i(it.toString())
+            Timber.v(it.toString())
         })
 
         viewModel.depotChanged.observe(viewLifecycleOwner, Observer {
-            Timber.i(it.toString())
+            Timber.v(it.toString())
         })
     }
 
