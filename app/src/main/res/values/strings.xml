@@ -76,7 +76,7 @@
     <string name="prefs_fingerprint_status_permissions">Insufficient permissions for biometric authentication.</string>
     <string name="prefs_fingerprint_status_sdk">Your Android version does not support fingerprint authentication.</string>
     <string name="price_format">Price: %s$</string>
-    <string name="query">Symbol</string>
+    <string name="query">Symbol or Name</string>
     <string name="read_full_article">Read full article</string>
     <string name="refresh_symbols">Refresh Symbols</string>
     <string name="refreshing_symbols">Refreshing Symbols.</string>
