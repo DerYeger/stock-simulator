@@ -470,8 +470,32 @@ fun TextView.bindQuoteChange(change: Double?) {
     text = when (change) {
         null -> resources.getText(R.string.not_defined).toString()
         else -> String.format(
-            resources.getText(R.string.currency_format).toString(),
+            resources.getText(R.string.currency_format_short).toString(),
             change
         )
+    }
+}
+
+/**
+ * Sets the text of a [TextView](https://developer.android.com/reference/android/widget/TextView) depending on a [Quote].
+ *
+ * @receiver The target [TextView](https://developer.android.com/reference/android/widget/TextView).
+ * @param quote The [Quote] source.
+ *
+ * @author Jan Müller
+ */
+@BindingAdapter("quotePrice")
+fun TextView.bindQuotePrice(quote: Quote?) {
+    quote?.let {
+        text = when (quote.type) {
+            Symbol.Type.SHARE -> String.format(
+                resources.getString(R.string.currency_format_short),
+                quote.latestPrice
+            )
+            Symbol.Type.CRYPTO -> String.format(
+                resources.getString(R.string.currency_format_long),
+                quote.latestPrice
+            )
+        }
     }
 }
