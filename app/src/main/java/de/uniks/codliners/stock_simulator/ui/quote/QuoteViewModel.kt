@@ -24,11 +24,23 @@ import java.util.*
  * @property type The [Symbol.Type] of the [Quote].
  * @property stockbrotQuote The [StockbrotQuote] of the [Quote].
  * @property autoBuyAmount The default buy amount used for [StockbrotQuote].
- * @property stockbrotQuoteAction Gets triggered if the [stockbrotQuote] has changed.
+ * @property stockbrotQuoteAction Gets triggered if the [stockbrotQuote] has been changed.
  * @property canAddRemoveQuoteToStockbrot Indicates if the [stockbrotQuote] can be added or removed.
+ * @property buyAction Gets triggered if a buy transaction has been requested.
+ * @property sellAction Gets triggered if a sell transaction has been requested.
+ * @property sellAllAction Gets triggered if a sell of all quotes has been requested.
+ * @property amount The amount in the depot of the current quote.
+ * @property cashflow The cashflow of the current transaction request.
+ * @property thresholdBuy The buy threshold used for [StockbrotQuote].
+ * @property thresholdSell The sell threshold used for [StockbrotQuote].
+ * @property autoBuyAmount The buy amount used for [StockbrotQuote].
+ * @property stockbrotQuoteAction Gets triggered if the [stockbrotQuote] has been changed.
+ * @property canSellAll Indicates if all [Quote]s in the depot can be sold.
  *
- * @author TODO
+ * @constructor Refreshes [QuoteRepository] data and init the timer.
+ *
  * @author Jan Müller
+ * @author Lucas Held
  * @author Jonas Thelemann
  */
 class QuoteViewModel(
@@ -150,11 +162,21 @@ class QuoteViewModel(
         initTimer()
     }
 
+    /**
+     * Cancels the timer if the ViewModel is no longer used and will be destroyed.
+     *
+     * @author Jan Müller
+     */
     override fun onCleared() {
         super.onCleared()
         timer.cancel()
     }
 
+    /**
+     * Refreshes [QuoteRepository] data for all [Symbol.Type]s.
+     *
+     * @author Jan Müller
+     */
     fun refresh() {
         viewModelScope.launch {
             when (type) {
@@ -164,6 +186,11 @@ class QuoteViewModel(
         }
     }
 
+    /**
+     * Resets the threshold buy indicator.
+     *
+     * @author Lucas Held
+     */
     fun onThresholdBuyActionCompleted() {
         viewModelScope.launch {
             (stockbrotQuoteAction as MutableLiveData).value = null
@@ -182,12 +209,22 @@ class QuoteViewModel(
         _sellAllAction.value = true
     }
 
+    /**
+     * Buys the current quote using the specified amount.
+     *
+     * @author Jan Müller
+     */
     fun buy() {
         viewModelScope.launch {
             accountRepository.buy(quote.value!!, buyAmount.value!!.toDouble())
         }
     }
 
+    /**
+     * Sells the current quote using the specified amount.
+     *
+     * @author Jan Müller
+     */
     fun sell() {
         viewModelScope.launch {
             accountRepository.sell(quote.value!!, sellAmount.value!!.toDouble())
@@ -244,18 +281,33 @@ class QuoteViewModel(
         }
     }
 
+    /**
+     * Resets the error indicator.
+     *
+     * @author Lucas Held
+     */
     fun onErrorActionCompleted() {
         viewModelScope.launch {
             (errorAction as MutableLiveData).value = null
         }
     }
 
+    /**
+     * Resets the buy indicator.
+     *
+     * @author Lucas Held
+     */
     fun onBuyActionCompleted() {
         viewModelScope.launch {
             _buyAction.value = null
         }
     }
 
+    /**
+     * Resets the sell indicator.
+     *
+     * @author Lucas Held
+     */
     fun onSellActionCompleted() {
         viewModelScope.launch {
             _sellAction.value = null
@@ -271,6 +323,11 @@ class QuoteViewModel(
         clickNewsStatus.value = true
     }
 
+    /**
+     * Resets the sell all indicator.
+     *
+     * @author Lucas Held
+     */
     fun onSellAllActionCompleted() {
         viewModelScope.launch {
             _sellAllAction.value = null
@@ -360,12 +417,29 @@ class QuoteViewModel(
 
     private fun thresholdIsValid(threshold: Double?) = threshold != null && threshold > 0
 
+    /**
+     * Factory for the QuoteViewModel.
+     *
+     * @property application The context used for creating the repositories.
+     * @property id The id of the quote.
+     * @property type The [Symbol.Type] of the quote.
+     */
     class Factory(
         private val application: Application,
         private val id: String,
         private val type: Symbol.Type
     ) : ViewModelProvider.Factory {
 
+        /**
+         * The factory's construction method.
+         *
+         * @param T The class's type.
+         * @param modelClass The class to create.
+         *
+         * @throws [IllegalArgumentException] if [QuoteViewModel] is not assignable to [modelClass].
+         *
+         * @return A [QuoteViewModel] instance.
+         */
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(QuoteViewModel::class.java)) {
                 @Suppress("UNCHECKED_CAST")

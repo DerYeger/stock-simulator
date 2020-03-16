@@ -28,6 +28,9 @@ private const val BALANCE_LIMIT: Int = 50
  */
 class AccountRepository(private val database: StockAppDatabase) {
 
+    /**
+     * Constructor that allows repository creation from a [Context].
+     */
     constructor(context: Context) : this(getDatabase(context))
 
     /**

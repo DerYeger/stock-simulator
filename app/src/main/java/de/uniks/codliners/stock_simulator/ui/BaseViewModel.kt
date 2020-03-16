@@ -178,6 +178,16 @@ class BaseViewModel(application: Application) : ViewModel() {
         private val application: Application
     ) : ViewModelProvider.Factory {
 
+        /**
+         * The factory's construction method.
+         *
+         * @param T The class's type.
+         * @param modelClass The class to create.
+         *
+         * @throws [IllegalArgumentException] if [BaseViewModel] is not assignable to [modelClass].
+         *
+         * @return A [BaseViewModel] instance.
+         */
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(BaseViewModel::class.java)) {
                 @Suppress("UNCHECKED_CAST")

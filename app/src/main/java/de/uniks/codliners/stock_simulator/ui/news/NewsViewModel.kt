@@ -11,6 +11,7 @@ import kotlinx.coroutines.launch
  *
  * @property symbol The symbol to display news for.
  * @param application The application to create a [NewsRepository] for.
+ *
  * @property news The news to show.
  * @property refreshing Indicates whether news are being fetched.
  *
@@ -42,6 +43,11 @@ class NewsViewModel(application: Application, private val symbol: String) : View
         }
     }
 
+    /**
+     * Resets the error indicator.
+     *
+     * @author Jonas Thelemann
+     */
     fun onErrorActionCompleted() {
         _errorAction.postValue(null)
     }
@@ -62,6 +68,9 @@ class NewsViewModel(application: Application, private val symbol: String) : View
          *
          * @param T The class's type.
          * @param modelClass The class to create.
+         *
+         * @throws [IllegalArgumentException] if [NewsViewModel] is not assignable to [modelClass].
+         *
          * @return A [NewsViewModel] instance.
          */
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
