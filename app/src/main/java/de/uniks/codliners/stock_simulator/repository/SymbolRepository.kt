@@ -23,6 +23,9 @@ import kotlinx.coroutines.withContext
  */
 class SymbolRepository(private val database: StockAppDatabase) {
 
+    /**
+     * Constructor that allows repository creation from a [Context].
+     */
     constructor(context: Context) : this(getDatabase(context))
 
     sealed class State {
@@ -35,6 +38,9 @@ class SymbolRepository(private val database: StockAppDatabase) {
     private val _state = MutableLiveData<State>()
     val state: LiveData<State> = _state
 
+    /**
+     * List of all [Symbol]s.
+     */
     val symbols by lazy {
         database.symbolDao.getAll()
     }

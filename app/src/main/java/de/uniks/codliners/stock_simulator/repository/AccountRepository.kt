@@ -28,8 +28,14 @@ private const val BALANCE_LIMIT: Int = 50
  */
 class AccountRepository(private val database: StockAppDatabase) {
 
+    /**
+     * Constructor that allows repository creation from a [Context].
+     */
     constructor(context: Context) : this(getDatabase(context))
 
+    /**
+     * Latest account balance.
+     */
     val latestBalance by lazy {
         database.accountDao.getLatestBalance()
     }
@@ -41,15 +47,24 @@ class AccountRepository(private val database: StockAppDatabase) {
         database.accountDao.getBalancesLimited(BALANCE_LIMIT)
     }
 
+    /**
+     * List of all [DepotQuote]s.
+     */
     val depot by lazy {
         database.accountDao.getDepotQuotes()
     }
 
+    /**
+     * Limited list of all [DepotQuote]s.
+     */
     // the last 50 account depot values
     val depotValuesLimited by lazy {
         database.accountDao.getDepotValuesLimited(BALANCE_LIMIT)
     }
 
+    /**
+     * Current [DepotValue].
+     */
     val currentDepotValue by lazy {
         database.accountDao.getLatestDepotValues()
     }

@@ -7,7 +7,7 @@ import de.uniks.codliners.stock_simulator.domain.StockbrotQuote
 import java.util.concurrent.TimeUnit
 
 /**
- * ID Key
+ * Key for the [StockbrotQuote] Id
  */
 const val ID_KEY = "ID_KEY"
 

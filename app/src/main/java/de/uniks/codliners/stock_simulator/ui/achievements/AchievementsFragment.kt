@@ -10,7 +10,7 @@ import de.uniks.codliners.stock_simulator.ui.BaseFragment
 
 
 /**
- * Fragment for the achievement ui.
+ * [Fragment](https://developer.android.com/jetpack/androidx/releases/fragment) for the achievement ui.
  *
  * @author Lucas Held
  */

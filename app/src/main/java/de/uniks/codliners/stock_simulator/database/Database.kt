@@ -138,6 +138,12 @@ interface AccountDao {
     @Query("SELECT COUNT(*) FROM balance")
     fun getBalanceCount(): Long
 
+    /**
+     * Returns a limited amount of stored [Balance]s.
+     *
+     * @param limit The [Balance] limit.
+     * @return The limited amount of stored [Balance]s.
+     */
     @Query("SELECT * FROM (SELECT * FROM balance ORDER BY balance.timestamp DESC LIMIT :limit) ORDER BY timestamp ASC")
     fun getBalancesLimited(limit: Int): LiveData<List<Balance>>
 
@@ -527,6 +533,12 @@ interface TransactionDao {
     @Query("SELECT * from `transaction` WHERE `transaction`.id = :id")
     fun getTransactionsById(id: String): LiveData<List<Transaction>>
 
+    /**
+     * Returns a limited amount of stored [Transaction]s.
+     *
+     * @param limit The [Transaction] limit.
+     * @return The limited amount of stored [Transaction]s.
+     */
     @Query("SELECT * from `transaction` LIMIT :limit")
     fun getTransactionsLimited(limit: Int): LiveData<List<Transaction>>
 

@@ -11,7 +11,7 @@ import de.uniks.codliners.stock_simulator.ui.BaseFragment
 import de.uniks.codliners.stock_simulator.ui.OnClickListener
 
 /**
- * Fragment for the stockbrot ui.
+ * [Fragment](https://developer.android.com/jetpack/androidx/releases/fragment) for the stockbrot ui.
  *
  * @author Lucas Held
  */

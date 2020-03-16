@@ -23,6 +23,14 @@ class SearchFragment : BaseFragment() {
 
     private lateinit var binding: FragmentSearchBinding
 
+    /**
+     * Sets up the fragment view.
+     *
+     * @param inflater The layout inflater.
+     * @param container The view group.
+     * @param savedInstanceState The saved instance state.
+     * @return The set up fragment view.
+     */
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
