@@ -14,6 +14,7 @@ import kotlinx.coroutines.launch
  *
  * @property news The news to show.
  * @property refreshing Indicates whether news are being fetched.
+ * @property errorAction Gets triggered if an error has been occurred.
  *
  * @author Jonas Thelemann
  * @author Jan Müller

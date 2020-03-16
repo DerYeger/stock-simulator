@@ -144,6 +144,14 @@ class QuoteFragment : BaseFragment() {
         return binding.root
     }
 
+    /**
+     * Displays a transaction dialog that summarizes the transaction details.
+     *
+     * @param message The dialog title message.
+     * @param onConfirmation The [Unit] that is executed on confirmation.
+     *
+     * @author Lucas Held
+     */
     private fun showTransactionDialog(message: Int, onConfirmation: () -> Unit) {
         val view: View =
             LayoutInflater.from(context).inflate(R.layout.dialog_transaction, null, false)
