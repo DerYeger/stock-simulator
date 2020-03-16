@@ -35,7 +35,20 @@ import java.util.*
  * @property thresholdSell The sell threshold used for [StockbrotQuote].
  * @property autoBuyAmount The buy amount used for [StockbrotQuote].
  * @property stockbrotQuoteAction Gets triggered if the [stockbrotQuote] has been changed.
- * @property canSellAll Indicates if all [Quote]s in the depot can be sold.
+ * @property canSellAll Indicates if all [DepotQuote]s can be sold.
+ * @property quote The [Quote].
+ * @property depotQuote The [DepotQuote].
+ * @property historicalPrices The historical prices for the [Quote].
+ * @property isCrypto Indicates if the type is a crypto currency or not.
+ * @property hasChange Indicates if the [Quote] has a change.
+ * @property inputType The input type [Int] or [Double] depending on the [Symbol.Type].
+ * @property refreshing Indicates that the quote repository is currently being refreshed.
+ * @property errorAction Gets triggered if an error has been occurred.
+ * @property buyAmount The buy amount used for buy transactions.
+ * @property canBuy Indicates if the [Quote] can be bought.
+ * @property sellAmount The sell amount used for sell transactions.
+ * @property canSell Indicates if the [DepotQuote] can be sold.
+ * @property transactionCosts The transaction costs used for each transaction.
  *
  * @constructor Refreshes [QuoteRepository] data and init the timer.
  *
@@ -197,14 +210,29 @@ class QuoteViewModel(
         }
     }
 
+    /**
+     * Set the buy confirm indicator.
+     *
+     * @author Lucas Held
+     */
     fun confirmBuy() {
         _buyAction.value = true
     }
 
+    /**
+     * Set the sell confirm indicator.
+     *
+     * @author Lucas Held
+     */
     fun confirmSell() {
         _sellAction.value = true
     }
 
+    /**
+     * Set the sell all confirm indicator.
+     *
+     * @author Lucas Held
+     */
     fun confirmSellAll() {
         _sellAllAction.value = true
     }
@@ -231,6 +259,11 @@ class QuoteViewModel(
         }
     }
 
+    /**
+     * Sells all depot quotes that matched the current quote.
+     *
+     * @author Lucas Held
+     */
     fun sellAll() {
         viewModelScope.launch {
             accountRepository.sell(quote.value!!, depotQuote.value!!.amount)
@@ -249,6 +282,11 @@ class QuoteViewModel(
         }
     }
 
+    /**
+     * Sets the buy amount and calculates the buy cashflow for displaying this values in the confirmation dialog.
+     *
+     * @author Lucas Held
+     */
     fun onBuyActionStarted() {
         viewModelScope.launch {
             _amount.value = buyAmount.value
@@ -259,6 +297,11 @@ class QuoteViewModel(
         }
     }
 
+    /**
+     * Sets the sell amount and calculates the sell cashflow for displaying this values in the confirmation dialog.
+     *
+     * @author Lucas Held
+     */
     fun onSellActionStarted() {
         viewModelScope.launch {
             _amount.value = sellAmount.value
@@ -269,6 +312,11 @@ class QuoteViewModel(
         }
     }
 
+    /**
+     * Sets the sell amount and calculates the sell all cashflow for displaying this values in the confirmation dialog.
+     *
+     * @author Lucas Held
+     */
     fun onSellAllActionStarted() {
         viewModelScope.launch {
             _amount.value =
@@ -343,6 +391,11 @@ class QuoteViewModel(
         }, 10000, 10000)
     }
 
+    /**
+     * Adds the current quote to the stockbrot.
+     *
+     * @author Lucas Held
+     */
     private fun addQuoteToStockbrot() {
         viewModelScope.launch {
             val autoBuyAmount = autoBuyAmount.value.toSafeDouble() ?: 0.0
@@ -362,6 +415,11 @@ class QuoteViewModel(
         }
     }
 
+    /**
+     * Removed the current quote from the stockbrot.
+     *
+     * @author Lucas Held
+     */
     private fun removeQuoteFromStockbrot() {
         viewModelScope.launch {
             stockbrotWorkRequest.removeQuote(stockbrotQuote.value!!)
@@ -369,6 +427,16 @@ class QuoteViewModel(
         }
     }
 
+    /**
+     * Indicates if the [Quote] can be bought.
+     *
+     * @param amount The buy amount.
+     * @param price The current quote price.
+     * @param balance The account balance.
+     * @param state The quote repository state.
+     *
+     * @author Jan Müller
+     */
     private fun canBuy(
         amount: Double?,
         price: Double?,
@@ -379,6 +447,17 @@ class QuoteViewModel(
             && 0 < amount!!
             && amount * price!! + BuildConfig.TRANSACTION_COSTS <= balance!!.value
 
+    /**
+     * Indicates if the [DepotQuote] can be sold.
+     *
+     * @param amount The sell amount.
+     * @param depotQuote The depot quote.
+     * @param balance The account balance.
+     * @param state The quote repository state.
+     * @param quote The quote.
+     *
+     * @author Jan Müller
+     */
     private fun canSell(
         amount: Double?,
         depotQuote: DepotQuote?,
@@ -391,6 +470,16 @@ class QuoteViewModel(
             && amount <= depotQuote!!.amount
             && (BuildConfig.TRANSACTION_COSTS <= balance!!.value + quote!!.latestPrice * amount)
 
+    /**
+     * Indicates if all [DepotQuote]s can be sold.
+     *
+     * @param depotQuote
+     * @param balance
+     * @param state
+     * @param quote
+     *
+     * @author Lucas Held
+     */
     private fun canSellAll(
         depotQuote: DepotQuote?,
         balance: Balance?,
@@ -401,6 +490,16 @@ class QuoteViewModel(
             && 0 < depotQuote!!.amount
             && (BuildConfig.TRANSACTION_COSTS <= balance!!.value + quote!!.latestPrice * depotQuote.amount)
 
+    /**
+     * Indicates if the [stockbrotQuote] can be added or removed.
+     *
+     * @param stockbrotQuote
+     * @param buyAmount
+     * @param thresholdBuy
+     * @param thresholdSell
+     *
+     * @author Lucas Held
+     */
     private fun canAddRemoveQuoteToStockbrot(
         stockbrotQuote: StockbrotQuote?,
         buyAmount: Double?,
