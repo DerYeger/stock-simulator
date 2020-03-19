@@ -12,7 +12,7 @@ import de.uniks.codliners.stock_simulator.repository.HistoryRepository
  * ViewModel for the history ui.
  *
  * @param application The application to create a [HistoryRepository].
- * 
+ *
  * @property transactions [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData) containing a [List] of all [Transaction]s from the [StockAppDatabase].
  *
  * @author Jan Müller
