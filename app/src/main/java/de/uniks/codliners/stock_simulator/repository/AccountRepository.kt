@@ -34,14 +34,14 @@ class AccountRepository(private val database: StockAppDatabase) {
     constructor(context: Context) : this(getDatabase(context))
 
     /**
-     * The last account balance value.
+     * The latest account balance value.
      */
     val latestBalance by lazy {
         database.accountDao.getLatestBalance()
     }
 
     /**
-     * The last {BALANCE_LIMIT} account balance values.
+     * The latest {BALANCE_LIMIT} account balance values.
      */
     val balancesLimited by lazy {
         database.accountDao.getBalancesLimited(BALANCE_LIMIT)
@@ -55,14 +55,14 @@ class AccountRepository(private val database: StockAppDatabase) {
     }
 
     /**
-     * The last {BALANCE_LIMIT} depot values.
+     * The latest {BALANCE_LIMIT} depot values.
      */
     val depotValuesLimited by lazy {
         database.accountDao.getDepotValuesLimited(BALANCE_LIMIT)
     }
 
     /**
-     * The last depot value.
+     * The latest depot value.
      */
     val currentDepotValue by lazy {
         database.accountDao.getLatestDepotValues()
@@ -219,6 +219,15 @@ class AccountRepository(private val database: StockAppDatabase) {
         }
     }
 
+    /**
+     * Returns the calculated transaction result from the sell of the asset.
+     * Deletes the sold [DepotQuotePurchase]s from the database or diminishes their amount.
+     *
+     * @param amount The amount to sell.
+     * @param cashflow The cashflow resulting from the sell.
+     * @param quote Quote information of the asset.
+     * @return The calculated transaction result.
+     */
     private fun calculateResultAndUpdateQuotePurchases(
         amount: Double,
         cashflow: Double,
@@ -233,11 +242,11 @@ class AccountRepository(private val database: StockAppDatabase) {
         var transactionResult = cashflow
 
         while (amountCount < amount) {
-            val amountOfQuotesMissing = amount - amountCount // x1 = 33
-            val quotePurchases = allQuotesOPurchases[count] // quotePurchases.amount = 11
+            val amountOfQuotesMissing = amount - amountCount
+            val quotePurchases = allQuotesOPurchases[count]
             if (quotePurchases.amount <= amountOfQuotesMissing) {
-                quotesToSell.add(quotePurchases) // 11 quotes
-                amountCount += quotePurchases.amount // amountCount = 11
+                quotesToSell.add(quotePurchases)
+                amountCount += quotePurchases.amount
                 database.accountDao.deleteDepotQuotes(quotePurchases)
                 transactionResult -= (quotePurchases.buyingPrice * quotePurchases.amount) + BuildConfig.TRANSACTION_COSTS
             } else {

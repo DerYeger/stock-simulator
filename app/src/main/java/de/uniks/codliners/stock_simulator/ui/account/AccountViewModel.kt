@@ -1,15 +1,32 @@
 package de.uniks.codliners.stock_simulator.ui.account
 
 import android.app.Application
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import de.uniks.codliners.stock_simulator.BuildConfig
+import de.uniks.codliners.stock_simulator.domain.Achievement
+import de.uniks.codliners.stock_simulator.domain.DepotQuote
+import de.uniks.codliners.stock_simulator.domain.DepotQuotePurchase
 import de.uniks.codliners.stock_simulator.repository.AccountRepository
+import de.uniks.codliners.stock_simulator.repository.AchievementsRepository
 import de.uniks.codliners.stock_simulator.sourcedLiveData
 import kotlinx.coroutines.launch
 
+/**
+ * ViewModel for the account ui.
+ *
+ * @param application The application to create a [AccountRepository].
+ *
+ * @property
+ * @property balance The latest account balance.
+ * @property balancesLimited The last {BALANCE_LIMIT = 50} account balance values.
+ * @property depotQuotes All [DepotQuotePurchase]s conflated to [DepotQuote]s.
+ * @property depotValue The latest depot value.
+ * @property depotValuesLimited The latest {BALANCE_LIMIT = 50} depot values.
+ * @property performance The calculated performance of the asset portfolio in relation to the initial capital.
+ *
+ * @author Jan Müller
+ * @author Juri Lozowoj
+ */
 class AccountViewModel(application: Application) : ViewModel() {
 
     private val accountRepository = AccountRepository(application)
@@ -31,6 +48,13 @@ class AccountViewModel(application: Application) : ViewModel() {
         }
     }
 
+    /**
+     * Returns the calculated performance [Double] of the asset portfolio in relation to the initial capital.
+     *
+     * @param balance The current account balance.
+     * @param depotValue The current depot value.
+     * @return The calculated performance of the asset portfolio as a [Double].
+     */
     private fun calculatePerformance(balance: Double?, depotValue: Double?): Double? {
         if (balance == null || depotValue == null) return 0.0
         return (((balance + depotValue) / BuildConfig.NEW_ACCOUNT_BALANCE) - 1) * 100
