@@ -220,8 +220,22 @@ data class Symbol(
     val name: String,
     val type: Type
 ) {
+    /**
+     * Enumeration class for the [Type] of a [Symbol].
+     * The possible types of a transaction are [SHARE] and [CRYPTO].
+     *
+     * @author Jan Müller
+     */
     @Parcelize
-    enum class Type : Parcelable { SHARE, CRYPTO }
+    enum class Type : Parcelable {
+        /**
+         * SHARE indicates that the asset is a share.
+         */
+        SHARE,
+        /**
+         * CRYPTO indicates that the asset is a crypto currency.
+         */
+        CRYPTO }
 
     /**
      * Utility class used for filtering [Symbol]s.
@@ -281,8 +295,17 @@ data class Transaction(
 
 /**
  * Enumeration class for the [TransactionType] of a [Transaction].
- * The possible types of a transaction are BUY and SELL.
+ * The possible types of a transaction are [BUY] and [SELL].
  *
  * @author Juri Lozowoj
  */
-enum class TransactionType { BUY, SELL }
+enum class TransactionType {
+    /**
+     * BUY indicates that the transaction was a purchase.
+     */
+    BUY,
+    /**
+     * SELL indicates that the transaction was a sale.
+     */
+    SELL
+}
