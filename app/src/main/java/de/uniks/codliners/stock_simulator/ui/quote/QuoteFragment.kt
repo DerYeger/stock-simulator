@@ -81,7 +81,7 @@ class QuoteFragment : BaseFragment() {
         viewModel.buyAction.observe(viewLifecycleOwner, Observer { status: Boolean? ->
             status?.let {
                 viewModel.onBuyActionStarted()
-                showTransactionDialog(R.string.dialog_title_confirm_buy_transaction) {
+                showTransactionDialog(R.string.buy) {
                     viewModel.buy()
                 }
                 viewModel.onBuyActionCompleted()
@@ -91,7 +91,7 @@ class QuoteFragment : BaseFragment() {
         viewModel.sellAction.observe(viewLifecycleOwner, Observer { status: Boolean? ->
             status?.let {
                 viewModel.onSellActionStarted()
-                showTransactionDialog(R.string.dialog_title_confirm_sell_transaction) {
+                showTransactionDialog(R.string.sell) {
                     viewModel.sell()
                 }
                 viewModel.onSellActionCompleted()
@@ -101,7 +101,7 @@ class QuoteFragment : BaseFragment() {
         viewModel.sellAllAction.observe(viewLifecycleOwner, Observer { status: Boolean? ->
             status?.let {
                 viewModel.onSellAllActionStarted()
-                showTransactionDialog(R.string.dialog_title_confirm_sell_transaction) {
+                showTransactionDialog(R.string.sell_all) {
                     viewModel.sellAll()
                 }
                 viewModel.onSellAllActionCompleted()
@@ -147,27 +147,21 @@ class QuoteFragment : BaseFragment() {
     /**
      * Displays a transaction dialog that summarizes the transaction details.
      *
-     * @param message The dialog title message.
+     * @param positiveText The text of the positive button..
      * @param onConfirmation The [Unit] that is executed on confirmation.
      *
      * @author Lucas Held
      */
-    private fun showTransactionDialog(message: Int, onConfirmation: () -> Unit) {
+    private fun showTransactionDialog(positiveText: Int, onConfirmation: () -> Unit) {
         val view: View =
             LayoutInflater.from(context).inflate(R.layout.dialog_transaction, null, false)
         val binding = DialogTransactionBinding.bind(view)
         binding.viewModel = viewModel
 
         AlertDialog.Builder(context)
-            .setMessage(message)
             .setView(view)
-            .setPositiveButton(R.string.yes) { _, _ ->
+            .setPositiveButton(positiveText) { _, _ ->
                 onConfirmation()
-            }
-            .setNegativeButton(R.string.cancel) { _, _ ->
-                Snackbar
-                    .make(requireView(), "Transaction canceled", Snackbar.LENGTH_SHORT)
-                    .show()
             }
             .create()
             .show()
