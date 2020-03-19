@@ -166,6 +166,7 @@ class AccountRepository(private val database: StockAppDatabase) {
                 insertDepotQuote(newDepotQuote)
             }
             database.transactionDao.insert(transaction)
+            fetchCurrentDepotValue()
         }
     }
 
@@ -202,10 +203,11 @@ class AccountRepository(private val database: StockAppDatabase) {
 
             database.accountDao.insertBalance(newBalance)
             database.transactionDao.insert(transaction)
+            fetchCurrentDepotValue()
         }
     }
 
-    suspend fun fetchCurrentDepotValue() {
+    private suspend fun fetchCurrentDepotValue() {
         withContext(Dispatchers.IO) {
             val depotQuotes = database.accountDao.getDepotQuotePurchasesValuesOrderedByPrice()
             val newValue = depotQuotes.sumByDouble { depotQuote ->
@@ -215,7 +217,6 @@ class AccountRepository(private val database: StockAppDatabase) {
             }
             val newDepotValue = DepotValue(newValue)
             database.accountDao.insertDepotValue(newDepotValue)
-
         }
     }
 
