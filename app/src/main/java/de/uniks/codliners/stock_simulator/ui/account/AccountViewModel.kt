@@ -16,6 +16,7 @@ import kotlinx.coroutines.launch
  *
  * @param application The application to create a [AccountRepository].
  *
+ * @property
  * @property balance The latest account balance.
  * @property balancesLimited The last {BALANCE_LIMIT = 50} account balance values.
  * @property depotQuotes All [DepotQuotePurchase]s conflated to [DepotQuote]s.

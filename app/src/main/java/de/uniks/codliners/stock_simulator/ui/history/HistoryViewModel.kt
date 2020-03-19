@@ -3,8 +3,21 @@ package de.uniks.codliners.stock_simulator.ui.history
 import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import de.uniks.codliners.stock_simulator.database.StockAppDatabase
+import de.uniks.codliners.stock_simulator.domain.Transaction
+import androidx.lifecycle.LiveData
 import de.uniks.codliners.stock_simulator.repository.HistoryRepository
 
+/**
+ * ViewModel for the history ui.
+ *
+ * @param application The application to create a [HistoryRepository].
+ * 
+ * @property transactions [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData) containing a [List] of all [Transaction]s from the [StockAppDatabase].
+ *
+ * @author Jan Müller
+ * @author Juri Lozowoj
+ */
 class HistoryViewModel(application: Application) : ViewModel() {
 
     private val historyRepository = HistoryRepository(application)
