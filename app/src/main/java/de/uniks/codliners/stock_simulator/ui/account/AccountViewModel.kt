@@ -36,10 +36,25 @@ class AccountViewModel(application: Application) : ViewModel() {
         return (((balance + depotValue) / BuildConfig.NEW_ACCOUNT_BALANCE) - 1) * 100
     }
 
+    /**
+     * Factory for the AccountViewModel.
+     *
+     * @property application The context used for creating the repositories.
+     */
     class Factory(
         private val application: Application
     ) : ViewModelProvider.Factory {
 
+        /**
+         * The factory's construction method.
+         *
+         * @param T The class's type.
+         * @param modelClass The class to create.
+         *
+         * @throws [IllegalArgumentException] if [AccountViewModel] is not assignable to [modelClass].
+         *
+         * @return A [AccountViewModel] instance.
+         */
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(AccountViewModel::class.java)) {
                 @Suppress("UNCHECKED_CAST")

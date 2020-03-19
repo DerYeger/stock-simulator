@@ -18,6 +18,9 @@ import kotlinx.coroutines.withContext
  */
 class HistoryRepository(private val database: StockAppDatabase) {
 
+    /**
+     * Constructor that allows repository creation from a [Context].
+     */
     constructor(context: Context) : this(getDatabase(context))
 
     val transactions: LiveData<List<Transaction>> = database.transactionDao.getTransactions()

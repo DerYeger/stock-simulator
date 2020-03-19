@@ -24,6 +24,9 @@ import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 
+/**
+ * Key for app's shared preferences.
+ */
 const val SHARED_PREFERENCES_KEY = "de.uniks.codliners.stock_simulator"
 private lateinit var tfLight: Typeface
 private lateinit var tfRegular: Typeface

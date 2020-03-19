@@ -41,6 +41,14 @@ class QuoteFragment : BaseFragment() {
 
     private lateinit var binding: FragmentQuoteBinding
 
+    /**
+     * Sets up the fragment view.
+     *
+     * @param inflater The layout inflater.
+     * @param container The view group.
+     * @param savedInstanceState The saved instance state.
+     * @return The set up fragment view.
+     */
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -136,6 +144,14 @@ class QuoteFragment : BaseFragment() {
         return binding.root
     }
 
+    /**
+     * Displays a transaction dialog that summarizes the transaction details.
+     *
+     * @param message The dialog title message.
+     * @param onConfirmation The [Unit] that is executed on confirmation.
+     *
+     * @author Lucas Held
+     */
     private fun showTransactionDialog(message: Int, onConfirmation: () -> Unit) {
         val view: View =
             LayoutInflater.from(context).inflate(R.layout.dialog_transaction, null, false)

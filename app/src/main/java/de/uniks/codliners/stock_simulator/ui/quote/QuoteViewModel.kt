@@ -24,11 +24,36 @@ import java.util.*
  * @property type The [Symbol.Type] of the [Quote].
  * @property stockbrotQuote The [StockbrotQuote] of the [Quote].
  * @property autoBuyAmount The default buy amount used for [StockbrotQuote].
- * @property stockbrotQuoteAction Gets triggered if the [stockbrotQuote] has changed.
+ * @property stockbrotQuoteAction Gets triggered if the [stockbrotQuote] has been changed.
  * @property canAddRemoveQuoteToStockbrot Indicates if the [stockbrotQuote] can be added or removed.
+ * @property buyAction Gets triggered if a buy transaction has been requested.
+ * @property sellAction Gets triggered if a sell transaction has been requested.
+ * @property sellAllAction Gets triggered if a sell of all quotes has been requested.
+ * @property amount The amount in the depot of the current quote.
+ * @property cashflow The cashflow of the current transaction request.
+ * @property thresholdBuy The buy threshold used for [StockbrotQuote].
+ * @property thresholdSell The sell threshold used for [StockbrotQuote].
+ * @property autoBuyAmount The buy amount used for [StockbrotQuote].
+ * @property stockbrotQuoteAction Gets triggered if the [stockbrotQuote] has been changed.
+ * @property canSellAll Indicates if all [DepotQuote]s can be sold.
+ * @property quote The [Quote].
+ * @property depotQuote The [DepotQuote].
+ * @property historicalPrices The historical prices for the [Quote].
+ * @property isCrypto Indicates if the type is a crypto currency or not.
+ * @property hasChange Indicates if the [Quote] has a change.
+ * @property inputType The input type [Int] or [Double] depending on the [Symbol.Type].
+ * @property refreshing Indicates that the quote repository is currently being refreshed.
+ * @property errorAction Gets triggered if an error has been occurred.
+ * @property buyAmount The buy amount used for buy transactions.
+ * @property canBuy Indicates if the [Quote] can be bought.
+ * @property sellAmount The sell amount used for sell transactions.
+ * @property canSell Indicates if the [DepotQuote] can be sold.
+ * @property transactionCosts The transaction costs used for each transaction.
  *
- * @author TODO
+ * @constructor Refreshes [QuoteRepository] data and init the timer.
+ *
  * @author Jan Müller
+ * @author Lucas Held
  * @author Jonas Thelemann
  */
 class QuoteViewModel(
@@ -150,11 +175,21 @@ class QuoteViewModel(
         initTimer()
     }
 
+    /**
+     * Cancels the timer if the ViewModel is no longer used and will be destroyed.
+     *
+     * @author Jan Müller
+     */
     override fun onCleared() {
         super.onCleared()
         timer.cancel()
     }
 
+    /**
+     * Refreshes [QuoteRepository] data for all [Symbol.Type]s.
+     *
+     * @author Jan Müller
+     */
     fun refresh() {
         viewModelScope.launch {
             when (type) {
@@ -164,36 +199,71 @@ class QuoteViewModel(
         }
     }
 
+    /**
+     * Resets the threshold buy indicator.
+     *
+     * @author Lucas Held
+     */
     fun onThresholdBuyActionCompleted() {
         viewModelScope.launch {
             (stockbrotQuoteAction as MutableLiveData).value = null
         }
     }
 
+    /**
+     * Set the buy confirm indicator.
+     *
+     * @author Lucas Held
+     */
     fun confirmBuy() {
         _buyAction.value = true
     }
 
+    /**
+     * Set the sell confirm indicator.
+     *
+     * @author Lucas Held
+     */
     fun confirmSell() {
         _sellAction.value = true
     }
 
+    /**
+     * Set the sell all confirm indicator.
+     *
+     * @author Lucas Held
+     */
     fun confirmSellAll() {
         _sellAllAction.value = true
     }
 
+    /**
+     * Buys the current quote using the specified amount.
+     *
+     * @author Jan Müller
+     */
     fun buy() {
         viewModelScope.launch {
             accountRepository.buy(quote.value!!, buyAmount.value!!.toDouble())
         }
     }
 
+    /**
+     * Sells the current quote using the specified amount.
+     *
+     * @author Jan Müller
+     */
     fun sell() {
         viewModelScope.launch {
             accountRepository.sell(quote.value!!, sellAmount.value!!.toDouble())
         }
     }
 
+    /**
+     * Sells all depot quotes that matched the current quote.
+     *
+     * @author Lucas Held
+     */
     fun sellAll() {
         viewModelScope.launch {
             accountRepository.sell(quote.value!!, depotQuote.value!!.amount)
@@ -212,6 +282,11 @@ class QuoteViewModel(
         }
     }
 
+    /**
+     * Sets the buy amount and calculates the buy cashflow for displaying this values in the confirmation dialog.
+     *
+     * @author Lucas Held
+     */
     fun onBuyActionStarted() {
         viewModelScope.launch {
             _amount.value = buyAmount.value
@@ -222,6 +297,11 @@ class QuoteViewModel(
         }
     }
 
+    /**
+     * Sets the sell amount and calculates the sell cashflow for displaying this values in the confirmation dialog.
+     *
+     * @author Lucas Held
+     */
     fun onSellActionStarted() {
         viewModelScope.launch {
             _amount.value = sellAmount.value
@@ -232,6 +312,11 @@ class QuoteViewModel(
         }
     }
 
+    /**
+     * Sets the sell amount and calculates the sell all cashflow for displaying this values in the confirmation dialog.
+     *
+     * @author Lucas Held
+     */
     fun onSellAllActionStarted() {
         viewModelScope.launch {
             _amount.value =
@@ -244,18 +329,33 @@ class QuoteViewModel(
         }
     }
 
+    /**
+     * Resets the error indicator.
+     *
+     * @author Lucas Held
+     */
     fun onErrorActionCompleted() {
         viewModelScope.launch {
             (errorAction as MutableLiveData).value = null
         }
     }
 
+    /**
+     * Resets the buy indicator.
+     *
+     * @author Lucas Held
+     */
     fun onBuyActionCompleted() {
         viewModelScope.launch {
             _buyAction.value = null
         }
     }
 
+    /**
+     * Resets the sell indicator.
+     *
+     * @author Lucas Held
+     */
     fun onSellActionCompleted() {
         viewModelScope.launch {
             _sellAction.value = null
@@ -271,6 +371,11 @@ class QuoteViewModel(
         clickNewsStatus.value = true
     }
 
+    /**
+     * Resets the sell all indicator.
+     *
+     * @author Lucas Held
+     */
     fun onSellAllActionCompleted() {
         viewModelScope.launch {
             _sellAllAction.value = null
@@ -286,6 +391,11 @@ class QuoteViewModel(
         }, 10000, 10000)
     }
 
+    /**
+     * Adds the current quote to the stockbrot.
+     *
+     * @author Lucas Held
+     */
     private fun addQuoteToStockbrot() {
         viewModelScope.launch {
             val autoBuyAmount = autoBuyAmount.value.toSafeDouble() ?: 0.0
@@ -305,6 +415,11 @@ class QuoteViewModel(
         }
     }
 
+    /**
+     * Removed the current quote from the stockbrot.
+     *
+     * @author Lucas Held
+     */
     private fun removeQuoteFromStockbrot() {
         viewModelScope.launch {
             stockbrotWorkRequest.removeQuote(stockbrotQuote.value!!)
@@ -312,6 +427,16 @@ class QuoteViewModel(
         }
     }
 
+    /**
+     * Indicates if the [Quote] can be bought.
+     *
+     * @param amount The buy amount.
+     * @param price The current quote price.
+     * @param balance The account balance.
+     * @param state The quote repository state.
+     *
+     * @author Jan Müller
+     */
     private fun canBuy(
         amount: Double?,
         price: Double?,
@@ -322,6 +447,17 @@ class QuoteViewModel(
             && 0 < amount!!
             && amount * price!! + BuildConfig.TRANSACTION_COSTS <= balance!!.value
 
+    /**
+     * Indicates if the [DepotQuote] can be sold.
+     *
+     * @param amount The sell amount.
+     * @param depotQuote The depot quote.
+     * @param balance The account balance.
+     * @param state The quote repository state.
+     * @param quote The quote.
+     *
+     * @author Jan Müller
+     */
     private fun canSell(
         amount: Double?,
         depotQuote: DepotQuote?,
@@ -334,6 +470,16 @@ class QuoteViewModel(
             && amount <= depotQuote!!.amount
             && (BuildConfig.TRANSACTION_COSTS <= balance!!.value + quote!!.latestPrice * amount)
 
+    /**
+     * Indicates if all [DepotQuote]s can be sold.
+     *
+     * @param depotQuote
+     * @param balance
+     * @param state
+     * @param quote
+     *
+     * @author Lucas Held
+     */
     private fun canSellAll(
         depotQuote: DepotQuote?,
         balance: Balance?,
@@ -344,6 +490,16 @@ class QuoteViewModel(
             && 0 < depotQuote!!.amount
             && (BuildConfig.TRANSACTION_COSTS <= balance!!.value + quote!!.latestPrice * depotQuote.amount)
 
+    /**
+     * Indicates if the [stockbrotQuote] can be added or removed.
+     *
+     * @param stockbrotQuote
+     * @param buyAmount
+     * @param thresholdBuy
+     * @param thresholdSell
+     *
+     * @author Lucas Held
+     */
     private fun canAddRemoveQuoteToStockbrot(
         stockbrotQuote: StockbrotQuote?,
         buyAmount: Double?,
@@ -360,12 +516,29 @@ class QuoteViewModel(
 
     private fun thresholdIsValid(threshold: Double?) = threshold != null && threshold > 0
 
+    /**
+     * Factory for the QuoteViewModel.
+     *
+     * @property application The context used for creating the repositories.
+     * @property id The id of the quote.
+     * @property type The [Symbol.Type] of the quote.
+     */
     class Factory(
         private val application: Application,
         private val id: String,
         private val type: Symbol.Type
     ) : ViewModelProvider.Factory {
 
+        /**
+         * The factory's construction method.
+         *
+         * @param T The class's type.
+         * @param modelClass The class to create.
+         *
+         * @throws [IllegalArgumentException] if [QuoteViewModel] is not assignable to [modelClass].
+         *
+         * @return A [QuoteViewModel] instance.
+         */
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(QuoteViewModel::class.java)) {
                 @Suppress("UNCHECKED_CAST")

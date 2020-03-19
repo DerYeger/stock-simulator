@@ -11,10 +11,25 @@ class HistoryViewModel(application: Application) : ViewModel() {
 
     val transactions = historyRepository.transactions
 
+    /**
+     * Factory for the HistoryViewModel.
+     *
+     * @property application The context used for creating the repositories.
+     */
     class Factory(
         private val application: Application
     ) : ViewModelProvider.Factory {
 
+        /**
+         * The factory's construction method.
+         *
+         * @param T The class's type.
+         * @param modelClass The class to create.
+         *
+         * @throws [IllegalArgumentException] if [HistoryViewModel] is not assignable to [modelClass].
+         *
+         * @return A [HistoryViewModel] instance.
+         */
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(HistoryViewModel::class.java)) {
                 @Suppress("UNCHECKED_CAST")

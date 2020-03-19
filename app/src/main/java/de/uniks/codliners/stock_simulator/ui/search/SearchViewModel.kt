@@ -65,7 +65,7 @@ class SearchViewModel(application: Application) : ViewModel() {
     }
 
     /**
-     * The factory for [SearchViewModel]s.
+     * Factory for the SearchViewModel.
      *
      * @property application The context used for creating the [SymbolRepository].
      */

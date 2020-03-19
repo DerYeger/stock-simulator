@@ -10,6 +10,11 @@ import de.uniks.codliners.stock_simulator.databinding.FragmentHistoryBinding
 import de.uniks.codliners.stock_simulator.ui.BaseFragment
 import de.uniks.codliners.stock_simulator.ui.OnClickListener
 
+/**
+ * [Fragment](https://developer.android.com/jetpack/androidx/releases/fragment) for the history ui.
+ *
+ * @author Jan Müller
+ */
 class HistoryFragment : BaseFragment() {
 
     private val viewModel: HistoryViewModel by viewModels {
@@ -18,6 +23,14 @@ class HistoryFragment : BaseFragment() {
 
     private lateinit var binding: FragmentHistoryBinding
 
+    /**
+     * Sets up the fragment view.
+     *
+     * @param inflater The layout inflater.
+     * @param container The view group.
+     * @param savedInstanceState The saved instance state.
+     * @return The set up fragment view.
+     */
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

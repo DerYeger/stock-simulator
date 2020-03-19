@@ -116,12 +116,12 @@ fun TextView.bindDepotQuoteText(depotQuote: DepotQuote?) {
         text = when (depotQuote.amount.isWholeNumber()) {
             true ->
                 String.format(
-                    resources.getText(R.string.long_depot_quote_amount_format).toString(),
+                    resources.getString(R.string.long_depot_quote_amount_format),
                     depotQuote.amount.toLong()
                 )
             false ->
                 String.format(
-                    resources.getText(R.string.double_depot_quote_amount_format).toString(),
+                    resources.getString(R.string.double_depot_quote_amount_format),
                     depotQuote.amount
                 )
         }
@@ -141,7 +141,7 @@ fun TextView.bindDepotQuoteTotalValue(depotQuotePurchase: DepotQuote?, quote: Qu
     if (depotQuotePurchase != null && quote != null) {
         val price = depotQuotePurchase.amount * quote.latestPrice
         text = String.format(
-            resources.getText(R.string.total_price_format).toString(),
+            resources.getString(R.string.total_price_format),
             price
         )
     }
@@ -161,13 +161,13 @@ fun TextView.bindDepotQuote(depotQuote: DepotQuote?) {
         text = when (depotQuote.amount.isWholeNumber()) {
             true ->
                 String.format(
-                    resources.getText(R.string.long_depot_quote_format).toString(),
+                    resources.getString(R.string.long_depot_quote_format),
                     depotQuote.symbol,
                     depotQuote.amount.toLong()
                 )
             false ->
                 String.format(
-                    resources.getText(R.string.double_depot_quote_format).toString(),
+                    resources.getString(R.string.double_depot_quote_format),
                     depotQuote.symbol,
                     depotQuote.amount
                 )
@@ -194,21 +194,21 @@ fun TextView.bindPerformanceText(performance: Double) {
     when {
         performance > 0.0 -> {
             text = String.format(
-                resources.getText(R.string.performance_format_win).toString(),
+                resources.getString(R.string.performance_format_win),
                 performance
             )
             this.setTextColor(resources.getColor(R.color.colorAccent, context.theme))
         }
         performance == 0.0 -> {
             text = String.format(
-                resources.getText(R.string.performance_format_neutral).toString(),
+                resources.getString(R.string.performance_format_neutral),
                 performance
             )
             this.setTextColor(resources.getColor(R.color.trendingFlat, context.theme))
         }
         else -> {
             text = String.format(
-                resources.getText(R.string.performance_format_loss).toString(),
+                resources.getString(R.string.performance_format_loss),
                 performance
             )
             this.setTextColor(resources.getColor(R.color.trendingDown, context.theme))
@@ -274,21 +274,21 @@ fun TextView.bindTransactionResultText(performance: Double?) {
     when {
         performance > 0.0 -> {
             text = String.format(
-                resources.getText(R.string.transaction_format_win).toString(),
+                resources.getString(R.string.transaction_format_win),
                 performance
             )
             this.setTextColor(resources.getColor(R.color.colorAccent, context.theme))
         }
         performance == 0.0 -> {
             text = String.format(
-                resources.getText(R.string.transaction_format_neutral).toString(),
+                resources.getString(R.string.transaction_format_neutral),
                 performance
             )
             this.setTextColor(resources.getColor(R.color.trendingFlat, context.theme))
         }
         else -> {
             text = String.format(
-                resources.getText(R.string.transaction_format_loss).toString(),
+                resources.getString(R.string.transaction_format_loss),
                 performance
             )
             this.setTextColor(resources.getColor(R.color.trendingDown, context.theme))
@@ -362,13 +362,13 @@ fun TextView.bindTransaction(transaction: Transaction?) {
                 BUY -> R.string.long_buy_amount_format
                 SELL -> R.string.long_sell_amount_format
             }
-            String.format(resources.getText(stringId).toString(), transaction.amount.toLong())
+            String.format(resources.getString(stringId), transaction.amount.toLong())
         } else {
             val stringId = when (transaction.transactionType) {
                 BUY -> R.string.double_buy_amount_format
                 SELL -> R.string.double_sell_amount_format
             }
-            String.format(resources.getText(stringId).toString(), transaction.amount)
+            String.format(resources.getString(stringId), transaction.amount)
         }
     }
 }
@@ -424,19 +424,19 @@ fun TextView.bindStockbrotQuote(stockbrotQuote: StockbrotQuote) {
     text = when (stockbrotQuote.limitedBuying) {
         true -> when (stockbrotQuote.type) {
             Symbol.Type.SHARE -> String.format(
-                resources.getText(R.string.stockbrot_quote_buying_amount_format_long).toString(),
+                resources.getString(R.string.stockbrot_quote_buying_amount_format_long),
                 stockbrotQuote.buyLimit.toLong(),
                 stockbrotQuote.maximumBuyPrice
             )
             Symbol.Type.CRYPTO -> String.format(
-                resources.getText(R.string.stockbrot_quote_buying_amount_format_double).toString(),
+                resources.getString(R.string.stockbrot_quote_buying_amount_format_double),
                 stockbrotQuote.buyLimit,
                 stockbrotQuote.maximumBuyPrice
             )
         }
         false ->
             String.format(
-                resources.getText(R.string.stockbrot_quote_buying_format).toString(),
+                resources.getString(R.string.stockbrot_quote_buying_format),
                 stockbrotQuote.maximumBuyPrice
             )
     }
@@ -468,10 +468,34 @@ fun CardView.bindEnableCardView(enabled: Boolean) {
 @BindingAdapter("quoteChange")
 fun TextView.bindQuoteChange(change: Double?) {
     text = when (change) {
-        null -> resources.getText(R.string.not_defined).toString()
+        null -> resources.getString(R.string.not_defined)
         else -> String.format(
-            resources.getText(R.string.currency_format).toString(),
+            resources.getString(R.string.currency_format_short),
             change
         )
+    }
+}
+
+/**
+ * Sets the text of a [TextView](https://developer.android.com/reference/android/widget/TextView) depending on a [Quote].
+ *
+ * @receiver The target [TextView](https://developer.android.com/reference/android/widget/TextView).
+ * @param quote The [Quote] source.
+ *
+ * @author Jan Müller
+ */
+@BindingAdapter("quotePrice")
+fun TextView.bindQuotePrice(quote: Quote?) {
+    quote?.let {
+        text = when (quote.type) {
+            Symbol.Type.SHARE -> String.format(
+                resources.getString(R.string.currency_format_short),
+                quote.latestPrice
+            )
+            Symbol.Type.CRYPTO -> String.format(
+                resources.getString(R.string.currency_format_long),
+                quote.latestPrice
+            )
+        }
     }
 }

@@ -70,10 +70,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="@dimen/default_spacing"
-                    android:text="@{@string/currency_format(viewModel.quote.latestPrice)}"
                     android:textAlignment="viewEnd"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/quote_chart"
+                    app:quotePrice="@{viewModel.quote}"
                     tools:text="100€" />
 
                 <TextView
