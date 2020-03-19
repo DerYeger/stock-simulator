@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -12,6 +11,7 @@ import com.google.android.material.snackbar.Snackbar
 import de.uniks.codliners.stock_simulator.R
 import de.uniks.codliners.stock_simulator.databinding.FragmentNewsBinding
 import de.uniks.codliners.stock_simulator.extractErrorMessageResource
+import de.uniks.codliners.stock_simulator.ui.BaseFragment
 import java.net.UnknownHostException
 
 /**
@@ -20,7 +20,7 @@ import java.net.UnknownHostException
  * @author Jonas Thelemann
  * @author Jan Müller
  */
-class NewsFragment : Fragment() {
+class NewsFragment : BaseFragment() {
 
     private val viewModel: NewsViewModel by viewModels {
         val args = NewsFragmentArgs.fromBundle(requireArguments())
