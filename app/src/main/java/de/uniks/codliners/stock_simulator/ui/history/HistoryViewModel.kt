@@ -1,11 +1,11 @@
 package de.uniks.codliners.stock_simulator.ui.history
 
 import android.app.Application
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import de.uniks.codliners.stock_simulator.database.StockAppDatabase
 import de.uniks.codliners.stock_simulator.domain.Transaction
-import androidx.lifecycle.LiveData
 import de.uniks.codliners.stock_simulator.repository.HistoryRepository
 
 /**

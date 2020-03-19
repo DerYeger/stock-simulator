@@ -1,7 +1,9 @@
 package de.uniks.codliners.stock_simulator.ui.account
 
 import android.app.Application
-import androidx.lifecycle.*
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import de.uniks.codliners.stock_simulator.BuildConfig
 import de.uniks.codliners.stock_simulator.domain.DepotQuote
 import de.uniks.codliners.stock_simulator.domain.DepotQuotePurchase
@@ -32,7 +34,7 @@ class AccountViewModel(application: Application) : ViewModel() {
     val depotQuotes = accountRepository.depot
     val depotValue = accountRepository.currentDepotValue
     val depotValuesLimited = accountRepository.depotValuesLimited
-    
+
     val performance = sourcedLiveData(balance, depotValue) {
         calculatePerformance(balance.value?.value, depotValue.value?.value)
     }.apply {
