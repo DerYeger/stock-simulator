@@ -70,6 +70,7 @@ class NewsRepository(private val database: StockAppDatabase) {
             try {
                 _state.postValue(State.Refreshing)
                 val news = NetworkService.IEX_API.news(symbol)
+                    .filter { it.lang == "en" }
                 database.newsDao.insertAll(*news.toTypedArray())
                 _news.postValue(news)
 
