@@ -5,6 +5,10 @@ import androidx.annotation.StringRes
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.squareup.moshi.JsonClass
+import de.uniks.codliners.stock_simulator.domain.Symbol.Type.CRYPTO
+import de.uniks.codliners.stock_simulator.domain.Symbol.Type.SHARE
+import de.uniks.codliners.stock_simulator.domain.TransactionType.BUY
+import de.uniks.codliners.stock_simulator.domain.TransactionType.SELL
 import kotlinx.android.parcel.Parcelize
 
 /**
@@ -232,10 +236,12 @@ data class Symbol(
          * SHARE indicates that the asset is a share.
          */
         SHARE,
+
         /**
          * CRYPTO indicates that the asset is a crypto currency.
          */
-        CRYPTO }
+        CRYPTO
+    }
 
     /**
      * Utility class used for filtering [Symbol]s.
@@ -304,6 +310,7 @@ enum class TransactionType {
      * BUY indicates that the transaction was a purchase.
      */
     BUY,
+
     /**
      * SELL indicates that the transaction was a sale.
      */

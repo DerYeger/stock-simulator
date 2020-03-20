@@ -318,10 +318,10 @@ interface AchievementsDao {
 interface HistoricalPriceDao {
 
     /**
-    * Deletes the [HistoricalPrice] with matching id from the database.
-    *
-    * @param id The [HistoricalPrice] id used in this query.
-    */
+     * Deletes the [HistoricalPrice] with matching id from the database.
+     *
+     * @param id The [HistoricalPrice] id used in this query.
+     */
     @Query("DELETE FROM historicalprice WHERE id = :id")
     fun deleteHistoricalPricesById(id: String)
 

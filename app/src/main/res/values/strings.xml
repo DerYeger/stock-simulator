@@ -50,8 +50,6 @@
     <string name="date_format">Date: %s</string>
     <string name="depot_currency_format">Depot: %.2f$</string>
     <string name="details">Details</string>
-    <string name="dialog_title_confirm_buy_transaction">Execute buy transaction?</string>
-    <string name="dialog_title_confirm_sell_transaction">Execute sell transaction?</string>
     <string name="double_buy_amount_format">%f bought</string>
     <string name="double_depot_quote_amount_format">%f in depot</string>
     <string name="double_depot_quote_format">%1$s - %2$f</string>
@@ -83,8 +81,8 @@
     <string name="remove_fingerprint">Remove fingerprint authentication</string>
     <string name="reset_data">Reset data</string>
     <string name="sell">Sell</string>
-    <string name="sell_all">Sell all</string>
-    <string name="sell_hint">Sell amount</string>
+    <string name="sell_all">Sell All</string>
+    <string name="sell_hint">Sell Amount</string>
     <string name="stockbrot_add_control_quote">Add to Stockbrot</string>
     <string name="stockbrot_quote_buying_amount_format_double">Buying %1$s at %2$s$</string>
     <string name="stockbrot_quote_buying_amount_format_long">Buying %1$d at %2$s$</string>
@@ -118,5 +116,4 @@
     <string name="unable_to_fetch_news">Unable to fetch news.</string>
     <string name="unable_to_fetch_quote_information">Unable to fetch quote information.</string>
     <string name="unable_to_fetch_symbols">Unable to fetch symbols.</string>
-    <string name="yes">Yes</string>
 </resources>

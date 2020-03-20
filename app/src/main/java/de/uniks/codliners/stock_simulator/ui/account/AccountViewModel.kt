@@ -1,22 +1,20 @@
 package de.uniks.codliners.stock_simulator.ui.account
 
 import android.app.Application
-import androidx.lifecycle.*
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import de.uniks.codliners.stock_simulator.BuildConfig
-import de.uniks.codliners.stock_simulator.domain.Achievement
 import de.uniks.codliners.stock_simulator.domain.DepotQuote
 import de.uniks.codliners.stock_simulator.domain.DepotQuotePurchase
 import de.uniks.codliners.stock_simulator.repository.AccountRepository
-import de.uniks.codliners.stock_simulator.repository.AchievementsRepository
 import de.uniks.codliners.stock_simulator.sourcedLiveData
-import kotlinx.coroutines.launch
 
 /**
  * ViewModel for the account ui.
  *
- * @param application The application to create a [AccountRepository].
+ * @param application The application to create an [AccountRepository].
  *
- * @property
  * @property balance The latest account balance.
  * @property balancesLimited The last {BALANCE_LIMIT = 50} account balance values.
  * @property depotQuotes All [DepotQuotePurchase]s conflated to [DepotQuote]s.
@@ -39,13 +37,8 @@ class AccountViewModel(application: Application) : ViewModel() {
 
     val performance = sourcedLiveData(balance, depotValue) {
         calculatePerformance(balance.value?.value, depotValue.value?.value)
-    }
-
-    init {
-        (performance as MutableLiveData).value = 0.0
-        viewModelScope.launch {
-            accountRepository.fetchCurrentDepotValue()
-        }
+    }.apply {
+        (this as MutableLiveData).value = 0.0
     }
 
     /**

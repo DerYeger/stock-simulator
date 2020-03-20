@@ -40,7 +40,6 @@ import java.util.*
  * @property depotQuote The [DepotQuote].
  * @property historicalPrices The historical prices for the [Quote].
  * @property isCrypto Indicates if the type is a crypto currency or not.
- * @property hasChange Indicates if the [Quote] has a change.
  * @property inputType The input type [Int] or [Double] depending on the [Symbol.Type].
  * @property refreshing Indicates that the quote repository is currently being refreshed.
  * @property errorAction Gets triggered if an error has been occurred.

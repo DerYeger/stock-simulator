@@ -34,6 +34,9 @@ android {
             buildConfigField "String", "IEX_API_BASE_URL", '"https://sandbox.iexapis.com/v1/"'
             buildConfigField "String", "IEX_API_TOKEN", '"Tpk_51694cd0108b48e5be74cdc9e7682358"'
         }
+        debugRealData {
+            signingConfig signingConfigs.debug
+        }
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
