@@ -24,6 +24,13 @@ abstract class BaseFragment : Fragment() {
         BaseViewModel.Factory(requireActivity().application)
     }
 
+    /**
+     * Enables the options menu and observes achievements.
+     *
+     * @param savedInstanceState The saved instance state.
+     *
+     * @author Lucas Held
+     */
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         setHasOptionsMenu(true)
@@ -52,11 +59,27 @@ abstract class BaseFragment : Fragment() {
         })
     }
 
+    /**
+     * Inflates the main menu.
+     *
+     * @param menu The target menu.
+     * @param inflater Used for inflating the menu.
+     *
+     * @author Jan Müller
+     */
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.main_menu, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
+    /**
+     * Navigates to the settings screen if the settings menu item was selected.
+     *
+     * @param item The selected item.
+     * @return true if the selection was handled and false otherwise.
+     *
+     * @author Jan Müller
+     */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.settings_menu_item -> findNavController().navigate(R.id.navigation_settings)
