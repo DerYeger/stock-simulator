@@ -45,7 +45,7 @@ class AccountViewModel(application: Application) : ViewModel() {
 
     init {
         viewModelScope.launch {
-            accountRepository.fetchCurrentDepotValue()
+            accountRepository.calculateCurrentDepotValue()
         }
     }
 
