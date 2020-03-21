@@ -82,7 +82,7 @@ class QuoteViewModel(
         if (isCrypto) (InputType.TYPE_NUMBER_FLAG_DECIMAL + InputType.TYPE_CLASS_NUMBER) else InputType.TYPE_CLASS_NUMBER
 
     private val state = quoteRepository.state
-    val refreshing = state.map { it === QuoteRepository.State.Refreshing }
+    val refreshing = state.map { it === QuoteRepository.State.Working }
 
     val errorAction = sourcedLiveData(state) {
         when (val state = state.value) {
