@@ -312,7 +312,7 @@ class TimestampValueFormatter(private val referenceTimestamp: Long, locale: Loca
 
 class CurrencyValueFormatter(private val currencySymbol: String) : ValueFormatter() {
     override fun getFormattedValue(value: Float): String {
-        return "%s$currencySymbol".format(value)
+        return "%.2f$currencySymbol".format(value)
     }
 }
 
