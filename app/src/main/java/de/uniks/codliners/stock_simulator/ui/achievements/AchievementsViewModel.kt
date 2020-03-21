@@ -6,14 +6,12 @@ import androidx.lifecycle.ViewModelProvider
 import de.uniks.codliners.stock_simulator.domain.Achievement
 import de.uniks.codliners.stock_simulator.repository.AchievementsRepository
 
-
 /**
  * ViewModel for the achievement ui.
  *
- * @constructor TODO
- * @property achievements List of all [Achievement]s from the repository.
- *
  * @param application The application to create a [AchievementsRepository] for.
+ *
+ * @property achievements List of all [Achievement]s from the repository.
  *
  * @author Lucas Held
  */

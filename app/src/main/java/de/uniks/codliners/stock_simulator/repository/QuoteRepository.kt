@@ -33,15 +33,38 @@ class QuoteRepository(private val database: StockAppDatabase) {
      */
     constructor(context: Context) : this(getDatabase(context))
 
+    /**
+     * The state of a [QuoteRepository].
+     *
+     * @author Jan Müller
+     */
     sealed class State {
-        object Empty : State()
-        object Refreshing : State()
+
+        /**
+         * Indicates that a [QuoteRepository] is idle.
+         */
+        object Idle : State()
+
+        /**
+         * Indicates that a [QuoteRepository] is currently working.
+         */
+        object Working : State()
+
+        /**
+         * Indicates that a [QuoteRepository] is previous task has been completed.
+         */
         object Done : State()
+
+        /**
+         * Indicates that a [QuoteRepository] has encountered an exception.
+         *
+         * @property exception The exception that caused this [State].
+         */
         class Error(val exception: Exception) : State()
     }
 
     private val _state = MutableLiveData<State>().apply {
-        postValue(State.Empty)
+        postValue(State.Idle)
     }
     val state: LiveData<State> = _state
 
@@ -94,7 +117,7 @@ class QuoteRepository(private val database: StockAppDatabase) {
      */
     private suspend fun fetchIEXQuote(symbol: String): Boolean = withContext(Dispatchers.IO) {
         try {
-            _state.postValue(State.Refreshing)
+            _state.postValue(State.Working)
             val quote = NetworkService.IEX_API.quote(symbol).asDomainQuote()
             database.quoteDao.insert(quote)
             val historicalPrices = NetworkService.IEX_API
@@ -118,7 +141,7 @@ class QuoteRepository(private val database: StockAppDatabase) {
      */
     private suspend fun fetchCoinGeckoQuote(id: String): Boolean = withContext(Dispatchers.IO) {
         try {
-            _state.postValue(State.Refreshing)
+            _state.postValue(State.Working)
             val quote = NetworkService.COINGECKO_API.quote(id).asDomainQuote()
             database.quoteDao.insert(quote)
             val historicalPrices = NetworkService.COINGECKO_API

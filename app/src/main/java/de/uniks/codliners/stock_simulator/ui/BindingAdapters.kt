@@ -175,6 +175,14 @@ fun TextView.bindDepotQuote(depotQuote: DepotQuote?) {
     }
 }
 
+/**
+ * Submits a [Transaction] [List] to the [TransactionListAdapter] of a [RecyclerView](https://developer.android.com/jetpack/androidx/releases/recyclerview).
+ *
+ * @receiver The target [RecyclerView](https://developer.android.com/jetpack/androidx/releases/recyclerview).
+ * @param transactions The [List] of [Transaction]s that will be submitted.
+ *
+ * @author Jan Müller
+ */
 @BindingAdapter("transactions")
 fun RecyclerView.bindTransactions(transactions: List<Transaction>?) {
     val adapter = adapter as TransactionListAdapter
@@ -182,12 +190,13 @@ fun RecyclerView.bindTransactions(transactions: List<Transaction>?) {
 }
 
 /**
- * TODO
+ * Sets the text and color of a [TextView](https://developer.android.com/reference/android/widget/TextView) to represent a positive, neutral or negative performance.
  *
- * @param performance TODO
+ * @param performance The change in percent.
  *
- * @author TODO
+ * @author Juri Lozowoj
  * @author Jonas Thelemann
+ * @author Jan Müller
  */
 @BindingAdapter("lossOrWin")
 fun TextView.bindPerformanceText(performance: Double) {
@@ -217,12 +226,13 @@ fun TextView.bindPerformanceText(performance: Double) {
 }
 
 /**
- * TODO
+ * Sets the image and color of an [ImageView](https://developer.android.com/reference/android/widget/ImageView) to represent a positive, neutral or negative performance.
  *
- * @param performance TODO
+ * @param performance The change in percent.
  *
- * @author TODO
+ * @author Juri Lozowoj
  * @author Jonas Thelemann
+ * @author Jan Müller
  */
 @BindingAdapter("trendingImage")
 fun ImageView.bindPerformanceIcon(performance: Double) {
@@ -258,38 +268,39 @@ fun ImageView.bindPerformanceIcon(performance: Double) {
 }
 
 /**
- * TODO
+ * Sets the text and color of a [TextView](https://developer.android.com/reference/android/widget/TextView) to represent a positive, neutral or negative cashflow.
  *
- * @param performance TODO
+ * @param effectiveCashflow The effective cashflow..
  *
- * @author TODO
+ * @author Juri Lozowoj
  * @author Jonas Thelemann
+ * @author Jan Müller
  */
 @BindingAdapter("transactionResultText")
-fun TextView.bindTransactionResultText(performance: Double?) {
-    if (performance == null) {
+fun TextView.bindTransactionResultText(effectiveCashflow: Double?) {
+    if (effectiveCashflow == null) {
         this.visibility = View.INVISIBLE
         return
     }
     when {
-        performance > 0.0 -> {
+        effectiveCashflow > 0.0 -> {
             text = String.format(
                 resources.getString(R.string.transaction_format_win),
-                performance
+                effectiveCashflow
             )
             this.setTextColor(resources.getColor(R.color.colorAccent, context.theme))
         }
-        performance == 0.0 -> {
+        effectiveCashflow == 0.0 -> {
             text = String.format(
                 resources.getString(R.string.transaction_format_neutral),
-                performance
+                effectiveCashflow
             )
             this.setTextColor(resources.getColor(R.color.trendingFlat, context.theme))
         }
         else -> {
             text = String.format(
                 resources.getString(R.string.transaction_format_loss),
-                performance
+                effectiveCashflow
             )
             this.setTextColor(resources.getColor(R.color.trendingDown, context.theme))
         }

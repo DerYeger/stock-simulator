@@ -310,7 +310,21 @@ class TimestampValueFormatter(private val referenceTimestamp: Long, locale: Loca
     }
 }
 
+/**
+ * The ValueFormatter for currency graphs.
+ *
+ * @property currencySymbol The currency symbol used during formatting.
+ *
+ * @author Jonas Thelemann
+ */
 class CurrencyValueFormatter(private val currencySymbol: String) : ValueFormatter() {
+
+    /**
+     * Formats a [Float] value.
+     *
+     * @param value The [Float] value.
+     * @return The formatted [String].
+     */
     override fun getFormattedValue(value: Float): String {
         return "%.2f$currencySymbol".format(value)
     }

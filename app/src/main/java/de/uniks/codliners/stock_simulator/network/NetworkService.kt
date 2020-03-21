@@ -25,6 +25,9 @@ const val IEX_API_BASE_URL = BuildConfig.IEX_API_BASE_URL
  */
 const val IEX_API_TOKEN = BuildConfig.IEX_API_TOKEN
 
+/**
+ * The CoinGecko API's base url, to which endpoints are concatenated.
+ */
 const val COINGECKO_BASE_URL = BuildConfig.COINGECKO_BASE_URL
 
 /**

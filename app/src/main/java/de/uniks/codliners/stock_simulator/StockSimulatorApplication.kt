@@ -15,10 +15,16 @@ private const val FIRST_RUN_KEY = "first_run"
 /**
  * This app's application. Enables dark mode and logging and handles data initialization.
  *
+ * @author Jan Müller
  */
 @Suppress("unused")
 class StockSimulatorApplication : Application() {
 
+    /**
+     * Enables night mode, Timber's debug-logging.
+     * Also handles game data initialization.
+     *
+     */
     override fun onCreate() {
         super.onCreate()
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
@@ -38,8 +44,6 @@ class StockSimulatorApplication : Application() {
      * Runs the passed block exactly once when the application is first launched.
      *
      * @param block The block that will be run during the app's first launch.
-     *
-     * @author Jan Müller
      */
     private inline fun onFirstRun(block: () -> Unit) {
         sharedPreferences()

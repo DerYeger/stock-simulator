@@ -257,6 +257,9 @@ data class Symbol(
         val nameQuery: String,
         val type: Type?
     ) {
+        /**
+         * Utility constructor for SQL queries.
+         */
         constructor(query: String, type: Type?) : this(
             symbolQuery = "$query%",
             nameQuery = "%$query%",

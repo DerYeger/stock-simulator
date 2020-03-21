@@ -12,6 +12,13 @@ import com.an.biometric.BiometricCallback
 import com.an.biometric.BiometricManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
+/**
+ * The main [Activity](https://developer.android.com/reference/androidx/appcompat/app/AppCompatActivity) of this application.
+ * Handles cross-fragment navigation and settings.
+ *
+ * @author Jan Müller
+ * @author Jonas Thelemann
+ */
 class MainActivity : AppCompatActivity(), BiometricCallback {
 
     /**
@@ -24,6 +31,11 @@ class MainActivity : AppCompatActivity(), BiometricCallback {
      */
     private var isApplicationUnlocked = false
 
+    /**
+     * Sets the content view, initializes navigation and biometric authentication.
+     *
+     * @param savedInstanceState The saved instance state.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -212,6 +224,11 @@ class MainActivity : AppCompatActivity(), BiometricCallback {
         }
     }
 
+    /**
+     * Enables up-navigation from the toolbar's navigation button.
+     *
+     * @return true if navigation was successful and false otherwise.
+     */
     override fun onSupportNavigateUp(): Boolean {
         return findNavController(R.id.nav_host_fragment).navigateUp()
     }

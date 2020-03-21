@@ -321,6 +321,11 @@ interface AchievementsDao {
 
 }
 
+/**
+ * [Dao](https://developer.android.com/reference/androidx/room/Dao) that manages [HistoricalPrice]s in the database
+ *
+ * @author Juri Lozowoj
+ */
 @Dao
 interface HistoricalPriceDao {
 

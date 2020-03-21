@@ -23,9 +23,9 @@ import java.net.UnknownHostException
 /**
  * [Fragment](https://developer.android.com/jetpack/androidx/releases/fragment) for viewing, buying and selling assets.
  *
- * @author TODO
  * @author Jan Müller
  * @author Jonas Thelemann
+ * @author Lucas Held
  */
 class QuoteFragment : BaseFragment() {
 
