@@ -11,6 +11,14 @@ import de.uniks.codliners.stock_simulator.ui.OnClickListener
 import java.text.SimpleDateFormat
 import java.util.*
 
+/**
+ * [ListAdapter](https://developer.android.com/reference/androidx/recyclerview/widget/ListAdapter) for [Transaction]s.
+ *
+ * @property onClickListener The [OnClickListener] for [ViewHolder]s.
+ *
+ * @author Juri Lozowoj
+ * @author Jan Müller
+ */
 class TransactionListAdapter(
     private val onClickListener: OnClickListener<Transaction>,
     locale: Locale
@@ -76,6 +84,7 @@ class TransactionListAdapter(
      * @author Juri Lozowoj
      */
     companion object DiffCallback : DiffUtil.ItemCallback<Transaction>() {
+
         /**
          * Checks if two [Transaction]s have the same id.
          *
