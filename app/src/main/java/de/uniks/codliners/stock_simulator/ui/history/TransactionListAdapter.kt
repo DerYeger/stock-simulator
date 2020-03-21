@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import de.uniks.codliners.stock_simulator.databinding.CardTransactionBinding
 import de.uniks.codliners.stock_simulator.domain.Transaction
 import de.uniks.codliners.stock_simulator.ui.OnClickListener
+import de.uniks.codliners.stock_simulator.ui.history.TransactionListAdapter.ViewHolder
 import java.text.SimpleDateFormat
 import java.util.*
 
