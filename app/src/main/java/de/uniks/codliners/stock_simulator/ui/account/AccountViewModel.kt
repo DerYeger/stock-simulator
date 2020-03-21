@@ -4,11 +4,13 @@ import android.app.Application
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import de.uniks.codliners.stock_simulator.BuildConfig
 import de.uniks.codliners.stock_simulator.domain.DepotQuote
 import de.uniks.codliners.stock_simulator.domain.DepotQuotePurchase
 import de.uniks.codliners.stock_simulator.repository.AccountRepository
 import de.uniks.codliners.stock_simulator.sourcedLiveData
+import kotlinx.coroutines.launch
 
 /**
  * ViewModel for the account ui.
@@ -39,6 +41,12 @@ class AccountViewModel(application: Application) : ViewModel() {
         calculatePerformance(balance.value?.value, depotValue.value?.value)
     }.apply {
         (this as MutableLiveData).value = 0.0
+    }
+
+    init {
+        viewModelScope.launch {
+            accountRepository.calculateCurrentDepotValue()
+        }
     }
 
     /**

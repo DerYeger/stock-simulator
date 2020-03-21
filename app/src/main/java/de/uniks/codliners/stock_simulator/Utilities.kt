@@ -326,7 +326,7 @@ class CurrencyValueFormatter(private val currencySymbol: String) : ValueFormatte
      * @return The formatted [String].
      */
     override fun getFormattedValue(value: Float): String {
-        return "%s$currencySymbol".format(value)
+        return "%.2f$currencySymbol".format(value)
     }
 }
 

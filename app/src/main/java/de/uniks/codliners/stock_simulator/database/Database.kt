@@ -226,7 +226,15 @@ interface AccountDao {
      * @return [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData) containing the latest [DepotValue].
      */
     @Query("SELECT * FROM depotvalue ORDER BY depotvalue.timestamp DESC LIMIT 1")
-    fun getLatestDepotValues(): LiveData<DepotValue>
+    fun getLatestDepot(): DepotValue
+
+    /**
+     * Returns the latest [DepotValue].
+     *
+     * @return [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData) containing the latest [DepotValue].
+     */
+    @Query("SELECT * FROM depotvalue ORDER BY depotvalue.timestamp DESC LIMIT 1")
+    fun getLatestDepotValue(): LiveData<DepotValue>
 
     /**
      * Inserts a [Balance] into the database.

@@ -65,8 +65,10 @@ class AccountRepository(private val database: StockAppDatabase) {
      * The latest depot value.
      */
     val currentDepotValue by lazy {
-        database.accountDao.getLatestDepotValues()
+        database.accountDao.getLatestDepotValue()
     }
+
+    private val quoteRepository = QuoteRepository(database)
 
     /**
      * Returns the [DepotQuote] with the matching id, wrapped in [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData).
@@ -166,7 +168,7 @@ class AccountRepository(private val database: StockAppDatabase) {
                 insertDepotQuote(newDepotQuote)
             }
             database.transactionDao.insert(transaction)
-            fetchCurrentDepotValue()
+            calculateCurrentDepotValue()
         }
     }
 
@@ -203,18 +205,25 @@ class AccountRepository(private val database: StockAppDatabase) {
 
             database.accountDao.insertBalance(newBalance)
             database.transactionDao.insert(transaction)
-            fetchCurrentDepotValue()
+            calculateCurrentDepotValue()
         }
     }
 
-    private suspend fun fetchCurrentDepotValue() {
+    /**
+     * Calculates the current value of the depot and inserts a [DepotValue] into the [StockAppDatabase] if it has changed.
+     */
+    suspend fun calculateCurrentDepotValue() {
         withContext(Dispatchers.IO) {
             val depotQuotes = database.accountDao.getDepotQuotePurchasesValuesOrderedByPrice()
+            depotQuotes.forEach { depotQuot ->
+                quoteRepository.fetchQuote(id = depotQuot.id, type = depotQuot.type)
+            }
             val newValue = depotQuotes.sumByDouble { depotQuote ->
                 val quotePrice = database.quoteDao.getQuoteValueById(depotQuote.id)!!.latestPrice
                 val depotQuoteAmount = depotQuote.amount
                 quotePrice * depotQuoteAmount
             }
+            if (database.accountDao.getLatestDepot().value == newValue) return@withContext //only insert new values
             val newDepotValue = DepotValue(newValue)
             database.accountDao.insertDepotValue(newDepotValue)
         }
