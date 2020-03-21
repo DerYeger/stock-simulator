@@ -9,6 +9,13 @@ import de.uniks.codliners.stock_simulator.databinding.CardDepotQuoteBinding
 import de.uniks.codliners.stock_simulator.domain.DepotQuote
 import de.uniks.codliners.stock_simulator.ui.OnClickListener
 
+/**
+ * [ListAdapter](https://developer.android.com/reference/androidx/recyclerview/widget/ListAdapter) for [DepotQuote]s.
+ *
+ * @property onClickListener The [OnClickListener] for [ViewHolder]s.
+ *
+ * @author Jan Müller
+ */
 class DepotQuoteListAdapter(private val onClickListener: OnClickListener<DepotQuote>) :
     ListAdapter<DepotQuote, DepotQuoteListAdapter.ViewHolder>(DiffCallback) {
 
@@ -40,6 +47,7 @@ class DepotQuoteListAdapter(private val onClickListener: OnClickListener<DepotQu
      * @author Jan Müller
      */
     companion object DiffCallback : DiffUtil.ItemCallback<DepotQuote>() {
+
         /**
          * Checks if two [DepotQuote]s have the same id.
          *
