@@ -68,6 +68,8 @@ class AccountRepository(private val database: StockAppDatabase) {
         database.accountDao.getLatestDepotValues()
     }
 
+    private val quoteRepository = QuoteRepository(database)
+
     /**
      * Returns the [DepotQuote] with the matching id, wrapped in [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData).
      * Conflates all [DepotQuotePurchase]s with the matching id and returns them as one [DepotQuote],
@@ -207,9 +209,12 @@ class AccountRepository(private val database: StockAppDatabase) {
         }
     }
 
-    private suspend fun fetchCurrentDepotValue() {
+    suspend fun fetchCurrentDepotValue() {
         withContext(Dispatchers.IO) {
             val depotQuotes = database.accountDao.getDepotQuotePurchasesValuesOrderedByPrice()
+            depotQuotes.forEach { depotQuot ->
+                quoteRepository.fetchQuote(id = depotQuot.id, type = depotQuot.type)
+            }
             val newValue = depotQuotes.sumByDouble { depotQuote ->
                 val quotePrice = database.quoteDao.getQuoteValueById(depotQuote.id)!!.latestPrice
                 val depotQuoteAmount = depotQuote.amount
