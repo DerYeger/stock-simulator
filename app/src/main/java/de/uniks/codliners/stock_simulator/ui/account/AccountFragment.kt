@@ -15,9 +15,9 @@ import de.uniks.codliners.stock_simulator.ui.OnClickListener
 import de.uniks.codliners.stock_simulator.updateLineChart
 
 /**
- * TODO
+ * [Fragment](https://developer.android.com/jetpack/androidx/releases/fragment) for viewing account related information like balances and the depot.
  *
- * @author TODO
+ * @author Jan Müller
  * @author Jonas Thelemann
  */
 class AccountFragment : BaseFragment() {

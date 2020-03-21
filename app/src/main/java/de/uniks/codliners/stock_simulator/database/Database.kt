@@ -87,7 +87,6 @@ fun getDatabase(context: Context): StockAppDatabase {
 /**
  * [Dao](https://developer.android.com/reference/androidx/room/Dao) that manages account entities in the database.
  *
- * @author TODO
  * @author Juri Lozowoj
  * @author Jan Müller
  */

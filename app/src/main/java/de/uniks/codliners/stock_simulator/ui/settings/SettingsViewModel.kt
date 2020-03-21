@@ -15,7 +15,6 @@ import kotlinx.coroutines.launch
  * @property symbolRepositoryStateAction Gets triggered if the symbol repository is refreshed.
  * @property refreshing Indicates that the symbol repository is currently being refreshed.
  *
- * @author TODO
  * @author Jan Müller
  * @author Jonas Thelemann
  */
