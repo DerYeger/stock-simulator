@@ -28,10 +28,33 @@ class SymbolRepository(private val database: StockAppDatabase) {
      */
     constructor(context: Context) : this(getDatabase(context))
 
+    /**
+     * The state of a [SymbolRepository].
+     *
+     * @author Jan Müller
+     */
     sealed class State {
+
+        /**
+         * Indicates that a [SymbolRepository] is idle.
+         */
         object Idle : State()
-        object Refreshing : State()
+
+        /**
+         * Indicates that a [SymbolRepository] is currently working.
+         */
+        object Working : State()
+
+        /**
+         * Indicates that a [SymbolRepository] is previous task has been completed.
+         */
         object Done : State()
+
+        /**
+         * Indicates that a [SymbolRepository] has encountered an exception.
+         *
+         * @property exception The exception that caused this [State].
+         */
         class Error(val exception: Exception) : State()
     }
 
@@ -69,7 +92,7 @@ class SymbolRepository(private val database: StockAppDatabase) {
     suspend fun refreshSymbols() {
         withContext(Dispatchers.IO) {
             try {
-                _state.postValue(State.Refreshing)
+                _state.postValue(State.Working)
                 val shareSymbols = NetworkService.IEX_API.symbols()
                 val cryptoSymbols = NetworkService.COINGECKO_API.symbols()
                 database.symbolDao.insertAll(

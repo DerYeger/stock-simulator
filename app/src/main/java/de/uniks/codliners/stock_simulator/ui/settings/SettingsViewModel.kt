@@ -32,12 +32,12 @@ class SettingsViewModel(application: Application) : ViewModel() {
     private val symbolRefreshInitiated = MutableLiveData(false)
     val symbolRepositoryStateAction = sourcedLiveData(symbolRefreshInitiated, state) {
         when (val state = state.value) {
-            SymbolRepository.State.Refreshing -> if (symbolRefreshInitiated.value == true) state else null
+            SymbolRepository.State.Working -> if (symbolRefreshInitiated.value == true) state else null
             else -> state
         }
     }
 
-    val refreshing = state.map { it === SymbolRepository.State.Refreshing }
+    val refreshing = state.map { it === SymbolRepository.State.Working }
 
     /**
      * Set the reset game click indicator.

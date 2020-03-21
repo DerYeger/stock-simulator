@@ -83,7 +83,7 @@ class SettingsFragment : Fragment() {
             Observer { state: SymbolRepository.State? ->
                 if (state === null) return@Observer
                 when (state) {
-                    SymbolRepository.State.Refreshing -> Snackbar.make(
+                    SymbolRepository.State.Working -> Snackbar.make(
                         requireView(),
                         R.string.refreshing_symbols,
                         Snackbar.LENGTH_SHORT
