@@ -65,7 +65,7 @@ class AccountRepository(private val database: StockAppDatabase) {
      * The latest depot value.
      */
     val currentDepotValue by lazy {
-        database.accountDao.getLatestDepotValues()
+        database.accountDao.getLatestDepotValue()
     }
 
     private val quoteRepository = QuoteRepository(database)
@@ -220,6 +220,7 @@ class AccountRepository(private val database: StockAppDatabase) {
                 val depotQuoteAmount = depotQuote.amount
                 quotePrice * depotQuoteAmount
             }
+            if (database.accountDao.getLatestDepot().value == newValue) return@withContext
             val newDepotValue = DepotValue(newValue)
             database.accountDao.insertDepotValue(newDepotValue)
         }
