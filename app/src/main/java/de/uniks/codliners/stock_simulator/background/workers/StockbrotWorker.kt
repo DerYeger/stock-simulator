@@ -53,10 +53,7 @@ class StockbrotWorker(context: Context, params: WorkerParameters) : Worker(conte
             // fetch current quote
             val stockbrotQuote = stockbrotRepository.stockbrotQuoteById(id) ?: return@launch
 
-            val connectionSuccess = when (stockbrotQuote.type) {
-                Symbol.Type.SHARE -> quoteRepository.fetchIEXQuote(id)
-                Symbol.Type.CRYPTO -> quoteRepository.fetchCoinGeckoQuote(id)
-            }
+            val connectionSuccess = quoteRepository.fetchQuote(id = stockbrotQuote.id, type = stockbrotQuote.type)
 
             if (!connectionSuccess) return@launch
 

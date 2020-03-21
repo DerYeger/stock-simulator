@@ -7,6 +7,7 @@ import de.uniks.codliners.stock_simulator.database.StockAppDatabase
 import de.uniks.codliners.stock_simulator.database.getDatabase
 import de.uniks.codliners.stock_simulator.domain.HistoricalPrice
 import de.uniks.codliners.stock_simulator.domain.Quote
+import de.uniks.codliners.stock_simulator.domain.Symbol
 import de.uniks.codliners.stock_simulator.network.NetworkService
 import de.uniks.codliners.stock_simulator.network.asDomainHistoricalPrices
 import de.uniks.codliners.stock_simulator.network.asDomainQuote
@@ -73,12 +74,25 @@ class QuoteRepository(private val database: StockAppDatabase) {
         database.historicalDao.getHistoricalPricesById(id)
 
     /**
+     * Fetches the [Quote] and [HistoricalPrice]s for the requested asset from the respective API, then stores them in the [StockAppDatabase].
+     *
+     * @param id The id of the asset.
+     * @param type The [Symbol.Type] of the asset.
+     * @return true if the operation was successful and false otherwise.
+     */
+    suspend fun fetchQuote(id: String, type: Symbol.Type): Boolean =
+        when (type) {
+            Symbol.Type.CRYPTO -> fetchCoinGeckoQuote(id = id)
+            Symbol.Type.SHARE -> fetchIEXQuote(symbol = id)
+        }
+
+    /**
      * Fetches the [Quote] and [HistoricalPrice]s for the requested symbol from the IEX API, then stores them in the [StockAppDatabase].
      *
      * @param symbol The IEX symbol of the share.
      * @return true if the operation was successful and false otherwise.
      */
-    suspend fun fetchIEXQuote(symbol: String): Boolean = withContext(Dispatchers.IO) {
+    private suspend fun fetchIEXQuote(symbol: String): Boolean = withContext(Dispatchers.IO) {
         try {
             _state.postValue(State.Refreshing)
             val quote = NetworkService.IEX_API.quote(symbol).asDomainQuote()
@@ -102,7 +116,7 @@ class QuoteRepository(private val database: StockAppDatabase) {
      * @param id The CoinGecko id of the cryptocurrency.
      * @return true if the operation was successful and false otherwise.
      */
-    suspend fun fetchCoinGeckoQuote(id: String): Boolean = withContext(Dispatchers.IO) {
+    private suspend fun fetchCoinGeckoQuote(id: String): Boolean = withContext(Dispatchers.IO) {
         try {
             _state.postValue(State.Refreshing)
             val quote = NetworkService.COINGECKO_API.quote(id).asDomainQuote()
