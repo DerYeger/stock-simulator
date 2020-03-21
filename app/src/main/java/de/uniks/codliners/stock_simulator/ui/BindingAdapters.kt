@@ -175,6 +175,14 @@ fun TextView.bindDepotQuote(depotQuote: DepotQuote?) {
     }
 }
 
+/**
+ * Submits a [Transaction] [List] to the [TransactionListAdapter] of a [RecyclerView](https://developer.android.com/jetpack/androidx/releases/recyclerview).
+ *
+ * @receiver The target [RecyclerView](https://developer.android.com/jetpack/androidx/releases/recyclerview).
+ * @param transactions The [List] of [Transaction]s that will be submitted.
+ *
+ * @author Jan Müller
+ */
 @BindingAdapter("transactions")
 fun RecyclerView.bindTransactions(transactions: List<Transaction>?) {
     val adapter = adapter as TransactionListAdapter
