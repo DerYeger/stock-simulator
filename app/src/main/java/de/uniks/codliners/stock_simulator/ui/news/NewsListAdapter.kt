@@ -18,12 +18,9 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 /**
- * TODO
+ * [ListAdapter](https://developer.android.com/reference/androidx/recyclerview/widget/ListAdapter) for [News].
  *
- * @constructor
- * TODO
- *
- * @param locale
+ * @param locale The locale for date formatting.
  *
  * @author Jonas Thelemann
  */
