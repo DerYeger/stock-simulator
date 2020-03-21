@@ -223,7 +223,7 @@ class AccountRepository(private val database: StockAppDatabase) {
                 val depotQuoteAmount = depotQuote.amount
                 quotePrice * depotQuoteAmount
             }
-            if (database.accountDao.getLatestDepot().value == newValue) return@withContext
+            if (database.accountDao.getLatestDepot().value == newValue) return@withContext //only insert new values
             val newDepotValue = DepotValue(newValue)
             database.accountDao.insertDepotValue(newDepotValue)
         }
