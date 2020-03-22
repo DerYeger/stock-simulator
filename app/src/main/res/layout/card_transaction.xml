@@ -131,7 +131,7 @@
                     tools:text="Price: 100" />
 
                 <TextView
-                    android:id="@+id/transaction_costs_text"
+                    android:id="@+id/initial_capital"
                     style="@style/TextAppearance.MaterialComponents.Body1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

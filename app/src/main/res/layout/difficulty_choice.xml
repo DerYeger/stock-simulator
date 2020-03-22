@@ -1,6 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <data>
+
+        <variable
+            name="BuildConfig"
+            type="de.uniks.codliners.stock_simulator.BuildConfig" />
+
+        <variable
+            name="viewModel"
+            type="de.uniks.codliners.stock_simulator.ui.quote.QuoteViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/initial_capital"
+            style="@style/TextAppearance.MaterialComponents.Body1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="@{@string/transaction_costs_format(viewModel.transactionCosts)}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/difficulty_easy"
+            tools:text="Initial capital: " />
+
+        <TextView
+            android:id="@+id/transaction_cashflow_text"
+            style="@style/TextAppearance.MaterialComponents.Body1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:text="@{@string/cashflow_format(viewModel.cashflow)}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/initial_capital"
+            app:layout_constraintTop_toTopOf="@+id/initial_capital"
+            tools:text="Transaction costs:" />
+
+        <RadioButton
+            android:id="@+id/difficulty_easy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:text="Easy"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <RadioButton
+            android:id="@+id/difficulty_medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="Medium"
+            app:layout_constraintEnd_toStartOf="@+id/difficulty_hard"
+            app:layout_constraintStart_toEndOf="@+id/difficulty_easy"
+            app:layout_constraintTop_toTopOf="@+id/difficulty_easy" />
+
+        <RadioButton
+            android:id="@+id/difficulty_hard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:text="Hard"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/difficulty_medium" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
