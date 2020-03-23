@@ -56,9 +56,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/default_spacing"
                     android:layout_marginTop="@dimen/default_spacing"
-                    android:layout_marginEnd="16dp"
                     android:text="@{viewModel.quote.name}"
-                    app:layout_constraintEnd_toStartOf="@+id/quote_change_text"
+                    app:layout_constraintEnd_toEndOf="@+id/buy_number"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/quote_symbol_text"
                     tools:text="Name" />
@@ -74,7 +73,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/quote_chart"
                     app:quotePrice="@{viewModel.quote}"
-                    tools:text="100€" />
+                    tools:text="100$" />
 
                 <TextView
                     android:id="@+id/quote_change_text"
@@ -82,12 +81,25 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/default_spacing"
-                    android:layout_marginEnd="@dimen/default_spacing"
+                    android:layout_marginEnd="8dp"
                     android:textAlignment="viewEnd"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/quote_change_trend_image"
                     app:layout_constraintTop_toBottomOf="@+id/quote_price_text"
+                    app:lossOrWin="@{viewModel.quote.change}"
                     app:quoteChange="@{viewModel.quote.change}"
-                    tools:text="-1€" />
+                    tools:text="-1$" />
+
+                <ImageView
+                    android:id="@+id/quote_change_trend_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_marginEnd="16dp"
+                    android:contentDescription="@string/trend_image_description"
+                    app:layout_constraintBottom_toBottomOf="@+id/quote_change_text"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/quote_change_text"
+                    app:trendingImage="@{viewModel.quote.change}"
+                    tools:srcCompat="@drawable/ic_trending_up_black_24dp" />
 
                 <TextView
                     android:id="@+id/buy_label_text"

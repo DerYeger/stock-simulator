@@ -190,35 +190,39 @@ fun RecyclerView.bindTransactions(transactions: List<Transaction>?) {
 }
 
 /**
- * Sets the text and color of a [TextView](https://developer.android.com/reference/android/widget/TextView) to represent a positive, neutral or negative performance.
+ * Sets the text and color of a [TextView](https://developer.android.com/reference/android/widget/TextView) to represent a positive, neutral or negative change.
  *
- * @param performance The change in percent.
+ * @param change The change in percent.
  *
  * @author Juri Lozowoj
  * @author Jonas Thelemann
  * @author Jan Müller
+ * @author Lucas Held
  */
 @BindingAdapter("lossOrWin")
-fun TextView.bindPerformanceText(performance: Double) {
+fun TextView.bindPerformanceText(change: Double?) {
     when {
-        performance > 0.0 -> {
+        change == null -> {
+            return
+        }
+        change > 0.0 -> {
             text = String.format(
                 resources.getString(R.string.performance_format_win),
-                performance
+                change
             )
             this.setTextColor(resources.getColor(R.color.colorAccent, context.theme))
         }
-        performance == 0.0 -> {
+        change == 0.0 -> {
             text = String.format(
                 resources.getString(R.string.performance_format_neutral),
-                performance
+                change
             )
             this.setTextColor(resources.getColor(R.color.trendingFlat, context.theme))
         }
         else -> {
             text = String.format(
                 resources.getString(R.string.performance_format_loss),
-                performance
+                change
             )
             this.setTextColor(resources.getColor(R.color.trendingDown, context.theme))
         }
@@ -226,18 +230,22 @@ fun TextView.bindPerformanceText(performance: Double) {
 }
 
 /**
- * Sets the image and color of an [ImageView](https://developer.android.com/reference/android/widget/ImageView) to represent a positive, neutral or negative performance.
+ * Sets the image and color of an [ImageView](https://developer.android.com/reference/android/widget/ImageView) to represent a positive, neutral or negative change.
  *
- * @param performance The change in percent.
+ * @param change The change in percent.
  *
  * @author Juri Lozowoj
  * @author Jonas Thelemann
  * @author Jan Müller
+ * @author Lucas Held
  */
 @BindingAdapter("trendingImage")
-fun ImageView.bindPerformanceIcon(performance: Double) {
+fun ImageView.bindTrendImage(change: Double?) {
     when {
-        performance > 0.0 -> {
+        change == null -> {
+            return
+        }
+        change > 0.0 -> {
             setImageDrawable(
                 resources.getDrawable(
                     R.drawable.ic_trending_up_black_24dp,
@@ -246,7 +254,7 @@ fun ImageView.bindPerformanceIcon(performance: Double) {
             )
             this.setColorFilter(resources.getColor(R.color.colorAccent, context.theme))
         }
-        performance == 0.0 -> {
+        change == 0.0 -> {
             setImageDrawable(
                 resources.getDrawable(
                     R.drawable.ic_trending_flat_black_24dp,
