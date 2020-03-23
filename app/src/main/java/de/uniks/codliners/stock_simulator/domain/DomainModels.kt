@@ -165,7 +165,7 @@ data class News(
  * @property type The asset's type.
  * @property name The name of the asset.
  * @property latestPrice The latest price of the asset.
- * @property change The price change of the asset.
+ * @property change Refers to the change in price between latestPrice and the previous trading day closing price.
  *
  * @author Jan Müller
  */
