@@ -71,13 +71,16 @@ data class CoinGeckoQuote(
  * Market data of a CoinGecko cryptocurrency.
  *
  * @property currentPrices A [Map] containing currency names and their respective value.
+ * @property change The price change during the last 24 hours.
  *
  * @author Jan Müller
  */
 @JsonClass(generateAdapter = true)
 data class CoinGeckoMarketData(
     @Json(name = "current_price")
-    val currentPrices: Map<String, Double>
+    val currentPrices: Map<String, Double>,
+    @Json(name = "price_change_24h")
+    val change: Double?
 )
 
 /**
@@ -94,7 +97,7 @@ fun CoinGeckoQuote.asDomainQuote() = Quote(
     type = Symbol.Type.CRYPTO,
     name = name,
     latestPrice = marketData.currentPrices["usd"] ?: 0.0,
-    change = null
+    change = marketData.change
 )
 
 /**

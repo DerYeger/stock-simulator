@@ -65,7 +65,7 @@ interface CoinGeckoApi {
      * @param id The CoinGecko id of the cryptocurrency.
      * @return The requested [CoinGeckoQuote].
      */
-    @GET("coins/{id}")
+    @GET("coins/{id}?localization=false&tickers=false&market_data=true&community_data=false&developer_data=false&sparkline=false")
     suspend fun quote(@Path("id") id: String): CoinGeckoQuote
 
     /**
