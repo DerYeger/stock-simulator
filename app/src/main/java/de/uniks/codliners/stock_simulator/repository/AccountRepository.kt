@@ -307,9 +307,16 @@ class AccountRepository(private val database: StockAppDatabase) {
         insertBalance(secondStarterBalance)
     }
 
+    /**
+     * Inserts two [DepotValue]s with a value of [BuildConfig.NEW_DEPOT_VALUE] and a time offset of 1 minute to enable graph plotting.
+     *
+     */
     private fun AccountDao.setInitialDepotValue() {
         val starterDepotValue = DepotValue(value = BuildConfig.NEW_DEPOT_VALUE)
+        val secondDepotValue =
+            starterDepotValue.copy(timestamp = starterDepotValue.timestamp - 60 * 1000)
         insertDepotValue(starterDepotValue)
+        insertDepotValue(secondDepotValue)
     }
 
     /**
