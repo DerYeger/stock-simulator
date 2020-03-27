@@ -1,6 +1,8 @@
 $dokka.format:html
 $dokka.linkExtension:html
 $dokka.location:de.uniks.codliners.stock_simulator$ensureAccountPresence(android.content.Context)de.uniks.codliners.stock_simulator/android.content.-context/ensure-account-presence.html
+$dokka.location:de.uniks.codliners.stock_simulator$ensureAchievementPresence(android.content.Context)de.uniks.codliners.stock_simulator/android.content.-context/ensure-achievement-presence.html
+$dokka.location:de.uniks.codliners.stock_simulator$ensureSymbolsPresence(android.content.Context)de.uniks.codliners.stock_simulator/android.content.-context/ensure-symbols-presence.html
 $dokka.location:de.uniks.codliners.stock_simulator$extractErrorMessageResource(java.lang.Exception, kotlin.Int, kotlin.Function0((kotlin.Int)))de.uniks.codliners.stock_simulator/java.lang.-exception/extract-error-message-resource.html
 $dokka.location:de.uniks.codliners.stock_simulator$isWholeNumber(kotlin.Double)de.uniks.codliners.stock_simulator/kotlin.-double/is-whole-number.html
 $dokka.location:de.uniks.codliners.stock_simulator$resetAccount(android.content.Context)de.uniks.codliners.stock_simulator/android.content.-context/reset-account.html
