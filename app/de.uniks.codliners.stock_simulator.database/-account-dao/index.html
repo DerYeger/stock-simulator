@@ -9,6 +9,11 @@
 <br/>
 <h1>AccountDao</h1>
 <code><span class="keyword">interface </span><span class="identifier">AccountDao</span></code>
+<p><a href="https://developer.android.com/reference/androidx/room/Dao">Dao</a> that manages account entities in the database.</p>
+<p><strong>Author</strong><br/>
+Juri Lozowoj</p>
+<p><strong>Author</strong><br/>
+Jan Müller</p>
 <h3>Functions</h3>
 <table>
 <tbody>
@@ -17,6 +22,7 @@
 <h4><a href="delete-balances.html">deleteBalances</a></h4>
 </td>
 <td>
+<p>Deletes all <a href="../../de.uniks.codliners.stock_simulator.domain/-balance/index.html">Balance</a>s from the database.</p>
 <code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">deleteBalances</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
 </tr>
 <tr>
@@ -24,6 +30,7 @@
 <h4><a href="delete-depot.html">deleteDepot</a></h4>
 </td>
 <td>
+<p>Deletes all <a href="../../de.uniks.codliners.stock_simulator.domain/-depot-quote-purchase/index.html">DepotQuotePurchase</a>s from the database.</p>
 <code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">deleteDepot</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
 </tr>
 <tr>
@@ -31,6 +38,7 @@
 <h4><a href="delete-depot-quote-by-id.html">deleteDepotQuoteById</a></h4>
 </td>
 <td>
+<p>Deletes the <a href="../../de.uniks.codliners.stock_simulator.domain/-depot-quote-purchase/index.html">DepotQuotePurchase</a> with matching id from the database.</p>
 <code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">deleteDepotQuoteById</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.database.AccountDao$deleteDepotQuoteById(kotlin.String)/id">id</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
 </tr>
 <tr>
@@ -38,6 +46,7 @@
 <h4><a href="delete-depot-quotes.html">deleteDepotQuotes</a></h4>
 </td>
 <td>
+<p>Deletes the given <a href="../../de.uniks.codliners.stock_simulator.domain/-depot-quote-purchase/index.html">DepotQuotePurchase</a>s from the database.</p>
 <code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">deleteDepotQuotes</span><span class="symbol">(</span><span class="keyword">vararg</span> <span class="identifier" id="de.uniks.codliners.stock_simulator.database.AccountDao$deleteDepotQuotes(kotlin.Array((de.uniks.codliners.stock_simulator.domain.DepotQuotePurchase)))/depotPurchase">depotPurchase</span><span class="symbol">:</span>&nbsp;<a href="../../de.uniks.codliners.stock_simulator.domain/-depot-quote-purchase/index.html"><span class="identifier">DepotQuotePurchase</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
 </tr>
 <tr>
@@ -45,6 +54,7 @@
 <h4><a href="delete-depot-values.html">deleteDepotValues</a></h4>
 </td>
 <td>
+<p>Deletes all <a href="../../de.uniks.codliners.stock_simulator.domain/-depot-value/index.html">DepotValue</a>s from the database.</p>
 <code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">deleteDepotValues</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
 </tr>
 <tr>
@@ -52,6 +62,7 @@
 <h4><a href="get-balance-count.html">getBalanceCount</a></h4>
 </td>
 <td>
+<p>Returns the amount <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a> of stored <a href="../../de.uniks.codliners.stock_simulator.domain/-balance/index.html">Balance</a>s.</p>
 <code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">getBalanceCount</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html"><span class="identifier">Long</span></a></code></td>
 </tr>
 <tr>
@@ -59,6 +70,7 @@
 <h4><a href="get-balances-limited.html">getBalancesLimited</a></h4>
 </td>
 <td>
+<p>Returns a limited amount of stored <a href="../../de.uniks.codliners.stock_simulator.domain/-balance/index.html">Balance</a>s.</p>
 <code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">getBalancesLimited</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.database.AccountDao$getBalancesLimited(kotlin.Int)/limit">limit</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">LiveData</span><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../de.uniks.codliners.stock_simulator.domain/-balance/index.html"><span class="identifier">Balance</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code></td>
 </tr>
 <tr>
@@ -66,6 +78,7 @@
 <h4><a href="get-depot-quote-by-id.html">getDepotQuoteById</a></h4>
 </td>
 <td>
+<p>Returns the <a href="../../de.uniks.codliners.stock_simulator.domain/-depot-quote-purchase/index.html">DepotQuotePurchase</a> with the matching id.</p>
 <code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">getDepotQuoteById</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.database.AccountDao$getDepotQuoteById(kotlin.String)/id">id</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../de.uniks.codliners.stock_simulator.domain/-depot-quote-purchase/index.html"><span class="identifier">DepotQuotePurchase</span></a><span class="symbol">?</span></code></td>
 </tr>
 <tr>
@@ -73,6 +86,8 @@
 <h4><a href="get-depot-quote-purchases-by-id-ordered-by-price.html">getDepotQuotePurchasesByIdOrderedByPrice</a></h4>
 </td>
 <td>
+<p>Returns the <a href="../../de.uniks.codliners.stock_simulator.domain/-depot-quote-purchase/index.html">DepotQuotePurchase</a>s with the matching id as a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a>,
+in ascending order of their buying price.</p>
 <code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">getDepotQuotePurchasesByIdOrderedByPrice</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.database.AccountDao$getDepotQuotePurchasesByIdOrderedByPrice(kotlin.String)/id">id</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../de.uniks.codliners.stock_simulator.domain/-depot-quote-purchase/index.html"><span class="identifier">DepotQuotePurchase</span></a><span class="symbol">&gt;</span></code></td>
 </tr>
 <tr>
@@ -80,6 +95,7 @@
 <h4><a href="get-depot-quote-purchases-values-ordered-by-price.html">getDepotQuotePurchasesValuesOrderedByPrice</a></h4>
 </td>
 <td>
+<p>Returns all <a href="../../de.uniks.codliners.stock_simulator.domain/-depot-quote-purchase/index.html">DepotQuotePurchase</a>s as a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a>, in ascending order of their buying price.</p>
 <code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">getDepotQuotePurchasesValuesOrderedByPrice</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../de.uniks.codliners.stock_simulator.domain/-depot-quote-purchase/index.html"><span class="identifier">DepotQuotePurchase</span></a><span class="symbol">&gt;</span></code></td>
 </tr>
 <tr>
@@ -87,6 +103,9 @@
 <h4><a href="get-depot-quotes.html">getDepotQuotes</a></h4>
 </td>
 <td>
+<p>Returns all <a href="../../de.uniks.codliners.stock_simulator.domain/-depot-quote/index.html">DepotQuote</a>s as a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a>, wrapped in <a href="https://developer.android.com/reference/androidx/lifecycle/LiveData">LiveData</a>.
+Conflates all <a href="../../de.uniks.codliners.stock_simulator.domain/-depot-quote-purchase/index.html">DepotQuotePurchase</a>s with the same id <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, symbol <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, type <a href="../../de.uniks.codliners.stock_simulator.domain/-symbol/-type/index.html">Symbol.Type</a> and returns them as <a href="../../de.uniks.codliners.stock_simulator.domain/-depot-quote/index.html">DepotQuote</a>s,
+whereby their amount <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html">Double</a> is added up and the mean buyingPrice <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html">Double</a> is bid from the buyingPrices <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html">Double</a>.</p>
 <code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">getDepotQuotes</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">LiveData</span><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../de.uniks.codliners.stock_simulator.domain/-depot-quote/index.html"><span class="identifier">DepotQuote</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code></td>
 </tr>
 <tr>
@@ -94,6 +113,9 @@
 <h4><a href="get-depot-quote-with-id.html">getDepotQuoteWithId</a></h4>
 </td>
 <td>
+<p>Returns the <a href="../../de.uniks.codliners.stock_simulator.domain/-depot-quote/index.html">DepotQuote</a> with the matching id, wrapped in <a href="https://developer.android.com/reference/androidx/lifecycle/LiveData">LiveData</a>.
+Conflates all <a href="../../de.uniks.codliners.stock_simulator.domain/-depot-quote-purchase/index.html">DepotQuotePurchase</a>s with the matching id and returns them as one <a href="../../de.uniks.codliners.stock_simulator.domain/-depot-quote/index.html">DepotQuote</a>,
+whereby the amount <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html">Double</a> is added up and the mean buyingPrice <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html">Double</a> is bid from the buyingPrices <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html">Double</a>.</p>
 <code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">getDepotQuoteWithId</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.database.AccountDao$getDepotQuoteWithId(kotlin.String)/id">id</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">LiveData</span><span class="symbol">&lt;</span><a href="../../de.uniks.codliners.stock_simulator.domain/-depot-quote/index.html"><span class="identifier">DepotQuote</span></a><span class="symbol">&gt;</span></code></td>
 </tr>
 <tr>
@@ -101,6 +123,7 @@
 <h4><a href="get-depot-values-limited.html">getDepotValuesLimited</a></h4>
 </td>
 <td>
+<p>Returns the last {limit} <a href="../../de.uniks.codliners.stock_simulator.domain/-depot-value/index.html">DepotValue</a>s as a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a>, wrapped in <a href="https://developer.android.com/reference/androidx/lifecycle/LiveData">LiveData</a>.</p>
 <code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">getDepotValuesLimited</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.database.AccountDao$getDepotValuesLimited(kotlin.Int)/limit">limit</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">LiveData</span><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../de.uniks.codliners.stock_simulator.domain/-depot-value/index.html"><span class="identifier">DepotValue</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code></td>
 </tr>
 <tr>
@@ -108,6 +131,7 @@
 <h4><a href="get-latest-balance.html">getLatestBalance</a></h4>
 </td>
 <td>
+<p>Returns the latest <a href="../../de.uniks.codliners.stock_simulator.domain/-balance/index.html">Balance</a>, wrapped in <a href="https://developer.android.com/reference/androidx/lifecycle/LiveData">LiveData</a>.</p>
 <code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">getLatestBalance</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">LiveData</span><span class="symbol">&lt;</span><a href="../../de.uniks.codliners.stock_simulator.domain/-balance/index.html"><span class="identifier">Balance</span></a><span class="symbol">&gt;</span></code></td>
 </tr>
 <tr>
@@ -115,20 +139,31 @@
 <h4><a href="get-latest-balance-value.html">getLatestBalanceValue</a></h4>
 </td>
 <td>
+<p>Returns the latest <a href="../../de.uniks.codliners.stock_simulator.domain/-balance/index.html">Balance</a>.</p>
 <code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">getLatestBalanceValue</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../de.uniks.codliners.stock_simulator.domain/-balance/index.html"><span class="identifier">Balance</span></a></code></td>
 </tr>
 <tr>
 <td>
-<h4><a href="get-latest-depot-values.html">getLatestDepotValues</a></h4>
+<h4><a href="get-latest-depot.html">getLatestDepot</a></h4>
 </td>
 <td>
-<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">getLatestDepotValues</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">LiveData</span><span class="symbol">&lt;</span><a href="../../de.uniks.codliners.stock_simulator.domain/-depot-value/index.html"><span class="identifier">DepotValue</span></a><span class="symbol">&gt;</span></code></td>
+<p>Returns the latest <a href="../../de.uniks.codliners.stock_simulator.domain/-depot-value/index.html">DepotValue</a>.</p>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">getLatestDepot</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../de.uniks.codliners.stock_simulator.domain/-depot-value/index.html"><span class="identifier">DepotValue</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="get-latest-depot-value.html">getLatestDepotValue</a></h4>
+</td>
+<td>
+<p>Returns the latest <a href="../../de.uniks.codliners.stock_simulator.domain/-depot-value/index.html">DepotValue</a>.</p>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">getLatestDepotValue</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">LiveData</span><span class="symbol">&lt;</span><a href="../../de.uniks.codliners.stock_simulator.domain/-depot-value/index.html"><span class="identifier">DepotValue</span></a><span class="symbol">&gt;</span></code></td>
 </tr>
 <tr>
 <td>
 <h4><a href="insert-balance.html">insertBalance</a></h4>
 </td>
 <td>
+<p>Inserts a <a href="../../de.uniks.codliners.stock_simulator.domain/-balance/index.html">Balance</a> into the database.</p>
 <code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">insertBalance</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.database.AccountDao$insertBalance(de.uniks.codliners.stock_simulator.domain.Balance)/balance">balance</span><span class="symbol">:</span>&nbsp;<a href="../../de.uniks.codliners.stock_simulator.domain/-balance/index.html"><span class="identifier">Balance</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
 </tr>
 <tr>
@@ -136,6 +171,7 @@
 <h4><a href="insert-depot-quote.html">insertDepotQuote</a></h4>
 </td>
 <td>
+<p>Inserts a <a href="../../de.uniks.codliners.stock_simulator.domain/-depot-quote-purchase/index.html">DepotQuotePurchase</a> into the database.</p>
 <code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">insertDepotQuote</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.database.AccountDao$insertDepotQuote(de.uniks.codliners.stock_simulator.domain.DepotQuotePurchase)/depotPurchase">depotPurchase</span><span class="symbol">:</span>&nbsp;<a href="../../de.uniks.codliners.stock_simulator.domain/-depot-quote-purchase/index.html"><span class="identifier">DepotQuotePurchase</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
 </tr>
 <tr>
@@ -143,6 +179,7 @@
 <h4><a href="insert-depot-value.html">insertDepotValue</a></h4>
 </td>
 <td>
+<p>Inserts a <a href="../../de.uniks.codliners.stock_simulator.domain/-depot-value/index.html">DepotValue</a> into the database.</p>
 <code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">insertDepotValue</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.database.AccountDao$insertDepotValue(de.uniks.codliners.stock_simulator.domain.DepotValue)/depotValue">depotValue</span><span class="symbol">:</span>&nbsp;<a href="../../de.uniks.codliners.stock_simulator.domain/-depot-value/index.html"><span class="identifier">DepotValue</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
 </tr>
 </tbody>

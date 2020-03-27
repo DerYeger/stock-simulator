@@ -1,0 +1,95 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>NewsListAdapter - app</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">app</a>&nbsp;/&nbsp;<a href="../index.html">de.uniks.codliners.stock_simulator.ui.news</a>&nbsp;/&nbsp;<a href="./index.html">NewsListAdapter</a><br/>
+<br/>
+<h1>NewsListAdapter</h1>
+<code><span class="keyword">class </span><span class="identifier">NewsListAdapter</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">ListAdapter</span><span class="symbol">&lt;</span><a href="../../de.uniks.codliners.stock_simulator.domain/-news/index.html"><span class="identifier">News</span></a><span class="symbol">,</span>&nbsp;<span class="identifier">ViewHolder</span><span class="symbol">&gt;</span></code>
+<p><a href="https://developer.android.com/reference/androidx/recyclerview/widget/ListAdapter">ListAdapter</a> for <a href="../../de.uniks.codliners.stock_simulator.domain/-news/index.html">News</a>.</p>
+<h3>Parameters</h3>
+<p><a name="locale"></a>
+<code>locale</code> - The locale for date formatting.</p>
+<p><strong>Author</strong><br/>
+Jonas Thelemann</p>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="-diff-callback/index.html">DiffCallback</a></h4>
+</td>
+<td>
+<p>Companion object that allows comparison of news objects.</p>
+<code><span class="keyword">companion</span> <span class="keyword">object </span><span class="identifier">DiffCallback</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">ItemCallback</span><span class="symbol">&lt;</span><a href="../../de.uniks.codliners.stock_simulator.domain/-news/index.html"><span class="identifier">News</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-view-holder/index.html">ViewHolder</a></h4>
+</td>
+<td>
+<p>The <a href="https://developer.android.com/reference/androidx/recyclerview/widget/RecyclerView">RecyclerView</a>'s ViewHolder.</p>
+<code><span class="keyword">inner</span> <span class="keyword">class </span><span class="identifier">ViewHolder</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">ViewHolder</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="-init-.html">&lt;init&gt;</a></h4>
+</td>
+<td>
+<p><a href="https://developer.android.com/reference/androidx/recyclerview/widget/ListAdapter">ListAdapter</a> for <a href="../../de.uniks.codliners.stock_simulator.domain/-news/index.html">News</a>.</p>
+<code><span class="identifier">NewsListAdapter</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.ui.news.NewsListAdapter$<init>(java.util.Locale)/locale">locale</span><span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/6/docs/api/java/util/Locale.html"><span class="identifier">Locale</span></a><span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="on-bind-view-holder.html">onBindViewHolder</a></h4>
+</td>
+<td>
+<p>The "onBind" callback.</p>
+<code><span class="keyword">fun </span><span class="identifier">onBindViewHolder</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.ui.news.NewsListAdapter$onBindViewHolder(de.uniks.codliners.stock_simulator.ui.news.NewsListAdapter.ViewHolder, kotlin.Int)/holder">holder</span><span class="symbol">:</span>&nbsp;<span class="identifier">ViewHolder</span><span class="symbol">, </span><span class="identifier" id="de.uniks.codliners.stock_simulator.ui.news.NewsListAdapter$onBindViewHolder(de.uniks.codliners.stock_simulator.ui.news.NewsListAdapter.ViewHolder, kotlin.Int)/position">position</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="on-create-view-holder.html">onCreateViewHolder</a></h4>
+</td>
+<td>
+<p>The "onCreate" callback.</p>
+<code><span class="keyword">fun </span><span class="identifier">onCreateViewHolder</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.ui.news.NewsListAdapter$onCreateViewHolder(android.view.ViewGroup, kotlin.Int)/parent">parent</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/view/ViewGroup.html"><span class="identifier">ViewGroup</span></a><span class="symbol">, </span><span class="identifier" id="de.uniks.codliners.stock_simulator.ui.news.NewsListAdapter$onCreateViewHolder(android.view.ViewGroup, kotlin.Int)/viewType">viewType</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">ViewHolder</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Companion Object Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="are-contents-the-same.html">areContentsTheSame</a></h4>
+</td>
+<td>
+<p>Compares two news objects for equality.</p>
+<code><span class="keyword">fun </span><span class="identifier">areContentsTheSame</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.ui.news.NewsListAdapter.DiffCallback$areContentsTheSame(de.uniks.codliners.stock_simulator.domain.News, de.uniks.codliners.stock_simulator.domain.News)/oldItem">oldItem</span><span class="symbol">:</span>&nbsp;<a href="../../de.uniks.codliners.stock_simulator.domain/-news/index.html"><span class="identifier">News</span></a><span class="symbol">, </span><span class="identifier" id="de.uniks.codliners.stock_simulator.ui.news.NewsListAdapter.DiffCallback$areContentsTheSame(de.uniks.codliners.stock_simulator.domain.News, de.uniks.codliners.stock_simulator.domain.News)/newItem">newItem</span><span class="symbol">:</span>&nbsp;<a href="../../de.uniks.codliners.stock_simulator.domain/-news/index.html"><span class="identifier">News</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="are-items-the-same.html">areItemsTheSame</a></h4>
+</td>
+<td>
+<p>Compares two news objects for equality by checking their "url" property.</p>
+<code><span class="keyword">fun </span><span class="identifier">areItemsTheSame</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.ui.news.NewsListAdapter.DiffCallback$areItemsTheSame(de.uniks.codliners.stock_simulator.domain.News, de.uniks.codliners.stock_simulator.domain.News)/oldItem">oldItem</span><span class="symbol">:</span>&nbsp;<a href="../../de.uniks.codliners.stock_simulator.domain/-news/index.html"><span class="identifier">News</span></a><span class="symbol">, </span><span class="identifier" id="de.uniks.codliners.stock_simulator.ui.news.NewsListAdapter.DiffCallback$areItemsTheSame(de.uniks.codliners.stock_simulator.domain.News, de.uniks.codliners.stock_simulator.domain.News)/newItem">newItem</span><span class="symbol">:</span>&nbsp;<a href="../../de.uniks.codliners.stock_simulator.domain/-news/index.html"><span class="identifier">News</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

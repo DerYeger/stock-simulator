@@ -9,6 +9,9 @@
 <br/>
 <h1>QuoteDao</h1>
 <code><span class="keyword">interface </span><span class="identifier">QuoteDao</span></code>
+<p><a href="https://developer.android.com/reference/androidx/room/Dao">Dao</a> that manages <a href="../../de.uniks.codliners.stock_simulator.domain/-symbol/index.html">Symbol</a>s in the database.</p>
+<p><strong>Author</strong><br/>
+Jan Müller</p>
 <h3>Functions</h3>
 <table>
 <tbody>
@@ -17,6 +20,7 @@
 <h4><a href="delete-quotes.html">deleteQuotes</a></h4>
 </td>
 <td>
+<p>Deletes all <a href="../../de.uniks.codliners.stock_simulator.domain/-quote/index.html">Quote</a>s from the database.</p>
 <code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">deleteQuotes</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
 </tr>
 <tr>
@@ -24,13 +28,15 @@
 <h4><a href="get-quote-value-by-id.html">getQuoteValueById</a></h4>
 </td>
 <td>
-<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">getQuoteValueById</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.database.QuoteDao$getQuoteValueById(kotlin.String)/id">id</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../de.uniks.codliners.stock_simulator.domain/-quote/index.html"><span class="identifier">Quote</span></a></code></td>
+<p>Returns the <a href="../../de.uniks.codliners.stock_simulator.domain/-quote/index.html">Quote</a> with the matching id.</p>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">getQuoteValueById</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.database.QuoteDao$getQuoteValueById(kotlin.String)/id">id</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../de.uniks.codliners.stock_simulator.domain/-quote/index.html"><span class="identifier">Quote</span></a><span class="symbol">?</span></code></td>
 </tr>
 <tr>
 <td>
 <h4><a href="get-quote-with-id.html">getQuoteWithId</a></h4>
 </td>
 <td>
+<p>Returns the <a href="../../de.uniks.codliners.stock_simulator.domain/-quote/index.html">Quote</a> with the matching id, wrapped in <a href="https://developer.android.com/reference/androidx/lifecycle/LiveData">LiveData</a>.</p>
 <code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">getQuoteWithId</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.database.QuoteDao$getQuoteWithId(kotlin.String)/id">id</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">LiveData</span><span class="symbol">&lt;</span><a href="../../de.uniks.codliners.stock_simulator.domain/-quote/index.html"><span class="identifier">Quote</span></a><span class="symbol">&gt;</span></code></td>
 </tr>
 <tr>
@@ -38,6 +44,7 @@
 <h4><a href="insert.html">insert</a></h4>
 </td>
 <td>
+<p>Inserts a <a href="../../de.uniks.codliners.stock_simulator.domain/-quote/index.html">Quote</a> into the database.</p>
 <code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">insert</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.database.QuoteDao$insert(de.uniks.codliners.stock_simulator.domain.Quote)/quote">quote</span><span class="symbol">:</span>&nbsp;<a href="../../de.uniks.codliners.stock_simulator.domain/-quote/index.html"><span class="identifier">Quote</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
 </tr>
 </tbody>

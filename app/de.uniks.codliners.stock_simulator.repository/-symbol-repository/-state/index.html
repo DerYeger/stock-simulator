@@ -9,6 +9,9 @@
 <br/>
 <h1>State</h1>
 <code><span class="keyword">sealed</span> <span class="keyword">class </span><span class="identifier">State</span></code>
+<p>The state of a <a href="../index.html">SymbolRepository</a>.</p>
+<p><strong>Author</strong><br/>
+Jan Müller</p>
 <h3>Types</h3>
 <table>
 <tbody>
@@ -17,6 +20,7 @@
 <h4><a href="-done.html">Done</a></h4>
 </td>
 <td>
+<p>Indicates that a <a href="../index.html">SymbolRepository</a> is previous task has been completed.</p>
 <code><span class="keyword">object </span><span class="identifier">Done</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">State</span></code></td>
 </tr>
 <tr>
@@ -24,6 +28,7 @@
 <h4><a href="-error/index.html">Error</a></h4>
 </td>
 <td>
+<p>Indicates that a <a href="../index.html">SymbolRepository</a> has encountered an exception.</p>
 <code><span class="keyword">class </span><span class="identifier">Error</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">State</span></code></td>
 </tr>
 <tr>
@@ -31,14 +36,16 @@
 <h4><a href="-idle.html">Idle</a></h4>
 </td>
 <td>
+<p>Indicates that a <a href="../index.html">SymbolRepository</a> is idle.</p>
 <code><span class="keyword">object </span><span class="identifier">Idle</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">State</span></code></td>
 </tr>
 <tr>
 <td>
-<h4><a href="-refreshing.html">Refreshing</a></h4>
+<h4><a href="-working.html">Working</a></h4>
 </td>
 <td>
-<code><span class="keyword">object </span><span class="identifier">Refreshing</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">State</span></code></td>
+<p>Indicates that a <a href="../index.html">SymbolRepository</a> is currently working.</p>
+<code><span class="keyword">object </span><span class="identifier">Working</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">State</span></code></td>
 </tr>
 </tbody>
 </table>

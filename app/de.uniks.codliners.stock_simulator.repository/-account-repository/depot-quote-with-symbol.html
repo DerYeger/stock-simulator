@@ -10,5 +10,13 @@
 <h1>depotQuoteWithSymbol</h1>
 <a name="de.uniks.codliners.stock_simulator.repository.AccountRepository$depotQuoteWithSymbol(kotlin.String)"></a>
 <code><span class="keyword">fun </span><span class="identifier">depotQuoteWithSymbol</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.repository.AccountRepository$depotQuoteWithSymbol(kotlin.String)/symbol">symbol</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">LiveData</span><span class="symbol">&lt;</span><a href="../../de.uniks.codliners.stock_simulator.domain/-depot-quote/index.html"><span class="identifier">DepotQuote</span></a><span class="symbol">&gt;</span></code>
+<p>Returns the <a href="../../de.uniks.codliners.stock_simulator.domain/-depot-quote/index.html">DepotQuote</a> with the matching id, wrapped in <a href="https://developer.android.com/reference/androidx/lifecycle/LiveData">LiveData</a>.
+Conflates all <a href="../../de.uniks.codliners.stock_simulator.domain/-depot-quote-purchase/index.html">DepotQuotePurchase</a>s with the matching id and returns them as one <a href="../../de.uniks.codliners.stock_simulator.domain/-depot-quote/index.html">DepotQuote</a>,
+whereby the amount <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html">Double</a> is added up and the mean buyingPrice <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html">Double</a> is bid from the buyingPrices <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html">Double</a>.</p>
+<h3>Parameters</h3>
+<p><a name="symbol"></a>
+<code>symbol</code> - The <a href="../../de.uniks.codliners.stock_simulator.domain/-depot-quote-purchase/index.html">DepotQuotePurchase</a> symbol used for the database query.</p>
+<p><strong>Return</strong><br/>
+<a href="https://developer.android.com/reference/androidx/lifecycle/LiveData">LiveData</a> containing the <a href="../../de.uniks.codliners.stock_simulator.domain/-depot-quote/index.html">DepotQuote</a>.</p>
 </BODY>
 </HTML>

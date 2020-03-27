@@ -18,6 +18,7 @@
 <h4><a href="-init-.html">&lt;init&gt;</a></h4>
 </td>
 <td>
+<p>Constructor that allows repository creation from a <a href="https://developer.android.com/reference/android/content/Context.html">Context</a>.</p>
 <code><span class="identifier">StockbrotRepository</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.repository.StockbrotRepository$<init>(android.content.Context)/context">context</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/content/Context.html"><span class="identifier">Context</span></a><span class="symbol">)</span></code>
 <p>Repository for accessing, inserting and filtering <a href="../../de.uniks.codliners.stock_simulator.domain/-stockbrot-quote/index.html">StockbrotQuote</a>s.</p>
 <code><span class="identifier">StockbrotRepository</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.repository.StockbrotRepository$<init>(de.uniks.codliners.stock_simulator.database.StockAppDatabase)/database">database</span><span class="symbol">:</span>&nbsp;<a href="../../de.uniks.codliners.stock_simulator.database/-stock-app-database/index.html"><span class="identifier">StockAppDatabase</span></a><span class="symbol">)</span></code></td>
@@ -32,6 +33,7 @@
 <h4><a href="quotes.html">quotes</a></h4>
 </td>
 <td>
+<p>List of all <a href="../../de.uniks.codliners.stock_simulator.domain/-stockbrot-quote/index.html">StockbrotQuote</a>s.</p>
 <code><span class="keyword">val </span><span class="identifier">quotes</span><span class="symbol">: </span><span class="identifier">LiveData</span><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../de.uniks.codliners.stock_simulator.domain/-stockbrot-quote/index.html"><span class="identifier">StockbrotQuote</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code></td>
 </tr>
 </tbody>
@@ -68,6 +70,7 @@
 <h4><a href="stockbrot-quote-by-id.html">stockbrotQuoteById</a></h4>
 </td>
 <td>
+<p>Returns a <a href="../../de.uniks.codliners.stock_simulator.domain/-stockbrot-quote/index.html">StockbrotQuote</a> with the matching id.</p>
 <code><span class="keyword">fun </span><span class="identifier">stockbrotQuoteById</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.repository.StockbrotRepository$stockbrotQuoteById(kotlin.String)/id">id</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../de.uniks.codliners.stock_simulator.domain/-stockbrot-quote/index.html"><span class="identifier">StockbrotQuote</span></a><span class="symbol">?</span></code></td>
 </tr>
 <tr>
@@ -75,6 +78,7 @@
 <h4><a href="stockbrot-quote-with-id.html">stockbrotQuoteWithId</a></h4>
 </td>
 <td>
+<p>Returns a <a href="../../de.uniks.codliners.stock_simulator.domain/-stockbrot-quote/index.html">StockbrotQuote</a> with the matching id, wrapped in <a href="https://developer.android.com/reference/androidx/lifecycle/LiveData">LiveData</a>.</p>
 <code><span class="keyword">fun </span><span class="identifier">stockbrotQuoteWithId</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.repository.StockbrotRepository$stockbrotQuoteWithId(kotlin.String)/id">id</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">LiveData</span><span class="symbol">&lt;</span><a href="../../de.uniks.codliners.stock_simulator.domain/-stockbrot-quote/index.html"><span class="identifier">StockbrotQuote</span></a><span class="symbol">&gt;</span></code></td>
 </tr>
 </tbody>

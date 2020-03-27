@@ -1,6 +1,7 @@
 $dokka.format:html
 $dokka.linkExtension:html
 $dokka.location:de.uniks.codliners.stock_simulator$ensureAccountPresence(android.content.Context)de.uniks.codliners.stock_simulator/android.content.-context/ensure-account-presence.html
+$dokka.location:de.uniks.codliners.stock_simulator$extractErrorMessageResource(java.lang.Exception, kotlin.Int, kotlin.Function0((kotlin.Int)))de.uniks.codliners.stock_simulator/java.lang.-exception/extract-error-message-resource.html
 $dokka.location:de.uniks.codliners.stock_simulator$isWholeNumber(kotlin.Double)de.uniks.codliners.stock_simulator/kotlin.-double/is-whole-number.html
 $dokka.location:de.uniks.codliners.stock_simulator$resetAccount(android.content.Context)de.uniks.codliners.stock_simulator/android.content.-context/reset-account.html
 $dokka.location:de.uniks.codliners.stock_simulator$resetAchievements(android.content.Context)de.uniks.codliners.stock_simulator/android.content.-context/reset-achievements.html
@@ -22,9 +23,9 @@ $dokka.location:de.uniks.codliners.stock_simulator.ui$bindDepotQuotes(androidx.r
 $dokka.location:de.uniks.codliners.stock_simulator.ui$bindEnableCardView(androidx.cardview.widget.CardView, kotlin.Boolean)de.uniks.codliners.stock_simulator.ui/androidx.cardview.widget.-card-view/bind-enable-card-view.html
 $dokka.location:de.uniks.codliners.stock_simulator.ui$bindNews(androidx.recyclerview.widget.RecyclerView, kotlin.collections.List((de.uniks.codliners.stock_simulator.domain.News)))de.uniks.codliners.stock_simulator.ui/androidx.recyclerview.widget.-recycler-view/bind-news.html
 $dokka.location:de.uniks.codliners.stock_simulator.ui$bindPaywallType(android.widget.ImageView, kotlin.Boolean)de.uniks.codliners.stock_simulator.ui/android.widget.-image-view/bind-paywall-type.html
-$dokka.location:de.uniks.codliners.stock_simulator.ui$bindPerformanceIcon(android.widget.ImageView, kotlin.Double)de.uniks.codliners.stock_simulator.ui/android.widget.-image-view/bind-performance-icon.html
 $dokka.location:de.uniks.codliners.stock_simulator.ui$bindPerformanceText(android.widget.TextView, kotlin.Double)de.uniks.codliners.stock_simulator.ui/android.widget.-text-view/bind-performance-text.html
 $dokka.location:de.uniks.codliners.stock_simulator.ui$bindQuoteChange(android.widget.TextView, kotlin.Double)de.uniks.codliners.stock_simulator.ui/android.widget.-text-view/bind-quote-change.html
+$dokka.location:de.uniks.codliners.stock_simulator.ui$bindQuotePrice(android.widget.TextView, de.uniks.codliners.stock_simulator.domain.Quote)de.uniks.codliners.stock_simulator.ui/android.widget.-text-view/bind-quote-price.html
 $dokka.location:de.uniks.codliners.stock_simulator.ui$bindRefreshListener(androidx.swiperefreshlayout.widget.SwipeRefreshLayout, java.lang.Runnable)de.uniks.codliners.stock_simulator.ui/androidx.swiperefreshlayout.widget.-swipe-refresh-layout/bind-refresh-listener.html
 $dokka.location:de.uniks.codliners.stock_simulator.ui$bindSelection(android.widget.Spinner, androidx.lifecycle.MutableLiveData((kotlin.String)))de.uniks.codliners.stock_simulator.ui/android.widget.-spinner/bind-selection.html
 $dokka.location:de.uniks.codliners.stock_simulator.ui$bindStockbrotQuote(android.widget.TextView, de.uniks.codliners.stock_simulator.domain.StockbrotQuote)de.uniks.codliners.stock_simulator.ui/android.widget.-text-view/bind-stockbrot-quote.html
@@ -34,6 +35,7 @@ $dokka.location:de.uniks.codliners.stock_simulator.ui$bindTransaction(android.wi
 $dokka.location:de.uniks.codliners.stock_simulator.ui$bindTransactionResultText(android.widget.TextView, kotlin.Double)de.uniks.codliners.stock_simulator.ui/android.widget.-text-view/bind-transaction-result-text.html
 $dokka.location:de.uniks.codliners.stock_simulator.ui$bindTransactionType(android.widget.ImageView, de.uniks.codliners.stock_simulator.domain.TransactionType)de.uniks.codliners.stock_simulator.ui/android.widget.-image-view/bind-transaction-type.html
 $dokka.location:de.uniks.codliners.stock_simulator.ui$bindTransactions(androidx.recyclerview.widget.RecyclerView, kotlin.collections.List((de.uniks.codliners.stock_simulator.domain.Transaction)))de.uniks.codliners.stock_simulator.ui/androidx.recyclerview.widget.-recycler-view/bind-transactions.html
+$dokka.location:de.uniks.codliners.stock_simulator.ui$bindTrendImage(android.widget.ImageView, kotlin.Double)de.uniks.codliners.stock_simulator.ui/android.widget.-image-view/bind-trend-image.html
 $dokka.location:de.uniks.codliners.stock_simulator.ui$bindVisibility(android.view.View, kotlin.Boolean)de.uniks.codliners.stock_simulator.ui/android.view.-view/bind-visibility.html
 de.uniks.codliners.stock_simulator
 de.uniks.codliners.stock_simulator.background

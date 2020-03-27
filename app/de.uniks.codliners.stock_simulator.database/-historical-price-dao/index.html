@@ -9,6 +9,9 @@
 <br/>
 <h1>HistoricalPriceDao</h1>
 <code><span class="keyword">interface </span><span class="identifier">HistoricalPriceDao</span></code>
+<p><a href="https://developer.android.com/reference/androidx/room/Dao">Dao</a> that manages <a href="../../de.uniks.codliners.stock_simulator.domain/-historical-price/index.html">HistoricalPrice</a>s in the database</p>
+<p><strong>Author</strong><br/>
+Juri Lozowoj</p>
 <h3>Functions</h3>
 <table>
 <tbody>
@@ -17,6 +20,7 @@
 <h4><a href="delete-historical-prices-by-id.html">deleteHistoricalPricesById</a></h4>
 </td>
 <td>
+<p>Deletes the <a href="../../de.uniks.codliners.stock_simulator.domain/-historical-price/index.html">HistoricalPrice</a> with matching id from the database.</p>
 <code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">deleteHistoricalPricesById</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.database.HistoricalPriceDao$deleteHistoricalPricesById(kotlin.String)/id">id</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
 </tr>
 <tr>
@@ -24,6 +28,7 @@
 <h4><a href="get-historical-prices-by-id.html">getHistoricalPricesById</a></h4>
 </td>
 <td>
+<p>Returns the <a href="../../de.uniks.codliners.stock_simulator.domain/-historical-price/index.html">HistoricalPrice</a>s with the matching id as a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a>, wrapped in <a href="https://developer.android.com/reference/androidx/lifecycle/LiveData">LiveData</a>.</p>
 <code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">getHistoricalPricesById</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.database.HistoricalPriceDao$getHistoricalPricesById(kotlin.String)/id">id</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">LiveData</span><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../de.uniks.codliners.stock_simulator.domain/-historical-price/index.html"><span class="identifier">HistoricalPrice</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code></td>
 </tr>
 <tr>
@@ -31,6 +36,7 @@
 <h4><a href="insert-all.html">insertAll</a></h4>
 </td>
 <td>
+<p>Inserts <a href="../../de.uniks.codliners.stock_simulator.domain/-historical-price/index.html">HistoricalPrice</a>s into the database.</p>
 <code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">insertAll</span><span class="symbol">(</span><span class="keyword">vararg</span> <span class="identifier" id="de.uniks.codliners.stock_simulator.database.HistoricalPriceDao$insertAll(kotlin.Array((de.uniks.codliners.stock_simulator.domain.HistoricalPrice)))/prices">prices</span><span class="symbol">:</span>&nbsp;<a href="../../de.uniks.codliners.stock_simulator.domain/-historical-price/index.html"><span class="identifier">HistoricalPrice</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
 </tr>
 </tbody>

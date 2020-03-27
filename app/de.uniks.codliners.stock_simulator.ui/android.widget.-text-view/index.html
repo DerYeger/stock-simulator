@@ -15,14 +15,16 @@
 <h4><a href="bind-depot-quote.html">bindDepotQuote</a></h4>
 </td>
 <td>
-<code><span class="keyword">fun </span><a href="https://developer.android.com/reference/android/widget/TextView.html"><span class="identifier">TextView</span></a><span class="symbol">.</span><span class="identifier">bindDepotQuote</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.ui$bindDepotQuote(android.widget.TextView, de.uniks.codliners.stock_simulator.domain.DepotQuote)/depotQuotePurchase">depotQuotePurchase</span><span class="symbol">:</span>&nbsp;<a href="../../de.uniks.codliners.stock_simulator.domain/-depot-quote/index.html"><span class="identifier">DepotQuote</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+<p>Sets the text of a <a href="https://developer.android.com/reference/android/widget/TextView">TextView</a> depending on a <a href="../../de.uniks.codliners.stock_simulator.domain/-depot-quote/index.html">DepotQuote</a>'s symbol and amount.</p>
+<code><span class="keyword">fun </span><a href="https://developer.android.com/reference/android/widget/TextView.html"><span class="identifier">TextView</span></a><span class="symbol">.</span><span class="identifier">bindDepotQuote</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.ui$bindDepotQuote(android.widget.TextView, de.uniks.codliners.stock_simulator.domain.DepotQuote)/depotQuote">depotQuote</span><span class="symbol">:</span>&nbsp;<a href="../../de.uniks.codliners.stock_simulator.domain/-depot-quote/index.html"><span class="identifier">DepotQuote</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
 </tr>
 <tr>
 <td>
 <h4><a href="bind-depot-quote-text.html">bindDepotQuoteText</a></h4>
 </td>
 <td>
-<code><span class="keyword">fun </span><a href="https://developer.android.com/reference/android/widget/TextView.html"><span class="identifier">TextView</span></a><span class="symbol">.</span><span class="identifier">bindDepotQuoteText</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.ui$bindDepotQuoteText(android.widget.TextView, de.uniks.codliners.stock_simulator.domain.DepotQuote)/depotQuotePurchase">depotQuotePurchase</span><span class="symbol">:</span>&nbsp;<a href="../../de.uniks.codliners.stock_simulator.domain/-depot-quote/index.html"><span class="identifier">DepotQuote</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+<p>Sets the text of a <a href="https://developer.android.com/reference/android/widget/TextView">TextView</a> depending on a <a href="../../de.uniks.codliners.stock_simulator.domain/-depot-quote/index.html">DepotQuote</a>'s amount.</p>
+<code><span class="keyword">fun </span><a href="https://developer.android.com/reference/android/widget/TextView.html"><span class="identifier">TextView</span></a><span class="symbol">.</span><span class="identifier">bindDepotQuoteText</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.ui$bindDepotQuoteText(android.widget.TextView, de.uniks.codliners.stock_simulator.domain.DepotQuote)/depotQuote">depotQuote</span><span class="symbol">:</span>&nbsp;<a href="../../de.uniks.codliners.stock_simulator.domain/-depot-quote/index.html"><span class="identifier">DepotQuote</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
 </tr>
 <tr>
 <td>
@@ -37,8 +39,8 @@
 <h4><a href="bind-performance-text.html">bindPerformanceText</a></h4>
 </td>
 <td>
-<p>TODO</p>
-<code><span class="keyword">fun </span><a href="https://developer.android.com/reference/android/widget/TextView.html"><span class="identifier">TextView</span></a><span class="symbol">.</span><span class="identifier">bindPerformanceText</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.ui$bindPerformanceText(android.widget.TextView, kotlin.Double)/performance">performance</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+<p>Sets the text and color of a <a href="https://developer.android.com/reference/android/widget/TextView">TextView</a> to represent a positive, neutral or negative change.</p>
+<code><span class="keyword">fun </span><a href="https://developer.android.com/reference/android/widget/TextView.html"><span class="identifier">TextView</span></a><span class="symbol">.</span><span class="identifier">bindPerformanceText</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.ui$bindPerformanceText(android.widget.TextView, kotlin.Double)/change">change</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
 </tr>
 <tr>
 <td>
@@ -50,9 +52,18 @@
 </tr>
 <tr>
 <td>
+<h4><a href="bind-quote-price.html">bindQuotePrice</a></h4>
+</td>
+<td>
+<p>Sets the text of a <a href="https://developer.android.com/reference/android/widget/TextView">TextView</a> depending on a <a href="../../de.uniks.codliners.stock_simulator.domain/-quote/index.html">Quote</a>.</p>
+<code><span class="keyword">fun </span><a href="https://developer.android.com/reference/android/widget/TextView.html"><span class="identifier">TextView</span></a><span class="symbol">.</span><span class="identifier">bindQuotePrice</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.ui$bindQuotePrice(android.widget.TextView, de.uniks.codliners.stock_simulator.domain.Quote)/quote">quote</span><span class="symbol">:</span>&nbsp;<a href="../../de.uniks.codliners.stock_simulator.domain/-quote/index.html"><span class="identifier">Quote</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
 <h4><a href="bind-stockbrot-quote.html">bindStockbrotQuote</a></h4>
 </td>
 <td>
+<p>Sets the text of a <a href="https://developer.android.com/reference/android/widget/TextView">TextView</a> depending on a <a href="../../de.uniks.codliners.stock_simulator.domain/-stockbrot-quote/index.html">StockbrotQuote</a>.</p>
 <code><span class="keyword">fun </span><a href="https://developer.android.com/reference/android/widget/TextView.html"><span class="identifier">TextView</span></a><span class="symbol">.</span><span class="identifier">bindStockbrotQuote</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.ui$bindStockbrotQuote(android.widget.TextView, de.uniks.codliners.stock_simulator.domain.StockbrotQuote)/stockbrotQuote">stockbrotQuote</span><span class="symbol">:</span>&nbsp;<a href="../../de.uniks.codliners.stock_simulator.domain/-stockbrot-quote/index.html"><span class="identifier">StockbrotQuote</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
 </tr>
 <tr>
@@ -60,6 +71,7 @@
 <h4><a href="bind-transaction.html">bindTransaction</a></h4>
 </td>
 <td>
+<p>Sets the text of a <a href="https://developer.android.com/reference/android/widget/TextView">TextView</a> depending on a <a href="../../de.uniks.codliners.stock_simulator.domain/-transaction/index.html">Transaction</a>'s amount.</p>
 <code><span class="keyword">fun </span><a href="https://developer.android.com/reference/android/widget/TextView.html"><span class="identifier">TextView</span></a><span class="symbol">.</span><span class="identifier">bindTransaction</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.ui$bindTransaction(android.widget.TextView, de.uniks.codliners.stock_simulator.domain.Transaction)/transaction">transaction</span><span class="symbol">:</span>&nbsp;<a href="../../de.uniks.codliners.stock_simulator.domain/-transaction/index.html"><span class="identifier">Transaction</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
 </tr>
 <tr>
@@ -67,8 +79,8 @@
 <h4><a href="bind-transaction-result-text.html">bindTransactionResultText</a></h4>
 </td>
 <td>
-<p>TODO</p>
-<code><span class="keyword">fun </span><a href="https://developer.android.com/reference/android/widget/TextView.html"><span class="identifier">TextView</span></a><span class="symbol">.</span><span class="identifier">bindTransactionResultText</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.ui$bindTransactionResultText(android.widget.TextView, kotlin.Double)/performance">performance</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+<p>Sets the text and color of a <a href="https://developer.android.com/reference/android/widget/TextView">TextView</a> to represent a positive, neutral or negative cashflow.</p>
+<code><span class="keyword">fun </span><a href="https://developer.android.com/reference/android/widget/TextView.html"><span class="identifier">TextView</span></a><span class="symbol">.</span><span class="identifier">bindTransactionResultText</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.ui$bindTransactionResultText(android.widget.TextView, kotlin.Double)/effectiveCashflow">effectiveCashflow</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
 </tr>
 </tbody>
 </table>

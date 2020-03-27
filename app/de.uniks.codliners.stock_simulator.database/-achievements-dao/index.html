@@ -9,7 +9,7 @@
 <br/>
 <h1>AchievementsDao</h1>
 <code><span class="keyword">interface </span><span class="identifier">AchievementsDao</span></code>
-<p><a href="#">Dao</a> that manages <a href="../../de.uniks.codliners.stock_simulator.domain/-achievement/index.html">Achievement</a>s in the database</p>
+<p><a href="https://developer.android.com/reference/androidx/room/Dao">Dao</a> that manages <a href="../../de.uniks.codliners.stock_simulator.domain/-achievement/index.html">Achievement</a>s in the database</p>
 <p><strong>Author</strong><br/>
 Jan Müller</p>
 <p><strong>Author</strong><br/>
@@ -22,6 +22,7 @@ Lucas Held</p>
 <h4><a href="delete-achievement-by-id.html">deleteAchievementById</a></h4>
 </td>
 <td>
+<p>Deletes a <a href="../../de.uniks.codliners.stock_simulator.domain/-achievement/index.html">Achievement</a> with the matching id from the database.</p>
 <code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">deleteAchievementById</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.database.AchievementsDao$deleteAchievementById(kotlin.Int)/name">name</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
 </tr>
 <tr>
@@ -29,6 +30,7 @@ Lucas Held</p>
 <h4><a href="delete-achievements.html">deleteAchievements</a></h4>
 </td>
 <td>
+<p>Deletes all <a href="../../de.uniks.codliners.stock_simulator.domain/-achievement/index.html">Achievement</a>s from the database.</p>
 <code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">deleteAchievements</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
 </tr>
 <tr>
@@ -36,6 +38,7 @@ Lucas Held</p>
 <h4><a href="get-achievement-by-name.html">getAchievementByName</a></h4>
 </td>
 <td>
+<p>Returns the <a href="../../de.uniks.codliners.stock_simulator.domain/-achievement/index.html">Achievement</a> with the matching name.</p>
 <code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">getAchievementByName</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.database.AchievementsDao$getAchievementByName(kotlin.Int)/name">name</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../de.uniks.codliners.stock_simulator.domain/-achievement/index.html"><span class="identifier">Achievement</span></a><span class="symbol">?</span></code></td>
 </tr>
 <tr>
@@ -43,6 +46,7 @@ Lucas Held</p>
 <h4><a href="get-achievements.html">getAchievements</a></h4>
 </td>
 <td>
+<p>Returns a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a> of all <a href="../../de.uniks.codliners.stock_simulator.domain/-achievement/index.html">Achievement</a>, wrapped in <a href="https://developer.android.com/reference/androidx/lifecycle/LiveData">LiveData</a>.</p>
 <code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">getAchievements</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">LiveData</span><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../de.uniks.codliners.stock_simulator.domain/-achievement/index.html"><span class="identifier">Achievement</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code></td>
 </tr>
 <tr>
@@ -50,6 +54,7 @@ Lucas Held</p>
 <h4><a href="get-achievement-with-name.html">getAchievementWithName</a></h4>
 </td>
 <td>
+<p>Returns the <a href="../../de.uniks.codliners.stock_simulator.domain/-achievement/index.html">Achievement</a> with the matching name, wrapped in <a href="https://developer.android.com/reference/androidx/lifecycle/LiveData">LiveData</a>.</p>
 <code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">getAchievementWithName</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.database.AchievementsDao$getAchievementWithName(kotlin.Int)/name">name</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">LiveData</span><span class="symbol">&lt;</span><a href="../../de.uniks.codliners.stock_simulator.domain/-achievement/index.html"><span class="identifier">Achievement</span></a><span class="symbol">&gt;</span></code></td>
 </tr>
 <tr>
@@ -57,6 +62,7 @@ Lucas Held</p>
 <h4><a href="insert.html">insert</a></h4>
 </td>
 <td>
+<p>Inserts a <a href="../../de.uniks.codliners.stock_simulator.domain/-achievement/index.html">Achievement</a> into the database.</p>
 <code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">insert</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.database.AchievementsDao$insert(de.uniks.codliners.stock_simulator.domain.Achievement)/achievement">achievement</span><span class="symbol">:</span>&nbsp;<a href="../../de.uniks.codliners.stock_simulator.domain/-achievement/index.html"><span class="identifier">Achievement</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
 </tr>
 </tbody>

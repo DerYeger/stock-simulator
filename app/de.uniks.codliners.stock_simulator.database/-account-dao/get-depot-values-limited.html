@@ -10,5 +10,11 @@
 <h1>getDepotValuesLimited</h1>
 <a name="de.uniks.codliners.stock_simulator.database.AccountDao$getDepotValuesLimited(kotlin.Int)"></a>
 <code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">getDepotValuesLimited</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.database.AccountDao$getDepotValuesLimited(kotlin.Int)/limit">limit</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">LiveData</span><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../de.uniks.codliners.stock_simulator.domain/-depot-value/index.html"><span class="identifier">DepotValue</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code>
+<p>Returns the last {limit} <a href="../../de.uniks.codliners.stock_simulator.domain/-depot-value/index.html">DepotValue</a>s as a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a>, wrapped in <a href="https://developer.android.com/reference/androidx/lifecycle/LiveData">LiveData</a>.</p>
+<h3>Parameters</h3>
+<p><a name="limit"></a>
+<code>limit</code> - The limit <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a> restricts the query to last {limit} <a href="../../de.uniks.codliners.stock_simulator.domain/-depot-value/index.html">DepotValue</a>s.</p>
+<p><strong>Return</strong><br/>
+<a href="https://developer.android.com/reference/androidx/lifecycle/LiveData">LiveData</a> containing a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a> of the last {limit} <a href="../../de.uniks.codliners.stock_simulator.domain/-depot-value/index.html">DepotValue</a>s in ascending order.</p>
 </BODY>
 </HTML>

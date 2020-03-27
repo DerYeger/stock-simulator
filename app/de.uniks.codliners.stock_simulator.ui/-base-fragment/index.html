@@ -35,6 +35,7 @@ Jan Müller</p>
 <h4><a href="on-activity-created.html">onActivityCreated</a></h4>
 </td>
 <td>
+<p>Enables the options menu and observes achievements.</p>
 <code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onActivityCreated</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.ui.BaseFragment$onActivityCreated(android.os.Bundle)/savedInstanceState">savedInstanceState</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/os/Bundle.html"><span class="identifier">Bundle</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
 </tr>
 <tr>
@@ -42,6 +43,7 @@ Jan Müller</p>
 <h4><a href="on-create-options-menu.html">onCreateOptionsMenu</a></h4>
 </td>
 <td>
+<p>Inflates the main menu.</p>
 <code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onCreateOptionsMenu</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.ui.BaseFragment$onCreateOptionsMenu(android.view.Menu, android.view.MenuInflater)/menu">menu</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/view/Menu.html"><span class="identifier">Menu</span></a><span class="symbol">, </span><span class="identifier" id="de.uniks.codliners.stock_simulator.ui.BaseFragment$onCreateOptionsMenu(android.view.Menu, android.view.MenuInflater)/inflater">inflater</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/view/MenuInflater.html"><span class="identifier">MenuInflater</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
 </tr>
 <tr>
@@ -49,6 +51,7 @@ Jan Müller</p>
 <h4><a href="on-options-item-selected.html">onOptionsItemSelected</a></h4>
 </td>
 <td>
+<p>Navigates to the settings screen if the settings menu item was selected.</p>
 <code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onOptionsItemSelected</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.ui.BaseFragment$onOptionsItemSelected(android.view.MenuItem)/item">item</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/view/MenuItem.html"><span class="identifier">MenuItem</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code></td>
 </tr>
 </tbody>
@@ -61,7 +64,7 @@ Jan Müller</p>
 <h4><a href="../../de.uniks.codliners.stock_simulator.ui.account/-account-fragment/index.html">AccountFragment</a></h4>
 </td>
 <td>
-<p>TODO</p>
+<p><a href="https://developer.android.com/jetpack/androidx/releases/fragment">Fragment</a> for viewing account related information like balances and the depot.</p>
 <code><span class="keyword">class </span><span class="identifier">AccountFragment</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">BaseFragment</span></a></code></td>
 </tr>
 <tr>
@@ -69,7 +72,7 @@ Jan Müller</p>
 <h4><a href="../../de.uniks.codliners.stock_simulator.ui.achievements/-achievements-fragment/index.html">AchievementsFragment</a></h4>
 </td>
 <td>
-<p>Fragment for the achievement ui.</p>
+<p><a href="https://developer.android.com/jetpack/androidx/releases/fragment">Fragment</a> for the achievement ui.</p>
 <code><span class="keyword">class </span><span class="identifier">AchievementsFragment</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">BaseFragment</span></a></code></td>
 </tr>
 <tr>
@@ -77,14 +80,23 @@ Jan Müller</p>
 <h4><a href="../../de.uniks.codliners.stock_simulator.ui.history/-history-fragment/index.html">HistoryFragment</a></h4>
 </td>
 <td>
+<p><a href="https://developer.android.com/jetpack/androidx/releases/fragment">Fragment</a> for the history ui.</p>
 <code><span class="keyword">class </span><span class="identifier">HistoryFragment</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">BaseFragment</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="../../de.uniks.codliners.stock_simulator.ui.news/-news-fragment/index.html">NewsFragment</a></h4>
+</td>
+<td>
+<p>The fragment that displays news.</p>
+<code><span class="keyword">class </span><span class="identifier">NewsFragment</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">BaseFragment</span></a></code></td>
 </tr>
 <tr>
 <td>
 <h4><a href="../../de.uniks.codliners.stock_simulator.ui.quote/-quote-fragment/index.html">QuoteFragment</a></h4>
 </td>
 <td>
-<p>TODO</p>
+<p><a href="https://developer.android.com/jetpack/androidx/releases/fragment">Fragment</a> for viewing, buying and selling assets.</p>
 <code><span class="keyword">class </span><span class="identifier">QuoteFragment</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">BaseFragment</span></a></code></td>
 </tr>
 <tr>
@@ -92,6 +104,7 @@ Jan Müller</p>
 <h4><a href="../../de.uniks.codliners.stock_simulator.ui.search/-search-fragment/index.html">SearchFragment</a></h4>
 </td>
 <td>
+<p><a href="https://developer.android.com/jetpack/androidx/releases/fragment">Fragment</a> for searching assets.</p>
 <code><span class="keyword">class </span><span class="identifier">SearchFragment</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">BaseFragment</span></a></code></td>
 </tr>
 <tr>
@@ -99,7 +112,7 @@ Jan Müller</p>
 <h4><a href="../../de.uniks.codliners.stock_simulator.ui.stockbrot/-stockbrot-fragment/index.html">StockbrotFragment</a></h4>
 </td>
 <td>
-<p>Fragment for the stockbrot ui.</p>
+<p><a href="https://developer.android.com/jetpack/androidx/releases/fragment">Fragment</a> for the stockbrot ui.</p>
 <code><span class="keyword">class </span><span class="identifier">StockbrotFragment</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">BaseFragment</span></a></code></td>
 </tr>
 </tbody>

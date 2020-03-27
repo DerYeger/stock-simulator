@@ -18,6 +18,7 @@
 <h4><a href="-state/index.html">State</a></h4>
 </td>
 <td>
+<p>The state of a <a href="./index.html">QuoteRepository</a>.</p>
 <code><span class="keyword">sealed</span> <span class="keyword">class </span><span class="identifier">State</span></code></td>
 </tr>
 </tbody>
@@ -55,26 +56,18 @@
 <tbody>
 <tr>
 <td>
-<h4><a href="fetch-coin-gecko-quote.html">fetchCoinGeckoQuote</a></h4>
+<h4><a href="fetch-quote.html">fetchQuote</a></h4>
 </td>
 <td>
-<p>Fetches the <a href="../../de.uniks.codliners.stock_simulator.domain/-quote/index.html">Quote</a> and <a href="../../de.uniks.codliners.stock_simulator.domain/-historical-price/index.html">HistoricalPrice</a>s for the requested symbol from the CoinGecko API, then stores them in the <a href="../../de.uniks.codliners.stock_simulator.database/-stock-app-database/index.html">StockAppDatabase</a>.</p>
-<code><span class="keyword">suspend</span> <span class="keyword">fun </span><span class="identifier">fetchCoinGeckoQuote</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.repository.QuoteRepository$fetchCoinGeckoQuote(kotlin.String)/id">id</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code></td>
-</tr>
-<tr>
-<td>
-<h4><a href="fetch-i-e-x-quote.html">fetchIEXQuote</a></h4>
-</td>
-<td>
-<p>Fetches the <a href="../../de.uniks.codliners.stock_simulator.domain/-quote/index.html">Quote</a> and <a href="../../de.uniks.codliners.stock_simulator.domain/-historical-price/index.html">HistoricalPrice</a>s for the requested symbol from the IEX API, then stores them in the <a href="../../de.uniks.codliners.stock_simulator.database/-stock-app-database/index.html">StockAppDatabase</a>.</p>
-<code><span class="keyword">suspend</span> <span class="keyword">fun </span><span class="identifier">fetchIEXQuote</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.repository.QuoteRepository$fetchIEXQuote(kotlin.String)/symbol">symbol</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code></td>
+<p>Fetches the <a href="../../de.uniks.codliners.stock_simulator.domain/-quote/index.html">Quote</a> and <a href="../../de.uniks.codliners.stock_simulator.domain/-historical-price/index.html">HistoricalPrice</a>s for the requested asset from the respective API, then stores them in the <a href="../../de.uniks.codliners.stock_simulator.database/-stock-app-database/index.html">StockAppDatabase</a>.</p>
+<code><span class="keyword">suspend</span> <span class="keyword">fun </span><span class="identifier">fetchQuote</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.repository.QuoteRepository$fetchQuote(kotlin.String, de.uniks.codliners.stock_simulator.domain.Symbol.Type)/id">id</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="de.uniks.codliners.stock_simulator.repository.QuoteRepository$fetchQuote(kotlin.String, de.uniks.codliners.stock_simulator.domain.Symbol.Type)/type">type</span><span class="symbol">:</span>&nbsp;<span class="identifier">Type</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code></td>
 </tr>
 <tr>
 <td>
 <h4><a href="historical-prices.html">historicalPrices</a></h4>
 </td>
 <td>
-<p>Returns a <a href="https://developer.android.com/reference/android/arch/lifecycle/LiveData">LiveData</a> containing a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a> of <a href="../../de.uniks.codliners.stock_simulator.domain/-historical-price/index.html">HistoricalPrice</a>s for the requested id or null if no such <a href="../../de.uniks.codliners.stock_simulator.domain/-historical-price/index.html">HistoricalPrice</a>s exists.</p>
+<p>Returns a <a href="https://developer.android.com/reference/androidx/lifecycle/LiveData">LiveData</a> containing a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a> of <a href="../../de.uniks.codliners.stock_simulator.domain/-historical-price/index.html">HistoricalPrice</a>s for the requested id or null if no such <a href="../../de.uniks.codliners.stock_simulator.domain/-historical-price/index.html">HistoricalPrice</a>s exists.</p>
 <code><span class="keyword">fun </span><span class="identifier">historicalPrices</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.repository.QuoteRepository$historicalPrices(kotlin.String)/id">id</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">LiveData</span><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../de.uniks.codliners.stock_simulator.domain/-historical-price/index.html"><span class="identifier">HistoricalPrice</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code></td>
 </tr>
 <tr>
@@ -90,7 +83,7 @@
 <h4><a href="quote-with-id.html">quoteWithId</a></h4>
 </td>
 <td>
-<p>Returns a <a href="https://developer.android.com/reference/android/arch/lifecycle/LiveData">LiveData</a> containing the <a href="../../de.uniks.codliners.stock_simulator.domain/-quote/index.html">Quote</a> with the requested id or null if no such <a href="../../de.uniks.codliners.stock_simulator.domain/-quote/index.html">Quote</a> exists.</p>
+<p>Returns a <a href="https://developer.android.com/reference/androidx/lifecycle/LiveData">LiveData</a> containing the <a href="../../de.uniks.codliners.stock_simulator.domain/-quote/index.html">Quote</a> with the requested id or null if no such <a href="../../de.uniks.codliners.stock_simulator.domain/-quote/index.html">Quote</a> exists.</p>
 <code><span class="keyword">fun </span><span class="identifier">quoteWithId</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.repository.QuoteRepository$quoteWithId(kotlin.String)/id">id</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">LiveData</span><span class="symbol">&lt;</span><a href="../../de.uniks.codliners.stock_simulator.domain/-quote/index.html"><span class="identifier">Quote</span></a><span class="symbol">&gt;</span></code></td>
 </tr>
 <tr>

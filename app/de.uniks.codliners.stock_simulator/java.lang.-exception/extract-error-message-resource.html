@@ -1,0 +1,28 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>extractErrorMessageResource - app</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">app</a>&nbsp;/&nbsp;<a href="../index.html">de.uniks.codliners.stock_simulator</a>&nbsp;/&nbsp;<a href="index.html">java.lang.Exception</a>&nbsp;/&nbsp;<a href="./extract-error-message-resource.html">extractErrorMessageResource</a><br/>
+<br/>
+<h1>extractErrorMessageResource</h1>
+<a name="de.uniks.codliners.stock_simulator$extractErrorMessageResource(java.lang.Exception, kotlin.Int, kotlin.Function0((kotlin.Int)))"></a>
+<code><span class="keyword">inline</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="keyword">reified</span>&nbsp;<span class="identifier">ExpectedType</span><span class="symbol">&gt;</span> <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-exception/index.html"><span class="identifier">Exception</span></a><span class="symbol">.</span><span class="identifier">extractErrorMessageResource</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator$extractErrorMessageResource(java.lang.Exception, kotlin.Int, kotlin.Function0((kotlin.Int)))/default">default</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="de.uniks.codliners.stock_simulator$extractErrorMessageResource(java.lang.Exception, kotlin.Int, kotlin.Function0((kotlin.Int)))/provider">provider</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code>
+<p>Utility function for choosing an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a> (which should be a string resource id) depending on the receiver and parameters.</p>
+<h3>Parameters</h3>
+<p><a name="ExpectedType"></a>
+<code>ExpectedType</code> - The expected type of the <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-exception/index.html">Exception</a>.</p>
+<p><a name="default"></a>
+<code>default</code> - Chosen if this <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-exception/index.html">Exception</a> is assignable to the <a href="extract-error-message-resource.html#ExpectedType">ExpectedType</a>.</p>
+<p><a name="provider"></a>
+<code>provider</code> - Executed if this <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-exception/index.html">Exception</a> is not assignable to the <a href="extract-error-message-resource.html#ExpectedType">ExpectedType</a>.</p>
+<p><strong>Receiver</strong><br/>
+The source <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-exception/index.html">Exception</a>.</p>
+<p><strong>Return</strong><br/>
+The chosen <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>.</p>
+<p><strong>Author</strong><br/>
+Jan Müller</p>
+</BODY>
+</HTML>

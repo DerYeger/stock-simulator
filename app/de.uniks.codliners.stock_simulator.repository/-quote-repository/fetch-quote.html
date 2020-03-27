@@ -1,0 +1,22 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>QuoteRepository.fetchQuote - app</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">app</a>&nbsp;/&nbsp;<a href="../index.html">de.uniks.codliners.stock_simulator.repository</a>&nbsp;/&nbsp;<a href="index.html">QuoteRepository</a>&nbsp;/&nbsp;<a href="./fetch-quote.html">fetchQuote</a><br/>
+<br/>
+<h1>fetchQuote</h1>
+<a name="de.uniks.codliners.stock_simulator.repository.QuoteRepository$fetchQuote(kotlin.String, de.uniks.codliners.stock_simulator.domain.Symbol.Type)"></a>
+<code><span class="keyword">suspend</span> <span class="keyword">fun </span><span class="identifier">fetchQuote</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.repository.QuoteRepository$fetchQuote(kotlin.String, de.uniks.codliners.stock_simulator.domain.Symbol.Type)/id">id</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="de.uniks.codliners.stock_simulator.repository.QuoteRepository$fetchQuote(kotlin.String, de.uniks.codliners.stock_simulator.domain.Symbol.Type)/type">type</span><span class="symbol">:</span>&nbsp;<span class="identifier">Type</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code>
+<p>Fetches the <a href="../../de.uniks.codliners.stock_simulator.domain/-quote/index.html">Quote</a> and <a href="../../de.uniks.codliners.stock_simulator.domain/-historical-price/index.html">HistoricalPrice</a>s for the requested asset from the respective API, then stores them in the <a href="../../de.uniks.codliners.stock_simulator.database/-stock-app-database/index.html">StockAppDatabase</a>.</p>
+<h3>Parameters</h3>
+<p><a name="id"></a>
+<code>id</code> - The id of the asset.</p>
+<p><a name="type"></a>
+<code>type</code> - The <a href="../../de.uniks.codliners.stock_simulator.domain/-symbol/-type/index.html">Symbol.Type</a> of the asset.</p>
+<p><strong>Return</strong><br/>
+true if the operation was successful and false otherwise.</p>
+</BODY>
+</HTML>

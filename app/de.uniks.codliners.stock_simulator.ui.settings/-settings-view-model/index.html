@@ -9,7 +9,10 @@
 <br/>
 <h1>SettingsViewModel</h1>
 <code><span class="keyword">class </span><span class="identifier">SettingsViewModel</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">ViewModel</span></code>
-<p>TODO</p>
+<p>The <a href="https://developer.android.com/reference/androidx/lifecycle/ViewModel">ViewModel</a> of <a href="../-settings-fragment/index.html">SettingsFragment</a>.</p>
+<h3>Parameters</h3>
+<p><a name="application"></a>
+<code>application</code> - The context used for creating the <a href="../../de.uniks.codliners.stock_simulator.repository/-symbol-repository/index.html">SymbolRepository</a>.</p>
 <h3>Types</h3>
 <table>
 <tbody>
@@ -18,6 +21,7 @@
 <h4><a href="-factory/index.html">Factory</a></h4>
 </td>
 <td>
+<p>Factory for the SettingsViewModel.</p>
 <code><span class="keyword">class </span><span class="identifier">Factory</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Factory</span></code></td>
 </tr>
 </tbody>
@@ -30,7 +34,7 @@
 <h4><a href="-init-.html">&lt;init&gt;</a></h4>
 </td>
 <td>
-<p>TODO</p>
+<p>The <a href="https://developer.android.com/reference/androidx/lifecycle/ViewModel">ViewModel</a> of <a href="../-settings-fragment/index.html">SettingsFragment</a>.</p>
 <code><span class="identifier">SettingsViewModel</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator.ui.settings.SettingsViewModel$<init>(android.app.Application)/application">application</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/app/Application.html"><span class="identifier">Application</span></a><span class="symbol">)</span></code></td>
 </tr>
 </tbody>
@@ -51,6 +55,7 @@
 <h4><a href="refreshing.html">refreshing</a></h4>
 </td>
 <td>
+<p>Indicates that the symbol repository is currently being refreshed.</p>
 <code><span class="keyword">val </span><span class="identifier">refreshing</span><span class="symbol">: </span><span class="identifier">LiveData</span><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">&gt;</span></code></td>
 </tr>
 <tr>
@@ -58,6 +63,7 @@
 <h4><a href="symbol-repository-state-action.html">symbolRepositoryStateAction</a></h4>
 </td>
 <td>
+<p>Gets triggered if the symbol repository is refreshed.</p>
 <code><span class="keyword">val </span><span class="identifier">symbolRepositoryStateAction</span><span class="symbol">: </span><span class="identifier">LiveData</span><span class="symbol">&lt;</span><span class="identifier">State</span><span class="symbol">&gt;</span></code></td>
 </tr>
 <tr>
@@ -78,6 +84,7 @@
 <h4><a href="on-fingerprint-toggled.html">onFingerprintToggled</a></h4>
 </td>
 <td>
+<p>Reset the fingerprint button click indicator.</p>
 <code><span class="keyword">fun </span><span class="identifier">onFingerprintToggled</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
 </tr>
 <tr>
@@ -85,6 +92,7 @@
 <h4><a href="on-game-reset.html">onGameReset</a></h4>
 </td>
 <td>
+<p>Reset the reset game click indicator.</p>
 <code><span class="keyword">fun </span><span class="identifier">onGameReset</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
 </tr>
 <tr>
@@ -92,6 +100,7 @@
 <h4><a href="on-symbol-action-completed.html">onSymbolActionCompleted</a></h4>
 </td>
 <td>
+<p>Reset the refresh symbols button click indicator.</p>
 <code><span class="keyword">fun </span><span class="identifier">onSymbolActionCompleted</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
 </tr>
 <tr>
@@ -99,6 +108,7 @@
 <h4><a href="refresh-symbols.html">refreshSymbols</a></h4>
 </td>
 <td>
+<p>Set the refresh symbols button click indicator.</p>
 <code><span class="keyword">fun </span><span class="identifier">refreshSymbols</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
 </tr>
 <tr>

@@ -16,6 +16,7 @@
 <h4><a href="-currency-value-formatter/index.html">CurrencyValueFormatter</a></h4>
 </td>
 <td>
+<p>The ValueFormatter for currency graphs.</p>
 <code><span class="keyword">class </span><span class="identifier">CurrencyValueFormatter</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">ValueFormatter</span></code></td>
 </tr>
 <tr>
@@ -23,6 +24,8 @@
 <h4><a href="-main-activity/index.html">MainActivity</a></h4>
 </td>
 <td>
+<p>The main <a href="https://developer.android.com/reference/androidx/appcompat/app/AppCompatActivity">Activity</a> of this application.
+Handles cross-fragment navigation and settings.</p>
 <code><span class="keyword">class </span><span class="identifier">MainActivity</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">AppCompatActivity</span><span class="symbol">, </span><span class="identifier">BiometricCallback</span></code></td>
 </tr>
 <tr>
@@ -62,6 +65,13 @@
 </tr>
 <tr>
 <td>
+<h4><a href="java.lang.-exception/index.html">java.lang.Exception</a></h4>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
 <h4><a href="kotlin.-double/index.html">kotlin.Double</a></h4>
 </td>
 <td>
@@ -84,6 +94,7 @@
 <h4><a href="-s-h-a-r-e-d_-p-r-e-f-e-r-e-n-c-e-s_-k-e-y.html">SHARED_PREFERENCES_KEY</a></h4>
 </td>
 <td>
+<p>Key for app's shared preferences.</p>
 <code><span class="keyword">const</span> <span class="keyword">val </span><span class="identifier">SHARED_PREFERENCES_KEY</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
 </tr>
 </tbody>
@@ -104,7 +115,7 @@
 <h4><a href="mediated-live-data.html">mediatedLiveData</a></h4>
 </td>
 <td>
-<p>Shortcut function for creating <a href="https://developer.android.com/reference/android/arch/lifecycle/MediatorLiveData">MediatorLiveData</a>.</p>
+<p>Shortcut function for creating <a href="https://developer.android.com/reference/androidx/lifecycle/MediatorLiveData">MediatorLiveData</a>.</p>
 <code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <span class="identifier">mediatedLiveData</span><span class="symbol">(</span><span class="identifier" id="de.uniks.codliners.stock_simulator$mediatedLiveData(kotlin.Function1((androidx.lifecycle.MediatorLiveData((de.uniks.codliners.stock_simulator.mediatedLiveData.T)), kotlin.Unit)))/block">block</span><span class="symbol">:</span>&nbsp;<span class="identifier">MediatorLiveData</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">MediatorLiveData</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code></td>
 </tr>
 <tr>
@@ -120,7 +131,7 @@
 <h4><a href="sourced-live-data.html">sourcedLiveData</a></h4>
 </td>
 <td>
-<p>Creates a <a href="https://developer.android.com/reference/android/arch/lifecycle/LiveData">LiveData</a> that is updated every time one of the <a href="sourced-live-data.html#de.uniks.codliners.stock_simulator$sourcedLiveData(kotlin.Array((androidx.lifecycle.LiveData((kotlin.Any)))), kotlin.Function0((de.uniks.codliners.stock_simulator.sourcedLiveData.T)))/sources">sources</a> changes.</p>
+<p>Creates a <a href="https://developer.android.com/reference/androidx/lifecycle/LiveData">LiveData</a> that is updated every time one of the <a href="sourced-live-data.html#de.uniks.codliners.stock_simulator$sourcedLiveData(kotlin.Array((androidx.lifecycle.LiveData((kotlin.Any)))), kotlin.Function0((de.uniks.codliners.stock_simulator.sourcedLiveData.T)))/sources">sources</a> changes.</p>
 <code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <span class="identifier">sourcedLiveData</span><span class="symbol">(</span><span class="keyword">vararg</span> <span class="identifier" id="de.uniks.codliners.stock_simulator$sourcedLiveData(kotlin.Array((androidx.lifecycle.LiveData((kotlin.Any)))), kotlin.Function0((de.uniks.codliners.stock_simulator.sourcedLiveData.T)))/sources">sources</span><span class="symbol">:</span>&nbsp;<span class="identifier">LiveData</span><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="de.uniks.codliners.stock_simulator$sourcedLiveData(kotlin.Array((androidx.lifecycle.LiveData((kotlin.Any)))), kotlin.Function0((de.uniks.codliners.stock_simulator.sourcedLiveData.T)))/block">block</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">T</span><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">LiveData</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code></td>
 </tr>
 <tr>
