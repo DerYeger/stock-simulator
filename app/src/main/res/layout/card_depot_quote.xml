@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="onClickListener"
+            type="de.uniks.codliners.stock_simulator.ui.OnClickListener" />
+
+        <variable
+            name="quote"
+            type="de.uniks.codliners.stock_simulator.domain.DepotQuote" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/default_spacing"
+        app:cardCornerRadius="@dimen/default_corner_radius"
+        app:cardElevation="@dimen/default_elevation"
+        app:contentPadding="@dimen/half_spacing">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="@{() -> onClickListener.onClick(quote)}"
+            android:textAlignment="center"
+            app:depotQuote="@{quote}" />
+    </FrameLayout>
+</layout>

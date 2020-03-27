@@ -3,9 +3,13 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'androidx.navigation.safeargs'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'org.jetbrains.dokka'
 
 android {
     compileSdkVersion 29
+
+    // disabled due to https://github.com/actions/starter-workflows/issues/58#issuecomment-582836601
+    //noinspection GradleDependency
     buildToolsVersion "29.0.2"
     defaultConfig {
         applicationId "de.uniks.codliners.stock_simulator"
@@ -14,11 +18,24 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField "Double", "NEW_ACCOUNT_BALANCE", '10000.0'
+        buildConfigField "Double", "NEW_DEPOT_VALUE", '0.0'
+        buildConfigField "Double", "TRANSACTION_COSTS", '5.0'
+        buildConfigField "String", "COINGECKO_BASE_URL", '"https://api.coingecko.com/api/v3/"'
+        buildConfigField "String", "IEX_API_BASE_URL", '"https://cloud.iexapis.com/v1/"'
+        buildConfigField "String", "IEX_API_TOKEN", '"pk_db34bb4eff904de58dd82611668e075b"'
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            buildConfigField "String", "IEX_API_BASE_URL", '"https://sandbox.iexapis.com/v1/"'
+            buildConfigField "String", "IEX_API_TOKEN", '"Tpk_51694cd0108b48e5be74cdc9e7682358"'
+        }
+        debugRealData {
+            signingConfig signingConfigs.debug
         }
     }
     compileOptions {
@@ -71,7 +88,28 @@ dependencies {
     implementation "com.google.android.material:material:$material_version"
 
     // Testing
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    testImplementation "junit:junit:$junit_version"
+    androidTestImplementation "androidx.test.ext:junit:$ax_junit_version"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$ax_espresso_version"
+
+    // MPAndroidChart
+    implementation "com.github.PhilJay:MPAndroidChart:$mpandroidchart_version"
+
+    // Biometric Auth
+    implementation(group: 'com.an.biometric', name: 'biometric-auth', version: "$biometric_version", ext: 'aar', classifier: '')
+
+    // Background Worker
+    implementation "androidx.work:work-runtime:$ax_work_version"
+
+    // Picasso (image downloading)
+    implementation "com.squareup.picasso:picasso:$picasso_version"
+}
+
+dokka {
+    outputFormat = 'html'
+    outputDirectory = "$buildDir/dokka"
+
+    configuration {
+        reportUndocumented = true
+    }
 }
