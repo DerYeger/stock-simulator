@@ -51,7 +51,7 @@ class QuoteRepository(private val database: StockAppDatabase) {
         object Working : State()
 
         /**
-         * Indicates that a [QuoteRepository] is previous task has been completed.
+         * Indicates that a [QuoteRepository]'s previous task has been completed.
          */
         object Done : State()
 

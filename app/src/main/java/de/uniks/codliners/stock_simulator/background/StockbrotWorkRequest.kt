@@ -43,10 +43,10 @@ class StockbrotWorkRequest(context: Context) {
 
         val buildWorkerTag = buildWorkerTag(id)
         val workRequest = PeriodicWorkRequest.Builder(
-                StockbrotWorker::class.java,
-                intervalMinutes,
-                TimeUnit.MINUTES
-            )
+            StockbrotWorker::class.java,
+            intervalMinutes,
+            TimeUnit.MINUTES
+        )
             .addTag(buildWorkerTag)
             .setConstraints(constraints)
             .setInputData(data)

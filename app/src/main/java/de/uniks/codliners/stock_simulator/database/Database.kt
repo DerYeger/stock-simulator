@@ -295,6 +295,14 @@ interface AchievementsDao {
     fun getAchievementByName(name: Int): Achievement?
 
     /**
+     * Returns the count of [Achievement]s.
+     *
+     * @return The count of [Achievement]s.
+     */
+    @Query("SELECT COUNT(*) FROM achievement")
+    fun getAchievementCount(): Int
+
+    /**
      * Returns a [List] of all [Achievement], wrapped in [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData).
      *
      * @return [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData) containing a [List] of all [Achievement]s.
@@ -523,6 +531,14 @@ interface SymbolDao {
      */
     @Query("SELECT * FROM symbol WHERE symbol.symbol LIKE :symbolQuery OR symbol.name LIKE :nameQuery ORDER BY symbol.symbol ASC")
     fun getAllFiltered(symbolQuery: String, nameQuery: String): LiveData<List<Symbol>>
+
+    /**
+     * Returns the count of [Symbol]s.
+     *
+     * @return The count of [Symbol]s.
+     */
+    @Query("SELECT COUNT(*) FROM symbol")
+    fun getSymbolCount(): Int
 
     /**
      * Inserts all [Symbol]s into the [StockAppDatabase].

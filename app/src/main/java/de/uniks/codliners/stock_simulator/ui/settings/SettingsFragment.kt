@@ -108,7 +108,7 @@ class SettingsFragment : Fragment() {
         viewModel.clickResetStatus.observe(viewLifecycleOwner, Observer { status ->
             if (status) {
                 val context = requireContext()
-                CoroutineScope(Dispatchers.Unconfined).launch {
+                CoroutineScope(Dispatchers.IO).launch {
                     context.resetAccount()
                     context.resetHistory()
                     context.resetQuotes()
