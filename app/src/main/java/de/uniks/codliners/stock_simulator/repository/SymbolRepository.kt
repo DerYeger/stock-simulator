@@ -11,6 +11,7 @@ import de.uniks.codliners.stock_simulator.network.asDomainSymbols
 import de.uniks.codliners.stock_simulator.repository.SymbolRepository.State
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import timber.log.Timber
 
 /**
  * Repository for refreshing, accessing and filtering [Symbol]s.
@@ -93,6 +94,7 @@ class SymbolRepository(private val database: StockAppDatabase) {
         withContext(Dispatchers.IO) {
             try {
                 _state.postValue(State.Working)
+                database.symbolDao.deleteAll()
                 val shareSymbols = NetworkService.IEX_API.symbols()
                 val cryptoSymbols = NetworkService.COINGECKO_API.symbols()
                 database.symbolDao.insertAll(
@@ -102,6 +104,7 @@ class SymbolRepository(private val database: StockAppDatabase) {
                 _state.postValue(State.Done)
                 _state.postValue(State.Idle)
             } catch (exception: Exception) {
+                Timber.e(exception)
                 _state.postValue(State.Error(exception))
             }
         }

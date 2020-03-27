@@ -485,6 +485,13 @@ interface StockbrotDao {
 interface SymbolDao {
 
     /**
+     * Deletes all [Symbol]s.
+     *
+     */
+    @Query("DELETE FROM symbol")
+    fun deleteAll()
+
+    /**
      * Returns all [Symbol]s, wrapped in [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData).
      *
      * @return [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData) containing a [List] of all [Symbol]s.
