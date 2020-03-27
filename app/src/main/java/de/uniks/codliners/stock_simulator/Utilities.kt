@@ -144,7 +144,7 @@ fun Context.resetNews() {
  */
 fun Context.resetAchievements() {
     val self = this
-    CoroutineScope(Dispatchers.Main).launch {
+    CoroutineScope(Dispatchers.IO).launch {
         AchievementsRepository(self).resetAchievements()
     }
 }
@@ -161,6 +161,39 @@ fun Context.ensureAccountPresence() {
 
         if (!accountRepository.hasBalance()) {
             accountRepository.resetAccount()
+        }
+    }
+}
+
+
+/**
+ * Ensures that Achievements are initialised.
+ *
+ * @author Jan Müller
+ */
+fun Context.ensureAchievementPresence() {
+    val self = this
+    CoroutineScope(Dispatchers.IO).launch {
+        val achievementsRepository = AchievementsRepository(self)
+
+        if (!achievementsRepository.hasAchievements()) {
+            achievementsRepository.resetAchievements()
+        }
+    }
+}
+
+/**
+ * Ensures that Symbols are present.
+ *
+ * @author Jan Müller
+ */
+fun Context.ensureSymbolsPresence() {
+    val self = this
+    CoroutineScope(Dispatchers.IO).launch {
+        val symbolRepository = SymbolRepository(self)
+
+        if (!symbolRepository.hasSymbols()) {
+            symbolRepository.refreshSymbols()
         }
     }
 }

@@ -47,7 +47,7 @@ class SymbolRepository(private val database: StockAppDatabase) {
         object Working : State()
 
         /**
-         * Indicates that a [SymbolRepository] is previous task has been completed.
+         * Indicates that a [SymbolRepository]'s previous task has been completed.
          */
         object Done : State()
 
@@ -94,7 +94,6 @@ class SymbolRepository(private val database: StockAppDatabase) {
         withContext(Dispatchers.IO) {
             try {
                 _state.postValue(State.Working)
-                database.symbolDao.deleteAll()
                 val shareSymbols = NetworkService.IEX_API.symbols()
                 val cryptoSymbols = NetworkService.COINGECKO_API.symbols()
                 database.symbolDao.insertAll(
@@ -108,5 +107,14 @@ class SymbolRepository(private val database: StockAppDatabase) {
                 _state.postValue(State.Error(exception))
             }
         }
+    }
+
+    /**
+     * Checks if there are any [Symbol]s in the [StockAppDatabase].
+     *
+     * @return true if there are any [Symbol]s and false otherwise.
+     */
+    suspend fun hasSymbols(): Boolean = withContext(Dispatchers.IO) {
+        database.symbolDao.getSymbolCount() > 0
     }
 }

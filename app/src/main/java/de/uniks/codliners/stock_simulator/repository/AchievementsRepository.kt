@@ -138,4 +138,15 @@ class AchievementsRepository(private val database: StockAppDatabase) {
         }
         initAchievements()
     }
+
+    /**
+     * Checks if there are any [Achievement]s in the [StockAppDatabase].
+     *
+     * @return true if there are any [Achievement]s and false otherwise.
+     *
+     * @author Jan Müller
+     */
+    suspend fun hasAchievements(): Boolean = withContext(Dispatchers.IO) {
+        database.achievementDao.getAchievementCount() > 0
+    }
 }
