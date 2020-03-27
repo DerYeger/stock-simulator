@@ -92,20 +92,24 @@ class SymbolRepository(private val database: StockAppDatabase) {
      */
     suspend fun refreshSymbols() {
         withContext(Dispatchers.IO) {
+            _state.postValue(State.Working)
             try {
-                _state.postValue(State.Working)
-                val shareSymbols = NetworkService.IEX_API.symbols()
-                val cryptoSymbols = NetworkService.COINGECKO_API.symbols()
-                database.symbolDao.insertAll(
-                    *shareSymbols.asDomainSymbols(),
-                    *cryptoSymbols.asDomainSymbols()
-                )
+                val shareSymbols = NetworkService.IEX_API.symbols().asDomainSymbols()
+                database.symbolDao.insertAll(*shareSymbols)
                 _state.postValue(State.Done)
-                _state.postValue(State.Idle)
             } catch (exception: Exception) {
                 Timber.e(exception)
                 _state.postValue(State.Error(exception))
             }
+            try {
+                val cryptoSymbols = NetworkService.COINGECKO_API.symbols().asDomainSymbols()
+                database.symbolDao.insertAll(*cryptoSymbols)
+            } catch (exception: Exception) {
+                Timber.e(exception)
+                _state.postValue(State.Error(exception))
+            }
+            _state.postValue(State.Done)
+            _state.postValue(State.Idle)
         }
     }
 
